@@ -99,35 +99,14 @@ def test_logo_ikon_ve_bildirim():
         assert "<h1" in s  # başlık h1 olarak kalır
     giris = (WEB / "index.html").read_text(encoding="utf-8")
     assert all(satir in giris for satir in simge)
-    # Çubukta logo iki parça (bulanıklık düzeltmesi; eskiden logo-cubuk-b.svg <img> olarak 52 px, kesirli genişlik ve yarım
-    # piksel konumla yeniden örneklenip bulanıklaşıyordu): işaret satır içi SVG, kaynaklar/kimlik/isaret-kucuk.svg geometrisi
-    # (15 kare, geometricPrecision), 40 px, 520 px altında 32 px; ad HTML metni (Source Serif 4 600, 26 px, mürekkep),
-    # 520 px altında gizli. Görsel dosyası yok; renkler temadan, işaretteki kırmızı kare çubuğa özel marka rengi. Çubuk 76 px.
+    # Çubukta slogansız logo (logo-cubuk-b, 52 px; çubuk 76 px); 520 px altında işaret 40 px; koyu kâğıtta koyu sürümler
     cubuk = (WEB / "cubuk.js").read_text(encoding="utf-8")
-    svg = (KOK / "kaynaklar/kimlik/isaret-kucuk.svg").read_text(encoding="utf-8")
-    kareler = re.findall(r'<rect x="([\d.]+)" y="([\d.]+)" width="18.56" height="18.56" rx="3.16" fill="#[0-9A-F]+" '
-                         r'transform="rotate\((\d+) ([\d.]+) ([\d.]+)\)"/>', svg)
-    js = cubuk[cubuk.index("var KARELER = ["):cubuk.index("];", cubuk.index("var KARELER = ["))]
-    assert len(kareler) == 15 and [tuple(map(float, k)) for k in re.findall(r"\[([\d.]+), ([\d.]+), (\d+), ([\d.]+), ([\d.]+)\]", js)] \
-        == [tuple(map(float, k)) for k in kareler]
-    assert 'width="18.56" height="18.56" rx="3.16" transform="rotate(' in cubuk and "KARELER.slice(0, 14)" in cubuk and "kare(KARELER[14])" in cubuk
-    assert ('<svg class="c-isaret" viewBox="0 0 128 128" width="40" height="40" shape-rendering="geometricPrecision" '
-            'aria-hidden="true" focusable="false">') in cubuk
-    for kural in ('".cubuk .c-logo .c-isaret { display: block; flex: none; width: 40px; height: 40px; }",',
-                  '".cubuk .c-logo .c-isaret .c-ik { fill: var(--murekkep); }",',
-                  '".cubuk .c-logo .c-isaret .c-iv { fill: var(--c-isaret-kirmizi); }",',
-                  '".cubuk .c-logo .c-ad { display: block; font-family: var(--serif); font-weight: 600; font-size: 26px; '
-                  'line-height: 40px; color: var(--murekkep); white-space: nowrap; }",',
-                  '".cubuk { --c-isaret-kirmizi: #A4262C; }",', '":root[data-theme=\\"dark\\"] .cubuk { --c-isaret-kirmizi: #E05A52; }",',
-                  '"  .cubuk .c-logo .c-isaret { width: 32px; height: 32px; }",', '"  .cubuk .c-logo .c-ad { display: none; }",'):
-        assert kural in cubuk, kural
-    # Bağlantı ve erişilebilir ad korunur; görünen ad dile göre
-    assert """aria-label="' + esc(Y.ana) + '">' +""" in cubuk and """'<span class="c-ad">' + esc(Y.logo) + "</span></a>" +""" in cubuk
-    assert 'logo: "Veto Atlası", ana: "Veto Atlası, ana sayfa"' in cubuk and 'logo: "Veto Atlas", ana: "Veto Atlas, home"' in cubuk
-    assert "logo-cubuk-b" not in cubuk and 'createElement("img")' not in cubuk and "__VARLIK" not in cubuk
-    assert "min-height: 76px; }" in cubuk and ".c-cubuklu { scroll-padding-top: 84px; }" in cubuk
-    for ad in ("logo-cubuk-b.svg", "logo-cubuk-b-koyu.svg"):  # kimlik dosyaları web/ altında kaynaktakiyle aynı kalır
+    for ad in ("logo-cubuk-b.svg", "logo-cubuk-b-koyu.svg", "isaret-kucuk.svg", "isaret-kucuk-koyu.svg"):
+        assert f'"{ad}"' in cubuk and (WEB / ad).exists(), ad
+    for ad in ("logo-cubuk-b.svg", "logo-cubuk-b-koyu.svg"):
         assert (WEB / ad).read_bytes() == (KOK / "kaynaklar/kimlik" / ad).read_bytes(), ad
+    assert '".cubuk .c-logo img { height: 52px; width: auto; display: block; }"' in cubuk and "min-height: 76px; }" in cubuk
+    assert '"  .cubuk .c-logo img { height: 40px; }"' in cubuk and ".c-cubuklu { scroll-padding-top: 84px; }" in cubuk
     assert "logo-yatay-a" not in cubuk
     # Sayfaların içinde logo yok (ADIM 42: Hakkında'daki sloganlı tam logo kaldırıldı; üst çubuktaki logo yeterli).
     # ADIM 45: slogan sayfaların alt bilgisinde tekrarlanmaz (çubuk betiği alt bilgi eklemez); atlasın çıkış noktası
@@ -148,8 +127,6 @@ def test_logo_ikon_ve_bildirim():
     for ad, tur in (("favicon.ico", "image/x-icon"), ("favicon.svg", "image/svg+xml"), ("apple-touch-icon.png", "image/png")):
         assert f"data:{tur};base64," + base64.b64encode((WEB / ad).read_bytes()).decode() in tek, ad  # tek dosyada aynı simge
     assert "logo-yatay-a" not in tek  # kullanılmayan logo gömülmez
-    for ad in ("logo-cubuk-b.svg", "logo-cubuk-b-koyu.svg", "isaret-kucuk.svg", "isaret-kucuk-koyu.svg"):
-        assert f'"{ad}":' not in tek, ad  # çubuk logosu satır içi; görsel gömülmez
     assert (KOK / "kaynaklar/kimlik/KILAVUZ.md").exists()
 
 

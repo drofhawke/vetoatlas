@@ -66,9 +66,6 @@ içindir; italik metin bu kesimle gösterilir, tarayıcı yapay italik üretmez.
 | `--yz-baslik` | 40 / 48 | 32 / 40 | Sayfa başlığı (h1), hikâyede adım numarası, simülasyonda sonuç, büyük sayılar (kartlarda) |
 | `--yz-gosterge` | 96 / 96 | 56 / 56 | Hikâyenin başlığı ve büyük sayıları |
 
-Tek istisna üst çubuktaki logo adıdır ("Veto Atlası" / "Veto Atlas", 26 / 40, Source Serif 4 600): yazı değil kimlik
-öğesidir (eskiden logo görselinin içindeki yazıydı); istisna yalnızca o kurala tanınır (bölüm 3, `tests/test_tasarim.py`).
-
 **4 px ızgarası.** Bütün boşluk ve hizalamalar 4 px'in katıdır ve şu basamaklardan seçilir:
 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 (`--b1` … `--b24`). Bileşen içi 4–12, bileşenler arası ve paragraflar
 16–24, alt bölüm 32, bölüm 48–64. Sayfa üstü 48 px (dar ekranda 32 px), giriş ile ilk bölüm arası 48 px.
@@ -208,26 +205,21 @@ bağlantıları. Alt bilgide yalnızca veri tarihi bulunur (Hikâye, Vetolar). `
 
 ## 3. Logo ve işaret (`KULLANIM.md`)
 
-- Ortak üst çubuk (`web/cubuk.js`, bütün sayfalar ve tek dosya sürümü): solda logo iki parçadır ve hikâyeye bağlanır
-  (bağlantının erişilebilir adı "Veto Atlası, ana sayfa" / "Veto Atlas, home"). İşaret satır içi SVG'dir
-  (`isaret-kucuk.svg` geometrisi: büyük kareler, sıkı halka; `shape-rendering="geometricPrecision"`), 40 px;
-  ad HTML metnidir ("Veto Atlası" / "Veto Atlas"; Source Serif 4 600, 26 px, mürekkep), işaretle dikey ortalı,
-  aralarında 12 px. Renkler temadan gelir: kareler ve ad `--murekkep`, kırmızı kare çubuğa özel marka rengi
-  (kâğıtta `#A4262C`, koyu kâğıtta `#E05A52`). Görsel dosyası kullanılmaz: eski `logo-cubuk-b.svg` `<img>` olarak
-  kesirli genişlikte (196,5 px) ve yarım piksel konumda yeniden örneklenip bulanık görünüyordu. Yazdırmada çubuktan
-  yalnızca logo basılır (kâğıt renkleriyle). Çubuk 76 px (alt çizgi iç gölgeyle çizilir, yüksekliğe eklenmez). Sağda sayfa bağlantıları (Hikâye · Vetolar · Söz ve Kayıt ·
+- Ortak üst çubuk (`web/cubuk.js`, bütün sayfalar ve tek dosya sürümü): solda slogansız çubuk logosu
+  `logo-cubuk-b.svg` (koyu kâğıtta `logo-cubuk-b-koyu.svg`), 52 px yükseklik, hikâyeye bağlanır; çubuk 76 px
+  (alt çizgi iç gölgeyle çizilir, yüksekliğe eklenmez). Sağda sayfa bağlantıları (Hikâye · Vetolar · Söz ve Kayıt ·
   Reform modelleri · Ya veto olmasaydı? · Kim temsil ediliyor? · Nasıl yaptık?; aralarında 12 px), en sağda TR/EN
   ve tema düğmesi. Çubuk yapışkandır ve %92 saydam zemin
   üzerinde bulanıklık kullanır (taslaktaki gibi); sayfa içi bağlantılar 84 px kaydırma payıyla çubuğun altına iner.
   Bağlantılar tek satıra sığmadığında (betik ölçer; dile ve genişliğe göre) "Menü" düğmesine toplanır;
-  520 px ve altında yalnızca işaret görünür, 32 px; çubuk 64 px, kaydırma payı 72 px.
+  520 px ve altında logo yerine işaret 40 px (`isaret-kucuk.svg`, koyu kâğıtta `isaret-kucuk-koyu.svg`),
+  çubuk 64 px, kaydırma payı 72 px.
 - Sayfaların içinde logo kullanılmaz; üst çubuktaki logo yeterlidir. Sloganlı tam logo (`logo-yatay-a.svg`, koyu
   kâğıtta `logo-yatay-a-koyu.svg`) kimlik dosyası olarak `web/` altında durur; sayfalarda ve tek dosya sürümünde
   yer almaz. Slogan ("Dünya 5'ten büyüktür" / "The world is bigger than five") sayfaların alt bilgisinde
   tekrarlanmaz; atlasın çıkış noktası hikâyenin giriş alıntısında ve Hakkında sayfasının girişinde yazılıdır. Sayfa
   başlığı `h1` olarak kalır.
-- İşaret: 64 px ve üstünde `isaret.svg` (kartlar, önizleme), 48 px ve altında `isaret-kucuk.svg` geometrisi (çubukta
-  satır içi SVG). `logo-cubuk-b.svg` ve `logo-cubuk-b-koyu.svg` kimlik dosyası olarak `web/` altında durur; çubukta kullanılmaz.
+- İşaret: 64 px ve üstünde `isaret.svg` (kartlar, önizleme), 48 px ve altında `isaret-kucuk.svg` (dar ekranda çubuk).
 - Sekme ve uygulama simgeleri kâğıt zeminli settir (`kaynaklar/kimlik/favicon/`, favicon-kagit; kullanım notu oradaki
   `KULLANIM.md`): `favicon.ico` (16 + 32 + 48 px), `favicon.svg`, `apple-touch-icon.png` (180 px), `ikon-192.png` ve
   `ikon-512.png` (`site.webmanifest`; maskable olarak da aynı dosyalar). Zeminli simge koyu ve açık sekme çubuklarında aynı

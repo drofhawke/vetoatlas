@@ -120,10 +120,9 @@ def fonts_hazirla(web: Path) -> tuple[str, dict[str, str]]:
 
 
 def varliklar_hazirla(web: Path) -> dict[str, str]:
-    """Sekme simgeleri (kâğıt zeminli set): dosya adı -> data: adresi (SVG, PNG ve ICO base64). Çubuktaki logo
-    (işaret ve ad) cubuk.js'te satır içi çizilir; görsel dosyası gerekmez."""
+    """Logo, çubuk işareti ve sekme simgeleri (kâğıt zeminli set): dosya adı -> data: adresi (SVG, PNG ve ICO base64)."""
     v = {}
-    for ad in ("favicon.svg",):
+    for ad in ("logo-cubuk-b.svg", "logo-cubuk-b-koyu.svg", "isaret-kucuk.svg", "isaret-kucuk-koyu.svg", "favicon.svg"):
         v[ad] = "data:image/svg+xml;base64," + base64.b64encode((web / ad).read_bytes()).decode()
     v["favicon.ico"] = "data:image/x-icon;base64," + base64.b64encode((web / "favicon.ico").read_bytes()).decode()
     v["apple-touch-icon.png"] = "data:image/png;base64," + base64.b64encode((web / "apple-touch-icon.png").read_bytes()).decode()
