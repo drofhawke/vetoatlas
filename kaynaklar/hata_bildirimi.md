@@ -100,7 +100,7 @@ corrections listed above come from that process. The table itself is not redistr
 prefer a different form of attribution, or would like us to remove any material derived from
 Table 4, please let us know and we will do so promptly.
 
-The dataset is available at https://vetoatlas.com (DOI: 10.5281/zenodo.23326362). Table 4 has been very helpful to us, and we would be
+Table 4 has been very helpful to us, and we would be
 glad to share the full reconciliation file if that would be useful.
 
 With kind regards,

@@ -154,10 +154,15 @@ def test_dhl_bozuk_baglantilari_hata_bildiriminde():
 
 
 def test_hata_bildiriminde_yer_tutucu_kalmadi():
-    # İki ileti de yayın adresi, DOI ve imzayla gönderilmeye hazır; köşeli ayraçlı yer tutucu yok
+    # İki ileti de yayın adresi, DOI ve imzayla gönderilmeye hazır; köşeli ayraçlı yer tutucu yok. Adres ve DOI her
+    # iletide bir kez geçer: DHL iletisinde kapanış paragrafında, scprocedure iletisinde atıf paragrafında
     bildirim = (KOK / "kaynaklar/hata_bildirimi.md").read_text(encoding="utf-8")
-    for ileti in (bildirim[bildirim.index("## 1."):bildirim.index("## 2.")], bildirim[bildirim.index("## 2."):bildirim.index("## 3.")]):
-        assert "The dataset is available at https://vetoatlas.com (DOI: 10.5281/zenodo.23326362)." in ileti
+    dhl, scp = bildirim[bildirim.index("## 1."):bildirim.index("## 2.")], bildirim[bildirim.index("## 2."):bildirim.index("## 3.")]
+    assert "The dataset is available at https://vetoatlas.com (DOI: 10.5281/zenodo.23326362)." in dhl
+    assert "\n\nTable 4 has been very helpful to us, and we would be\nglad to share the full reconciliation file" in scp
+    for ileti in (dhl, scp):
+        tek = " ".join(ileti.split())
+        assert tek.count("https://vetoatlas.com") == 1 and tek.count("10.5281/zenodo.23326362") == 1, ileti
         assert ileti.rstrip().endswith("With kind regards,\n\nNuh Mehmet Yıldız, independent researcher · iletisim@vetoatlas.com")
         assert not re.search(r"\[[^\]]*\](?!\()", ileti), ileti  # bağlantılar ([S/PV.456](…)) hariç
 
