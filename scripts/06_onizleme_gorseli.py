@@ -38,27 +38,75 @@ def png_yaz(yol: Path, piksel: list[bytearray]) -> None:
                     + parca(b"IDAT", zlib.compress(ham, 9)) + parca(b"IEND", b""))
 
 
+def yol_cokgenleri(d: str) -> list[list[tuple[float, float]]]:
+    """SVG yolunu (mutlak M, L, H, V, C, Z) kapalı çokgenlere çevirir; kübik eğriler 8 doğru parçasına bölünür."""
+    import re
+    parca = re.findall(r"[MLHVCZ]|-?(?:\d+\.?\d*|\.\d+)", d)
+    cokgenler, cokgen, x, y, i, komut = [], [], 0.0, 0.0, 0, None
+    while i < len(parca):
+        if parca[i] in "MLHVCZ":
+            komut = parca[i]; i += 1
+            if komut == "Z":
+                if cokgen:
+                    cokgenler.append(cokgen)
+                cokgen = []
+                continue
+        sayi = lambda k: float(parca[i + k])
+        if komut == "M":
+            if cokgen:
+                cokgenler.append(cokgen)
+            x, y = sayi(0), sayi(1); cokgen = [(x, y)]; i += 2; komut = "L"
+        elif komut == "L":
+            x, y = sayi(0), sayi(1); cokgen.append((x, y)); i += 2
+        elif komut == "H":
+            x = sayi(0); cokgen.append((x, y)); i += 1
+        elif komut == "V":
+            y = sayi(0); cokgen.append((x, y)); i += 1
+        elif komut == "C":
+            x1, y1, x2, y2, x3, y3 = (sayi(k) for k in range(6))
+            for n in range(1, 9):
+                t = n / 8; u = 1 - t
+                cokgen.append((u ** 3 * x + 3 * u * u * t * x1 + 3 * u * t * t * x2 + t ** 3 * x3,
+                               u ** 3 * y + 3 * u * u * t * y1 + 3 * u * t * t * y2 + t ** 3 * y3))
+            x, y = x3, y3; i += 6
+        else:
+            raise ValueError(f"desteklenmeyen yol komutu: {komut}")
+    if cokgen:
+        cokgenler.append(cokgen)
+    return cokgenler
+
+
 def isaret_ciz(piksel: list[bytearray], x0: int, y0: int, boyut: int) -> None:
-    """web/isaret.svg'deki döndürülmüş kareleri (viewBox 128) verilen boyutta çizer; rx yuvarlaması atlanır."""
+    """web/isaret.svg'deki kareleri (yollar, renkleri SVG'den) boyut px yükseklikte, sol üst köşesi (x0, y0) olacak biçimde
+    çizer. Kenarlar 4 x 4 alt örnekle yumuşatılır (alttaki renge karıştırılır); aynı dosya aynı pikselleri verir."""
     import math
     import re
     svg = (KOK / "web/isaret.svg").read_text(encoding="utf-8")
-    olcek = boyut / 128
-    for m in re.finditer(r'<rect x="([\d.]+)" y="([\d.]+)" width="([\d.]+)" height="([\d.]+)"[^>]*fill="(#[0-9A-Fa-f]{6})" transform="rotate\(([\d.]+) ([\d.]+) ([\d.]+)\)"', svg):
-        x, y, g, h, renk, aci, cx, cy = m.groups()
-        x, y, g, h, aci, cx, cy = map(float, (x, y, g, h, aci, cx, cy))
-        r = tuple(int(renk[i:i + 2], 16) for i in (1, 3, 5))
-        a = math.radians(aci); ca, sa = math.cos(a), math.sin(a)
-        yarim = g / 2
-        for py in range(int((cy - yarim * 1.5) * olcek) + y0, int((cy + yarim * 1.5) * olcek) + y0 + 1):
-            for px in range(int((cx - yarim * 1.5) * olcek) + x0, int((cx + yarim * 1.5) * olcek) + x0 + 1):
-                if not (0 <= px < GEN and 0 <= py < YUK):
-                    continue
-                # Piksel merkezini SVG koordinatına, sonra karenin kendi eksenine döndür
-                sx, sy = (px + 0.5 - x0) / olcek - cx, (py + 0.5 - y0) / olcek - cy
-                ux, uy = sx * ca + sy * sa, -sx * sa + sy * ca
-                if abs(ux) <= yarim and abs(uy) <= yarim:
-                    piksel[py][3 * px:3 * px + 3] = bytes(r)
+    vb_g, vb_y = (float(v) for v in re.search(r'viewBox="0 0 ([\d.]+) ([\d.]+)"', svg).groups())
+    olcek = boyut / vb_y
+    ornek = [(k + 0.5) / 4 for k in range(4)]
+    for m in re.finditer(r"<path\b([^>]*)>", svg):
+        renk_hex = re.search(r'fill="(#[0-9A-Fa-f]{6})"', m[1])[1]
+        renk = tuple(int(renk_hex[i:i + 2], 16) for i in (1, 3, 5))
+        for cokgen in yol_cokgenleri(re.search(r'\bd="([^"]+)"', m[1])[1]):
+            nokta = [(x0 + x * olcek, y0 + y * olcek) for x, y in cokgen]
+            kenar = list(zip(nokta, nokta[1:] + nokta[:1]))
+            for py in range(max(0, math.floor(min(q[1] for q in nokta))), min(YUK, math.ceil(max(q[1] for q in nokta)) + 1)):
+                for px in range(max(0, math.floor(min(q[0] for q in nokta))), min(GEN, math.ceil(max(q[0] for q in nokta)) + 1)):
+                    icinde = 0
+                    for oy in ornek:
+                        sy = py + oy
+                        for ox in ornek:
+                            sx = px + ox
+                            ic = False
+                            for (ax, ay), (bx, by) in kenar:
+                                if (ay > sy) != (by > sy) and sx < ax + (sy - ay) * (bx - ax) / (by - ay):
+                                    ic = not ic
+                            icinde += ic
+                    if icinde:
+                        a = icinde / 16
+                        eski = piksel[py][3 * px:3 * px + 3]
+                        piksel[py][3 * px:3 * px + 3] = bytes(round(e * (1 - a) + r * a) for e, r in zip(eski, renk))
 
 
 def main():
@@ -96,8 +144,9 @@ def main():
     # Onyıl işaretleri
     for yil in range((ilk // 10 + 1) * 10, son + 1, 10):
         dikdortgen(sol + (yil - ilk) * adim + adim // 2 - 1, zemin_y + 8, 2, 10, KAPALI)
-    # Sol üstte halka işareti (web/isaret.svg; döndürülmüş kareler, renkleri SVG'den)
-    isaret_ciz(piksel, sol, zemin_y - en_cok * adim - 150, 112)
+    # Sol üstte halka işareti (web/isaret.svg; renkleri SVG'den). Dosya boşluksuz kırpıldığı için 86 px yükseklik ve (16, 13) px
+    # içeride: eski 112 px'lik kutudaki halkayla aynı boyut ve yer
+    isaret_ciz(piksel, sol + 16, zemin_y - en_cok * adim - 150 + 13, 86)
 
     hedef = KOK / "web/onizleme.png"
     png_yaz(hedef, piksel)

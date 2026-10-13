@@ -1,6 +1,6 @@
 # Veto Atlası – tasarım kılavuzu
 
-Bu kılavuz `KULLANIM.md`'yi temel alır ve sitenin, kartların ve tek dosya sürümünün paylaştığı
+Bu kılavuz logo paketinin kullanım notunu (`paket/KULLANIM.md`) temel alır ve sitenin, kartların ve tek dosya sürümünün paylaştığı
 tasarım dilini tanımlar. Değişkenler her sayfanın `:root` bloğunda, kartlar için
 `scripts/08_paylasim_kartlari.py` ve önizleme görseli için `scripts/06_onizleme_gorseli.py` içinde
 aynı değerlerle tanımlıdır; `tests/test_kimlik.py` bu tutarlılığı ve metin karşıtlığını denetler.
@@ -203,37 +203,82 @@ tanımlar bölümü yer almaz. Sayfalarda kalanlar: ekrandaki bir sayıyı ya da
 ("Nasıl okunur?" kutuları; simülasyonda "Nasıl hesaplanıyor?" ve "Sınırlar"), alıntı künyeleri ve kayıtların belge
 bağlantıları. Alt bilgide yalnızca veri tarihi bulunur (Hikâye, Vetolar). `tests/test_okunurluk.py` denetler.
 
-## 3. Logo ve işaret (`KULLANIM.md`)
+## 3. Logo ve işaret (logo paketi v3)
+
+Logo ve işaret dosyaları logo paketi v3'tendir (13 Ekim 2026; v3 v2'den yalnızca Android ana ekran ikonunda ve manifestte
+ayrılır). Dosyalar vektördür (yazılar yola çevrilmiş), boşluksuz kırpılmıştır ve sitenin renklerini kullanır: mürekkep
+`#13213A`, ret kırmızısı `#A4262C`, ikincil `#5A6578`; koyu zemin sürümlerinde (`-koyu`) `#EDE8E0`, `#E05A52`, `#AEB8C4`.
+Kaynak `kaynaklar/kimlik/paket/`'tir (paketin kendisi): sitedeki logo ve işaret dosyaları `paket/svg/`'dekilerle, sekme ve
+uygulama simgeleri `paket/web/`'dekilerle baytı baytına aynıdır (`tests/test_kimlik.py`).
 
 - Ortak üst çubuk (`web/cubuk.js`, bütün sayfalar ve tek dosya sürümü): solda slogansız çubuk logosu
-  `logo-cubuk-b.svg` (koyu kâğıtta `logo-cubuk-b-koyu.svg`), 52 px yükseklik, hikâyeye bağlanır; çubuk 76 px
-  (alt çizgi iç gölgeyle çizilir, yüksekliğe eklenmez). Sağda sayfa bağlantıları (Hikâye · Vetolar · Söz ve Kayıt ·
-  Reform modelleri · Ya veto olmasaydı? · Kim temsil ediliyor? · Nasıl yaptık?; aralarında 12 px), en sağda TR/EN
-  ve tema düğmesi. Çubuk yapışkandır ve %92 saydam zemin
-  üzerinde bulanıklık kullanır (taslaktaki gibi); sayfa içi bağlantılar 84 px kaydırma payıyla çubuğun altına iner.
-  Bağlantılar tek satıra sığmadığında (betik ölçer; dile ve genişliğe göre) "Menü" düğmesine toplanır;
-  520 px ve altında logo yerine işaret 40 px (`isaret-kucuk.svg`, koyu kâğıtta `isaret-kucuk-koyu.svg`),
-  çubuk 64 px, kaydırma payı 72 px.
+  `logo-cubuk-b.svg` (koyu kâğıtta `logo-cubuk-b-koyu.svg`), 40 px yükseklik ve 183 px genişlik (dosya boşluksuz
+  kırpıldığı için eski 52 px'lik logoyla aynı görünür boyut), hikâyeye bağlanır; çubuk 76 px (alt çizgi iç gölgeyle
+  çizilir, yüksekliğe eklenmez). Sağda sayfa bağlantıları (Hikâye · Vetolar · Söz ve Kayıt · Reform modelleri · Ya veto
+  olmasaydı? · Kim temsil ediliyor? · Nasıl yaptık?; aralarında 12 px), en sağda TR/EN ve tema düğmesi. Çubuk
+  yapışkandır ve %92 saydam zemin üzerinde bulanıklık kullanır (taslaktaki gibi); sayfa içi bağlantılar 84 px kaydırma
+  payıyla çubuğun altına iner. Bağlantılar tek satıra sığmadığında (betik ölçer; dile ve genişliğe göre) "Menü"
+  düğmesine toplanır; 520 px ve altında logo yerine asıl işaret 34 px yükseklikte (`isaret.svg`, koyu kâğıtta
+  `isaret-koyu.svg`), çubuk 64 px, kaydırma payı 72 px. Telefonlar 2–3 kat piksel yoğunluğuyla çizdiği için asıl işaret
+  bu boyutta nettir.
+- Keskinlik: çubuk logosunun genişliği tam piksele denk gelir (40 px yükseklikte 183 px). Eski logo 196,55 px
+  genişlikteydi; pencere genişliği tek sayı olduğunda (kaydırma çubuğu yüzünden) x = 66,5'e ortalanıp farklı ve bulanık
+  çiziliyordu. Yeni logo aynı konumda tam piksele oturur: 13 Ekim'de Edge'de 1265 ve 1280 px pencerede çizilen logolar
+  1 px kaydırmayla birebir aynıdır.
 - Sayfaların içinde logo kullanılmaz; üst çubuktaki logo yeterlidir. Sloganlı tam logo (`logo-yatay-a.svg`, koyu
   kâğıtta `logo-yatay-a-koyu.svg`) kimlik dosyası olarak `web/` altında durur; sayfalarda ve tek dosya sürümünde
   yer almaz. Slogan ("Dünya 5'ten büyüktür" / "The world is bigger than five") sayfaların alt bilgisinde
   tekrarlanmaz; atlasın çıkış noktası hikâyenin giriş alıntısında ve Hakkında sayfasının girişinde yazılıdır. Sayfa
   başlığı `h1` olarak kalır.
-- İşaret: 64 px ve üstünde `isaret.svg` (kartlar, önizleme), 48 px ve altında `isaret-kucuk.svg` (dar ekranda çubuk).
-- Sekme ve uygulama simgeleri kâğıt zeminli settir (`kaynaklar/kimlik/favicon/`, favicon-kagit; kullanım notu oradaki
-  `KULLANIM.md`): `favicon.ico` (16 + 32 + 48 px), `favicon.svg`, `apple-touch-icon.png` (180 px), `ikon-192.png` ve
-  `ikon-512.png` (`site.webmanifest`; maskable olarak da aynı dosyalar). Zeminli simge koyu ve açık sekme çubuklarında aynı
-  netlikte görünür; eski zeminsiz simgeler (`isaret-180/192/512.png`, `ikon-maskable-*.png`) kullanılmaz. `<head>` satırları
-  oradaki `KULLANIM.md`'dekilerdir, sitedeki öteki bağlantılar gibi göreli yolla (`favicon.ico`, `/favicon.ico` değil). Tek
-  dosya sürümü aynı simgeleri gömer.
-- Tek renk: `isaret-tek-renk.svg`. Kırmızı kare başka renge çevrilmez. `isaret-kucuk-koyu.svg`,
-  `isaret-kucuk.svg`'nin `logo-yatay-a-koyu.svg` renkleriyle (`#EEF1F5`, `#E34A50`) yazılmış koyu zemin sürümüdür.
-- En küçük boyut: işaret 16 px, yatay logo 140 px genişlik.
-- Boşluk payı: işaretin etrafında en az bir kare genişliği; logo gölge, degrade ve 3B efektsiz.
-- Logo dosyalarının renkleri (`#1F2A37`, `#B3272D`, `#F7F3EC`) kimlik dosyalarında sabittir; site paleti
-  (`#13213A`, `#A4262C`, `#FBF8F1`) aynı ailedendir ve logo yeniden boyanmaz.
-- Kartların sağ alt köşesinde `isaret.svg` (44 px); paylaşım önizlemesinde (`onizleme.png`) sol üstte
-  halka işareti.
+- İşaret: 32 px ve üstünde (telefonda her boyutta) `isaret.svg` (çubuk, kartlar, önizleme); 32 px'in altında
+  `isaret-kucuk.svg`. İkisi de aynı 15 kareden oluşur; küçük sürümde kareler biraz küçük, aralar biraz geniştir. Eski
+  küçük işaretin iri kareleri üst üste binip kalın, dişli bir halka oluşturuyordu; bu çizim kaldırıldı.
+  `isaret-kucuk.svg` ve `isaret-kucuk-koyu.svg` `web/` altında durur, sitede kullanılmaz.
+- Sekme ve uygulama simgeleri lacivert zeminli settir (kaynağı `kaynaklar/kimlik/paket/web/`, sitede aynı adlarla):
+  `favicon.ico` (16 + 32 + 48 px), `favicon.svg`, `apple-touch-icon.png` (180 px, opak zemin), `icon-192.png` ve
+  `icon-512.png`, maskable olarak ayrı çizilmiş `icon-maskable-192.png` ve `icon-maskable-512.png` (logo paketi v3); hepsi
+  `site.webmanifest`'te. Android (Samsung dahil) maskable görselin yalnızca ortadaki üçte ikisini (72/108) gösterip kendi
+  şekline kırpar; işaret merkezden en çok 0,315 × genişlik uzaktadır, o alanın içinde kalır (13 Ekim'de ölçüldü; test
+  denetler). Aynı görsel hem normal hem maskable ikon olarak kullanılmaz: eski sitede `ikon-512.png` ikisi için de
+  tanımlıydı, halkanın kenarı ve kırmızı kare kesiliyordu. Manifestte `id` ve `start_url` `/hikaye`dir (ana ekrandan açılınca
+  hikâye). Ana ekrana eklenmiş kısayollar ikonlarını kendiliğinden güncellemez; simge değişince eski kısayol silinip site
+  yeniden eklenir (Chrome menüsünde "Uygulamayı yükle" görünürse o seçilir). `<head>` satırları:
+
+  ```html
+  <link rel="icon" href="favicon.ico?v=2" sizes="32x32">
+  <link rel="icon" href="favicon.svg?v=2" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png?v=2">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#FBF8F1">
+  ```
+
+  ICO yalnızca 32x32 yedektir; eski `sizes="any"` Chrome'un SVG yerine pikselli ICO'yu seçmesine yol açıyordu. `?v=2`
+  eski simgelerin tarayıcı önbelleğinden düşmesi içindir; simge yeniden değişirse sayı artırılır. Yollar sitedeki öteki
+  bağlantılar gibi göreli yazılır (`favicon.ico`, `/favicon.ico` değil); paketin örneği
+  (`kaynaklar/kimlik/paket/web/head-etiketleri.html`) kökten yazılmıştır ve paylaşım satırları da içerir. Eski simgeler
+  (`ikon-192/512.png`, `isaret-180/192/512.png`, `ikon-maskable-*.png`) kullanılmaz. Tek dosya sürümü aynı simgeleri
+  gömer.
+- Paylaşım görseli: sayfaların `og:image`'ı `onizleme.png`'dir (veri grafiği; bölüm 6; 13 Ekim kararı). Paketin logolu
+  paylaşım görseli `og-image.png` (1200 × 630) yalnızca pakette durur (`paket/web/`), sitede yoktur.
+- Tek renk: `paket/svg/isaret-tek-renk.svg` ve `paket/svg/tek-renk/` (siyah ve beyaz sürümler). Kırmızı kare başka renge
+  çevrilmez ve yeri değişmez.
+- En küçük boyut (paket v2): çubuk logosu 40 px yükseklik; sloganlı yatay logo 240 px, sloganlı dikey logo 160 px
+  genişlik; işaret 32 px'in altında `isaret-kucuk.svg`.
+- Boşluk payı: işaretin etrafında en az bir kare genişliği; logo esnetilmez, döndürülmez; gölge, degrade ve 3B efekt
+  kullanılmaz.
+- Kartların sağ alt köşesinde `isaret.svg`: eski dosyadaki gibi 44 × 44 px kutu, çizim içinde ortalanmış 34 px yükseklikte
+  (31,4 × 34 px; viewBox'a eşit pay eklenir). Kutu aynı kaldığı için alt bilgi satırı değişmez; 13 Ekim'de 44 kart canlıdakiyle
+  yalnızca işaretin 32 × 34 px'lik alanında farklıydı. Adın yanında süs olduğu için `aria-hidden`. Paylaşım önizlemesinde
+  (`onizleme.png`) sol üstte 86 px yükseklikte işaret
+  (`scripts/06_onizleme_gorseli.py` dosyadaki yolları çizer, kenarları yumuşatır).
+- Görünür boyutlar (çizimin kendisi; eski dosyalarda çevresinde boşluk vardı): çubuk logosu 183 × 40 px (eski 184 × 40),
+  kart işareti 31 × 34 px (eski 31 × 34), önizleme işareti 79 × 86 px (eski 79 × 86); telefon çubuğundaki işaret 31 × 34 px
+  (eski küçük işaret 29 × 33).
+- Kimlik klasörü (13 Ekim'de düzenlendi): `KILAVUZ.md`, tasarım referansları (`hikaye-taslak.html`, `sonuc-taslak.html`)
+  ve `paket/`: logo paketi v3'ün `svg/` (tek renk sürümleriyle), `web/`, `sosyal/`, `kaynak/` (üretim betiği `uret.py`,
+  yazı tipleri ve lisansları), `KULLANIM.md` ve `onizleme.html`'i. Paketin PNG'leri, baskı dosyaları (EPS ve PDF; depoya
+  PDF girmez) ve `pano.png`'si depoda yoktur; `kaynak/uret.py` bunları pakette yeniden üretir (üretilenler commit edilmez),
+  tamamı paketin zip'indedir. Eski paketin 45 dosyası kaldırıldı; git geçmişinde durur.
 
 ## 4. İlkeler
 

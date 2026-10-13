@@ -22,6 +22,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import shutil
 import subprocess
 import sys
@@ -309,7 +310,15 @@ def html(kart: dict, dil: str, boyut: str, S: dict) -> str:
     else:
         gorsel_html = gorsel(kart, dil, S, (ic_g - 48) // 2, y - 12 - ust_bosluk - 44 - 40 - 72)
     yer = {"tr": "Veto Atlası · vetoatlas.com", "en": "Veto Atlas · vetoatlas.com"}[dil]
-    isaret = (WEB / "isaret.svg").read_text(encoding="utf-8").replace('width="128" height="128"', 'width="44" height="44"')
+    # Köşedeki işaret (web/isaret.svg, boşluksuz kırpılmış): eski dosyadaki gibi 44 × 44 px kutu, çizim içinde ortalanmış 34 px
+    # yükseklikte (eski kutudaki halka 33,9 px görünüyordu). Kutu aynı kaldığı için alt bilgi satırının yüksekliği ve yeri değişmez.
+    isaret = (WEB / "isaret.svg").read_text(encoding="utf-8")
+    vb_g, vb_y = (float(v) for v in re.search(r'viewBox="0 0 ([\d.]+) ([\d.]+)"', isaret).groups())
+    kutu = vb_y * 44 / 34  # 44 px'lik kutunun viewBox birimi; çizim 34 px
+    isaret = re.sub(r'viewBox="0 0 [\d.]+ [\d.]+" width="[\d.]+" height="[\d.]+"',
+                    f'viewBox="{-(kutu - vb_g) / 2:.2f} {-(kutu - vb_y) / 2:.2f} {kutu:.2f} {kutu:.2f}" width="44" height="44"', isaret, count=1)
+    # Kartta işaret adın yanında süstür (eski dosyadaki gibi): görsel rolü ve başlığı alınmaz
+    isaret = re.sub(r"<title>[^<]*</title>", "", re.sub(r' role="img" aria-label="[^"]*"', ' aria-hidden="true"', isaret, count=1), count=1)
     baslik = "Söz ve Kayıt" if alinti and dil == "tr" else "Word and Record" if alinti else "Veto Atlası" if dil == "tr" else "Veto Atlas"
     buyuk = f'<div class="buyuk{" alinti" if alinti else ""}" lang="{"tr" if alinti and not kart["buyuk"].get("en") else dil}">{esc(kart["buyuk"][dil])}</div>'
     metin = f'<div class="metin">{esc(kart["metin"][dil])}</div>'

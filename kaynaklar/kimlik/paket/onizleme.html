@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Veto Atlası — logo paketi</title>
+<link rel="icon" href="web/favicon.ico" sizes="32x32">
+<link rel="icon" href="web/favicon.svg" type="image/svg+xml">
+<style>
+@font-face{font-family:"Source Serif 4";src:url("kaynak/fonts/SourceSerif4-Semibold.otf") format("opentype");font-weight:600}
+@font-face{font-family:"Source Sans 3";src:url("kaynak/fonts/SourceSans3-Regular.otf") format("opentype");font-weight:400}
+:root{--kagit:#FBF8F1;--murekkep:#13213A;--ikincil:#5A6578;--ikincil-koyu:#AEB8C4;--cizgi:#E1DBCF}
+*{box-sizing:border-box}
+html{background:var(--kagit)}
+body{margin:0;color:var(--murekkep);font:16px/1.5 "Source Sans 3",system-ui,sans-serif}
+img{display:block;max-width:100%;height:auto}
+.kap{max-width:1200px;margin:0 auto;padding:64px 56px 88px}
+header{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;padding-bottom:36px;border-bottom:1px solid var(--cizgi)}
+header img{height:80px;width:auto}
+header p{margin:0;text-align:right;color:var(--ikincil);font-size:15px}
+section{margin-top:64px}
+h2{font:600 24px/1.25 "Source Serif 4",Georgia,serif;margin:0 0 6px}
+.not{margin:0 0 24px;color:var(--ikincil);font-size:15px;max-width:72ch}
+.izgara{display:grid;gap:1px;background:var(--cizgi);border:1px solid var(--cizgi)}
+.izgara+.izgara{border-top:0}
+.k1{grid-template-columns:1fr}.k2{grid-template-columns:repeat(2,1fr)}.k3{grid-template-columns:repeat(3,1fr)}.k4{grid-template-columns:repeat(4,1fr)}
+.hucre{background:var(--kagit);padding:40px 32px 18px;display:flex;flex-direction:column;gap:28px;min-height:200px}
+.hucre .gorsel{flex:1;display:flex;align-items:center}
+.hucre .serit{align-items:flex-end;gap:40px;flex-wrap:wrap}
+.orta .gorsel{justify-content:center}
+.hucre .gorsel img{width:auto}
+.etiket{font-size:13px;color:var(--ikincil)}
+.izgara.koyu{background:#0A1322;border-color:#0A1322}
+.koyu .hucre{background:var(--murekkep)}
+.koyu .etiket,.koyu figcaption{color:var(--ikincil-koyu)}
+.hucre.beyaz{background:#FFFFFF}
+.hucre.gri{background:#3B3F46}
+.hucre.gri .etiket{color:#C9CDD3}
+figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:12px}
+figcaption{font-size:13px;color:var(--ikincil);text-align:center}
+.ayrac{width:1px;align-self:stretch;background:var(--cizgi)}
+.koyu .ayrac{background:#2A3A57}
+.tarayici{border-radius:10px 10px 0 0;padding:8px 10px 0;display:flex;gap:2px;align-items:flex-end}
+.tarayici.acik{background:#DEE1E6}.tarayici.karanlik{background:#202124}
+.sekme{display:flex;align-items:center;gap:9px;height:36px;padding:0 14px;border-radius:9px 9px 0 0;font-size:13px;min-width:210px}
+.acik .sekme{background:#FFFFFF;color:#1F1F1F}.karanlik .sekme{background:#35363A;color:#E8EAED}
+.tarayici .sekme.pasif{background:transparent;min-width:150px}
+.acik .sekme.pasif{color:#5F6368}.karanlik .sekme.pasif{color:#9AA0A6}
+.hucre .sekme img{width:16px;height:16px}
+.sekme .kapat{margin-left:auto;opacity:.6}
+.adres{height:42px;border-radius:0 0 10px 10px}
+.acik+.adres{background:#FFFFFF;border:1px solid #DEE1E6;border-top:0}
+.karanlik+.adres{background:#35363A}
+.hucre .piksel img{image-rendering:pixelated;width:96px;height:96px}
+.ios{border-radius:22.5%}
+.daire{clip-path:circle(33.3% at 50% 50%)}
+.yumusak{clip-path:inset(16.7% round 23%)}
+.yuvarlak{border-radius:50%}
+.renkler{display:grid;grid-template-columns:repeat(4,1fr);gap:28px 24px}
+.renk .ornek{height:88px;border:1px solid var(--cizgi)}
+.renk b{display:block;font:600 16px/1.3 "Source Serif 4",Georgia,serif;margin-top:12px}
+.renk span{display:block;font-size:14px;color:var(--ikincil)}
+</style>
+</head>
+<body><div class="kap">
+
+<header>
+  <img src="svg/logo-yatay-a.svg" alt="Veto Atlası — Dünya 5’ten büyüktür">
+  <p>Logo paketi<br>Ekim 2026</p>
+</header>
+
+<section>
+  <h2>Logolar</h2>
+  <p class="not">Açık zemin sürümleri. Dosyalar boşluksuz kırpılmıştır; çevredeki boşluğu sayfa düzeni verir.</p>
+  <div class="izgara k2">
+    <div class="hucre"><div class="gorsel"><img src="svg/logo-yatay-a.svg" style="height:96px" alt=""></div><div class="etiket">logo-yatay-a</div></div>
+    <div class="hucre"><div class="gorsel"><img src="svg/logo-yatay-b.svg" style="height:96px" alt=""></div><div class="etiket">logo-yatay-b</div></div>
+  </div>
+  <div class="izgara k3">
+    <div class="hucre orta"><div class="gorsel"><img src="svg/logo-dikey-a.svg" style="height:180px" alt=""></div><div class="etiket">logo-dikey-a</div></div>
+    <div class="hucre orta"><div class="gorsel"><img src="svg/logo-dikey-b.svg" style="height:180px" alt=""></div><div class="etiket">logo-dikey-b</div></div>
+    <div class="hucre orta"><div class="gorsel"><img src="svg/logo-dikey-sade.svg" style="height:156px" alt=""></div><div class="etiket">logo-dikey-sade</div></div>
+  </div>
+  <div class="izgara k3">
+    <div class="hucre"><div class="gorsel"><img src="svg/logo-cubuk-b.svg" style="height:60px" alt=""></div><div class="etiket">logo-cubuk-b</div></div>
+    <div class="hucre orta"><div class="gorsel"><img src="svg/isaret.svg" style="height:132px" alt=""></div><div class="etiket">isaret</div></div>
+    <div class="hucre orta"><div class="gorsel"><img src="svg/isaret-kucuk.svg" style="height:48px" alt=""></div><div class="etiket">isaret-kucuk</div></div>
+  </div>
+</section>
+
+<section>
+  <h2>Koyu zemin</h2>
+  <p class="not">Adında -koyu geçen dosyalar. Kırmızı kare ve yazı, lacivert üzerinde okunacak kadar açılmış tonlarla çizilir.</p>
+  <div class="izgara k2 koyu">
+    <div class="hucre"><div class="gorsel"><img src="svg/logo-yatay-a-koyu.svg" style="height:96px" alt=""></div><div class="etiket">logo-yatay-a-koyu</div></div>
+    <div class="hucre"><div class="gorsel"><img src="svg/logo-cubuk-b-koyu.svg" style="height:60px" alt=""></div><div class="etiket">logo-cubuk-b-koyu</div></div>
+  </div>
+  <div class="izgara k3 koyu">
+    <div class="hucre orta"><div class="gorsel"><img src="svg/logo-dikey-b-koyu.svg" style="height:180px" alt=""></div><div class="etiket">logo-dikey-b-koyu</div></div>
+    <div class="hucre orta"><div class="gorsel"><img src="svg/isaret-koyu.svg" style="height:132px" alt=""></div><div class="etiket">isaret-koyu</div></div>
+    <div class="hucre orta"><div class="gorsel"><img src="svg/isaret-kucuk-koyu.svg" style="height:48px" alt=""></div><div class="etiket">isaret-kucuk-koyu</div></div>
+  </div>
+</section>
+
+<section>
+  <h2>Tek renk</h2>
+  <p class="not">Kaşe, gofre, kazıma, fotokopi ve karışık zeminler için. Kırmızı kare de aynı renge döner ama yerinden ayrılmış hâliyle kalır.</p>
+  <div class="izgara k4">
+    <div class="hucre beyaz"><div class="gorsel"><img src="svg/tek-renk/logo-yatay-a-siyah.svg" style="height:60px" alt=""></div><div class="etiket">logo-yatay-a-siyah</div></div>
+    <div class="hucre beyaz orta"><div class="gorsel"><img src="svg/tek-renk/isaret-siyah.svg" style="height:96px" alt=""></div><div class="etiket">isaret-siyah</div></div>
+    <div class="hucre gri"><div class="gorsel"><img src="svg/tek-renk/logo-yatay-a-beyaz.svg" style="height:60px" alt=""></div><div class="etiket">logo-yatay-a-beyaz</div></div>
+    <div class="hucre gri orta"><div class="gorsel"><img src="svg/tek-renk/isaret-beyaz.svg" style="height:96px" alt=""></div><div class="etiket">isaret-beyaz</div></div>
+  </div>
+</section>
+
+<section>
+  <h2>Küçük boyutlar</h2>
+  <p class="not">İşaret her boyutta aynı 15 kareden oluşur. 32 px'in altında kareler birbirine karışmasın diye isaret-kucuk kullanılır: kareler biraz küçük, aralar biraz geniş. Sekme ikonu lacivert zemine oturtulmuştur; açık ve koyu sekme çubuğunda aynı netlikte görünür.</p>
+  <div class="izgara k1">
+    <div class="hucre"><div class="gorsel serit">
+      <figure><img src="svg/isaret.svg" style="height:96px" alt=""><figcaption>96</figcaption></figure>
+      <figure><img src="svg/isaret.svg" style="height:64px" alt=""><figcaption>64</figcaption></figure>
+      <figure><img src="svg/isaret.svg" style="height:40px" alt=""><figcaption>40</figcaption></figure>
+      <figure><img src="svg/isaret.svg" style="height:32px" alt=""><figcaption>32</figcaption></figure>
+      <div class="ayrac"></div>
+      <figure><img src="svg/isaret-kucuk.svg" style="height:24px" alt=""><figcaption>24</figcaption></figure>
+      <figure><img src="svg/isaret-kucuk.svg" style="height:16px" alt=""><figcaption>16</figcaption></figure>
+    </div><div class="etiket">isaret 32 px ve üstünde, isaret-kucuk 32 px'in altında (CSS piksel)</div></div>
+  </div>
+  <div class="izgara k1 koyu">
+    <div class="hucre"><div class="gorsel serit">
+      <figure><img src="svg/isaret-koyu.svg" style="height:96px" alt=""><figcaption>96</figcaption></figure>
+      <figure><img src="svg/isaret-koyu.svg" style="height:64px" alt=""><figcaption>64</figcaption></figure>
+      <figure><img src="svg/isaret-koyu.svg" style="height:40px" alt=""><figcaption>40</figcaption></figure>
+      <figure><img src="svg/isaret-koyu.svg" style="height:32px" alt=""><figcaption>32</figcaption></figure>
+      <div class="ayrac"></div>
+      <figure><img src="svg/isaret-kucuk-koyu.svg" style="height:24px" alt=""><figcaption>24</figcaption></figure>
+      <figure><img src="svg/isaret-kucuk-koyu.svg" style="height:16px" alt=""><figcaption>16</figcaption></figure>
+    </div><div class="etiket">koyu zemin karşılıkları</div></div>
+  </div>
+  <div class="izgara k2">
+    <div class="hucre"><div class="gorsel" style="display:block">
+      <div class="tarayici acik"><div class="sekme"><img src="web/favicon.svg" alt=""><span>Veto Atlası</span><span class="kapat">×</span></div><div class="sekme pasif">Yeni sekme</div></div><div class="adres"></div>
+    </div><div class="etiket">favicon.svg, açık tema</div></div>
+    <div class="hucre"><div class="gorsel" style="display:block">
+      <div class="tarayici karanlik"><div class="sekme"><img src="web/favicon.svg" alt=""><span>Veto Atlası</span><span class="kapat">×</span></div><div class="sekme pasif">Yeni sekme</div></div><div class="adres"></div>
+    </div><div class="etiket">favicon.svg, koyu tema</div></div>
+  </div>
+  <div class="izgara k1">
+    <div class="hucre"><div class="gorsel serit piksel">
+      <figure><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABxklEQVR4nI2TMWgTYRTHf9+lxeHILUmGi4VLKRf9IqgcQopSasClk7UO3bRDh1IoKSIUh+LgIF1ECRQFC61IIUOwThV0MHQSirgFlQ6FSAqhQ3vcVO4+B5v2rpcS/9P3Pd77vfe+7z0BkBoaGRdBUFao2/yHBOKr0rRX+ztbGyI1NDJO4H8IO1zS+/npHfUmaYl7mgj8p2Hb45zB+tUU2QuJ3pUE/nyfguth43rLw/UDXF/xfnkRgC/1bf7stflc344AFIz2hQ1GUueKI3lz7LhW3QTgsm1xJ38DgG/fGxy63mkVqcGbqnOZmhxjbvo+dx88odlqR7INmBk+vntO5W2N1WMwgNY5FJ0CWTNNaaIcCwZottqUJspkzTQyb8UBF80Mw04hUt5ZHboew04BaefiAIDV6qdzg8/zOQFI26LoyJ6AoiORdpcWKis1Dlwv0t9ZybzFgetRWanFAeH+jKQeCzaSOtLOxd4p8o0AS4szSNtiduFFBLC89IjG710Wnr2O2EV68NYPhboWLnPAzPBwcuwkk5HUWatu0my1afzaPQ2Getdlgn+DE1a32RAJrSSgs87+vILRmFcXCagrLfFyf2dr4y8/yJkBhZmc9QAAAABJRU5ErkJggg==" alt=""><figcaption>16 px</figcaption></figure>
+      <figure><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAEJklEQVR4nMWXX0hbdxTHPze6li0mymbKooFYBkK6h7kZ+lBoLKsdWgf1z0NgNGjRgdRJs70odj7NugnDKW4w2crUDcEHU6WzlbWVGUGpRFdflqLIFEwzFgcm0RWz6d3D9YZk3msS67bv0+/e37m/7/d3zvmdc38CMcgrOJe1GYpcQ6RchAKOEAI8QmAkQ3+se+XRjxsx7yUYXjlTs7srfAZi1lESK0jZ0GjE9wPL031RARI53/y7xPHQaLgSWJ7uE/IKzmWFg3/+kmjnb594HgG4/dvTI5IgbOgynzuZvhmKOAFV8pzjafS++iI5x9MAmAtGeLK9cwQCxKzNUMSpQeRSIlOZHOAdo/YIyGUNXNIkyvYn2zt8H5Dc7t/ewROKAFBjL2VxZpDFmUFq7KUAVFy0YTIaUuCnID0Zw09XwtwOPMUTjETf6XQvxI0t+WY6WusB6Lk5TM/Xw0mJSEpA+K/dOHKAx0urzP7kjY5lL6SKAwVY8s18+/mHtHd/h2tsMm7u3qSHe5Oe6LN3cRWA06+fon9onMqyIlquXcbxXlt0TgnCSyfPiEoTep2WieEu9Dop6RqaO+MID8KFIitffPIBAKHwFta33lW11ahNhMJbPJiaAyQXP5z3JkUO8HDey+MladfyGmpQ9IAl30zuy9ncd89RWVbEfbeHUHgraQEgebDYZsU1NkmxrRDfr+uKoVDMgcbaKoptVkLhLcqrW1ImB8mD3qUVPD98hV6n5dYdN00ffbnPTjEExTYrAIIgsOYPpEwuw7u4iiBI/e782UJFG0UPNLf1Sm7zrx+aXIZrzE2uUQqnElRPgcloeKbdJ7vWvhBY8s0szgwy4eqmsa7qmckb66qYcHWzODOIJd+cWIA+Q6s4PiwSrbcvB3z+QLTEepfUK1iy8MaUbJ9CGFRzAKTu9mBq7lDHEKRacP5sIbfuuFVtFI+hyWhgtL+djtZ6rjsdhyIHuO500NFaz2h/u2qbVi3FppwTgOQFuR+kAr1OS8VFW9xaSQtY8wfoG7qLz7+Oo6GNXGO2YgarwZJvJteYjaOhDZ9/nb6hu6rH8MAckHcid8Xmtt59bfmfqLGX0uJ0EApv8WaVM2H+qIZARrW9JBqCGnsJJqNhr1cUotdp95pOIY21VZiMBirLbFHh1faSRMuTLiAsiIivqRn0D42jz9BSWWbjalMnxTZrtED13JR+uxprpefw5h9cbepkdOBjXGNu+ofGDyQXEBbSEcQRRFQFhMJb3Oga4EbXAAC5Mdk8K/8j1BKdW/MHKLxQl2jjewrEkb2LSWQFyEzmG5PRwOk3TpFrzI7usNpegs+/zuz8z6n0j6Au81je/3Y1Q5NW8fvy1IgGILA83afRcAUI/gfUQZkcYm7HEL2eOxGF8oMS8zAQEBYQxJEM/bGu2Ov53yiNlMv6NPGmAAAAAElFTkSuQmCC" alt=""><figcaption>32 px</figcaption></figure>
+      <figure><img src="data:image/png;base64,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" alt=""><figcaption>48 px</figcaption></figure>
+    </div><div class="etiket">favicon.ico içindeki üç görüntü, piksel piksel büyütülmüş</div></div>
+  </div>
+</section>
+
+<section>
+  <h2>Uygulama ikonları ve paylaşım</h2>
+  <p class="not">iPhone ana ekranı, Android uyarlanır ikon maskeleri, bağlantı önizlemesi ve profil fotoğrafları.</p>
+  <div class="izgara k4">
+    <div class="hucre orta"><div class="gorsel"><img class="ios" src="web/apple-touch-icon.png" style="width:132px;height:132px" alt=""></div><div class="etiket">apple-touch-icon, iOS maskesiyle</div></div>
+    <div class="hucre orta"><div class="gorsel"><img class="daire" src="web/icon-maskable-512.png" style="width:198px;height:198px;margin:-33px" alt=""></div><div class="etiket">icon-maskable, Android daire maske</div></div>
+    <div class="hucre orta"><div class="gorsel"><img class="yumusak" src="web/icon-maskable-512.png" style="width:198px;height:198px;margin:-33px" alt=""></div><div class="etiket">icon-maskable, Samsung tipi maske</div></div>
+    <div class="hucre orta"><div class="gorsel"><img src="web/icon-512.png" style="width:132px;height:132px" alt=""></div><div class="etiket">icon-512</div></div>
+  </div>
+  <div class="izgara" style="grid-template-columns:2fr 1fr 1fr">
+    <div class="hucre"><div class="gorsel"><img src="web/og-image.png" style="width:100%;border:1px solid var(--cizgi)" alt=""></div><div class="etiket">og-image, 1200×630</div></div>
+    <div class="hucre orta"><div class="gorsel"><img class="yuvarlak" src="sosyal/profil-kagit-1080.png" style="width:150px;height:150px;border:1px solid var(--cizgi)" alt=""></div><div class="etiket">profil-kagit</div></div>
+    <div class="hucre orta"><div class="gorsel"><img class="yuvarlak" src="sosyal/profil-murekkep-1080.png" style="width:150px;height:150px" alt=""></div><div class="etiket">profil-murekkep</div></div>
+  </div>
+</section>
+
+<section>
+  <h2>Renkler</h2>
+  <p class="not">Sitenin CSS değişkenleriyle aynıdır. Alt sıradaki tonlar, aynı renklerin koyu zemindeki karşılıklarıdır.</p>
+  <div class="renkler">
+    <div class="renk"><div class="ornek" style="background:#13213A"></div><b>Mürekkep</b><span>#13213A</span></div>
+    <div class="renk"><div class="ornek" style="background:#A4262C"></div><b>Ret kırmızısı</b><span>#A4262C</span></div>
+    <div class="renk"><div class="ornek" style="background:#FBF8F1"></div><b>Kâğıt</b><span>#FBF8F1</span></div>
+    <div class="renk"><div class="ornek" style="background:#5A6578"></div><b>İkincil</b><span>#5A6578</span></div>
+    <div class="renk"><div class="ornek" style="background:#EDE8E0"></div><b>Kâğıt tonu, koyu zeminde</b><span>#EDE8E0</span></div>
+    <div class="renk"><div class="ornek" style="background:#E05A52"></div><b>Ret, koyu zeminde</b><span>#E05A52</span></div>
+    <div class="renk"><div class="ornek" style="background:#AEB8C4"></div><b>İkincil, koyu zeminde</b><span>#AEB8C4</span></div>
+  </div>
+</section>
+
+</div></body></html>

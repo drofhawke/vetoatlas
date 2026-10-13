@@ -75,23 +75,38 @@ def test_kirmizi_yalnizca_ret_ve_veto():
 
 
 def test_logo_ikon_ve_bildirim():
-    for ad in ("favicon.ico", "favicon.svg", "apple-touch-icon.png", "ikon-192.png", "ikon-512.png", "isaret-kucuk.svg", "isaret.svg",
-               "logo-yatay-a.svg", "logo-yatay-a-koyu.svg", "site.webmanifest"):
-        assert (WEB / ad).exists(), ad
-    # ADIM 47: sekme ve uygulama simgeleri kâğıt zeminli set (kaynaklar/kimlik/favicon/, favicon-kagit; KULLANIM.md orada), baytı
-    # baytına; eski zeminsiz simgeler kaldırıldı. Çubuktaki işaret (isaret-kucuk.svg) ve kartlarla önizlemedeki işaret (isaret.svg) kalır.
-    kaynak = KOK / "kaynaklar/kimlik/favicon"
-    for ad, kaynak_ad in (("favicon.ico", "favicon-kagit.ico"), ("favicon.svg", "favicon-kagit.svg"), ("apple-touch-icon.png", "favicon-kagit-180.png"),
-                          ("ikon-192.png", "favicon-kagit-192.png"), ("ikon-512.png", "favicon-kagit-512.png")):
-        assert (WEB / ad).read_bytes() == (kaynak / kaynak_ad).read_bytes(), ad
-    for eski in ("isaret-180.png", "isaret-192.png", "isaret-512.png", "ikon-maskable-192.png", "ikon-maskable-512.png"):
+    # Logo paketi v3 (13 Ekim 2026; KILAVUZ bölüm 3). Kaynak kaynaklar/kimlik/paket/ (paketin kendisi; PNG, baskı dosyaları ve
+    # pano hariç): sitedeki logo ve işaret dosyaları paket/svg/'dekilerle, sekme ve uygulama simgeleri (lacivert zeminli set)
+    # paket/web/'dekilerle baytı baytına aynı.
+    PAKET = KOK / "kaynaklar/kimlik/paket"
+    SIMGE = ("favicon.ico", "favicon.svg", "apple-touch-icon.png", "icon-192.png", "icon-512.png", "icon-maskable-192.png",
+             "icon-maskable-512.png", "site.webmanifest")
+    LOGO = ("isaret.svg", "isaret-koyu.svg", "isaret-kucuk.svg", "isaret-kucuk-koyu.svg", "logo-cubuk-b.svg", "logo-cubuk-b-koyu.svg",
+            "logo-yatay-a.svg", "logo-yatay-a-koyu.svg")
+    for ad in SIMGE:
+        assert (WEB / ad).read_bytes() == (PAKET / "web" / ad).read_bytes(), ad
+    for ad in LOGO:
+        assert (WEB / ad).read_bytes() == (PAKET / "svg" / ad).read_bytes(), ad
+    # Eski simgeler, başlık satırları örneği ve paketin paylaşım görseli sitede yok: paylaşım görseli onizleme.png (13 Ekim kararı);
+    # örnek (kökten yollu) ve og-image.png pakette
+    for eski in ("isaret-180.png", "isaret-192.png", "isaret-512.png", "ikon-maskable-192.png", "ikon-maskable-512.png", "ikon-192.png",
+                 "ikon-512.png", "head-etiketleri.html", "og-image.png"):
         assert not (WEB / eski).exists(), eski
+    assert (PAKET / "web/head-etiketleri.html").exists() and (PAKET / "web/og-image.png").exists()
+    # Kimlik klasöründe eski paketin dosyaları yok; pakette PDF yok (depoya PDF girmez), kullanım notu ve üretim betiği var
+    kimlik = KOK / "kaynaklar/kimlik"
+    for eski in ("png", "favicon", "KULLANIM.md", "pano.png", "ikon-maskable.svg", "favicon.ico", "isaret.svg", "logo-cubuk-b.svg"):
+        assert not (kimlik / eski).exists(), eski
+    assert not list(PAKET.rglob("*.pdf")) and (PAKET / "KULLANIM.md").exists() and (PAKET / "kaynak/uret.py").exists()
     m = json.loads((WEB / "site.webmanifest").read_text(encoding="utf-8"))
     assert [(i["src"], i["sizes"], i.get("purpose", "any")) for i in m["icons"]] == [
-        ("ikon-192.png", "192x192", "any"), ("ikon-512.png", "512x512", "any"), ("ikon-192.png", "192x192", "maskable"), ("ikon-512.png", "512x512", "maskable")]
-    assert m["theme_color"] == "#FBF8F1"
-    simge = ('<link rel="icon" href="favicon.ico" sizes="any">', '<link rel="icon" href="favicon.svg" type="image/svg+xml">',
-             '<link rel="apple-touch-icon" href="apple-touch-icon.png">', '<link rel="manifest" href="site.webmanifest">', '<meta name="theme-color" content="#FBF8F1">')
+        ("/icon-192.png", "192x192", "any"), ("/icon-512.png", "512x512", "any"), ("/icon-maskable-192.png", "192x192", "maskable"),
+        ("/icon-maskable-512.png", "512x512", "maskable")]
+    assert m["theme_color"] == "#FBF8F1" and all((WEB / i["src"].lstrip("/")).exists() for i in m["icons"])
+    # Başlık satırları göreli yolla (sitedeki öteki bağlantılar gibi); ICO yalnızca 32x32 yedek (sizes="any" Chrome'a pikselli ICO'yu
+    # seçtiriyordu); ?v=2 eski simgelerin tarayıcı önbelleğinden düşmesi için
+    simge = ('<link rel="icon" href="favicon.ico?v=2" sizes="32x32">', '<link rel="icon" href="favicon.svg?v=2" type="image/svg+xml">',
+             '<link rel="apple-touch-icon" href="apple-touch-icon.png?v=2">', '<link rel="manifest" href="site.webmanifest">', '<meta name="theme-color" content="#FBF8F1">')
     for ad in SAYFALAR:
         s = (WEB / ad).read_text(encoding="utf-8")
         for satir in simge + ('<script src="cubuk.js"></script>', '<header id="cubuk" class="cubuk"></header>'):
@@ -99,14 +114,17 @@ def test_logo_ikon_ve_bildirim():
         assert "<h1" in s  # başlık h1 olarak kalır
     giris = (WEB / "index.html").read_text(encoding="utf-8")
     assert all(satir in giris for satir in simge)
-    # Çubukta slogansız logo (logo-cubuk-b, 52 px; çubuk 76 px); 520 px altında işaret 40 px; koyu kâğıtta koyu sürümler
+    bulunamadi = (WEB / "404.html").read_text(encoding="utf-8")
+    assert all(satir in bulunamadi for satir in simge[:3] + simge[4:]) and '<base href="/">' in bulunamadi
+    # Çubukta slogansız logo (logo-cubuk-b, 40 px; dosya boşluksuz kırpılmış, eski 52 px'lik logoyla aynı görünür boyut; çubuk 76 px);
+    # 520 px altında asıl işaret (isaret.svg) 34 px: telefon 2–3 kat yoğunlukla çizer; koyu kâğıtta koyu sürümler
     cubuk = (WEB / "cubuk.js").read_text(encoding="utf-8")
-    for ad in ("logo-cubuk-b.svg", "logo-cubuk-b-koyu.svg", "isaret-kucuk.svg", "isaret-kucuk-koyu.svg"):
+    for ad in ("logo-cubuk-b.svg", "logo-cubuk-b-koyu.svg", "isaret.svg", "isaret-koyu.svg"):
         assert f'"{ad}"' in cubuk and (WEB / ad).exists(), ad
-    for ad in ("logo-cubuk-b.svg", "logo-cubuk-b-koyu.svg"):
-        assert (WEB / ad).read_bytes() == (KOK / "kaynaklar/kimlik" / ad).read_bytes(), ad
-    assert '".cubuk .c-logo img { height: 52px; width: auto; display: block; }"' in cubuk and "min-height: 76px; }" in cubuk
-    assert '"  .cubuk .c-logo img { height: 40px; }"' in cubuk and ".c-cubuklu { scroll-padding-top: 84px; }" in cubuk
+    assert "isaret-kucuk" not in cubuk
+    assert 'gorsel("c-acik", "logo-cubuk-b.svg", 183, 40, Y.logo)' in cubuk and 'gorsel("c-isaret", "isaret.svg", 31, 34, Y.logo)' in cubuk
+    assert '".cubuk .c-logo img { height: 40px; width: auto; display: block; }"' in cubuk and "min-height: 76px; }" in cubuk
+    assert '"  .cubuk .c-logo img { height: 34px; }"' in cubuk and ".c-cubuklu { scroll-padding-top: 84px; }" in cubuk
     assert "logo-yatay-a" not in cubuk
     # Sayfaların içinde logo yok (ADIM 42: Hakkında'daki sloganlı tam logo kaldırıldı; üst çubuktaki logo yeterli).
     # ADIM 45: slogan sayfaların alt bilgisinde tekrarlanmaz (çubuk betiği alt bilgi eklemez); atlasın çıkış noktası
@@ -119,14 +137,17 @@ def test_logo_ikon_ve_bildirim():
     assert "“Dünya 5’ten büyüktür” çağrısından hareketle hazırlanmıştır." in (WEB / "hakkinda.html").read_text(encoding="utf-8")
     assert "starting point President Recep Tayyip Erdoğan’s call\n    that “the world is bigger than five”." in (WEB / "hakkinda.html").read_text(encoding="utf-8")
     assert 'EPIGRAF = { tr: ["2019-1", "“Dünya 5’ten Büyüktür.”"]' in (WEB / "hikaye.html").read_text(encoding="utf-8")
+    # Köşede işaret: eski dosyadaki gibi 44 × 44 px kutu, çizim ortalanmış 34 px yükseklikte (eski kutudaki halkayla aynı görünür
+    # boyut; alt bilgi satırı değişmez: 13 Ekim'de 44 kartın hepsi canlıdakiyle yalnızca işaretin 32 × 34 px'lik alanında farklı);
+    # adın yanında süs (görsel rolü ve başlığı yok)
     kart = (WEB / "kartlar/kart-01-vetosuz-tr-1200x630.html").read_text(encoding="utf-8")
-    assert 'viewBox="0 0 128 128"' in kart and 'fill="#B3272D"' in kart  # köşede işaret
+    assert 'viewBox="-23.75 -18.82 165.65 165.65" width="44" height="44" aria-hidden="true">' in kart and 'fill="#A4262C"' in kart
     tek = (WEB / "veto-atlasi-tek-dosya.html").read_text(encoding="utf-8")
     assert "data:image/x-icon;base64," in tek and "data:image/svg+xml;base64," in tek and "__VARLIK__" in tek
     import base64
     for ad, tur in (("favicon.ico", "image/x-icon"), ("favicon.svg", "image/svg+xml"), ("apple-touch-icon.png", "image/png")):
         assert f"data:{tur};base64," + base64.b64encode((WEB / ad).read_bytes()).decode() in tek, ad  # tek dosyada aynı simge
-    assert "logo-yatay-a" not in tek  # kullanılmayan logo gömülmez
+    assert "logo-yatay-a" not in tek and "isaret-kucuk" not in tek  # kullanılmayan logo ve işaret gömülmez
     assert (KOK / "kaynaklar/kimlik/KILAVUZ.md").exists()
 
 
@@ -202,3 +223,67 @@ def test_yesil_yalnizca_kabul_edilirdi():
         assert kabul["acik"].lower() not in yol.read_text(encoding="utf-8").lower(), yol.name
     kilavuz = (KOK / "kaynaklar/kimlik/KILAVUZ.md").read_text(encoding="utf-8")
     assert "**Yeşil kuralı.**" in kilavuz and "6,03:1" in kilavuz and "7,87:1" in kilavuz and "| `--kabul` | `#2D6A4F` | `#6FBF8E` |" in kilavuz
+
+
+def png_pikselleri(veri: bytes) -> tuple[int, int, int, list[bytearray]]:
+    """Küçük PNG okuyucu (8 bit RGB ya da RGBA, geçmesiz): genişlik, yükseklik, piksel başına bayt, satırlar."""
+    import struct
+    import zlib
+    assert veri[:8] == b"\x89PNG\r\n\x1a\n"
+    i, idat = 8, b""
+    while i < len(veri):
+        n, tur = struct.unpack(">I4s", veri[i:i + 8])
+        govde = veri[i + 8:i + 8 + n]
+        i += 12 + n
+        if tur == b"IHDR":
+            gen, yuk, bit, renk, _, _, gecme = struct.unpack(">IIBBBBB", govde)
+        elif tur == b"IDAT":
+            idat += govde
+    assert bit == 8 and renk in (2, 6) and gecme == 0, (bit, renk, gecme)
+    bpp = 3 if renk == 2 else 4
+    ham, adim = zlib.decompress(idat), gen * bpp
+    onceki, satirlar = bytearray(adim), []
+    for r in range(yuk):
+        f, s = ham[r * (adim + 1)], bytearray(ham[r * (adim + 1) + 1:(r + 1) * (adim + 1)])
+        for x in range(adim):
+            a = s[x - bpp] if x >= bpp else 0
+            b, c = onceki[x], (onceki[x - bpp] if x >= bpp else 0)
+            if f == 1:
+                s[x] = (s[x] + a) & 255
+            elif f == 2:
+                s[x] = (s[x] + b) & 255
+            elif f == 3:
+                s[x] = (s[x] + (a + b) // 2) & 255
+            elif f == 4:
+                p = a + b - c
+                pa, pb, pc = abs(p - a), abs(p - b), abs(p - c)
+                s[x] = (s[x] + (a if pa <= pb and pa <= pc else b if pb <= pc else c)) & 255
+        satirlar.append(s)
+        onceki = s
+    return gen, yuk, bpp, satirlar
+
+
+def test_ana_ekran_ikonu_ve_manifest():
+    """Logo paketi v3: Android (Samsung dahil) maskable görselin yalnızca ortadaki üçte ikisini (72/108) gösterip kırpar. Maskable
+    ikonlar ayrı çizilir; işaret merkezden en çok 1/3 genişlik uzakta kalır. Aynı görsel hem normal hem maskable olarak kullanılmaz
+    (eski sitede ikon-512.png öyleydi; halkanın kenarı ve kırmızı kare kesiliyordu). Ana ekrandan açılınca hikâye."""
+    m = json.loads((WEB / "site.webmanifest").read_text(encoding="utf-8"))
+    assert m["id"] == "/hikaye" and m["start_url"] == "/hikaye" and (WEB / "hikaye.html").exists()
+    normal = {i["src"] for i in m["icons"] if i.get("purpose", "any") == "any"}
+    maskable = {i["src"] for i in m["icons"] if i.get("purpose") == "maskable"}
+    assert normal and maskable and not normal & maskable
+    for n in normal:
+        for k in maskable:
+            assert (WEB / n.lstrip("/")).read_bytes() != (WEB / k.lstrip("/")).read_bytes(), (n, k)
+    for ad in ("icon-maskable-192.png", "icon-maskable-512.png"):
+        gen, yuk, bpp, satirlar = png_pikselleri((WEB / ad).read_bytes())
+        assert gen == yuk and bpp == 3, ad  # opak kare (saydamlık yok)
+        zemin = satirlar[2][gen // 2 * 3:gen // 2 * 3 + 3]
+        assert tuple(zemin) == (0x13, 0x21, 0x3A), ad  # lacivert zemin
+        en_uzak = 0.0
+        for y, satir in enumerate(satirlar):
+            for x in range(gen):
+                if sum(abs(satir[3 * x + k] - zemin[k]) for k in range(3)) > 60:
+                    en_uzak = max(en_uzak, ((x + 0.5 - gen / 2) ** 2 + (y + 0.5 - yuk / 2) ** 2) ** 0.5 / gen)
+        assert 0.25 < en_uzak <= 1 / 3, (ad, en_uzak)  # 13 Ekim ölçümü: 0,3145 (512) ve 0,3149 (192)
+

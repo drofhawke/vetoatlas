@@ -120,9 +120,9 @@ def fonts_hazirla(web: Path) -> tuple[str, dict[str, str]]:
 
 
 def varliklar_hazirla(web: Path) -> dict[str, str]:
-    """Logo, çubuk işareti ve sekme simgeleri (kâğıt zeminli set): dosya adı -> data: adresi (SVG, PNG ve ICO base64)."""
+    """Logo, çubuk işareti ve sekme simgeleri (logo paketi v2): dosya adı -> data: adresi (SVG, PNG ve ICO base64)."""
     v = {}
-    for ad in ("logo-cubuk-b.svg", "logo-cubuk-b-koyu.svg", "isaret-kucuk.svg", "isaret-kucuk-koyu.svg", "favicon.svg"):
+    for ad in ("logo-cubuk-b.svg", "logo-cubuk-b-koyu.svg", "isaret.svg", "isaret-koyu.svg", "favicon.svg"):
         v[ad] = "data:image/svg+xml;base64," + base64.b64encode((web / ad).read_bytes()).decode()
     v["favicon.ico"] = "data:image/x-icon;base64," + base64.b64encode((web / "favicon.ico").read_bytes()).decode()
     v["apple-touch-icon.png"] = "data:image/png;base64," + base64.b64encode((web / "apple-touch-icon.png").read_bytes()).decode()
@@ -166,7 +166,7 @@ def uret(kok: Path) -> Path:
 <title>Veto Atlası · tek dosya / Veto Atlas · single file</title>
 <meta name="description" content="Veto Atlası'nın sekiz sayfası yedi sekmede, tek dosyada; inceleme sürümü. / The eight pages of the Veto Atlas in seven tabs, in one file; review version.">
 <meta name="veto-atlasi-girdi-sha256" content="{ozet}">
-<link rel="icon" href="{varliklar['favicon.ico']}" sizes="any">
+<link rel="icon" href="{varliklar['favicon.ico']}" sizes="32x32">
 <link rel="icon" href="{varliklar['favicon.svg']}" type="image/svg+xml">
 <link rel="apple-touch-icon" href="{varliklar['apple-touch-icon.png']}">
 <meta name="theme-color" content="#FBF8F1">

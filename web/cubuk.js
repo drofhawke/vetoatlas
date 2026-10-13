@@ -44,7 +44,7 @@
     ".cubuk-ic { max-width: 1180px; margin: 0 auto; padding: 12px 24px; display: flex; align-items: center; gap: 24px; min-height: 76px; }",
     ".cubuk a { color: inherit; }",
     ".cubuk .c-logo { display: inline-flex; align-items: center; flex: none; text-decoration: none; }",
-    ".cubuk .c-logo img { height: 52px; width: auto; display: block; }",
+    ".cubuk .c-logo img { height: 40px; width: auto; display: block; }",
     ".cubuk .c-logo .c-koyu, .cubuk .c-logo .c-isaret, .cubuk .c-logo .c-isaret-koyu { display: none; }",
     ":root[data-theme=\"dark\"] .cubuk .c-logo .c-acik { display: none; }",
     ":root[data-theme=\"dark\"] .cubuk .c-logo .c-koyu { display: block; }",
@@ -85,7 +85,7 @@
     "  .cubuk { min-height: 64px; }",
     "  .cubuk-ic { min-height: 64px; }",
     "  .c-cubuklu { scroll-padding-top: 72px; }",
-    "  .cubuk .c-logo img { height: 40px; }",
+    "  .cubuk .c-logo img { height: 34px; }",
     "  .cubuk .c-logo .c-acik, :root[data-theme=\"dark\"] .cubuk .c-logo .c-koyu { display: none; }",
     "  .cubuk .c-logo .c-isaret { display: block; }",
     "  :root[data-theme=\"dark\"] .cubuk .c-logo .c-isaret { display: none; }",
@@ -182,10 +182,10 @@
       "</div>";
     var logo = yer.querySelector(".c-logo");
     // Çubukta slogansız logo (logo-cubuk-b); sloganlı tam logo sayfalarda kullanılmaz (KILAVUZ bölüm 3)
-    logo.appendChild(gorsel("c-acik", "logo-cubuk-b.svg", 197, 52, Y.logo));
-    logo.appendChild(gorsel("c-koyu", "logo-cubuk-b-koyu.svg", 197, 52, Y.logo));
-    logo.appendChild(gorsel("c-isaret", "isaret-kucuk.svg", 40, 40, Y.logo));
-    logo.appendChild(gorsel("c-isaret-koyu", "isaret-kucuk-koyu.svg", 40, 40, Y.logo));
+    logo.appendChild(gorsel("c-acik", "logo-cubuk-b.svg", 183, 40, Y.logo));
+    logo.appendChild(gorsel("c-koyu", "logo-cubuk-b-koyu.svg", 183, 40, Y.logo));
+    logo.appendChild(gorsel("c-isaret", "isaret.svg", 31, 34, Y.logo));
+    logo.appendChild(gorsel("c-isaret-koyu", "isaret-koyu.svg", 31, 34, Y.logo));
 
     var menu = yer.querySelector(".c-menu");
     function menuKapat() { yer.classList.remove("c-menu-acik"); menu.setAttribute("aria-expanded", "false"); }
