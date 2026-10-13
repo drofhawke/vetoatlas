@@ -320,6 +320,13 @@ iletisim@vetoatlas.com" (EN "Beta · Report an error: …"). `web/cubuk.js` kura
 yüzey zemini, alt çizgisi iç gölgeyle, küçük yazı, 4 px dikey boşlukla 32 px. Yapışkan değildir, sayfayla kayar;
 yazdırılmaz.
 
+**İnternetsiz çalışma.** `web/cevrimdisi.js` (service worker; `veto_atlasi/cevrimdisi.py` üretir, 04 ve 11 yeniler)
+sekiz sayfayı ve kullandıkları dosyaları (betikler, stiller, veri, yazı tipleri, çubuk logoları, uygulama ikonları; yaklaşık
+1,1 MB) ilk açılışta kaydeder. Önce ağ: internet varken her istek sunucudan gelir, site ziyaretçisi için bir şey değişmez;
+internet yokken kayıtlı kopya sunulur. Sürüm kaydedilen dosyaların içerik özetidir; biri değişince yeni kopya kaydedilir,
+eskisi silinir. Paylaşım kartları, indirme dosyaları (`web/veri/`) ve tek dosya kaydedilmez. `web/cubuk.js` yalnızca güvenli
+bağlamda (https) kaydeder; tek dosya ve dosya olarak açılış kaydetmez. Yalnızca site içi isteklere karışır, dış istek yoktur.
+
 **Sunuş kutusu (kaldırıldı).** Hikâyede başlık ve özetten sonra doğrudan 1. adım gelir. İleride bir Sunuş eklenirse
 kutu `web/hikaye.html` içinde `<header class="giris">` ile `<p class="asagi">` arasına girer; kapalıyken tek satır
 (solda başlık, sağda imza ve açma oku), 48 px. Çerçeve iç gölgeyle çizildiği için kart kuralında "metin" sınıfındadır

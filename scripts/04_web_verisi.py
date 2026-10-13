@@ -33,7 +33,7 @@ sys.path.insert(0, str(KOK))
 
 from veto_atlasi.genel_kurul import genel_kurul_ekle, raporlari_oku, tartismalari_oku  # noqa: E402
 from veto_atlasi.kaynak import kaynak_dogrula  # noqa: E402
-from veto_atlasi import alinti, metodoloji, tek_dosya  # noqa: E402
+from veto_atlasi import alinti, cevrimdisi, metodoloji, tek_dosya  # noqa: E402
 from veto_atlasi.konu import (  # noqa: E402
     KONULAR, SINIFLANDIRILMADI, duzeltmeleri_oku, konu_dagilimi, siniflandir, sozluk_oku,
 )
@@ -382,6 +382,8 @@ def main():
     # Tek dosyalık inceleme sürümü (altı sayfa, veri ve yazı tipleri gömülü)
     tek = tek_dosya.uret(KOK)
     print(f"Tek dosya: {tek.relative_to(KOK)} ({tek.stat().st_size / 1e6:.2f} MB)")
+    # İnternetsiz çalışma: sayfalar ve kullandıkları dosyalar değiştiyse service worker'ın sürümü de değişir
+    print(f"İnternetsiz çalışma: {cevrimdisi.yaz(KOK).relative_to(KOK)}")
     # Paylaşım kartları veri setinin belirli bir sürümüne dayanır; veri değiştiyse yeniden üretilmeli
     kart_manifesti = KOK / "web/kartlar/kartlar.json"
     if kart_manifesti.exists():

@@ -243,6 +243,12 @@
   function basla() {
     if (window.__CUBUK_GIZLI) { var c = document.getElementById("cubuk"); if (c) c.remove(); return; }
     if (!window.__CUBUK_ELLE) kur();
+    // İnternetsiz çalışma (web/cevrimdisi.js; veto_atlasi/cevrimdisi.py): yalnızca sunucudaki sayfalarda; tek dosya ve dosya
+    // olarak açılış kaydetmez
+    if (!window.__CUBUK_ELLE && window.isSecureContext && location.protocol !== "file:" && "serviceWorker" in navigator) {
+      var kaydet = function () { navigator.serviceWorker.register("cevrimdisi.js").catch(function () { /* desteklenmiyor: site yine çalışır */ }); };
+      if (document.readyState === "complete") kaydet(); else window.addEventListener("load", kaydet);
+    }
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", basla); else basla();
 })();
