@@ -1,0 +1,423 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Veto Atlası - Veto Kaydı",
+  "type": "object",
+  "required": [
+    "id",
+    "tarih",
+    "tarih_ham",
+    "taslak_belgeler",
+    "gundem_maddesi",
+    "veto_eden_uyeler",
+    "kategori",
+    "kaynak_url"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^V-\\d{4}-\\d{2}-\\d{2}-\\d+$",
+      "description": "Sabit anahtar. İçindeki tarih parçası kimliğin üretildiği andaki DHL tarihidir ve tarih bilgisi olarak okunmaz; tarih yalnızca 'tarih' alanındadır. Tarih düzeltilse de kimlik değişmez."
+    },
+    "tarih": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date",
+      "description": "Oylamanın fiilen yapıldığı takvim günü. Gece yarısını geçen toplantılarda toplantı kaydı başlığındaki tarihten farklı olabilir; kaynağın ham tarihi 'tarih_ham'da durur."
+    },
+    "tarih_ham": {
+      "type": "string"
+    },
+    "tarih_aralik_mi": {
+      "type": "boolean"
+    },
+    "taslak_belgeler": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^S/"
+      }
+    },
+    "toplanti_kayitlari": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "gundem_maddesi": {
+      "type": "string",
+      "minLength": 1
+    },
+    "veto_eden_uyeler": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "enum": [
+          "USA",
+          "RUS",
+          "SSCB",
+          "CHN",
+          "GBR",
+          "FRA"
+        ]
+      }
+    },
+    "kategori": {
+      "enum": [
+        "resmi_veto",
+        "gizli_veto",
+        "eylemsizlik"
+      ]
+    },
+    "kismi_veto_suphesi": {
+      "type": "boolean"
+    },
+    "notlar": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "kaynak_url": {
+      "type": "string"
+    },
+    "belge_linkleri": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "bolge": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "Ortadoğu ve Kuzey Afrika",
+        "Avrupa",
+        "Afrika",
+        "Asya ve Pasifik",
+        "Latin Amerika ve Karayipler",
+        "Küresel",
+        null
+      ]
+    },
+    "konu_kategorisi": {
+      "description": "Ana konu. Sayımlarda yalnızca bu alan kullanılır (kaynaklar/gundem_sozlugu.csv, konu_duzeltmeleri.csv).",
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "Filistin ve Arap-İsrail meselesi",
+        "Lübnan",
+        "Suriye",
+        "Diğer Ortadoğu ve Kuzey Afrika",
+        "Kıbrıs",
+        "Ukrayna",
+        "Diğer Avrupa",
+        "Güney Afrika, Namibya ve Rodezya",
+        "Diğer Afrika",
+        "Latin Amerika ve Karayipler",
+        "Asya",
+        "Silahsızlanma ve askerî gerilimler",
+        "Üyelik başvuruları",
+        "Genel Sekreter seçimi",
+        "Tematik konular",
+        "Sınıflandırılmadı",
+        null
+      ]
+    },
+    "oy_dagilimi": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "lehte": {
+          "type": "integer"
+        },
+        "aleyhte": {
+          "type": "integer"
+        },
+        "cekimser": {
+          "type": "integer"
+        },
+        "katilmayan": {
+          "type": "integer"
+        }
+      }
+    },
+    "ga_tartisma_belgesi": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "baglam_ozeti": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "vaka_analizi_var": {
+      "type": "boolean"
+    },
+    "taslak_kaynagi": {
+      "enum": [
+        "belge",
+        "toplanti_kaydi"
+      ]
+    },
+    "on_soru_vetosu": {
+      "type": "boolean"
+    },
+    "atif_belirsiz": {
+      "type": "boolean"
+    },
+    "duzeltme": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "referans_tarih": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    },
+    "ikincil_konular": {
+      "description": "Kaydı filtrelemede başka konulara da bağlar; hiçbir toplama girmez.",
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "Filistin ve Arap-İsrail meselesi",
+          "Lübnan",
+          "Suriye",
+          "Diğer Ortadoğu ve Kuzey Afrika",
+          "Kıbrıs",
+          "Ukrayna",
+          "Diğer Avrupa",
+          "Güney Afrika, Namibya ve Rodezya",
+          "Diğer Afrika",
+          "Latin Amerika ve Karayipler",
+          "Asya",
+          "Silahsızlanma ve askerî gerilimler",
+          "Üyelik başvuruları",
+          "Genel Sekreter seçimi",
+          "Tematik konular"
+        ]
+      }
+    },
+    "gundem_tr": {
+      "description": "Gündem başlığının sadık Türkçe çevirisi (kaynaklar/gundem_sozlugu.csv).",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "toplanti_dogrulamasi": {
+      "description": "Toplantı kaydından (S/PV) yapılan doğrulamalar; gerekçe sayfa numarasıyla kaynaklar/duzeltmeler.csv'de.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tarih": {
+          "type": "object",
+          "required": [
+            "durum",
+            "toplanti",
+            "aciklama"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "durum": {
+              "enum": [
+                "dogrulandi",
+                "dogrulanamadi"
+              ]
+            },
+            "toplanti": {
+              "type": "string",
+              "pattern": "^S/PV\\."
+            },
+            "aciklama": {
+              "type": "string",
+              "minLength": 1
+            },
+            "sayfa": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Toplantı kaydının PDF sayfa numaraları (ör. '22' ya da '3, 24, 29')."
+            },
+            "paragraf": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Toplantı kaydındaki paragraf numarası; varsa birincil atıf budur, PDF sayfası yanında kalır."
+            },
+            "kaynak_url": {
+              "type": "string",
+              "pattern": "^https://"
+            }
+          },
+          "if": {
+            "properties": {
+              "durum": {
+                "const": "dogrulandi"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "sayfa",
+              "kaynak_url"
+            ]
+          }
+        },
+        "oy": {
+          "type": "object",
+          "required": [
+            "durum",
+            "toplanti",
+            "aciklama"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "durum": {
+              "enum": [
+                "dogrulandi",
+                "dogrulanamadi"
+              ]
+            },
+            "toplanti": {
+              "type": "string",
+              "pattern": "^S/PV\\."
+            },
+            "aciklama": {
+              "type": "string",
+              "minLength": 1
+            },
+            "sayfa": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Toplantı kaydının PDF sayfa numaraları (ör. '22' ya da '3, 24, 29')."
+            },
+            "paragraf": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Toplantı kaydındaki paragraf numarası; varsa birincil atıf budur, PDF sayfası yanında kalır."
+            },
+            "kaynak_url": {
+              "type": "string",
+              "pattern": "^https://"
+            }
+          },
+          "if": {
+            "properties": {
+              "durum": {
+                "const": "dogrulandi"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "sayfa",
+              "kaynak_url"
+            ]
+          }
+        },
+        "uye": {
+          "type": "object",
+          "required": [
+            "durum",
+            "toplanti",
+            "aciklama"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "durum": {
+              "enum": [
+                "dogrulandi",
+                "dogrulanamadi"
+              ]
+            },
+            "toplanti": {
+              "type": "string",
+              "pattern": "^S/PV\\."
+            },
+            "aciklama": {
+              "type": "string",
+              "minLength": 1
+            },
+            "sayfa": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Toplantı kaydının PDF sayfa numaraları (ör. '22' ya da '3, 24, 29')."
+            },
+            "paragraf": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Toplantı kaydındaki paragraf numarası; varsa birincil atıf budur, PDF sayfası yanında kalır."
+            },
+            "kaynak_url": {
+              "type": "string",
+              "pattern": "^https://"
+            }
+          },
+          "if": {
+            "properties": {
+              "durum": {
+                "const": "dogrulandi"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "sayfa",
+              "kaynak_url"
+            ]
+          }
+        }
+      }
+    },
+    "genel_kurul": {
+      "description": "Genel Kurul'un veto sonrası tartışmaları (A/RES/76/262). 26 Nisan 2022 öncesi vetolarda durum 'kapsam_disi'. Tartışma ayrıntıları kaynaklar/genel_kurul_tartismalari.csv'de.",
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "durum",
+        "ozel_rapor",
+        "tartismalar"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "durum": {
+          "enum": [
+            "yapildi",
+            "bekleniyor",
+            "kapsam_disi"
+          ]
+        },
+        "ozel_rapor": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^A/\\d+/\\d+$"
+        },
+        "tartismalar": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^GK-"
+          }
+        }
+      }
+    }
+  }
+}

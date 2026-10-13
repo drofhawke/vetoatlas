@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yedi adımda veto — taslak</title>
+<style>
+@font-face{font-family:"Source Serif 4";src:url("SourceSerif4-Regular.otf");font-weight:400}
+@font-face{font-family:"Source Serif 4";src:url("SourceSerif4-Semibold.otf");font-weight:600}
+@font-face{font-family:"Source Sans 3";src:url("SourceSans3-Regular.otf");font-weight:400}
+@font-face{font-family:"Source Sans 3";src:url("SourceSans3-Semibold.otf");font-weight:600}
+:root{
+  --zemin:#FBF8F1; --yuzey:#FFFFFF; --murekkep:#13213A; --ikincil:#5A6578; --cizgi:#E1DBCF; --bos:#EDE7DA;
+  --notr:#9AA3B2; --ret:#A4262C;
+  --u-sscb:#7E2F3C; --u-rus:#C2666F; --u-usa:#24507F; --u-gbr:#2F7A6E; --u-fra:#A8782A; --u-chn:#5E4E9A;
+  --serif:"Source Serif 4",Georgia,serif; --sans:"Source Sans 3","Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--zemin);color:var(--murekkep);font-family:var(--sans);font-size:18px;line-height:1.55}
+/* ---- ortak üst çubuk ---- */
+.cubuk{position:sticky;top:0;z-index:5;background:rgba(251,248,241,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--cizgi)}
+.cubuk .ic{max-width:1180px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:28px}
+.cubuk img{height:40px;display:block}
+.cubuk nav{margin-left:auto;display:flex;gap:22px;font-size:15px}
+.cubuk nav a{color:var(--murekkep);text-decoration:none;padding:6px 0;border-bottom:2px solid transparent}
+.cubuk nav a.aktif{border-bottom-color:var(--murekkep);font-weight:600}
+.cubuk .dil{display:flex;gap:6px;margin-left:8px}
+.cubuk .dil span{font-size:12px;padding:4px 10px;border:1px solid var(--cizgi);border-radius:999px}
+.cubuk .dil span.aktif{background:var(--murekkep);color:var(--zemin);border-color:var(--murekkep)}
+/* ---- giriş ---- */
+.giris{max-width:760px;margin:0 auto;padding:96px 24px 48px;text-align:left}
+.ustyazi{font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--ikincil);margin-bottom:18px}
+.giris h1{font-family:var(--serif);font-weight:600;font-size:clamp(2.8rem,6vw,4.4rem);line-height:1.02;margin:0 0 20px;letter-spacing:-.01em}
+.giris .ozet{font-family:var(--serif);font-size:1.35rem;line-height:1.45;max-width:30em;margin:0 0 14px}
+.giris .not{color:var(--ikincil);font-size:15px}
+.giris .asagi{margin-top:36px;font-size:14px;color:var(--ikincil);display:flex;align-items:center;gap:10px}
+.giris .asagi i{display:inline-block;width:1px;height:38px;background:var(--murekkep)}
+/* ---- ilerleme rayı ---- */
+.ray{position:fixed;left:24px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:14px}
+.ray a{width:10px;height:10px;border-radius:50%;background:var(--cizgi);display:block}
+.ray a.aktif{background:var(--murekkep);transform:scale(1.25)}
+.ray a.gecti{background:var(--notr)}
+/* ---- adım ---- */
+.adim{max-width:760px;margin:0 auto;padding:72px 24px 48px;border-top:1px solid var(--cizgi)}
+.adim-bas{display:flex;align-items:baseline;gap:18px;margin-bottom:28px}
+.adim-no{font-family:var(--serif);font-weight:600;font-size:3.2rem;line-height:1;color:var(--murekkep)}
+.adim-no small{font-size:1.1rem;font-weight:400;color:var(--ikincil);margin-left:4px}
+.adim-baslik{font-family:var(--serif);font-weight:600;font-size:1.6rem;line-height:1.15}
+.istat{font-family:var(--serif);font-weight:600;font-size:clamp(5.5rem,13vw,8.5rem);line-height:.95;letter-spacing:-.02em;margin:8px 0 6px}
+.istat-alt{font-size:16px;color:var(--ikincil);margin-bottom:22px}
+.metin{font-family:var(--serif);font-size:1.4rem;line-height:1.45;max-width:28em;margin:0 0 30px}
+.gorsel{margin:0 0 34px}
+.alinti{border-left:3px solid var(--murekkep);padding:6px 0 6px 22px;margin:0 0 26px}
+.alinti p{font-family:var(--serif);font-size:1.15rem;line-height:1.5;margin:0 0 8px}
+.alinti .kaynak{font-size:14px;color:var(--ikincil)}
+.ayrinti{font-size:16px;font-weight:600;text-decoration:underline;text-underline-offset:4px;color:var(--murekkep)}
+/* görseller */
+.koltuklar{display:flex;gap:10px;flex-wrap:wrap}
+.koltuk{width:38px;height:38px;border-radius:5px;background:var(--notr)}
+.koltuk.daimi{background:var(--murekkep)}
+.koltuk.daimi::after{content:"";display:block;width:10px;height:10px;margin:6px;border-radius:2px;background:var(--ret)}
+.noktalar{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.nokta{width:34px;height:34px;border-radius:50%;background:var(--notr)}
+.nokta.ret{background:var(--ret)}
+.sonuc{font-family:var(--serif);font-size:1.15rem;margin-left:10px;color:var(--ikincil)}
+.kareler{display:grid;grid-template-columns:repeat(23,1fr);gap:4px;max-width:560px}
+.kareler i{display:block;aspect-ratio:1;border-radius:2px;background:var(--notr)}
+.kareler i.bos{background:transparent;border:1.5px dashed var(--ikincil)}
+@media (max-width:760px){
+  .ray{display:none}
+  .cubuk nav{display:none}
+  .adim{padding-top:56px}
+  .adim-no{font-size:2.6rem}
+  .koltuk{width:30px;height:30px}
+  .nokta{width:26px;height:26px}
+}
+</style>
+</head>
+<body>
+<div class="cubuk"><div class="ic">
+  <img src="cikti/logo-yatay-a.svg" alt="Veto Atlası">
+  <nav><a class="aktif">Hikâye</a><a>Vetolar</a><a>Söz ve Kayıt</a><a>Ya veto olmasaydı?</a><a>Kim temsil ediliyor?</a><a>Nasıl yaptık?</a></nav>
+  <div class="dil"><span class="aktif">TR</span><span>EN</span></div>
+</div></div>
+
+<div class="ray"><a class="aktif"></a><a></a><a></a><a></a><a></a><a></a><a></a></div>
+
+<section class="giris">
+  <div class="ustyazi">Cumhurbaşkanı Recep Tayyip Erdoğan'ın "Dünya 5'ten büyüktür" çağrısından hareketle</div>
+  <h1>Yedi adımda veto</h1>
+  <p class="ozet">Güvenlik Konseyi'nde kim, kaç kez, neyi durdurdu. Bütün sayılar BM'nin kendi kayıtlarından.</p>
+  <p class="not">Sayılar sayfa açılırken atlasın veri setinden hesaplanır.</p>
+  <div class="asagi"><i></i> Kaydırarak ilerleyin</div>
+</section>
+
+<section class="adim">
+  <div class="adim-bas"><div class="adim-no">1<small>/ 7</small></div><div class="adim-baslik">Veto nedir?</div></div>
+  <div class="istat">5</div>
+  <div class="istat-alt">daimî üye, 15 koltuğun beşi</div>
+  <p class="metin">Güvenlik Konseyi'nde 15 ülke var. Beşinin özel bir yetkisi var: tek başına "hayır" diyerek her kararı durdurabilir. Buna veto deniyor.</p>
+  <div class="gorsel koltuklar">
+    <div class="koltuk daimi"></div><div class="koltuk daimi"></div><div class="koltuk daimi"></div><div class="koltuk daimi"></div><div class="koltuk daimi"></div>
+    <div class="koltuk"></div><div class="koltuk"></div><div class="koltuk"></div><div class="koltuk"></div><div class="koltuk"></div><div class="koltuk"></div><div class="koltuk"></div><div class="koltuk"></div><div class="koltuk"></div><div class="koltuk"></div>
+  </div>
+  <div class="alinti"><p>"Bu kürsüden yıllardır insanlığın kaderinin sınırlı sayıdaki ülkenin ihtiyarına bırakılamayacağını söylüyorum. Burada sizlerin huzurunda tekrar ediyorum; 'Dünya 5'ten Büyüktür.'"</p><div class="kaynak">Recep Tayyip Erdoğan · BM 74. Genel Kurulu, 24 Eylül 2019, s. 6</div></div>
+  <a class="ayrinti">Nasıl işliyor? Metodoloji →</a>
+</section>
+
+<section class="adim">
+  <div class="adim-bas"><div class="adim-no">4<small>/ 7</small></div><div class="adim-baslik">Tek ülke, bütün Konsey</div></div>
+  <div class="istat">55</div>
+  <div class="istat-alt">kez diğer bütün üyeler "evet" dedi, bir ülke "hayır" dedi</div>
+  <p class="metin">55 karar, Konsey'deki diğer bütün ülkeler evet derken tek bir ülkenin "hayır" oyuyla düştü.</p>
+  <div class="gorsel noktalar">
+    <div class="nokta"></div><div class="nokta"></div><div class="nokta"></div><div class="nokta"></div><div class="nokta"></div><div class="nokta"></div><div class="nokta"></div><div class="nokta"></div><div class="nokta"></div><div class="nokta"></div><div class="nokta"></div><div class="nokta"></div><div class="nokta"></div><div class="nokta"></div><div class="nokta ret"></div>
+    <span class="sonuc">14 evet · 1 hayır → düştü</span>
+  </div>
+  <div class="alinti"><p>"190'dan fazla ülkenin iradesinin 5 ülkenin keyfine bağlı olduğu bir yapı, kabul edelim ki, ne âdildir, ne de güveni tam manasıyla tesis edebilir."</p><div class="kaynak">Recep Tayyip Erdoğan · BM 81. Genel Kurulu, 22 Eylül 2026, s. 16</div></div>
+  <a class="ayrinti">55 kararın tamamı →</a>
+</section>
+
+<section class="adim">
+  <div class="adim-bas"><div class="adim-no">2<small>/ 7</small></div><div class="adim-baslik">Kaç karar düştü?</div></div>
+  <div class="istat">266</div>
+  <div class="istat-alt">karar, 1946'dan bugüne · her kare bir ret oyu</div>
+  <p class="metin">1946'dan bu yana 266 karar bu şekilde düştü.</p>
+  <div class="gorsel kareler" id="kareler"></div>
+  <a class="ayrinti">Bütün vetolar →</a>
+</section>
+<script>
+const k=document.getElementById('kareler');for(let i=0;i<322;i++){const s=document.createElement('i');if(i===321||i===319)s.className='bos';k.appendChild(s);}
+</script>
+</body>
+</html>

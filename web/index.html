@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Veto Atlası / Veto Atlas</title>
+<meta name="description" content="Giriş sayfası hikâyeye yönlendirir. / The entry page redirects to the story.">
+<meta http-equiv="refresh" content="0; url=hikaye.html">
+<link rel="canonical" href="https://vetoatlas.com/hikaye">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#FBF8F1">
+<style>body { font-family: "Segoe UI", system-ui, sans-serif; padding: 24px; color: #1D2733; background: #F2F4F6; }</style>
+</head>
+<body>
+<p><a href="hikaye.html" id="git">Veto Atlası · Hikâye / Veto Atlas · Story</a></p>
+<script>
+// Giriş sayfası: hikâyeye yönlendirir; dil parametresi korunur. Atlasın kendisi vetolar.html'dedir.
+(() => { const q = location.search; const a = document.getElementById("git"); a.href = "hikaye.html" + q; location.replace("hikaye.html" + q + location.hash); })();
+</script>
+</body>
+</html>

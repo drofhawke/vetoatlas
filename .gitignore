@@ -1,0 +1,18 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+data/review/*.csv
+
+# Yerel çalışma metinleri (konuşma derlemeleri vb.); depoya girmez, künyeleri KAYNAKLAR.md'de
+kaynaklar/calisma_metinleri/
+
+# Yerel belgeler (toplantı kayıtları vb. PDF); depoya girmez, künyeleri ve SHA-256 değerleri KAYNAKLAR.md'de;
+# yeniden indirme: scripts/07_belgeleri_indir.py
+kaynaklar/.belgeler/
+
+# Açık depo: ham kaynak kopyaları ve referans tablo depoya girmez; künyeleri data/raw/KAYNAK.md ve
+# kaynaklar/KAYNAKLAR.md'de
+data/raw/*.html
+data/raw/temsil/
+kaynaklar/scprocedure_tablo4.csv

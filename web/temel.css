@@ -1,0 +1,104 @@
+/*
+ * Veto Atlası – temel tasarım dili (kaynaklar/kimlik/KILAVUZ.md, bölüm 2).
+ * Her sayfa bu dosyayı kendi stilinden önce yükler; tek dosya sürümü gömer. Renkler sayfaların :root bloğundadır.
+ *
+ * Izgara. Bütün boşluk ve hizalamalar 4 px'in katıdır ve şu basamaklardan seçilir:
+ *   --b1 4 · --b2 8 · --b3 12 · --b4 16 · --b6 24 · --b8 32 · --b12 48 · --b16 64 · --b24 96
+ *   4–12 bileşen içi · 16–24 bileşenler arası ve paragraflar · 32 alt bölüm · 48–64 bölüm · 96 sayfa girişi (masaüstü)
+ *
+ * Yazı. İki aile: Source Serif 4 (başlıklar, okuma metni, sayılar) ve Source Sans 3 (arayüz, küçük metin, kod).
+ * Dört boyut (boyut / satır yüksekliği, ikisi de 4 px ızgarasında):
+ *   küçük 15/24 · gövde 18/28 · başlık 40/48 (760 px ve altında 32/40) · gösterge 96/96 (760 px ve altında 56/56)
+ *
+ * Bütün metin sola yaslıdır; iki yana yaslama ve heceleme hiçbir genişlikte kullanılmaz (tablolardaki sayılar
+ * basamakları alt alta gelsin diye sağa yaslıdır). Etiketler küçük boyut ve ikincil renkle ayrılır; büyük harf
+ * dönüşümü ve açık harf aralığı kullanılmaz. Bölümler ince bir çizgi ve boşlukla, alt bölümler yalnızca boşlukla
+ * ayrılır.
+ */
+:root {
+  --b1: 4px; --b2: 8px; --b3: 12px; --b4: 16px; --b6: 24px; --b8: 32px; --b12: 48px; --b16: 64px; --b24: 96px;
+  --yz-kucuk: 15px; --sa-kucuk: 24px;
+  --yz-govde: 18px; --sa-govde: 28px;
+  --yz-baslik: 40px; --sa-baslik: 48px;
+  --yz-gosterge: 96px; --sa-gosterge: 96px;
+  --olcu: 640px;      /* okuma metninin en geniş satırı */
+  --olcu-metin: 68ch; /* metin sayfasının okuma sütunu: satır başına yaklaşık 70–80 karakter */
+  --kap: 1180px;      /* sayfa kabı */
+  --kenar: 24px;      /* sayfa kenar boşluğu */
+}
+@media (max-width: 760px) {
+  :root { --yz-baslik: 32px; --sa-baslik: 40px; --yz-gosterge: 56px; --sa-gosterge: 56px; --kenar: 16px; }
+}
+
+/* Taban */
+html { -webkit-text-size-adjust: 100%; }
+body { font-family: var(--sans); font-size: var(--yz-govde); line-height: var(--sa-govde); }
+h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; margin: 0; }
+h1 { font-size: var(--yz-baslik); line-height: var(--sa-baslik); letter-spacing: -0.01em; }
+h2, h3, h4 { font-size: var(--yz-govde); line-height: var(--sa-govde); }
+p, blockquote, figure, dl, dd, pre { margin: 0; }
+ul, ol { margin: 0; padding-left: var(--b6); }
+button, input, select, textarea { font: inherit; }
+code, kbd, samp, pre { font-family: var(--sans); font-size: inherit; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+small { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+table { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+summary { cursor: pointer; }
+
+/* Hizalama: bütün metin sola yaslı; iki yana yaslama ve heceleme hiçbir genişlikte kullanılmaz (KILAVUZ bölüm 2) */
+body { text-align: left; -webkit-hyphens: none; hyphens: none; }
+
+/* Bölüm ayrımı: ana içerikteki bölümler ince bir çizgi ve boşlukla ayrılır (ilk bölüm girişin hemen ardından gelir) */
+main > :is(section, aside) + section { margin-top: var(--b16); padding-top: var(--b8); border-top: 1px solid var(--cizgi); }
+main > section > h2:first-child { margin-top: 0; margin-bottom: var(--b2); }
+/* Düz yazı sayfaları (Hakkında, Metodoloji), dikey ritim: bölümler arası 32 px, ayırıcı çizgi ile bölüm başlığı arası 24 px,
+   başlığın altı 12 px; alt bölüm başlığı çizgisiz, üstü 24 px, altı 12 px; paragraflar 16 px arayla. Bağlantıyla gidilen
+   başlık çubuğun 16 px altında durur. */
+.duz-yazi h2 { margin: var(--b8) 0 var(--b3); padding-top: var(--b6); border-top: 1px solid var(--cizgi); }
+.duz-yazi h3 { margin: var(--b6) 0 var(--b3); }
+.duz-yazi :is(h2, h3)[id] { scroll-margin-top: var(--b4); }
+.duz-yazi :is(p, ul, ol, dl, blockquote, table, pre) { margin-bottom: var(--b4); }
+.duz-yazi li + li { margin-top: var(--b2); }
+
+/* Metin sayfası (Hakkında, Metodoloji; KILAVUZ bölüm 2): okuma metni solda ve sola yaslı, sütunu 68ch (--olcu-metin;
+   satır başına yaklaşık 70–80 karakter). 1100 px ve üstünde sağ sütunda kaydırdıkça yerinde duran "Bu sayfada" dizini
+   (çubuğun 24 px altında),
+   altında başlığın hemen altında katlanabilir kutu. Dizini web/metin.js bölüm başlıklarından üretir; okunan bölümün
+   bağlantısı mürekkep rengi ve solunda 2 px çizgiyle vurgulanır (aria-current). */
+.metin-duzen .metin, .metin-dizin { max-width: var(--olcu-metin); }
+/* Uzun adresler (ör. main.un.org/…) dar ekranda satır içinde kırılır */
+.metin-duzen .metin p, .metin-duzen .metin li { overflow-wrap: break-word; }
+.metin-dizin { margin-bottom: var(--b6); }
+.metin-dizin:empty { display: none; }
+.bu-sayfada { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+.bu-sayfada ul { list-style: none; margin: 0; padding: 0; }
+.bu-sayfada ul ul { padding-left: var(--b4); }
+.bu-sayfada li, .bu-sayfada li + li { margin: 0; max-width: none; }
+.bu-sayfada a { display: block; padding: var(--b1) 0 var(--b1) var(--b3); border-left: 2px solid transparent; color: var(--murekkep-2); text-decoration: none; }
+.bu-sayfada a:hover { color: var(--murekkep); text-decoration: underline; }
+.bu-sayfada a[aria-current] { color: var(--murekkep); border-left-color: var(--murekkep); }
+.bu-sayfada a:focus-visible { outline-offset: -2px; }
+.bu-sayfada .bu-sayfada-baslik { margin: 0 0 var(--b2); font-weight: 600; }
+.bu-sayfada-kutu { background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 6px; }
+.bu-sayfada-kutu > summary { padding: var(--b3) var(--b4); font: 600 var(--yz-kucuk)/var(--sa-kucuk) var(--sans); }
+.bu-sayfada-kutu > nav { padding: 0 var(--b4) var(--b3); }
+.bu-sayfada-yan { display: none; }
+@media (min-width: 1100px) {
+  .metin-duzen:not([hidden]) { display: grid; grid-template-columns: minmax(0, var(--olcu-metin)) 288px; column-gap: var(--b16); justify-content: space-between; }
+  .metin-duzen > h1 { grid-column: 1; grid-row: 1; }
+  .metin-duzen > .metin { grid-column: 1; grid-row: 2; }
+  .metin-duzen > .metin-dizin { grid-column: 2; grid-row: 2; margin: 0; max-width: none; }
+  .bu-sayfada-kutu { display: none; }
+  .bu-sayfada-yan { display: block; position: sticky; top: var(--b6); max-height: calc(100vh - var(--b12)); overflow-y: auto; }
+  .c-cubuklu .bu-sayfada-yan { top: calc(76px + var(--b6)); max-height: calc(100vh - 76px - var(--b12)); }
+}
+
+/* Düğmeler (KILAVUZ bölüm 2): birincil dolu mürekkep zemin ve kâğıt rengi yazı, ikincil çerçeveli açık zemin; ikisi de 48 px.
+   Küçük kopya 40 px (simülasyonun yapışkan şeridi). Simge solda, yazı rengiyle (currentColor; kırmızı kullanılmaz). Pasifken
+   (sayım sürerken) soluk ve aria-disabled: odaklanabilir kalır, tıklama yok sayılır. Odak halkası sayfanın :focus-visible kuralı. */
+.dugme { display: inline-flex; align-items: center; justify-content: center; gap: var(--b2); min-height: 48px; padding: 0 var(--b6);
+  font: 600 var(--yz-govde)/var(--sa-govde) var(--sans); color: var(--zemin); background: var(--murekkep); border: 1px solid var(--murekkep);
+  border-radius: 6px; text-decoration: none; cursor: pointer; }
+.dugme.ikincil { color: var(--murekkep); background: var(--yuzey); border-color: var(--cizgi); }
+.dugme.kucuk { min-height: 40px; padding: 0 var(--b4); font: 600 var(--yz-kucuk)/var(--sa-kucuk) var(--sans); }
+.dugme[aria-disabled="true"], .dugme:disabled { opacity: .45; cursor: default; }
+.dugme svg { flex: none; }

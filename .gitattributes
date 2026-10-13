@@ -1,0 +1,8 @@
+# Ham kaynak dosyaları bayt bayt korunur: git satır sonlarına dokunmasın (SHA-256 bunlara bağlı).
+data/raw/** -text
+# Açık veri dosyaları da bayt bayt korunur (SHA-256 sayfada gösteriliyor).
+web/veri/** -text
+# Temsil endeksi girdileri de bayt bayt korunur: 09 bunları CRLF yazar, SHA-256'larını temsil.json'a kaydeder.
+kaynaklar/temsil/*.csv -text
+# 04 açık veri dosyasını bu kaynaktan bayt bayt kopyalar (SHA-256 sayfada); checkout satır sonlarını değiştirmesin.
+kaynaklar/genel_kurul_tartismalari.csv -text

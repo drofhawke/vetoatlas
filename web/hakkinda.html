@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hakkında · Veto Atlası</title>
+<meta name="description" content="Veto Atlası'nın kaynakları, sayım ve tarih kuralları, doğrulama yöntemi, bilinen sınırları ve açık verisi. / Sources, counting and date rules, verification method, known limitations and open data of the Veto Atlas.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Veto Atlası / Veto Atlas">
+<meta property="og:title" content="Hakkında · Veto Atlası / About · Veto Atlas">
+<meta property="og:description" content="Veto Atlası'nın kaynakları, sayım ve tarih kuralları, doğrulama yöntemi, bilinen sınırları ve açık verisi. / Sources, counting and date rules, verification method, known limitations and open data of the Veto Atlas.">
+<meta property="og:image" content="https://vetoatlas.com/onizleme.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Birim grafik: 1946'dan bu yana her yıl kullanılan ret oyları, vetoyu kullanan daimi üyeye göre renkli. / Unit chart: negative votes cast each year since 1946, coloured by the permanent member that cast the veto.">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:locale:alternate" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="https://vetoatlas.com/hakkinda">
+<link rel="canonical" href="https://vetoatlas.com/hakkinda">
+<link rel="alternate" hreflang="tr" href="https://vetoatlas.com/hakkinda">
+<link rel="alternate" hreflang="en" href="https://vetoatlas.com/hakkinda?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://vetoatlas.com/hakkinda">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#FBF8F1">
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="temel.css">
+<script src="cubuk.js"></script>
+<script src="metin.js"></script>
+<style>
+:root {
+  --zemin: #FBF8F1; --yuzey: #FFFFFF; --murekkep: #13213A; --murekkep-2: #5A6578; --cizgi: #E1DBCF; --vurgu: #A4262C;
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans: "Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+:root[data-theme="dark"] {--zemin: #1C1A17; --yuzey: #272420; --murekkep: #EDE8E0; --murekkep-2: #ABA496; --cizgi: #3B3731; --vurgu: #E05A52; }
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--zemin); color: var(--murekkep); font-family: var(--sans); font-size: var(--yz-govde); line-height: var(--sa-govde); }
+.kap { max-width: 1180px; margin: 0 auto; padding: 0 24px 64px; }
+.kap p, .kap li { max-width: var(--olcu); }
+a { color: inherit; text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--murekkep); outline-offset: 2px; }
+h1 { font-family: var(--serif); font-weight: 600; font-size: var(--yz-baslik); line-height: var(--sa-baslik); margin: 48px 0 12px; }  /* sayfa üstü */
+h2 { font-family: var(--serif); font-weight: 600; font-size: var(--yz-govde); margin: 32px 0 8px; line-height: var(--sa-govde); }
+p, li { max-width: var(--olcu); }
+ul { padding-left: 24px; }
+li + li { margin-top: 4px; }
+.giris { font-family: var(--serif); font-size: var(--yz-govde); line-height: var(--sa-govde); }
+.kutu { background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 6px; padding: 16px 16px; }
+.indir { list-style: none; padding: 0; margin: 0; }
+.indir li { padding: 12px 0; border-top: 1px solid var(--cizgi); max-width: none; }
+.indir li:first-child { border-top: none; }
+code { word-break: break-all; }
+.indir code { font-size: var(--yz-kucuk); color: var(--murekkep-2); line-height: var(--sa-kucuk); }
+.kutu .atif, .kutu .indir { margin: 0; }
+.kutu + .lisans { margin-top: 12px; }
+a[href^="https://orcid.org/"] { white-space: nowrap; }
+.ikincil { color: var(--murekkep-2); font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+@media (max-width: 760px) { body { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); } .kap { padding: 0 16px 48px; } h1 { margin-top: 32px; } }
+
+
+.kap p, .kap dd, .kap blockquote, .kap ul:not([class]) > li, .kap ol:not([class]) > li { max-width: var(--olcu); }
+
+
+
+.ham-kaynak, .ham-kaynak a, code { overflow-wrap: anywhere; }
+</style>
+</head>
+<body data-sayfa="hakkinda">
+<header id="cubuk" class="cubuk"></header>
+<div class="kap">
+
+  <main class="icerik duz-yazi metin-duzen" lang="tr" data-dil="tr">
+    <h1>Hakkında</h1>
+    <div class="metin-dizin"></div>
+    <div class="metin">
+    <p class="giris">Veto Atlası, BM Güvenlik Konseyi'nde 1946'dan bu yana kullanılan vetoları kaynaklarıyla birlikte,
+    doğrulanabilir ve indirilebilir bir veri setinde toplar. Atlas, Cumhurbaşkanı Recep Tayyip Erdoğan’ın
+    “Dünya 5’ten büyüktür” çağrısından hareketle hazırlanmıştır.</p>
+    <p class="ozet-sayilar ikincil"></p>
+    <p>Bu sayfa, verinin nasıl derlendiğini sade bir dille anlatır. Ayrıntılı kurallar <a href="metodoloji.html">Metodoloji</a> sayfasındadır.</p>
+
+    <h2 id="kaynaklar">Kaynaklar</h2>
+    <ul>
+      <li><b>Ana liste:</b> BM Dag Hammarskjöld Kütüphanesi'nin (DHL) Güvenlik Konseyi veto listesi. İndirilen sayfanın
+        değiştirilmemiş kopyası SHA-256 özetiyle tanımlanır: <span class="ham-kaynak"></span>.</li>
+      <li><b>Referans tablo:</b> Sievers ve Daws, <i>The Procedure of the UN Security Council</i>, Tablo 4 (18 Eylül 2025
+        sürümü). Liste bu tabloyla satır satır karşılaştırılır.</li>
+      <li><b>Birincil belgeler:</b> Güvenlik Konseyi toplantı kayıtları (S/PV), karar taslakları, Genel Kurul toplantı
+        kayıtları ve kararları, Konsey'in özel raporları, BM Günlüğü (Journal of the United Nations). Referans tablonun
+        kapsadığı son tarihten (18 Eylül 2025) sonraki vetolar bu belgelerden eklenir.</li>
+    </ul>
+
+    <h2 id="sayim">Nasıl sayıyoruz</h2>
+    <ul>
+      <li>İki sayı birlikte verilir: veto ile düşen <b>öneri</b> sayısı ve kullanılan <b>ret oyu</b> sayısı. Bir öneriyi iki
+        daimi üye veto ettiyse bu bir öneri, iki ret oyudur.</li>
+      <li>Kapalı oturumda kullanılan ve resmî kayıtta kimin kullandığı yazmayan vetolar (Genel Sekreter seçimi) öneri
+        sayısına girer, ret oyu toplamına girmez.</li>
+      <li>Sovyetler Birliği'nin vetoları, Rusya Federasyonu'nunkilerden ayrı gösterilir. 25 Ekim 1971 öncesindeki "Çin"
+        vetosu Çin Cumhuriyeti'ne aittir.</li>
+      <li>Paragraf ve değişiklik önergesi vetoları ile "ön soru" (çifte) vetoları ayrıca işaretlenir.</li>
+    </ul>
+
+    <h2 id="tarih">Tarih kuralı</h2>
+    <p>Bir vetonun tarihi, oylamanın fiilen yapıldığı takvim günüdür. Gece yarısını geçen toplantılarda bu gün, toplantı
+    kaydının başlığındaki tarihten farklı olabilir; iki tarih de kayıtta tutulur. Kayıt kimlikleri (ör. V-1950-09-05-1)
+    değişmeyen anahtarlardır; içlerindeki tarih bilgi taşımaz.</p>
+
+    <h2 id="konular">Konular ve Türkçe başlıklar</h2>
+    <p>Her veto <span data-yer="konu-sayisi"></span> konudan birine ana konu olarak atanır; bazı vetolar ayrıca başka bir konuya ikincil olarak bağlanır.
+    Konu sayıları yalnızca ana konuyu sayar. Gündem başlıkları sadık Türkçe çevirileriyle verilir; özgün başlık her zaman
+    görünür. Konu ataması ve çeviriler editoryal kararlardır ve gerekçeleriyle kaynak dosyalarda kayıtlıdır.</p>
+
+    <h2 id="genel-kurul">Genel Kurul tartışmaları</h2>
+    <p>Genel Kurul, 26 Nisan 2022'de kabul ettiği A/RES/76/262 sayılı kararla her vetodan sonra 10 iş günü içinde bir
+    tartışma yapmayı kararlaştırdı. Atlas, bu tarihten sonraki her veto için Konsey'in özel raporunu, tartışmanın
+    toplantı kayıtlarını ve konuşan delegasyon sayılarını gösterir. Konu Genel Kurul'un olağanüstü özel oturumunda
+    görüşüldüyse yalnızca toplantı kayıtları ve kabul edilen kararlar yazılır.</p>
+
+    <h2 id="nedensellik">Nedensellik dili</h2>
+    <p>Atlas, bir vetonun belirli sonuçlara "yol açtığını" ileri sürmez. Vetodan sonra yaşananlar, "taslağın
+    engellenmesini izleyen dönemde" çerçevesinde ve yalnızca BM ajanslarının ya da tanınmış bağımsız kurumların
+    yayımlanmış verilerine dayanılarak anlatılır.</p>
+
+    <h2 id="dogrulama">Düzeltme ve doğrulama</h2>
+    <p>İki kaynak arasındaki her fark gerekçesiyle bir düzeltme dosyasında tutulur; kodun içine düzeltme gömülmez. Kaynakların
+    ayrıştığı ya da tek başına yetmediği durumlarda ilgili toplantı kaydı açılır: oy dağılımı kayıttaki oylama
+    listesinden sayılır, oylama günü toplantının açılış ve kapanış saatlerinden ve konuşmalardaki zaman ifadelerinden
+    belirlenir. Her sonuç toplantı kaydının sayfa numarasıyla yazılır. Kesin sonuca ulaşılamayan kayıtta tahmin
+    yapılmaz; kayıt "doğrulanıyor" olarak kalır ve nedeni gösterilir.</p>
+    <p>Kayıtlara eklenen notlar ve düzeltme gerekçeleri Türkçe yazılır ve İngilizceye çevrilir; asıl metin Türkçedir.
+    Çevirilerde belge kodları, sayfa numaraları ve özel adlar değiştirilmez.</p>
+    <div class="kutu" data-yer="dogrulama"></div>
+
+    <h2 id="sinirlar">Bilinen sınırlar</h2>
+    <ul>
+      <li>Atlas şimdilik yalnızca resmî vetoları içerir. Veto tehdidiyle oylamaya sunulmayan taslaklar ve Konsey'in
+        eylemsizlik vakaları henüz eklenmedi.</li>
+      <li>DHL listesiyle referans tablonun uyuştuğu kayıtlar ayrıca toplantı kaydından doğrulanmadı; toplantı kaydına
+        yalnızca iki kaynağın ayrıştığı ya da tek başına yetmediği durumlarda başvuruldu.</li>
+      <li>Oy dağılımlarının çoğu referans tablodan alınmıştır.</li>
+      <li>Genel Kurul tartışmalarından bazılarının resmî toplantı kaydı henüz yayımlanmadı; bu tartışmalarda konuşmacı
+        sayıları BM Günlüğü özetlerinden alındı ve bazıları Genel Kurul Başkanlığı'nın özetlerinden bir-iki delegasyon
+        farklıdır.</li>
+    </ul>
+
+    <h2 id="acik-veri">Açık veri</h2>
+    <p>Veri seti aşağıdaki dosyalarla indirilebilir. Dosyalar her veri sürümünde yeniden üretilir; SHA-256 değeri,
+    indirdiğiniz dosyanın buradaki sürümle aynı olduğunu doğrulamanızı sağlar.</p>
+    <div class="kutu"><ul class="indir" data-yer="indir"></ul></div>
+
+    <h2 id="atif">Bu çalışmaya atıf</h2>
+    <div class="kutu"><p class="atif">Yıldız, Nuh Mehmet (2026). <i>Veto Atlası</i> (sürüm 1.0.0).
+    <a href="https://vetoatlas.com">https://vetoatlas.com</a> · DOI: <a href="https://doi.org/10.5281/zenodo.23326362">10.5281/zenodo.23326362</a></p></div>
+    <p class="lisans">Atlasın kodu MIT lisansıyla, derlemesi CC BY 4.0 lisansıyla yayımlanır; üçüncü taraf içerikler
+    kendi lisans ve koşullarına tabidir. Ayrıntılar: <a href="LICENSE-DATA.txt">LICENSE-DATA</a>.</p>
+
+    <h2 id="yayimlayan">Yayımlayan</h2>
+    <p>Yayımlayan: Nuh Mehmet Yıldız, bağımsız araştırmacı · ORCID <a href="https://orcid.org/0000-0002-0921-1256">0000-0002-0921-1256</a></p>
+
+    <h2 id="iletisim">İletişim</h2>
+    <p>İletişim: <a href="mailto:iletisim@vetoatlas.com">iletisim@vetoatlas.com</a>. Hata bildirimleri kabul edilir ve düzeltmeler değişiklik günlüğüne işlenir.</p>
+    </div>
+  </main>
+
+  <main class="icerik duz-yazi metin-duzen" lang="en" data-dil="en" hidden>
+    <h1>About</h1>
+    <div class="metin-dizin"></div>
+    <div class="metin">
+    <p class="giris">The Veto Atlas collects the vetoes cast in the UN Security Council since 1946, with their sources, in a
+    verifiable and downloadable dataset. The atlas takes as its starting point President Recep Tayyip Erdoğan’s call
+    that “the world is bigger than five”.</p>
+    <p class="ozet-sayilar ikincil"></p>
+    <p>This page explains in plain language how the data were compiled. The detailed rules are on the
+    <a href="metodoloji.html?lang=en">Methodology</a> page.</p>
+
+    <h2 id="en-kaynaklar">Sources</h2>
+    <ul>
+      <li><b>Main list:</b> the Security Council veto list of the UN Dag Hammarskjöld Library (DHL). An unmodified copy of
+        the downloaded page is identified by its SHA-256 digest: <span class="ham-kaynak"></span>.</li>
+      <li><b>Reference table:</b> Sievers and Daws, <i>The Procedure of the UN Security Council</i>, Table 4 (version of
+        18 September 2025). The list is compared with this table line by line.</li>
+      <li><b>Primary documents:</b> Security Council meeting records (S/PV), draft resolutions, General Assembly meeting
+        records and resolutions, the Council's special reports, and the Journal of the United Nations. Vetoes after the
+        last date covered by the reference table (18 September 2025) are added from these documents.</li>
+    </ul>
+
+    <h2 id="en-sayim">How we count</h2>
+    <ul>
+      <li>Two numbers are given together: the number of <b>proposals</b> that failed because of a veto and the number of
+        <b>negative votes</b> cast. If two permanent members vetoed one proposal, that is one proposal and two negative
+        votes.</li>
+      <li>Vetoes cast in private meetings, for which the official record does not say who cast them (appointment of the
+        Secretary-General), are counted as proposals but not in the negative-vote total.</li>
+      <li>Vetoes of the Soviet Union are shown separately from those of the Russian Federation. "China" vetoes before
+        25 October 1971 belong to the Republic of China.</li>
+      <li>Vetoes of paragraphs and amendments, and "preliminary question" (double) vetoes, are marked separately.</li>
+    </ul>
+
+    <h2 id="en-tarih">Date rule</h2>
+    <p>The date of a veto is the calendar day on which the vote actually took place. For meetings that ran past midnight,
+    this day can differ from the date in the heading of the meeting record; both dates are kept in the record. Record
+    identifiers (e.g. V-1950-09-05-1) are permanent keys; the date inside them carries no information.</p>
+
+    <h2 id="en-konular">Topics and agenda items</h2>
+    <p>Each veto is assigned one of <span data-yer="konu-sayisi"></span> topics as its main topic; some vetoes are also linked to another topic as a
+    secondary topic. Topic counts include only the main topic. In the English version, agenda items are shown in their
+    original UN wording; the Turkish version gives faithful Turkish translations next to the original. Topic assignments
+    and translations are editorial decisions and are recorded with their reasons in the source files.</p>
+
+    <h2 id="en-genel-kurul">General Assembly debates</h2>
+    <p>By resolution A/RES/76/262, adopted on 26 April 2022, the General Assembly decided to hold a debate within 10
+    working days after every veto. For every veto after that date, the atlas shows the Council's special report, the
+    meeting records of the debate and the number of delegations that spoke. If the matter was taken up in an emergency
+    special session of the General Assembly, only the meeting records and the resolutions adopted are listed.</p>
+
+    <h2 id="en-nedensellik">Language of causation</h2>
+    <p>The atlas does not claim that a veto "led to" particular outcomes. What happened after a veto is described in the
+    frame of "the period following the blocking of the draft", and only on the basis of published data from UN agencies
+    or recognised independent institutions.</p>
+
+    <h2 id="en-dogrulama">Corrections and verification</h2>
+    <p>Every difference between the two sources is recorded with its reason in a corrections file; no corrections are
+    embedded in the code. Where the sources disagree or are not sufficient on their own, the relevant meeting record is
+    opened: the vote breakdown is counted from the voting list in the record, and the voting day is determined from the
+    opening and closing times of the meeting and from time references in the statements. Every finding is recorded with
+    the page number of the meeting record. Where no definite conclusion can be reached, no guess is made; the record stays
+    "under verification" and the reason is shown.</p>
+    <p>The notes attached to the records and the reasons for corrections are written in Turkish and translated into
+    English; the Turkish text is the original. Document symbols, page numbers and proper names are not changed in
+    translation.</p>
+    <div class="kutu" data-yer="dogrulama"></div>
+
+    <h2 id="en-sinirlar">Known limitations</h2>
+    <ul>
+      <li>For now the atlas includes only formal vetoes. Drafts not put to a vote because of a veto threat, and cases of
+        Council inaction, have not yet been added.</li>
+      <li>Records on which the DHL list and the reference table agree were not separately verified from the meeting
+        record; meeting records were consulted only where the two sources disagreed or were not sufficient on their
+        own.</li>
+      <li>Most vote breakdowns are taken from the reference table.</li>
+      <li>The official records of some General Assembly debates have not yet been published; for these debates, speaker
+        counts were taken from Journal of the United Nations summaries, and some differ by one or two delegations from the
+        summaries of the Office of the President of the General Assembly.</li>
+    </ul>
+
+    <h2 id="en-acik-veri">Open data</h2>
+    <p>The dataset can be downloaded in the files below. The files are regenerated with every data version; the SHA-256
+    value lets you check that the file you downloaded is the same as the version listed here.</p>
+    <div class="kutu"><ul class="indir" data-yer="indir"></ul></div>
+
+    <h2 id="en-atif">Cite this work</h2>
+    <div class="kutu"><p class="atif">Yıldız, Nuh Mehmet (2026). <i lang="tr">Veto Atlası</i> (version 1.0.0).
+    <a href="https://vetoatlas.com">https://vetoatlas.com</a> · DOI: <a href="https://doi.org/10.5281/zenodo.23326362">10.5281/zenodo.23326362</a></p></div>
+    <p class="lisans">The atlas code is released under the MIT licence and the compilation under CC BY 4.0; third-party
+    content remains subject to its own licences and terms. Details: <a href="LICENSE-DATA.txt">LICENSE-DATA</a>.</p>
+
+    <h2 id="en-yayimlayan">Publisher</h2>
+    <p>Published by Nuh Mehmet Yıldız, independent researcher · ORCID <a href="https://orcid.org/0000-0002-0921-1256">0000-0002-0921-1256</a></p>
+
+    <h2 id="en-iletisim">Contact</h2>
+    <p>Contact: <a href="mailto:iletisim@vetoatlas.com">iletisim@vetoatlas.com</a>. Error reports are welcome, and corrections are entered in the change log.</p>
+    </div>
+  </main>
+</div>
+
+<script src="veri.js"></script>
+<script>
+(function () {
+  "use strict";
+  const $ = (s) => document.querySelector(s);
+  // Dil adres çubuğunda (?lang=en) tutulur; bağlantı paylaşılınca seçim korunur.
+  const DILLER = ["tr", "en"];
+  const parametre = new URLSearchParams(location.search).get("lang");
+  const DIL = DILLER.includes(parametre) ? parametre : "tr";
+  const SOZLUK = {
+    tr: {
+      sayfaBasligi: "Hakkında · Veto Atlası", sayfaAciklamasi: "Veto Atlası'nın kaynakları, sayım ve tarih kuralları, doğrulama yöntemi, bilinen sınırları ve açık verisi.",
+      ozet: ({ surum, oneri, oy }) => `Veri sürümü ${surum}: ${oneri} öneri, ${oy} ret oyu.`,
+      dogrulanan: ({ n }) => `<b>${n}</b> kaydın tarihi, oy dağılımı ya da ret oyu veren üyesi toplantı kaydından doğrulandı.`,
+      dogrulanamayan: ({ n }) => `<b>${n}</b> kaydın oylama günü toplantı kaydına erişilemediği için doğrulanamadı.`,
+      hatalar: ({ dhl, sc }) => `Kaynaklarda toplantı kaydıyla doğrulanan hata sayısı: DHL listesinde <b>${dhl}</b>, referans tabloda <b>${sc}</b>. Bu hatalar kaynak sahiplerine iletilmek üzere ayrı bir bildirimde toplandı.`,
+      veriSurumu: "veri sürümü",
+    },
+    en: {
+      sayfaBasligi: "About · Veto Atlas", sayfaAciklamasi: "Sources, counting and date rules, verification method, known limitations and open data of the Veto Atlas.",
+      ozet: ({ surum, oneri, oy }) => `Data version ${surum}: ${oneri} proposals, ${oy} negative votes.`,
+      dogrulanan: ({ n }) => `For <b>${n}</b> records, the date, the vote breakdown or the member casting the negative vote was verified from the meeting record.`,
+      dogrulanamayan: ({ n }) => `For <b>${n}</b> record${n === "1" ? "" : "s"}, the voting day could not be verified because the meeting record could not be accessed.`,
+      hatalar: ({ dhl, sc }) => `Errors in the sources confirmed from meeting records: <b>${dhl}</b> in the DHL list, <b>${sc}</b> in the reference table. These errors have been collected in a separate report to be sent to the source owners.`,
+      veriSurumu: "data version",
+    },
+  };
+  const t = (a, p) => { const v = SOZLUK[DIL][a]; return typeof v === "function" ? v(p || {}) : v; };
+  const dilliBaglanti = (sayfa) => (DIL === "tr" ? sayfa : `${sayfa}?lang=${DIL}`);
+
+  document.documentElement.lang = DIL;
+  document.title = t("sayfaBasligi");
+  const metaYaz = (secici, deger) => { const e = document.querySelector(secici); if (e) e.setAttribute("content", deger); };
+  metaYaz('meta[name="description"]', t("sayfaAciklamasi"));
+  metaYaz('meta[property="og:title"]', t("sayfaBasligi"));
+  metaYaz('meta[property="og:description"]', t("sayfaAciklamasi"));
+  metaYaz('meta[property="og:locale"]', DIL === "tr" ? "tr_TR" : "en_GB");
+  metaYaz('meta[property="og:locale:alternate"]', DIL === "tr" ? "en_GB" : "tr_TR");
+  const icerik = document.querySelector(`main[data-dil="${DIL}"]`);
+  document.querySelectorAll("main[data-dil]").forEach((e) => { e.hidden = e !== icerik; });
+
+  const V = window.VETO_VERISI;
+  if (!V) return;
+  const m = V.meta, ist = m.istatistik || {};
+  const yer = (s) => icerik.querySelector(s);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const sayi = (n) => (n ?? 0).toLocaleString(DIL === "tr" ? "tr-TR" : "en-GB");
+  const kayit = V.kayitlar;
+  const oy = kayit.filter((k) => !k.kapali).reduce((s, k) => s + k.uyeler.length, 0);
+  yer(".ozet-sayilar").textContent = t("ozet", { surum: m.veri_surumu, oneri: sayi(kayit.length), oy: sayi(oy) });
+  yer('[data-yer="konu-sayisi"]').textContent = sayi((m.konular || []).length);
+  yer(".ham-kaynak").innerHTML = `<a href="${esc(m.kaynak_url || "")}">${esc(m.kaynak_url || "")}</a>, ${DIL === "tr" ? "erişim" : "accessed"} ${esc((m.kaynak_indirme || "").slice(0, 10))}, SHA-256 <code>${esc(m.kaynak_sha256)}</code>`;
+  const h = ist.kaynak_hatalari || {};
+  yer('[data-yer="dogrulama"]').innerHTML = `<ul>
+    <li>${t("dogrulanan", { n: sayi(ist.toplanti_kaydindan_dogrulanan) })}</li>
+    ${ist.dogrulanamayan ? `<li>${t("dogrulanamayan", { n: sayi(ist.dogrulanamayan) })}</li>` : ""}
+    <li>${t("hatalar", { dhl: sayi(h.dhl), sc: sayi(h.scprocedure) })}</li></ul>`;
+  yer('[data-yer="indir"]').innerHTML = (m.indirmeler || []).map((f) => `<li>
+    <a href="${esc(f.dosya)}" download>${esc(f.dosya.split("/").pop())}</a>
+    <span class="ikincil">· ${sayi(Math.round(f.bayt / 1024))} KB · ${t("veriSurumu")} ${esc(m.veri_surumu)}</span><br>
+    <code>SHA-256 ${esc(f.sha256)}</code></li>`).join("");
+})();
+</script>
+</body>
+</html>

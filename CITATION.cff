@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "Bu çalışmayı kullanırsanız lütfen aşağıdaki bilgilerle atıf yapın. / If you use this work, please cite it as below."
+title: "Veto Atlası"
+version: 1.0.0
+date-released: 2026-10-12
+doi: 10.5281/zenodo.23326362
+type: dataset
+authors:
+  - family-names: "Yıldız"
+    given-names: "Nuh Mehmet"
+    orcid: "https://orcid.org/0000-0002-0921-1256"
+    affiliation: "Bağımsız araştırmacı / Independent researcher"
+url: "https://vetoatlas.com"
+license:
+  - MIT
+  - CC-BY-4.0

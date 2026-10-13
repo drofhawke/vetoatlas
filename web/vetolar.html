@@ -1,0 +1,935 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vetolar · Veto Atlası</title>
+<meta name="description" content="1946'dan bu yana BM Güvenlik Konseyi'nde kullanılan vetolar: kaynakları, oy dağılımları ve Genel Kurul tartışmalarıyla, indirilebilir veri olarak. / Vetoes cast in the UN Security Council since 1946, with their sources, vote breakdowns and General Assembly debates, as downloadable data.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Veto Atlası / Veto Atlas">
+<meta property="og:title" content="Vetolar · Veto Atlası / Vetoes · Veto Atlas">
+<meta property="og:description" content="1946'dan bu yana BM Güvenlik Konseyi'nde kullanılan vetolar: kaynakları, oy dağılımları ve Genel Kurul tartışmalarıyla, indirilebilir veri olarak. / Vetoes cast in the UN Security Council since 1946, with their sources, vote breakdowns and General Assembly debates, as downloadable data.">
+<meta property="og:image" content="https://vetoatlas.com/onizleme.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Birim grafik: 1946'dan bu yana her yıl kullanılan ret oyları, vetoyu kullanan daimi üyeye göre renkli. / Unit chart: negative votes cast each year since 1946, coloured by the permanent member that cast the veto.">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:locale:alternate" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="https://vetoatlas.com/vetolar">
+<link rel="canonical" href="https://vetoatlas.com/vetolar">
+<link rel="alternate" hreflang="tr" href="https://vetoatlas.com/vetolar">
+<link rel="alternate" hreflang="en" href="https://vetoatlas.com/vetolar?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://vetoatlas.com/vetolar">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#FBF8F1">
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="temel.css">
+<script src="cubuk.js"></script>
+<style>
+:root {
+  --zemin: #FBF8F1;
+  --yuzey: #FFFFFF;
+  --murekkep: #13213A;
+  --murekkep-2: #5A6578;
+  --cizgi: #E1DBCF;
+  --vurgu: #A4262C;
+  --oy-lehte: #9AA3B2;
+  --oy-aleyhte: #13213A;
+  --oy-cekimser: #D9D3C7;
+  --u-sscb: #7E2F3C;
+  --u-rus: #C2666F;
+  --u-usa: #24507F;
+  --u-gbr: #2F7A6E;
+  --u-fra: #A8782A;
+  --u-chn: #5E4E9A;
+  --bos: #EDE7DA;
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans: "Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+:root[data-theme="dark"] {--zemin: #1C1A17; --yuzey: #272420; --murekkep: #EDE8E0; --murekkep-2: #ABA496;
+    --cizgi: #3B3731; --vurgu: #E05A52; --oy-lehte: #8B94A3; --oy-aleyhte: #EDE8E0;
+    --oy-cekimser: #4A463F; --bos: #2E2A24;
+    --u-sscb: #C2576A; --u-rus: #E89AA5; --u-usa: #5B8DC4; --u-gbr: #5FB09C; --u-fra: #D8A84A; --u-chn: #9B86D6; }
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--zemin); color: var(--murekkep);
+  font-family: var(--sans); font-size: var(--yz-govde); line-height: var(--sa-govde);
+  padding: env(safe-area-inset-top, 0) 0 env(safe-area-inset-bottom, 0);
+}
+.kap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--murekkep); outline-offset: 2px; }
+
+/* Giriş */
+.giris { padding: 64px 0 32px; }
+.giris h1 {
+  font-family: var(--serif); font-weight: 600; font-size: var(--yz-baslik);
+  line-height: var(--sa-baslik); letter-spacing: -0.01em; margin: 0 0 16px;
+}
+.giris p { font-family: var(--serif); font-size: var(--yz-govde); line-height: var(--sa-govde); max-width: var(--olcu); margin: 0; color: var(--murekkep); }
+.giris p + p { margin-top: 12px; color: var(--murekkep-2); font-size: var(--yz-govde); line-height: var(--sa-govde); }
+.serit .hitap-cizgi { stroke: var(--murekkep-2); stroke-width: .9; stroke-dasharray: 1 2; pointer-events: none; }
+.serit .hitap-isaret { fill: var(--murekkep); }
+.serit .hitap-alan { fill: transparent; cursor: pointer; }
+.serit .hitap { cursor: pointer; }
+.serit .hitap:focus { outline: none; }
+.serit .hitap:focus-visible .hitap-alan { stroke: var(--murekkep); stroke-width: 2; }
+.hitap-lejant { font-size: var(--yz-kucuk); color: var(--murekkep-2); display: inline-flex; align-items: center; gap: 8px; padding: 8px 4px; line-height: var(--sa-kucuk); }
+.hitap-lejant .ucgen { width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 8px solid var(--murekkep); }
+.ipucu .alinti { font-family: var(--serif); display: block; margin-top: 4px; }
+
+/* Birim grafik */
+.serit { background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 6px; padding: 24px 24px 16px; position: relative; margin: 0; }
+.serit-kaydir { overflow-x: auto; }
+.serit svg { display: block; width: 100%; min-width: 780px; height: auto; }
+.serit .kare { transition: opacity .15s; cursor: pointer; }
+.serit .kare.sonuk { opacity: .13; }
+.serit .kare.vurgulu { stroke: var(--murekkep); stroke-width: 1.4; }
+.serit .yil-alan { fill: transparent; cursor: pointer; }
+.serit .yil:focus-visible .yil-alan, .serit .yil.secili .yil-alan { fill: var(--bos); }
+.serit .yil:focus { outline: none; }
+.serit .yil:focus-visible .yil-alan { stroke: var(--murekkep); stroke-width: 2; }
+.gorunmez { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.atla { position: absolute; left: 12px; top: -64px; z-index: 10; background: var(--yuzey); color: var(--murekkep);
+  border: 2px solid var(--murekkep); border-radius: 4px; padding: 8px 12px; }
+.atla:focus { top: 12px; }
+.arac:focus { outline: none; }
+.serit .eksen { font: 500 var(--yz-kucuk)/var(--sa-kucuk) var(--sans); fill: var(--murekkep-2); }
+.serit .donem { stroke: var(--murekkep-2); stroke-dasharray: 2 3; stroke-width: 1; }
+.serit .donem-yazi { font: 400 var(--yz-kucuk)/var(--sa-kucuk) var(--sans); fill: var(--murekkep-2); }
+.serit figcaption { font-size: var(--yz-kucuk); color: var(--murekkep-2); margin-top: 12px; max-width: var(--olcu); line-height: var(--sa-kucuk); }
+.serit details.okuma { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); max-width: var(--olcu); margin: var(--b2) 0 0; }
+.serit details.okuma summary { font-weight: 600; width: max-content; max-width: 100%; }
+.serit details.okuma p { color: var(--murekkep-2); margin: var(--b2) 0 0; }
+
+.ipucu {
+  position: absolute; pointer-events: none; background: var(--murekkep); color: var(--zemin);
+  font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); padding: 8px 12px; border-radius: 4px; max-width: 300px; z-index: 5;
+  opacity: 0; transition: opacity .1s;
+}
+.ipucu.acik { opacity: 1; }
+.ipucu strong { display: block; font-weight: 600; }
+
+/* Üye seçiciler (lejant) */
+.uyeler-lejant { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 0; padding: 0; list-style: none; }
+.uye-dugme {
+  display: inline-flex; align-items: center; gap: 8px; font: 500 var(--yz-kucuk)/var(--sa-kucuk) var(--sans); color: var(--murekkep);
+  background: transparent; border: 1px solid var(--cizgi); border-radius: 999px; padding: 8px 16px 8px 12px; cursor: pointer;
+}
+.uye-dugme .nokta { width: 12px; height: 12px; border-radius: 2px; flex: none; }
+.uye-dugme .sayi { color: var(--murekkep-2); font-variant-numeric: tabular-nums; }
+.uye-dugme[aria-pressed="true"] { background: var(--murekkep); color: var(--zemin); border-color: var(--murekkep); }
+.uye-dugme[aria-pressed="true"] .sayi { color: inherit; opacity: .75; }
+.isaret-lejant { display: flex; flex-wrap: wrap; gap: 0 24px; margin: 8px 0 0; padding: 0; list-style: none; }
+.isaret-lejant .hitap-lejant { align-items: baseline; }
+.kapali-lejant { font-size: var(--yz-kucuk); color: var(--murekkep-2); display: inline-flex; align-items: center; gap: 8px; padding: 8px 4px; line-height: var(--sa-kucuk); }
+.kapali-lejant .nokta { width: 12px; height: 12px; border: 1.5px dashed var(--murekkep-2); border-radius: 2px; }
+
+/* Konulara göre vetolar */
+.konular { background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 6px; padding: 24px 24px 12px; margin-top: 24px; }
+.konular h2 { font-family: var(--serif); font-weight: 600; font-size: var(--yz-govde); line-height: var(--sa-govde); margin: 0 0 8px; }
+.konular-aciklama { font-size: var(--yz-kucuk); color: var(--murekkep-2); margin: 0 0 12px; max-width: var(--olcu); line-height: var(--sa-kucuk); }
+.konu-listesi { list-style: none; margin: 0; padding: 0; }
+.konu-satir {
+  width: 100%; display: grid; grid-template-columns: minmax(176px, 272px) 1fr 152px; gap: 4px 16px; align-items: center;
+  background: none; border: none; border-top: 1px solid var(--cizgi); font: inherit; color: inherit; text-align: left;
+  padding: 8px 4px; cursor: pointer;
+}
+.konu-listesi li:first-child .konu-satir { border-top: none; }
+.konu-satir:hover { background: color-mix(in srgb, var(--zemin) 60%, transparent); }
+.konu-satir[aria-pressed="true"] { background: var(--zemin); }
+.konu-satir[aria-pressed="true"] .konu-ad { font-weight: 600; }
+.konular.secimli .konu-satir[aria-pressed="false"] .konu-cubuk { opacity: .35; }
+.konu-ad { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+.konu-cubuk { display: flex; gap: 0; height: 16px; transition: opacity .15s; }
+.konu-cubuk span { display: block; height: 100%; min-width: 2px; }
+.konu-cubuk .kapali { border: 1.5px dashed var(--murekkep-2); border-radius: 2px; }
+.konu-sayi { font-size: var(--yz-kucuk); color: var(--murekkep-2); text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; line-height: var(--sa-kucuk); }
+.konu-sayi b { color: var(--murekkep); font-weight: 600; }
+.konu-not { grid-column: 2 / -1; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); color: var(--murekkep-2); }
+
+/* Araç çubuğu */
+.arac { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: end; margin: 32px 0 16px; }
+.filtre { flex: 1 1 100%; min-width: 0; }
+.filtre summary { cursor: pointer; font-size: var(--yz-kucuk); color: var(--murekkep-2); width: max-content; line-height: var(--sa-kucuk); }
+.filtre-ic { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: end; padding-top: 12px; }
+.alan { display: flex; flex-direction: column; gap: 4px; min-width: 0; font-size: var(--yz-kucuk); color: var(--murekkep-2); line-height: var(--sa-kucuk); }
+.alan input[type="search"], .alan select {
+  font: 400 var(--yz-govde)/var(--sa-govde) var(--sans); color: var(--murekkep); background: var(--yuzey);
+  border: 1px solid var(--cizgi); border-radius: 4px; padding: 8px 12px; min-height: 40px;
+}
+.alan input[type="search"] { width: 280px; max-width: 100%; }
+.alan select { max-width: 100%; }
+[hidden] { display: none !important; }
+.onay { display: inline-flex; align-items: center; gap: 8px; font-size: var(--yz-kucuk); color: var(--murekkep); min-height: 40px; line-height: var(--sa-kucuk); }
+.temizle { font: 500 var(--yz-kucuk)/var(--sa-kucuk) var(--sans); background: none; border: none; color: var(--murekkep); cursor: pointer; padding: 8px 4px; text-decoration: underline; text-underline-offset: 3px; }
+.temizle[hidden] { display: none; }
+.sonuc-sayisi { margin: 0 0 12px; font-size: var(--yz-kucuk); color: var(--murekkep-2); line-height: var(--sa-kucuk); }
+.sonuc-sayisi b { color: var(--murekkep); font-weight: 600; }
+
+/* Kayıt listesi */
+.liste { border-top: 1px solid var(--cizgi); margin-bottom: 64px; }
+.kayit { border-bottom: 1px solid var(--cizgi); }
+.kayit-bas {
+  width: 100%; display: grid; grid-template-columns: 120px 1fr auto; gap: 8px 24px; align-items: baseline;
+  background: none; border: none; text-align: left; font: inherit; color: inherit; padding: 16px 4px; cursor: pointer;
+}
+.kayit-bas:hover { background: color-mix(in srgb, var(--yuzey) 70%, transparent); }
+.kayit time { font-variant-numeric: tabular-nums; color: var(--murekkep-2); font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+.kayit .gundem { font-family: var(--serif); font-size: var(--yz-govde); line-height: var(--sa-govde); }
+.kayit .gundem-ozgun { display: block; font-family: var(--sans); font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); color: var(--murekkep-2); margin-top: 4px; }
+.etiketler { display: inline-flex; flex-wrap: wrap; gap: 8px; margin-left: 8px; vertical-align: 2px; }
+.etiket { font: 500 var(--yz-kucuk)/var(--sa-kucuk) var(--sans); border: 1px solid var(--cizgi); border-radius: 3px; padding: 0 8px; color: var(--murekkep-2); white-space: nowrap; }
+.etiket.dogrulaniyor { border-color: var(--murekkep-2); color: var(--murekkep-2); }
+.etiket.gk { border-style: dashed; }
+.gk-tartisma { border-left: 2px solid var(--cizgi); padding-left: 12px; margin-top: 8px; }
+.gk-tartisma p + p { margin-top: 4px; }
+.gk-durum { color: var(--murekkep-2); font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+/* Kayıt ayrıntısındaki açıklama kutusu: metin kartı, genişliği metin sütunu (KILAVUZ bölüm 2, "Kartlar") */
+.aciklama-kutusu { border: 1px solid var(--cizgi); border-radius: 4px; padding: 8px 12px; margin: 4px 0 12px; background: var(--yuzey); max-width: var(--olcu-metin); }
+.aciklama-kutusu summary { cursor: pointer; font-weight: 600; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+.aciklama-kutusu ul { margin: 8px 0 8px; }
+.aciklama-kutusu .kaynak, .detay .kaynak { color: var(--murekkep-2); font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+.kayit .uye-adlari { display: flex; flex-wrap: wrap; gap: 4px 12px; justify-content: flex-end; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+.uye-ad { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+.uye-ad .nokta { width: 8px; height: 8px; border-radius: 2px; }
+/* Kapalı oturum etiketi bir cümledir: kırılabilir, sütunu gündem başlığından geniş tutmaz */
+.uye-ad.kapali-ad { white-space: normal; max-width: 320px; }
+.kayit .oy-kisa { font-variant-numeric: tabular-nums; text-align: right; color: var(--murekkep-2); font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+.detay { padding: 4px 4px 24px 96px; display: grid; gap: 16px; max-width: 980px; }
+.detay[hidden] { display: none; }
+.detay h3 { font: 600 var(--yz-kucuk)/var(--sa-kucuk) var(--sans); margin: 0 0 8px; color: var(--murekkep-2); }
+.detay p, .detay ul { margin: 0; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+.detay ul { padding-left: 16px; }
+.detay li + li { margin-top: 4px; }
+.belgeler { display: flex; flex-wrap: wrap; gap: 8px 16px; }
+.belgeler a { text-underline-offset: 3px; }
+.oy-cubuk { display: flex; height: 12px; border-radius: 2px; overflow: hidden; max-width: 420px; margin: 4px 0 8px; }
+.oy-cubuk span { display: block; height: 100%; }
+.oy-cubuk .l { background: var(--oy-lehte); }
+.oy-cubuk .a { background: var(--oy-aleyhte); }
+.oy-cubuk .c { background: var(--oy-cekimser); }
+.cogunluk { font-family: var(--serif); font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+.bos-durum { padding: 48px 4px; color: var(--murekkep-2); }
+
+/* Alt bilgi */
+footer { border-top: 1px solid var(--cizgi); padding: 32px 0 48px; color: var(--murekkep-2); font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+footer p { max-width: var(--olcu); margin: 0 0 8px; }
+
+.soluk { color: var(--murekkep-2); }
+.giris { padding-top: 24px; }
+@media (max-width: 760px) {
+  body { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+  .kap { padding: 0 16px; }
+  .giris { padding-top: 32px; }
+  .kayit-bas { grid-template-columns: 1fr auto; }
+  .kayit-bas time { grid-column: 1; }
+  .kayit-bas .oy-kisa { grid-column: 2; grid-row: 1; }
+  .kayit-bas .gundem { grid-column: 1 / -1; }
+  .kayit .uye-adlari { grid-column: 1 / -1; justify-content: flex-start; }
+  .detay { padding-left: 4px; }
+  .arac .alan { flex: 1 1 100%; }
+  .alan input[type="search"] { width: 100%; }
+  .konular { padding: 16px 16px 8px; }
+  .konu-satir { grid-template-columns: 1fr auto; gap: 4px 12px; }
+  .konu-cubuk { grid-column: 1 / -1; grid-row: 2; }
+  .konu-not { grid-column: 1 / -1; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+
+.kap p, .kap dd, .kap blockquote, .kap ul:not([class]) > li, .kap ol:not([class]) > li { max-width: var(--olcu); }
+.giris { padding-top: 64px; }
+.giris.giris-devam { padding: 16px 0 8px; }
+.giris.giris-devam p:first-child { font-size: var(--yz-govde); line-height: var(--sa-govde); }
+
+
+/* Sayfa üstü ve giriş (temel.css basamakları): üstte 48 px (dar ekranda 32 px), grafiğe 32 px */
+.giris:not(.giris-devam) { padding: var(--b12) 0 var(--b8); }
+@media (max-width: 760px) { .giris:not(.giris-devam) { padding-top: var(--b8); } }
+</style>
+</head>
+<body data-sayfa="vetolar">
+<header id="cubuk" class="cubuk"></header>
+<a class="atla" href="#arac" data-t="atla"></a>
+<div class="kap">
+  <header class="giris">
+    <h1 data-t="baslik"></h1>
+    <p id="ozet"></p>
+  </header>
+
+  <figure class="serit" id="serit">
+    <div class="serit-kaydir"><svg id="grafik" role="group" aria-labelledby="grafik-aciklama" aria-describedby="grafik-okuma grafik-klavye"></svg></div>
+    <figcaption id="grafik-aciklama" data-t="grafik.aciklama"></figcaption>
+    <details class="okuma"><summary data-t="grafik.okumaBaslik"></summary><p id="grafik-okuma" data-t="grafik.okuma"></p></details>
+    <p id="grafik-klavye" class="gorunmez" data-t="grafik.klavye"></p>
+    <ul class="uyeler-lejant" id="lejant"></ul>
+    <ul class="isaret-lejant" id="isaretler"></ul>
+    <div class="ipucu" id="ipucu" role="tooltip"></div>
+  </figure>
+  <div class="giris giris-devam">
+    <p id="ozet-tek"></p>
+    <p id="ozet-2"></p>
+  </div>
+
+  <section class="konular" id="konular" aria-labelledby="konular-baslik">
+    <h2 id="konular-baslik" data-t="konular.baslik"></h2>
+    <p class="konular-aciklama" data-t="konular.aciklama"></p>
+    <ul class="konu-listesi" id="konu-listesi"></ul>
+  </section>
+
+  <div class="arac" role="search" id="arac" tabindex="-1">
+    <label class="alan"><span data-t="arac.ara"></span>
+      <input type="search" id="arama">
+    </label>
+    <details class="filtre" id="filtre"><summary data-t="arac.filtrele"></summary><div class="filtre-ic">
+    <label class="alan"><span data-t="arac.donem"></span>
+      <select id="donem"><option value="" data-t="arac.tumYillar"></option></select>
+    </label>
+    <label class="alan"><span data-t="arac.konu"></span>
+      <select id="konu"><option value="" data-t="arac.tumKonular"></option></select>
+    </label>
+    <label class="alan"><span data-t="arac.tur"></span>
+      <select id="tur">
+        <option value="" data-t="tur.tum"></option>
+        <option value="uyelik" data-t="tur.uyelik"></option>
+        <option value="kismi" data-t="tur.kismi"></option>
+        <option value="onSoru" data-t="tur.onSoru"></option>
+        <option value="kapali" data-t="tur.kapali"></option>
+        <option value="eklendi" data-t="tur.eklendi"></option>
+      </select>
+    </label>
+    <label class="onay"><input type="checkbox" id="dogrulaniyor"> <span data-t="arac.dogrulaniyor"></span></label>
+    <button class="temizle" id="temizle" type="button" hidden data-t="arac.temizle"></button>
+    </div></details>
+  </div>
+  <p class="sonuc-sayisi" id="sonuc" aria-live="polite"></p>
+  <div class="liste" id="liste"></div>
+
+  <footer id="alt"></footer>
+</div>
+
+<script src="veri.js"></script>
+<script>
+(function () {
+  "use strict";
+  const $ = (s) => document.querySelector(s);
+
+  // ---------- Dil ----------
+  // Dil adres çubuğunda (?lang=en) tutulur; bağlantı paylaşılınca seçim korunur.
+  const DILLER = ["tr", "en"];
+  const parametre = new URLSearchParams(location.search).get("lang");
+  const DIL = DILLER.includes(parametre) ? parametre : "tr";
+  const SOZLUK = {
+    tr: {
+      "baslik": "Vetolar",
+      "sayfaBasligi": "Vetolar · Veto Atlası",
+      "sayfaAciklamasi": "1946'dan bu yana BM Güvenlik Konseyi'nde kullanılan vetolar: kaynakları, oy dağılımları ve Genel Kurul tartışmalarıyla, indirilebilir veri olarak.",
+      "arac.filtrele": "Filtrele",
+      "dil": "Dil",
+      "veriYok": "Veri dosyası bulunamadı. Proje klasöründe önce python scripts/04_web_verisi.py komutunu çalıştırın.",
+      "ozet": ({ ilk, son, oneri, tek }) => `BM Güvenlik Konseyi'nde ${ilk} ile ${son} arasında ${oneri} karar taslağı (öneri), beş daimi üyeden en az birinin ret oyuyla düştü.`,
+      "ozetTek": ({ tek }) => `Bunların en az ${tek} tanesinde Konsey'in geri kalan bütün üyeleri lehte oy verdi; öneri tek bir ülkenin ret oyuyla düştü.`,
+      "ozet2": ({ oy, kapali }) => `Toplam ${oy} ret oyu kullanıldı. Kapalı oturumda kullanılan ve resmi kayıtta kimin kullandığı yazmayan ${kapali} veto bu toplama dahil değildir.`,
+      "grafik.aciklama": "Her kare bir ret oyunu gösterir; sütunlar yılları, renkler vetoyu kullanan daimi üyeyi.",
+      "grafik.okumaBaslik": "Nasıl okunur?",
+      "grafik.okuma": "Bir sütuna tıklayınca o yılın vetoları aşağıda listelenir, bir kareye tıklayınca ilgili kayıt açılır. Üstteki küçük üçgenler, Cumhurbaşkanı Erdoğan’ın kaynaklarda yer alan Genel Kurul hitaplarının tarihlerini gösterir; üzerine gelince ya da Tab tuşuyla odaklanınca o yılın alıntısı görünür; tıklayınca ya da Enter’a basınca alıntı Söz ve Kayıt sayfasında açılır.",
+      "lejant.aria": "Daimi üyeye göre filtrele",
+      "grafik.klavye": "Yıllar arasında sol ve sağ ok tuşlarıyla, başa ve sona Home ve End tuşlarıyla gidilir; Enter ya da boşluk o yılı listeler. Grafikten sonra Tab tuşu Genel Kurul hitabı işaretlerine geçer; Escape alıntıyı kapatır.",
+      "atla": "Grafiği geç, filtrelere ve listeye git",
+      "lejant.kapali": "Kapalı oturum vetosu",
+      "lejant.hitap": "Cumhurbaşkanı Erdoğan’ın Genel Kurul hitabı", "lejant.isaretler": "Grafikteki işaretler",
+      "hitap.etkinlik": ({ e }) => e,
+      "hitap.kaynak": ({ s }) => `s. ${s}`,
+      "hitap.aria": ({ tarih, metin }) => `Genel Kurul hitabı, ${tarih}: “${metin}” Söz ve Kayıt sayfasında aç.`,
+      "donem.cin": "Çin koltuğu ÇHC'ye geçti",
+      "donem.rusya": "SSCB'nin yerini Rusya aldı",
+      "yil.aria": ({ yil, n }) => `${yil}: ${n} ret oyu. Bu yılı listele.`,
+      "ipucu.kapali": "Kapalı oturum, veto eden resmi kayıtta yok",
+      "konular.baslik": "Konulara göre vetolar",
+      "konular.aciklama": "Çubuklar ret oylarını gösterir, renkler vetoyu kullanan daimi üyeyi. Sayılar yalnızca kaydın ana konusunu sayar. Bir konuya tıklayınca o konudaki vetolar aşağıda listelenir; listede o konuya ikincil olarak bağlı kayıtlar da yer alır.",
+      "konu.retOyu": ({ ad, n }) => `${ad}: ${n} ret oyu`,
+      "konu.kapaliBaslik": ({ n }) => `Kapalı oturum vetosu: ${n}`,
+      "konu.ikincil": ({ n }) => `İkincil olarak bu konuya bağlı ${n} kayıt daha`,
+      "konu.kapaliNot": ({ n }) => `${n} kapalı oturum vetosu ret oyu toplamına dahil değil`,
+      "konu.aria": ({ konu, oneri, oy, ikincil }) => `${konu}: ${oneri} öneri, ${oy} ret oyu${ikincil ? `, ikincil olarak bağlı ${ikincil} kayıt daha` : ""}. Bu konuyu listele.`,
+      "konu.sayi": ({ oneri, oy }) => `<b>${oneri}</b> öneri · ${oy} oy`,
+      "arac.ara": "Gündemde ara", "arac.araOrnek": "Örn. Suriye, Namibia", "arac.donem": "Dönem", "arac.tumYillar": "Tüm yıllar",
+      "arac.konu": "Konu", "arac.tumKonular": "Tüm konular", "arac.tur": "Kayıt türü",
+      "arac.dogrulaniyor": "Yalnızca doğrulaması süren kayıtlar", "arac.temizle": "Filtreleri temizle",
+      "tur.tum": "Tüm vetolar", "tur.uyelik": "Üyelik başvurusu vetoları", "tur.kismi": "Paragraf ve değişiklik önergesi vetoları",
+      "tur.onSoru": "Ön soru (çifte) vetoları", "tur.kapali": "Kapalı oturum vetoları", "tur.eklendi": "Mutabakatta eklenen kayıtlar",
+      "sonuc.filtre": ({ yil, oneri, oy, ikincil }) => `${yil ? `${yil} yılında ` : ""}<b>${oneri}</b> öneri ve <b>${oy}</b> ret oyu gösteriliyor.${ikincil ? ` Bunların ${ikincil} tanesi bu konuya ikincil olarak bağlı.` : ""}`,
+      "sonuc.tum": ({ oneri, oy }) => `Tüm kayıtlar gösteriliyor: <b>${oneri}</b> öneri, <b>${oy}</b> ret oyu. En yeniden eskiye sıralı.`,
+      "bos": "Bu filtrelerle eşleşen veto yok. Bir filtreyi kaldırın ya da aramayı kısaltın.",
+      "etiket.dogrulaniyor": "Doğrulanıyor", "etiket.eklendi": "Mutabakatta eklendi", "etiket.kapali": "Kapalı oturum",
+      "etiket.onSoru": "Ön soru vetosu", "etiket.kismi": "Kısmi veto (metnin yalnızca bir bölümü oylandı)", "etiket.gk": "Genel Kurul'da görüşüldü",
+      "oy.kapali": "Kapalı oturumda yapılan oylamanın dağılımı resmi kayıtta yer almıyor.",
+      "oy.yok": "Oy dağılımı henüz eşleştirilmedi.",
+      "oy.dagilim": ({ l, a, c }) => `${l} evet (lehte), ${a} hayır (aleyhte), ${c} çekimser`,
+      "oy.yeterli": ({ l, gerek }) => `Öneri ${l} lehte oy aldı; kabul için ${gerek} oy yeterliydi. Daimi üyenin ret oyu nedeniyle kabul edilmedi.`,
+      "oy.yetersiz": ({ l, gerek }) => `Öneri ${l} lehte oy aldı; kabul için gereken ${gerek} oya ulaşmamıştı.`,
+      "oy.tek": ({ n }) => ` Konsey'in ${n} üyesinden ret oyu veren tek ülke dışındaki herkes lehteydi.`,
+      "oy.baslik": "lehte–aleyhte–çekimser",
+      "d.genelOy": "Genel oy", "d.konu": "Konu", "d.ikincil": "İkincil konu", "d.belgeler": "Belgeler",
+      "d.toplantiKaydi": "toplantı kaydı", "d.taslak": "karar taslağı", "d.dogrulamaDurumu": "Doğrulama durumu",
+      "d.dogrulamaKaynagi": "Doğrulama kaynağı", "d.notlar": "Notlar", "d.mutabakat": "Mutabakat",
+      "d.kaynakSatiri": ({ alanlar, kayit, sayfa, paragraf }) => `${alanlar}: ${kayit} toplantı kaydı, ${paragraf ? `par. ${paragraf} <span class="soluk">(PDF s. ${sayfa})</span>` : `s. ${sayfa} <span class="soluk">(PDF sayfası)</span>`}`,
+      "alan.tarih": "Oylama günü", "alan.oy": "Oy dağılımı", "alan.uye": "Ret oyu veren üyeler", "ve": " ve ",
+      "kapaliSatir": ({ uyeler }) => `Resmî bildiride adı yok; DHL listesine göre ${uyeler}`,
+      "gk.baslik": "Genel Kurul", "gk.ozelRapor": "Konsey'in özel raporu", "gk.yok": "Genel Kurul tartışması henüz kayıtlı değil.",
+      "gk.vg": "Veto girişimi tartışması (A/RES/76/262)", "gk.oo": ({ oturum }) => `Olağanüstü özel oturum (${oturum})`,
+      "gk.kayitlar": "Toplantı kayıtları", "gk.kararlar": "Kabul edilen kararlar",
+      "gk.konusmacilar": ({ uye, gozlemci, grup, cevap }) => `Konuşmacılar: ${uye} üye devlet ve ${gozlemci} gözlemci açıklama yaptı${grup ? `; ${grup} delegasyon grup adına konuştu` : ""}${cevap ? `; ${cevap} delegasyon cevap hakkı kullandı` : ""}.`,
+      "gk.vetoEden": "Veto eden", "gk.kaynakGunluk": "Sayım kaynağı: BM Günlüğü özeti (tutanak henüz yayımlanmadı).",
+      "gk.kaynakTranskript": "Sayım kaynağı: gayriresmî transkript.",
+      "gk.durum.resmi": "resmî tutanak", "gk.durum.gayriresmi_transkript": "tutanak yayımlanmadı, gayriresmî transkript var",
+      "gk.durum.yayimlanmadi": "tutanak henüz yayımlanmadı",
+      "gk.konustu.aciklama": "söz aldı", "gk.konustu.yalnizca_cevap_hakki": "yalnızca cevap hakkı kullandı", "gk.konustu.hayir": "söz almadı",
+      "vg.baslik": "Veto girişimi (A/RES/76/262) hakkında",
+      "vg.maddeler": [
+        "Güvenlik Konseyi'nde bir ya da daha fazla daimi üye veto kullandığında Genel Kurul Başkanı, 10 iş günü içinde vetonun kullanıldığı durumu görüşmek üzere resmî bir Genel Kurul toplantısı toplar. Genel Kurul aynı konuda olağanüstü özel oturumda toplanıyorsa bu toplantı yapılmaz.",
+        "Veto kullanan daimi üye ya da üyelere konuşmacı listesinde öncelik tanınır.",
+        "Güvenlik Konseyi, tartışmadan en az 72 saat önce söz konusu veto hakkında Genel Kurul'a özel rapor sunmaya davet edilir.",
+        "Genel Kurul'un gündemine \"Use of the veto\" (vetonun kullanılması) adlı bir madde eklenir.",
+        "Karar 26 Nisan 2022'de, Genel Kurul'un 69. genel kurul toplantısında oylama yapılmadan kabul edildi.",
+        "Taslağın 57 sunucusu vardı; kabul toplantısında 27 delegasyon daha sunucu oldu. Timor-Leste iki listede de yer aldığından toplam sunucu sayısı 83'tür.",
+        "Daimi üyelerden ABD taslağın ilk sunucuları arasında, Fransa ve Birleşik Krallık sonradan sunucu olanlar arasındadır. Çin ve Rusya Federasyonu iki listede de yer almaz.",
+        "Türkiye taslağın ilk sunucuları arasındadır (belgede \"Turkey\").",
+        "Türkiye temsilcisi kabulden sonraki açıklamasında, Türkiye'nin iki yıl önceki başlangıcından bu yana girişimin çekirdek grubunda yer aldığını söyledi.",
+      ],
+      "vg.not": "Sayfa numaraları belgelerin PDF sayfalarıdır.", "par": "par.", "s": "s.",
+      "alt.veriTarihi": ({ tarih }) => `Veri tarihi: ${tarih}.`,
+    },
+    en: {
+      "baslik": "Vetoes",
+      "sayfaBasligi": "Vetoes · Veto Atlas",
+      "sayfaAciklamasi": "Vetoes cast in the UN Security Council since 1946, with their sources, vote breakdowns and General Assembly debates, as downloadable data.",
+      "arac.filtrele": "Filter",
+      "dil": "Language",
+      "veriYok": "Data file not found. Run python scripts/04_web_verisi.py in the project folder first.",
+      "ozet": ({ ilk, son, oneri, tek }) => `Between ${ilk} and ${son}, ${oneri} proposals in the UN Security Council failed because at least one of the five permanent members voted against them.`,
+      "ozetTek": ({ tek }) => `In at least ${tek} of these, every other member of the Council voted in favour; the proposal failed on the negative vote of a single country.`,
+      "ozet2": ({ oy, kapali }) => `In total, ${oy} negative votes were cast. The ${kapali} vetoes cast in private meetings, for which the official record does not say who cast them, are not included in this total.`,
+      "grafik.aciklama": "Each square is one negative vote; columns are years, colours show the permanent member that cast the veto.",
+      "grafik.okumaBaslik": "How to read this chart",
+      "grafik.okuma": "Click a column to list that year's vetoes below; click a square to open the record. The small triangles at the top mark the dates of President Erdoğan’s addresses to the General Assembly that are in the sources; hover over one or focus it with the Tab key to see that year’s quotation; click it or press Enter to open the quotation on the Word and Record page.",
+      "lejant.aria": "Filter by permanent member",
+      "grafik.klavye": "Move between years with the left and right arrow keys, to the first and last year with Home and End; Enter or Space lists that year. After the chart, the Tab key moves to the General Assembly address markers; Escape closes the quotation.",
+      "atla": "Skip the chart, go to the filters and list",
+      "lejant.kapali": "Private-meeting veto",
+      "lejant.hitap": "President Erdoğan’s address to the General Assembly", "lejant.isaretler": "Chart symbols",
+      "hitap.etkinlik": ({ oturum }) => `Address to the ${oturum}${["11", "12", "13"].includes(String(oturum).slice(-2)) ? "th" : ({ 1: "st", 2: "nd", 3: "rd" }[oturum % 10] || "th")} Session of the UN General Assembly`,
+      "hitap.kaynak": ({ s }) => `p. ${s}`,
+      "hitap.aria": ({ tarih, metin }) => `General Assembly address, ${tarih}: “${metin}” Open on the Word and Record page.`,
+      "donem.cin": "China's seat passes to the PRC",
+      "donem.rusya": "Russia succeeds the USSR",
+      "yil.aria": ({ yil, n }) => `${yil}: ${n} negative votes. List this year.`,
+      "ipucu.kapali": "Private meeting; the vetoing member is not in the official record",
+      "konular.baslik": "Vetoes by topic",
+      "konular.aciklama": "Bars show negative votes; colours show the permanent member that cast the veto. Counts include only each record's main topic. Click a topic to list its vetoes below; the list also includes records linked to the topic as a secondary topic.",
+      "konu.retOyu": ({ ad, n }) => `${ad}: ${n} negative votes`,
+      "konu.kapaliBaslik": ({ n }) => `Private-meeting veto: ${n}`,
+      "konu.ikincil": ({ n }) => `${n} more records linked to this topic as a secondary topic`,
+      "konu.kapaliNot": ({ n }) => `${n} private-meeting vetoes not included in the negative-vote total`,
+      "konu.aria": ({ konu, oneri, oy, ikincil }) => `${konu}: ${oneri} proposals, ${oy} negative votes${ikincil ? `, ${ikincil} more linked as a secondary topic` : ""}. List this topic.`,
+      "konu.sayi": ({ oneri, oy }) => `<b>${oneri}</b> proposals · ${oy} votes`,
+      "arac.ara": "Search agenda items", "arac.araOrnek": "e.g. Syria, Namibia", "arac.donem": "Period", "arac.tumYillar": "All years",
+      "arac.konu": "Topic", "arac.tumKonular": "All topics", "arac.tur": "Record type",
+      "arac.dogrulaniyor": "Only records under verification", "arac.temizle": "Clear filters",
+      "tur.tum": "All vetoes", "tur.uyelik": "Membership application vetoes", "tur.kismi": "Vetoes of paragraphs and amendments",
+      "tur.onSoru": "Preliminary-question (double) vetoes", "tur.kapali": "Private-meeting vetoes", "tur.eklendi": "Records added in reconciliation",
+      "sonuc.filtre": ({ yil, oneri, oy, ikincil }) => `${yil ? `In ${yil}, showing` : "Showing"} <b>${oneri}</b> proposals and <b>${oy}</b> negative votes.${ikincil ? ` ${ikincil} of them are linked to this topic as a secondary topic.` : ""}`,
+      "sonuc.tum": ({ oneri, oy }) => `Showing all records: <b>${oneri}</b> proposals, <b>${oy}</b> negative votes. Newest first.`,
+      "bos": "No vetoes match these filters. Remove a filter or shorten the search.",
+      "etiket.dogrulaniyor": "Under verification", "etiket.eklendi": "Added in reconciliation", "etiket.kapali": "Private meeting",
+      "etiket.onSoru": "Preliminary-question veto", "etiket.kismi": "Partial veto", "etiket.gk": "Debated in the General Assembly",
+      "oy.kapali": "The breakdown of the vote held in a private meeting is not in the official record.",
+      "oy.yok": "Vote breakdown not yet matched.",
+      "oy.dagilim": ({ l, a, c }) => `${l} in favour, ${a} against, ${c} abstaining`,
+      "oy.yeterli": ({ l, gerek }) => `The proposal received ${l} votes in favour; ${gerek} were enough for adoption. It was not adopted because of a permanent member's negative vote.`,
+      "oy.yetersiz": ({ l, gerek }) => `The proposal received ${l} votes in favour; it had not reached the ${gerek} required for adoption.`,
+      "oy.tek": ({ n }) => ` Of the Council's ${n} members, everyone except the country casting the negative vote was in favour.`,
+      "oy.baslik": "in favour–against–abstaining",
+      "d.genelOy": "Vote", "d.konu": "Topic", "d.ikincil": "Secondary topic", "d.belgeler": "Documents",
+      "d.toplantiKaydi": "meeting record", "d.taslak": "draft resolution", "d.dogrulamaDurumu": "Verification status",
+      "d.dogrulamaKaynagi": "Verification source", "d.notlar": "Notes", "d.mutabakat": "Reconciliation",
+      "d.kaynakSatiri": ({ alanlar, kayit, sayfa, paragraf }) => `${alanlar}: meeting record ${kayit}, ${paragraf ? `para. ${paragraf} <span class="soluk">(PDF p. ${sayfa})</span>` : `p. ${sayfa} <span class="soluk">(PDF page)</span>`}`,
+      "alan.tarih": "Voting day", "alan.oy": "Vote breakdown", "alan.uye": "Members casting negative votes", "ve": " and ",
+      "kapaliSatir": ({ uyeler }) => `Not named in the official communiqué; attributed to ${uyeler} by the DHL list`,
+      "gk.baslik": "General Assembly", "gk.ozelRapor": "Security Council special report", "gk.yok": "No General Assembly debate recorded yet.",
+      "gk.vg": "Veto initiative debate (A/RES/76/262)", "gk.oo": ({ oturum }) => `Emergency special session (${oturum})`,
+      "gk.kayitlar": "Meeting records", "gk.kararlar": "Resolutions adopted",
+      "gk.konusmacilar": ({ uye, gozlemci, grup, cevap }) => `Speakers: ${uye} Member States and ${gozlemci} observers made statements${grup ? `; ${grup} delegations spoke on behalf of groups` : ""}${cevap ? `; ${cevap} delegations exercised the right of reply` : ""}.`,
+      "gk.vetoEden": "Vetoing member", "gk.kaynakGunluk": "Count source: Journal of the United Nations summary (verbatim record not yet published).",
+      "gk.kaynakTranskript": "Count source: unofficial transcript.",
+      "gk.durum.resmi": "official record", "gk.durum.gayriresmi_transkript": "record not yet published; unofficial transcript available",
+      "gk.durum.yayimlanmadi": "record not yet published",
+      "gk.konustu.aciklama": "took the floor", "gk.konustu.yalnizca_cevap_hakki": "spoke only in right of reply", "gk.konustu.hayir": "did not take the floor",
+      "vg.baslik": "About the veto initiative (A/RES/76/262)",
+      "vg.maddeler": [
+        "When one or more permanent members cast a veto in the Security Council, the President of the General Assembly convenes a formal meeting of the Assembly within 10 working days to hold a debate on the situation in which the veto was cast. The meeting is not held if the Assembly meets in an emergency special session on the same situation.",
+        "The permanent member or members that cast the veto are given precedence in the list of speakers.",
+        "The Security Council is invited to submit a special report on the use of the veto to the General Assembly at least 72 hours before the debate.",
+        "An item entitled \"Use of the veto\" is included in the agenda of the General Assembly.",
+        "The resolution was adopted without a vote on 26 April 2022, at the 69th plenary meeting of the General Assembly.",
+        "The draft had 57 sponsors; 27 more delegations became sponsors at the adoption meeting. Timor-Leste appears on both lists, so the total number of sponsors is 83.",
+        "Among the permanent members, the United States was one of the original sponsors, and France and the United Kingdom joined later. China and the Russian Federation are not on either list.",
+        "Türkiye is one of the original sponsors (listed as \"Turkey\").",
+        "In its statement after the adoption, the representative of Türkiye said that Türkiye had been in the core group of the initiative since its start two years earlier.",
+      ],
+      "vg.not": "Page numbers are PDF pages of the documents.", "par": "para.", "s": "p.",
+      "alt.veriTarihi": ({ tarih }) => `Data as of ${tarih}.`,
+    },
+  };
+  const t = (anahtar, p) => {
+    const v = SOZLUK[DIL][anahtar] ?? SOZLUK.tr[anahtar];
+    return typeof v === "function" ? v(p || {}) : v;
+  };
+  const dilliBaglanti = (sayfa) => (DIL === "tr" ? sayfa : `${sayfa}?lang=${DIL}`);
+  document.documentElement.lang = DIL;
+  document.title = t("sayfaBasligi");
+  const metaYaz = (secici, deger) => { const e = document.querySelector(secici); if (e) e.setAttribute("content", deger); };
+  metaYaz('meta[name="description"]', t("sayfaAciklamasi"));
+  metaYaz('meta[property="og:title"]', t("sayfaBasligi"));
+  metaYaz('meta[property="og:description"]', t("sayfaAciklamasi"));
+  metaYaz('meta[property="og:locale"]', DIL === "tr" ? "tr_TR" : "en_GB");
+  metaYaz('meta[property="og:locale:alternate"]', DIL === "tr" ? "en_GB" : "tr_TR");
+  document.querySelectorAll("[data-t]").forEach((e) => { e.textContent = t(e.dataset.t); });
+  $("#arama").placeholder = t("arac.araOrnek");
+  $("#lejant").setAttribute("aria-label", t("lejant.aria"));
+
+  const VERI = window.VETO_VERISI;
+  if (!VERI) { $("#ozet").textContent = t("veriYok"); return; }
+
+  const UYELER = {
+    SSCB: { renk: "var(--u-sscb)", tr: ["Sovyetler Birliği", "SSCB"], en: ["Soviet Union", "USSR"] },
+    RUS:  { renk: "var(--u-rus)", tr: ["Rusya Federasyonu", "Rusya"], en: ["Russian Federation", "Russia"] },
+    USA:  { renk: "var(--u-usa)", tr: ["ABD", "ABD"], en: ["United States", "US"] },
+    GBR:  { renk: "var(--u-gbr)", tr: ["Birleşik Krallık", "Birleşik Krallık"], en: ["United Kingdom", "UK"] },
+    FRA:  { renk: "var(--u-fra)", tr: ["Fransa", "Fransa"], en: ["France", "France"] },
+    CHN:  { renk: "var(--u-chn)", tr: ["Çin", "Çin"], en: ["China", "China"] },
+  };
+  const uyeAd = (u) => UYELER[u][DIL][0], uyeKisa = (u) => UYELER[u][DIL][1];
+  // İngilizcede cümle içinde belirli tanımlıkla: the United States, the US, the USSR, the Russian Federation (Russia, France ve
+  // China tanımlıksız). Listelerde, düğmelerde ve etiketlerde ad tanımlıksız kalır (uyeAd, uyeKisa).
+  const CUMLE_EN = { ad: { SSCB: "the Soviet Union", RUS: "the Russian Federation", USA: "the United States", GBR: "the United Kingdom" },
+    kisa: { SSCB: "the USSR", USA: "the US", GBR: "the UK" } };
+  const uyeAdMetin = (u) => (DIL === "en" && CUMLE_EN.ad[u]) || uyeAd(u), uyeBelirli = (u) => (DIL === "en" && CUMLE_EN.kisa[u]) || uyeKisa(u);
+  const AYLAR = {
+    tr: [["Oca","Şub","Mar","Nis","May","Haz","Tem","Ağu","Eyl","Eki","Kas","Ara"], ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"]],
+    en: [["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"], ["January","February","March","April","May","June","July","August","September","October","November","December"]],
+  }[DIL];
+  const tarihKisa = (x) => { const [y, a, g] = x.split("-"); return `${+g} ${AYLAR[0][+a - 1]} ${y}`; };
+  const tarihUzun = (x) => { const [y, a, g] = x.split("-"); return `${+g} ${AYLAR[1][+a - 1]} ${y}`; };
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const YEREL = DIL === "tr" ? "tr-TR" : "en-GB";
+  const sayi = (n) => n.toLocaleString(YEREL);
+  // Konu adları: Türkçe veri değerleri; İngilizce karşılıklar kaynaklar/konular_en.csv'den (meta.konularEn)
+  const konuAd = (k) => (DIL === "en" ? (VERI.meta.konularEn || {})[k] || k : k);
+  // İngilizce sürümde gündem başlıkları BM'deki özgün hâliyle
+  const baslik = (k) => (DIL === "en" ? k.gundem : k.gundemTr || k.gundem);
+
+  const sira = (k) => +k.id.split("-").pop();
+  const kayitlar = VERI.kayitlar.slice().sort((a, b) => b.tarih.localeCompare(a.tarih) || sira(a) - sira(b));
+  const kayitById = Object.fromEntries(kayitlar.map((k) => [k.id, k]));
+  const gerekliCogunluk = (k) => (k.tarih < "1966-01-01" ? 7 : 9);
+  const konseyBuyuklugu = (k) => (k.tarih < "1966-01-01" ? 11 : 15);
+  const tekBasina = (k) => k.oy && k.oy.aleyhte === 1 && k.oy.lehte + 1 === konseyBuyuklugu(k);
+
+  // ---------- Özet cümleleri ----------
+  const oyKayitlari = kayitlar.filter((k) => !k.kapali);
+  const toplamOy = oyKayitlari.reduce((s, k) => s + k.uyeler.length, 0);
+  const ilkYil = kayitlar[kayitlar.length - 1].tarih.slice(0, 4);
+  const sonTarih = kayitlar[0].tarih;
+  $("#ozet").textContent = t("ozet", { ilk: ilkYil, son: tarihUzun(sonTarih), oneri: sayi(kayitlar.length) });
+  $("#ozet-tek").textContent = t("ozetTek", { tek: sayi(kayitlar.filter(tekBasina).length) });
+  $("#ozet-2").textContent = t("ozet2", { oy: sayi(toplamOy), kapali: kayitlar.filter((k) => k.kapali).length });
+
+  // ---------- Filtre durumu ----------
+  const durum = { uyeler: new Set(), arama: "", donem: "", konu: "", tur: "", dogrulaniyor: false, yil: null, acik: new Set() };
+  const aranan = (k) => (DIL === "en" ? k.gundem : `${k.gundemTr || ""} ${k.gundem}`).toLocaleLowerCase(YEREL);
+  // Konu filtresi ikincil konuları da yakalar; sayımlar ise yalnızca ana konuyu sayar.
+  const konuyaBagli = (k, konu) => k.konu === konu || k.ikincil.includes(konu);
+  function kayitUyar(k) {
+    if (durum.uyeler.size && !k.uyeler.some((u) => durum.uyeler.has(u))) return false;
+    if (durum.yil && !k.tarih.startsWith(durum.yil)) return false;
+    if (durum.donem && k.tarih.slice(0, 3) !== durum.donem) return false;
+    if (durum.konu && !konuyaBagli(k, durum.konu)) return false;
+    if (durum.dogrulaniyor && !k.dogrulama.length) return false;
+    if (durum.tur === "eklendi" ? !(k.duzeltme || "").startsWith("eklendi") : durum.tur && !k[durum.tur]) return false;
+    if (durum.arama && !aranan(k).includes(durum.arama)) return false;
+    return true;
+  }
+  const filtreVar = () => durum.uyeler.size || durum.arama || durum.donem || durum.konu || durum.tur || durum.dogrulaniyor || durum.yil;
+
+  // ---------- Birim grafik ----------
+  const svg = $("#grafik");
+  const NS = "http://www.w3.org/2000/svg";
+  const ADIM = 14, KARE = 11, UST = 26, ALT = 26;
+  const yilBas = +ilkYil, yilSon = +sonTarih.slice(0, 4);
+  const yillar = [];
+  for (let y = yilBas; y <= yilSon; y++) yillar.push(String(y));
+  const hucreler = {};
+  yillar.forEach((y) => (hucreler[y] = []));
+  kayitlar.slice().reverse().forEach((k) => {
+    const y = k.tarih.slice(0, 4);
+    if (k.kapali) hucreler[y].push({ k, uye: null });
+    else k.uyeler.forEach((u) => hucreler[y].push({ k, uye: u }));
+  });
+  const enCok = Math.max(...yillar.map((y) => hucreler[y].length));
+  const G = yillar.length * ADIM, Y = UST + enCok * ADIM + ALT;
+  svg.setAttribute("viewBox", `0 0 ${G} ${Y}`);
+  const zemin = UST + enCok * ADIM;
+  const el = (ad, ozn = {}) => { const e = document.createElementNS(NS, ad); for (const [a, v] of Object.entries(ozn)) e.setAttribute(a, v); return e; };
+  [["1971-10-25", t("donem.cin")], ["1991-12-24", t("donem.rusya")]].forEach(([tarih, yazi]) => {
+    const i = yillar.indexOf(tarih.slice(0, 4));
+    if (i < 0) return;
+    const x = i * ADIM + ADIM * ((+tarih.slice(5, 7)) / 12);
+    svg.appendChild(el("line", { class: "donem", x1: x, x2: x, y1: 14, y2: zemin }));
+    const tx = el("text", { class: "donem-yazi", x: x + 4, y: 11 });
+    tx.textContent = yazi;
+    svg.appendChild(tx);
+  });
+  const kareler = [];
+  yillar.forEach((y, i) => {
+    const g = el("g", { class: "yil", tabindex: i === yillar.length - 1 ? "0" : "-1", role: "button", "data-yil": y, "aria-label": t("yil.aria", { yil: y, n: hucreler[y].length }) });
+    g.appendChild(el("rect", { class: "yil-alan", x: i * ADIM, y: UST - 4, width: ADIM, height: enCok * ADIM + 8 }));
+    hucreler[y].forEach((h, j) => {
+      const r = el("rect", { class: "kare", x: i * ADIM + (ADIM - KARE) / 2, y: zemin - (j + 1) * ADIM + (ADIM - KARE) / 2,
+        width: KARE, height: KARE, rx: 1.5, "data-id": h.k.id });
+      if (h.uye) r.setAttribute("fill", UYELER[h.uye].renk);
+      else { r.setAttribute("fill", "none"); r.setAttribute("stroke", "var(--murekkep-2)"); r.setAttribute("stroke-dasharray", "2 1.5"); r.setAttribute("stroke-width", "1.2"); }
+      r._h = h;
+      kareler.push(r);
+      g.appendChild(r);
+    });
+    svg.appendChild(g);
+    if (+y % 10 === 0) {
+      const tx = el("text", { class: "eksen", x: i * ADIM + ADIM / 2, y: zemin + 18, "text-anchor": "middle" });
+      tx.textContent = y;
+      svg.appendChild(tx);
+    }
+  });
+  svg.appendChild(el("line", { x1: 0, x2: G, y1: zemin + 2, y2: zemin + 2, stroke: "var(--cizgi)" }));
+
+  // Genel Kurul hitapları (alıntı bankasındaki her hitap tarihi için ilk alıntı)
+  const hitaplar = {};
+  (VERI.alintilar || []).filter((a) => a.iliskili_veri !== "model" && a.iliskili_veri !== "giris" && /^\d{4}-\d{2}-\d{2}$/.test(a.tarih))
+    .forEach((a) => { if (!hitaplar[a.tarih]) hitaplar[a.tarih] = a; });
+  Object.values(hitaplar).forEach((a) => {
+    const i = yillar.indexOf(a.tarih.slice(0, 4));
+    if (i < 0) return;
+    const x = i * ADIM + ADIM * ((+a.tarih.slice(5, 7) - 1 + (+a.tarih.slice(8, 10)) / 31) / 12);
+    svg.appendChild(el("line", { class: "hitap-cizgi", x1: x, x2: x, y1: UST - 2, y2: zemin }));
+    // Her işaret, alıntının Söz ve Kayıt sayfasındaki yerine bir bağlantıdır: Tab ile odaklanır, Enter ile açılır
+    const g = el("a", { class: "hitap", "data-tarih": a.tarih, href: `${dilliBaglanti("vizyon.html")}#alinti-${a.id}`,
+      "aria-label": t("hitap.aria", { tarih: tarihUzun(a.tarih), metin: DIL === "en" && a.metin_en ? a.metin_en : a.metin_tr }) });
+    // Odak çerçevesi grafiğin kenarından taşmasın
+    g.appendChild(el("rect", { class: "hitap-alan", x: Math.max(1, Math.min(x - 6, G - 13)), y: UST - 16, width: 12, height: 16 }));
+    g.appendChild(el("path", { class: "hitap-isaret", d: `M${x - 4} ${UST - 12} L${x + 4} ${UST - 12} L${x} ${UST - 5} Z` }));
+    g._a = a;
+    svg.appendChild(g);
+  });
+  const hitapIpucu = (a) => {
+    const oturum = +((a.etkinlik.match(/(\d+)\./) || [])[1] || 0);
+    const etk = DIL === "tr" ? a.etkinlik : t("hitap.etkinlik", { oturum });
+    const enVar = DIL === "en" && a.metin_en;
+    const s = enVar ? a.basili_sayfa_en : a.basili_sayfa;
+    return `<strong>${tarihUzun(a.tarih)}</strong>${esc(etk)}, ${t("hitap.kaynak", { s })}<span class="alinti" lang="${enVar ? "en" : "tr"}">“${esc(enVar ? a.metin_en : a.metin_tr)}”</span>`;
+  };
+
+  const ipucu = $("#ipucu"), serit = $("#serit");
+  const hitapGoster = (hg, cx, cy) => {
+    kareler.forEach((x) => x.classList.remove("vurgulu"));
+    ipucu.innerHTML = hitapIpucu(hg._a);
+    const b = serit.getBoundingClientRect();
+    let x = cx - b.left + 14;
+    ipucu.classList.add("acik");
+    if (x + ipucu.offsetWidth > b.width - 8) x = cx - b.left - ipucu.offsetWidth - 14;
+    ipucu.style.left = Math.max(4, x) + "px"; ipucu.style.top = (cy - b.top + 14) + "px";
+  };
+  svg.addEventListener("pointermove", (e) => {
+    const hg = e.target.closest(".hitap");
+    if (hg) { hitapGoster(hg, e.clientX, e.clientY); return; }
+    const r = e.target.closest(".kare");
+    kareler.forEach((x) => x.classList.toggle("vurgulu", !!r && x.dataset.id === r.dataset.id));
+    if (!r) { ipucu.classList.remove("acik"); return; }
+    const k = r._h.k;
+    const kim = k.kapali ? t("ipucu.kapali") : k.uyeler.map(uyeAd).join(", ");
+    ipucu.innerHTML = `<strong>${tarihUzun(k.tarih)}</strong>${esc(baslik(k))}<br>${esc(kim)}`;
+    const b = serit.getBoundingClientRect();
+    let x = e.clientX - b.left + 14;
+    ipucu.classList.add("acik");
+    if (x + ipucu.offsetWidth > b.width - 8) x = e.clientX - b.left - ipucu.offsetWidth - 14;
+    ipucu.style.left = x + "px"; ipucu.style.top = (e.clientY - b.top + 14) + "px";
+  });
+  svg.addEventListener("pointerleave", () => { if (!svg.querySelector(".hitap:focus")) ipucu.classList.remove("acik"); kareler.forEach((x) => x.classList.remove("vurgulu")); });
+  // Klavye: odaklanan hitap işaretinin alıntısı işaretin altında açılır, Escape kapatır
+  svg.addEventListener("focusin", (e) => {
+    const hg = e.target.closest(".hitap");
+    if (!hg) return;
+    const kap = svg.parentElement, m = hg.getBoundingClientRect(), k = kap.getBoundingClientRect();
+    if (m.left < k.left || m.right > k.right) kap.scrollLeft += m.left - k.left - k.width / 2;
+    const r = hg.getBoundingClientRect();
+    hitapGoster(hg, r.left + r.width / 2, r.bottom);
+  });
+  svg.addEventListener("focusout", (e) => { if (e.target.closest(".hitap")) ipucu.classList.remove("acik"); });
+  svg.addEventListener("click", (e) => {
+    const r = e.target.closest(".kare"), g = e.target.closest(".yil");
+    if (!g) return;
+    const y = g.dataset.yil;
+    if (r) { durum.yil = y; durum.acik.add(r.dataset.id); guncelle(); kayitaGit(r.dataset.id); }
+    else { durum.yil = durum.yil === y ? null : y; guncelle(); }
+  });
+  svg.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && e.target.closest(".hitap")) { ipucu.classList.remove("acik"); return; }
+    const g = e.target.closest(".yil");
+    if (!g) return;
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); durum.yil = durum.yil === g.dataset.yil ? null : g.dataset.yil; guncelle(); return; }
+    // Grafik tek Tab durağıdır; yıllar arasında oklarla gezilir (gezici tabindex)
+    const gruplar = [...svg.querySelectorAll(".yil")], i = gruplar.indexOf(g);
+    const hedef = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: gruplar.length - 1 }[e.key];
+    if (hedef === undefined) return;
+    e.preventDefault();
+    const yeni = gruplar[Math.max(0, Math.min(gruplar.length - 1, hedef))];
+    g.setAttribute("tabindex", "-1"); yeni.setAttribute("tabindex", "0"); yeni.focus();
+    const kap = svg.parentElement, b = yeni.getBoundingClientRect(), k = kap.getBoundingClientRect();
+    if (b.left < k.left || b.right > k.right) kap.scrollLeft += b.left - k.left - k.width / 2;
+  });
+
+  // ---------- Lejant / üye filtresi ----------
+  const lejant = $("#lejant");
+  Object.keys(UYELER).forEach((kod) => {
+    const n = oyKayitlari.reduce((s, k) => s + (k.uyeler.includes(kod) ? 1 : 0), 0);
+    const li = document.createElement("li");
+    li.innerHTML = `<button type="button" class="uye-dugme" aria-pressed="false" data-uye="${kod}">
+      <span class="nokta" style="background:${UYELER[kod].renk}"></span>${uyeAd(kod)} <span class="sayi">${n}</span></button>`;
+    lejant.appendChild(li);
+  });
+  const isaretler = $("#isaretler");
+  isaretler.setAttribute("aria-label", t("lejant.isaretler"));
+  isaretler.innerHTML = `<li><span class="kapali-lejant"><span class="nokta"></span>${t("lejant.kapali")}</span></li>`
+    + ((VERI.alintilar || []).length ? `<li><span class="hitap-lejant"><span class="ucgen"></span>${t("lejant.hitap")}</span></li>` : "");
+  lejant.addEventListener("click", (e) => {
+    const b = e.target.closest(".uye-dugme");
+    if (!b) return;
+    const kod = b.dataset.uye;
+    durum.uyeler.has(kod) ? durum.uyeler.delete(kod) : durum.uyeler.add(kod);
+    guncelle();
+  });
+
+  // ---------- Konulara göre vetolar ----------
+  // Çubuk ve sayılar yalnızca ana konuyu sayar; ikincil bağlar ayrı notta gösterilir.
+  const KONULAR = VERI.meta.konular || [...new Set(kayitlar.map((k) => k.konu))];
+  const konuOzet = KONULAR.map((konu) => {
+    const ana = kayitlar.filter((k) => k.konu === konu);
+    const uyeSay = {};
+    let kapali = 0;
+    ana.forEach((k) => { if (k.kapali) kapali++; else k.uyeler.forEach((u) => (uyeSay[u] = (uyeSay[u] || 0) + 1)); });
+    const oy = Object.values(uyeSay).reduce((s, n) => s + n, 0);
+    const ikincil = kayitlar.filter((k) => k.konu !== konu && k.ikincil.includes(konu)).length;
+    return { konu, oneri: ana.length, oy, kapali, uyeSay, ikincil, birim: oy + kapali };
+  }).filter((o) => o.oneri || o.ikincil).sort((a, b) => b.birim - a.birim || b.oneri - a.oneri);
+  const enUzun = Math.max(...konuOzet.map((o) => o.birim));
+  const konuListesi = $("#konu-listesi");
+  konuListesi.innerHTML = konuOzet.map((o) => {
+    const parcalar = Object.keys(UYELER).filter((u) => o.uyeSay[u]).map((u) =>
+      `<span style="flex:${o.uyeSay[u]} 0 0;background:${UYELER[u].renk}" title="${esc(t("konu.retOyu", { ad: uyeAd(u), n: o.uyeSay[u] }))}"></span>`);
+    if (o.kapali) parcalar.push(`<span class="kapali" style="flex:${o.kapali} 0 0" title="${esc(t("konu.kapaliBaslik", { n: o.kapali }))}"></span>`);
+    const notlar = [];
+    if (o.ikincil) notlar.push(t("konu.ikincil", { n: o.ikincil }));
+    if (o.kapali) notlar.push(t("konu.kapaliNot", { n: o.kapali }));
+    return `<li><button type="button" class="konu-satir" aria-pressed="false" data-konu="${esc(o.konu)}"
+        aria-label="${esc(t("konu.aria", { konu: konuAd(o.konu), oneri: o.oneri, oy: o.oy, ikincil: o.ikincil }))}">
+      <span class="konu-ad">${esc(konuAd(o.konu))}</span>
+      <span class="konu-cubuk" aria-hidden="true" style="width:${(o.birim / enUzun) * 100}%">${parcalar.join("")}</span>
+      <span class="konu-sayi">${t("konu.sayi", { oneri: sayi(o.oneri), oy: sayi(o.oy) })}</span>
+      ${notlar.length ? `<span class="konu-not">${notlar.join(". ")}</span>` : ""}
+    </button></li>`;
+  }).join("");
+  konuListesi.addEventListener("click", (e) => {
+    const b = e.target.closest(".konu-satir");
+    if (!b) return;
+    durum.konu = durum.konu === b.dataset.konu ? "" : b.dataset.konu;
+    konuSec.value = durum.konu;
+    guncelle();
+  });
+
+  // ---------- Araç çubuğu ----------
+  const donemSec = $("#donem");
+  for (let d = Math.floor(yilBas / 10) * 10; d <= yilSon; d += 10) {
+    const o = document.createElement("option");
+    o.value = String(d).slice(0, 3); o.textContent = `${d}–${d + 9}`;
+    donemSec.appendChild(o);
+  }
+  const konuSec = $("#konu");
+  KONULAR.forEach((konu) => {
+    const o = document.createElement("option");
+    o.value = konu; o.textContent = konuAd(konu);
+    konuSec.appendChild(o);
+  });
+  $("#arama").addEventListener("input", (e) => { durum.arama = e.target.value.trim().toLocaleLowerCase(YEREL); guncelle(); });
+  donemSec.addEventListener("change", (e) => { durum.donem = e.target.value; durum.yil = null; guncelle(); });
+  konuSec.addEventListener("change", (e) => { durum.konu = e.target.value; guncelle(); });
+  $("#tur").addEventListener("change", (e) => { durum.tur = e.target.value; guncelle(); });
+  // Doğrulaması süren kayıt yoksa bu filtre hep boş liste verir; gösterilmez.
+  $("#dogrulaniyor").closest("label").hidden = !kayitlar.some((k) => k.dogrulama.length);
+  $("#dogrulaniyor").addEventListener("change", (e) => { durum.dogrulaniyor = e.target.checked; guncelle(); });
+  $("#temizle").addEventListener("click", () => {
+    Object.assign(durum, { arama: "", donem: "", konu: "", tur: "", dogrulaniyor: false, yil: null });
+    durum.uyeler.clear();
+    $("#arama").value = ""; donemSec.value = ""; konuSec.value = ""; $("#tur").value = ""; $("#dogrulaniyor").checked = false;
+    guncelle();
+  });
+
+  // ---------- Liste ----------
+  const liste = $("#liste");
+  const bag = (url, metin) => `<a href="${esc(url)}" target="_blank" rel="noopener">${esc(metin)}</a>`;
+  function etiketler(k) {
+    const e = [];
+    if (k.dogrulama.length) e.push(`<span class="etiket dogrulaniyor">${t("etiket.dogrulaniyor")}</span>`);
+    if ((k.duzeltme || "").startsWith("eklendi")) e.push(`<span class="etiket">${t("etiket.eklendi")}</span>`);
+    if (k.kapali) e.push(`<span class="etiket">${t("etiket.kapali")}</span>`);
+    if (k.onSoru) e.push(`<span class="etiket">${t("etiket.onSoru")}</span>`);
+    if (k.kismi) e.push(`<span class="etiket">${t("etiket.kismi")}</span>`);
+    if (k.gk && k.gk.durum === "yapildi") e.push(`<span class="etiket gk">${t("etiket.gk")}</span>`);
+    return e.length ? `<span class="etiketler">${e.join("")}</span>` : "";
+  }
+  function oyDetay(k) {
+    if (!k.oy) return `<p>${k.kapali ? t("oy.kapali") : t("oy.yok")}</p>`;
+    const { lehte: l, aleyhte: a, cekimser: c } = k.oy, top = l + a + c, gerek = gerekliCogunluk(k);
+    let cumle = l >= gerek ? t("oy.yeterli", { l, gerek }) : t("oy.yetersiz", { l, gerek });
+    if (tekBasina(k)) cumle += t("oy.tek", { n: konseyBuyuklugu(k) });
+    return `<div class="oy-cubuk" aria-hidden="true"><span class="l" style="width:${(l / top) * 100}%"></span><span class="a" style="width:${(a / top) * 100}%"></span><span class="c" style="width:${(c / top) * 100}%"></span></div>
+      <p>${t("oy.dagilim", { l, a, c })}</p>
+      <p class="cogunluk">${cumle}</p>`;
+  }
+
+  // Veto girişimi açıklama kutusu: düz bilgi, her cümlenin kaynağıyla.
+  const BELGE = (kod, ek = "") => `${bag("https://undocs.org/" + kod, kod)}${ek}`;
+  const VG_KAYNAK = [
+    () => BELGE("A/RES/76/262", `, ${t("par")} 1`), () => BELGE("A/RES/76/262", `, ${t("par")} 2`),
+    () => BELGE("A/RES/76/262", `, ${t("par")} 3`), () => BELGE("A/RES/76/262", `, ${t("par")} 4`),
+    () => BELGE("A/76/PV.69", `, ${t("s")} 8`), () => `${BELGE("A/76/L.52")}; ${BELGE("A/76/PV.69", `, ${t("s")} 7-8`)}`,
+    () => `${BELGE("A/76/L.52")}; ${BELGE("A/76/PV.69", `, ${t("s")} 7-8`)}`, () => BELGE("A/76/L.52"),
+    () => BELGE("A/76/PV.69", `, ${t("s")} 20`),
+  ];
+  const vetoGirisimiHtml = () => `<details class="aciklama-kutusu"><summary>${t("vg.baslik")}</summary><ul>${
+    t("vg.maddeler").map((m, i) => `<li>${esc(m)} <span class="kaynak">(${VG_KAYNAK[i]()})</span></li>`).join("")
+  }</ul><p class="kaynak">${t("vg.not")}</p></details>`;
+
+  // ---------- Genel Kurul (A/RES/76/262; yalnızca 26 Nisan 2022 sonrası vetolar) ----------
+  function genelKurulHtml(k) {
+    const g = k.gk;
+    const satirlar = [vetoGirisimiHtml()];
+    if (g.ozelRapor) satirlar.push(`<p>${t("gk.ozelRapor")}: ${bag(g.ozelRapor.url, g.ozelRapor.kod)}</p>`);
+    if (!g.tartismalar.length) satirlar.push(`<p>${t("gk.yok")}</p>`);
+    g.tartismalar.forEach((ta) => {
+      const tur = ta.tur === "veto_girisimi" ? t("gk.vg") : t("gk.oo", { oturum: esc(ta.oturum) });
+      const kayit = ta.kayitlar.map((r) => r.durum === "resmi" ? bag(r.url, r.kod)
+        : `${esc(r.kod)} <span class="gk-durum">(${t("gk.durum." + r.durum)})</span>`).join(", ");
+      const parca = [`<p class="gk-baslik"><b>${tur}</b>, ${ta.tarihler.map(tarihUzun).join(t("ve"))}</p>`, `<p>${t("gk.kayitlar")}: ${kayit}</p>`];
+      if (ta.kararlar.length) parca.push(`<p>${t("gk.kararlar")}: ${ta.kararlar.map((r) => bag(r.url, r.kod)).join(", ")}</p>`);
+      const s = ta.konusmacilar;
+      if (s) {
+        parca.push(`<p>${t("gk.konusmacilar", { uye: s.aciklama_uye_devlet, gozlemci: s.aciklama_gozlemci, grup: s.grup_adina_konusan, cevap: s.cevap_hakki })}</p>`);
+        parca.push(`<p>${t("gk.vetoEden")}: ${Object.entries(s.veto_eden_konustu).map(([u, d]) => `${uyeAdMetin(u)} ${t("gk.konustu." + d)}`).join("; ")}.</p>`);
+        if (s.kaynak !== "toplanti_kaydi") parca.push(`<p class="gk-durum">${s.kaynak === "bm_gunlugu" ? t("gk.kaynakGunluk") : t("gk.kaynakTranskript")}</p>`);
+      }
+      satirlar.push(`<div class="gk-tartisma">${parca.join("")}</div>`);
+    });
+    return `<div><h3>${t("gk.baslik")}</h3>${satirlar.join("")}</div>`;
+  }
+
+  function detayHtml(k) {
+    const p = [];
+    const et = etiketler(k);
+    const ozgun = DIL === "tr" && k.gundemTr ? `<p class="gundem-ozgun" lang="en">${esc(k.gundem)}</p>` : "";
+    if (et || ozgun) p.push(`<div>${et}${ozgun}</div>`);
+    p.push(`<div><h3>${t("d.genelOy")}</h3>${oyDetay(k)}</div>`);
+    p.push(`<div><h3>${t("d.konu")}</h3><p>${esc(konuAd(k.konu))}</p>${k.ikincil.length
+      ? `<p>${t("d.ikincil")}: ${esc(k.ikincil.map(konuAd).join(", "))}</p>` : ""}</div>`);
+    if (k.gk) p.push(genelKurulHtml(k));
+    if (k.belgeler.length) p.push(`<div><h3>${t("d.belgeler")}</h3><p class="belgeler">${k.belgeler.map((b) =>
+      `${bag(b.url, b.kod)} <span class="soluk">${b.tur === "toplanti" ? t("d.toplantiKaydi") : t("d.taslak")}</span>`).join("")}</p></div>`);
+    if (k.dogrulama.length) p.push(`<div><h3>${t("d.dogrulamaDurumu")}</h3><ul>${k.dogrulama.map((d) => `<li>${esc(d[DIL] || d.tr)}</li>`).join("")}</ul></div>`);
+    if ((k.dogrulamaKaynagi || []).length) p.push(`<div><h3>${t("d.dogrulamaKaynagi")}</h3><ul>${k.dogrulamaKaynagi.map((d) => {
+      const alanlar = d.alanlar.map((a, i) => (i ? t("alan." + a).toLocaleLowerCase(YEREL) : t("alan." + a))).join(t("ve"));
+      return `<li>${t("d.kaynakSatiri", { alanlar, kayit: bag(d.url, d.toplanti), sayfa: esc(d.sayfa), paragraf: d.paragraf ? esc(d.paragraf) : "" })}</li>`;
+    }).join("")}</ul></div>`);
+    // Notlar Türkçe yazılıp İngilizceye çevrildi; çeviri eksikse Türkçe asıl metin gösterilir.
+    const metin = (tr, en) => (DIL === "en" && en ? [en, "en"] : [tr, "tr"]);
+    if (k.notlar.length) p.push(`<div><h3>${t("d.notlar")}</h3><ul>${k.notlar.map((n) => {
+      const [m, dil] = metin(n.tr, n.en);
+      return `<li lang="${dil}">${esc(m)}</li>`;
+    }).join("")}</ul></div>`);
+    if (k.duzeltme) { const [m, dil] = metin(k.duzeltme, k.duzeltmeEn); p.push(`<div><h3>${t("d.mutabakat")}</h3><p lang="${dil}">${esc(m)}</p></div>`); }
+    return p.join("");
+  }
+  function satirHtml(k) {
+    const acik = durum.acik.has(k.id);
+    const kim = k.kapali
+      ? `<span class="uye-ad kapali-ad">${esc(t("kapaliSatir", { uyeler: k.uyeler.map(uyeBelirli).join(", ") }))}</span>`
+      : k.uyeler.map((u) => `<span class="uye-ad"><span class="nokta" style="background:${UYELER[u].renk}"></span>${uyeKisa(u)}</span>`).join("");
+    return `<article class="kayit" id="k-${k.id}">
+      <button class="kayit-bas" type="button" aria-expanded="${acik}" aria-controls="d-${k.id}" data-id="${k.id}">
+        <time datetime="${k.tarih}">${tarihKisa(k.tarih)}</time>
+        <span class="gundem" ${DIL === "en" ? 'lang="en"' : ""}>${esc(baslik(k))}</span>
+        <span class="uye-adlari">${kim}</span>
+      </button>
+      <div class="detay" id="d-${k.id}" ${acik ? "" : "hidden"}>${acik ? detayHtml(k) : ""}</div>
+    </article>`;
+  }
+  liste.addEventListener("click", (e) => {
+    const b = e.target.closest(".kayit-bas");
+    if (!b) return;
+    const id = b.dataset.id, d = document.getElementById("d-" + id);
+    const acilacak = !durum.acik.has(id);
+    acilacak ? durum.acik.add(id) : durum.acik.delete(id);
+    b.setAttribute("aria-expanded", acilacak);
+    d.innerHTML = acilacak ? detayHtml(kayitById[id]) : "";
+    d.hidden = !acilacak;
+  });
+  function kayitaGit(id) {
+    const a = document.getElementById("k-" + id);
+    if (a) { a.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" }); a.querySelector(".kayit-bas").focus({ preventScroll: true }); }
+  }
+
+  // ---------- Güncelle ----------
+  function guncelle() {
+    const uyan = kayitlar.filter(kayitUyar);
+    const uyanId = new Set(uyan.map((k) => k.id));
+    kareler.forEach((r) => {
+      const h = r._h;
+      const uyeUygun = !durum.uyeler.size || (h.uye ? durum.uyeler.has(h.uye) : h.k.uyeler.some((u) => durum.uyeler.has(u)));
+      r.classList.toggle("sonuk", !(uyanId.has(h.k.id) && uyeUygun));
+    });
+    svg.querySelectorAll(".yil").forEach((g) => g.classList.toggle("secili", g.dataset.yil === durum.yil));
+    lejant.querySelectorAll(".uye-dugme").forEach((b) => b.setAttribute("aria-pressed", durum.uyeler.has(b.dataset.uye)));
+    konuListesi.querySelectorAll(".konu-satir").forEach((b) => b.setAttribute("aria-pressed", b.dataset.konu === durum.konu));
+    $("#konular").classList.toggle("secimli", !!durum.konu);
+    $("#temizle").hidden = !filtreVar();
+    const oySayisi = uyan.filter((k) => !k.kapali).reduce((s, k) => s + k.uyeler.length, 0);
+    const ikincil = durum.konu ? uyan.filter((k) => k.konu !== durum.konu).length : 0;
+    $("#sonuc").innerHTML = filtreVar()
+      ? t("sonuc.filtre", { yil: durum.yil, oneri: sayi(uyan.length), oy: sayi(oySayisi), ikincil: ikincil ? sayi(ikincil) : 0 })
+      : t("sonuc.tum", { oneri: sayi(uyan.length), oy: sayi(oySayisi) });
+    liste.innerHTML = uyan.length ? uyan.map(satirHtml).join("") : `<p class="bos-durum">${t("bos")}</p>`;
+  }
+
+  // ---------- Alt bilgi ----------
+  // Yalnızca veri tarihi; kaynaklar, yöntem ve indirmeler "Nasıl yaptık?" bölümündedir (Hakkında, Metodoloji)
+  const m = VERI.meta;
+  if (m.veri_surumu) $("#alt").innerHTML = `<p class="veri-tarihi">${t("alt.veriTarihi", { tarih: `<time datetime="${esc(m.veri_surumu)}">${tarihUzun(m.veri_surumu)}</time>` })}</p>`;
+
+  guncelle();
+})();
+</script>
+</body>
+</html>

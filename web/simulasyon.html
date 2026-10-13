@@ -1,0 +1,814 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ya veto olmasaydı? · Veto Atlası</title>
+<meta name="description" content="Gerçek bir veto kaydının oyları iki sistemde sayılır: BM Şartı 27/3 ve “Daha Adil Bir Dünya Mümkün” modeli. / The votes of a real veto record counted under two systems: Article 27 (3) of the UN Charter and the model in “Daha Adil Bir Dünya Mümkün”.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Veto Atlası / Veto Atlas">
+<meta property="og:title" content="Ya veto olmasaydı? · Veto Atlası / What if there were no veto? · Veto Atlas">
+<meta property="og:description" content="Gerçek bir veto kaydının oyları iki sistemde sayılır: BM Şartı 27/3 ve “Daha Adil Bir Dünya Mümkün” modeli. / The votes of a real veto record counted under two systems: Article 27 (3) of the UN Charter and the model in “Daha Adil Bir Dünya Mümkün”.">
+<meta property="og:image" content="https://vetoatlas.com/onizleme.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:locale:alternate" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="https://vetoatlas.com/simulasyon">
+<link rel="canonical" href="https://vetoatlas.com/simulasyon">
+<link rel="alternate" hreflang="tr" href="https://vetoatlas.com/simulasyon">
+<link rel="alternate" hreflang="en" href="https://vetoatlas.com/simulasyon?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://vetoatlas.com/simulasyon">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#FBF8F1">
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="temel.css">
+<script src="cubuk.js"></script>
+<style>
+:root {
+  --zemin: #FBF8F1; --yuzey: #FFFFFF; --murekkep: #13213A; --murekkep-2: #5A6578; --cizgi: #E1DBCF; --vurgu: #A4262C;
+  --u-sscb: #7E2F3C; --u-rus: #C2666F; --u-usa: #24507F; --u-gbr: #2F7A6E; --u-fra: #A8782A; --u-chn: #5E4E9A;
+  --kabul: #2D6A4F;  /* yalnızca simülasyon sonucu "Kabul edilirdi" */
+  --lehte: #9AA3B2; --aleyhte: #13213A; --cekimser: #D9D3C7; --bos: #EDE7DA; --secili-metin: #FFFFFF;
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans: "Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+:root[data-theme="dark"] {
+  --zemin: #1C1A17; --yuzey: #272420; --murekkep: #EDE8E0; --murekkep-2: #ABA496; --cizgi: #3B3731; --vurgu: #E05A52;
+  --u-sscb: #C2576A; --u-rus: #E89AA5; --u-usa: #5B8DC4; --u-gbr: #5FB09C; --u-fra: #D8A84A; --u-chn: #9B86D6;
+  --kabul: #6FBF8E;
+  --lehte: #8B94A3; --aleyhte: #EDE8E0; --cekimser: #4A463F; --bos: #2E2A24; --secili-metin: #000000;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--zemin); color: var(--murekkep); font-family: var(--sans); font-size: var(--yz-govde); line-height: var(--sa-govde); }
+.kap { max-width: 1180px; margin: 0 auto; padding: 0 24px 64px; }
+a { color: inherit; text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--murekkep); outline-offset: 2px; }
+[hidden] { display: none !important; }
+button { font: inherit; color: var(--murekkep); cursor: pointer; }
+.giris { padding: 64px 0 8px; }
+h1 { font-family: var(--serif); font-weight: 600; font-size: var(--yz-baslik); line-height: var(--sa-baslik); margin: 0 0 16px; }
+.giris p { font-family: var(--serif); font-size: var(--yz-govde); line-height: var(--sa-govde); max-width: var(--olcu); margin: 0 0 12px; }
+details.yontem { font-size: var(--yz-kucuk); max-width: var(--olcu); margin: 8px 0 0; line-height: var(--sa-kucuk); }
+details.yontem summary { cursor: pointer; font-weight: 600; }
+details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: var(--murekkep-2); margin: 8px 0 0; line-height: var(--sa-kucuk); }
+h2 { font-family: var(--serif); font-weight: 600; font-size: var(--yz-govde); line-height: var(--sa-govde); margin: 32px 0 8px; scroll-margin-top: 16px; }
+h3 { font-family: var(--serif); font-weight: 600; font-size: var(--yz-govde); margin: 0 0 8px; line-height: var(--sa-govde); }
+.aciklama { color: var(--murekkep-2); font-size: var(--yz-kucuk); max-width: var(--olcu); margin: 0 0 16px; line-height: var(--sa-kucuk); }
+.kutu { background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 6px; }
+.etiket { display: inline-block; font-size: var(--yz-kucuk); padding: 0 8px; border: 1px solid var(--cizgi); border-radius: 999px; color: var(--murekkep-2); vertical-align: middle; margin-left: 8px; line-height: var(--sa-kucuk); }
+.etiket.kaynakli { border-color: var(--murekkep-2); color: var(--murekkep-2); }
+
+/* Üç adım göstergesi */
+.adimlar { list-style: none; margin: 24px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: var(--yz-kucuk); color: var(--murekkep-2); line-height: var(--sa-kucuk); }
+.adimlar li { display: inline-flex; align-items: center; gap: 8px; }
+.adimlar .no { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--cizgi); display: inline-flex; align-items: center; justify-content: center; font-size: var(--yz-kucuk); font-weight: 600; font-variant-numeric: tabular-nums; line-height: var(--sa-kucuk); }
+.adimlar li.tamam .no { background: var(--bos); border-color: var(--bos); }
+.adimlar li[aria-current="step"] { color: var(--murekkep); font-weight: 600; }
+.adimlar li[aria-current="step"] .no { background: var(--murekkep); color: var(--zemin); border-color: var(--murekkep); }
+
+/* Öne çıkan kayıtlar */
+.ornekler { display: grid; grid-template-columns: repeat(auto-fill, minmax(172px, 1fr)); gap: 8px; margin: 0 0 12px; }
+.ornekler button { text-align: left; padding: 8px 12px; border: 1px solid var(--cizgi); border-radius: 6px; background: var(--yuzey); display: grid; gap: 4px; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+.ornekler button[aria-pressed="true"] { border-color: var(--murekkep); box-shadow: inset 0 0 0 1px var(--murekkep); }
+.ornekler .tarih { font-size: var(--yz-kucuk); color: var(--murekkep-2); font-variant-numeric: tabular-nums; line-height: var(--sa-kucuk); }
+.ornekler .ad { font-family: var(--serif); font-size: var(--yz-govde); font-weight: 600; line-height: var(--sa-govde); }
+.ornekler .alt { font-size: var(--yz-kucuk); color: var(--murekkep-2); line-height: var(--sa-kucuk); }
+
+/* Kayıt seçimi */
+.secim { padding: 16px 16px 8px; display: grid; grid-template-columns: repeat(auto-fit, minmax(172px, 1fr)); gap: 12px 16px; align-items: end; }
+.secim > div { min-width: 0; }
+.secim label, .liste label { display: block; font-size: var(--yz-kucuk); color: var(--murekkep-2); margin-bottom: 4px; line-height: var(--sa-kucuk); }
+.secim select, .liste select { width: 100%; min-width: 0; font: inherit; font-size: var(--yz-govde); padding: 8px 8px; border: 1px solid var(--cizgi); border-radius: 4px; background: var(--yuzey); color: var(--murekkep); }
+.bildirim { margin: 0; padding: 4px 16px 0; font-size: var(--yz-kucuk); color: var(--murekkep-2); min-height: 1.4em; line-height: var(--sa-kucuk); }
+.liste { padding: 12px 16px 16px; }
+.liste-bas { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 12px; margin-bottom: 8px; font-size: var(--yz-kucuk); color: var(--murekkep-2); line-height: var(--sa-kucuk); }
+.liste-bas .sayi { font-weight: 600; color: var(--murekkep); }
+.gez { display: inline-flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.gez button { font-size: var(--yz-kucuk); padding: 4px 12px; border: 1px solid var(--cizgi); border-radius: 999px; background: var(--yuzey); line-height: var(--sa-kucuk); }
+.gez button:disabled { opacity: .45; cursor: default; }
+.gez .konum { font-variant-numeric: tabular-nums; padding: 0 4px; }
+.bos-sonuc { padding: 16px 16px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; border-top: 1px solid var(--cizgi); }
+.bos-sonuc p { margin: 0; }
+.bos-sonuc button { padding: 4px 12px; border: 1px solid var(--murekkep); border-radius: 4px; background: var(--murekkep); color: var(--zemin); }
+.kayit-ozet { padding: 16px 16px; border-top: 1px solid var(--cizgi); }
+.kayit-ozet .tarih { font-size: var(--yz-kucuk); color: var(--murekkep-2); font-variant-numeric: tabular-nums; line-height: var(--sa-kucuk); }
+.kayit-ozet .gundem { font-family: var(--serif); font-size: var(--yz-govde); line-height: var(--sa-govde); }
+.kayit-ozet .belgeler { font-size: var(--yz-kucuk); color: var(--murekkep-2); margin-top: 4px; line-height: var(--sa-kucuk); }
+.kayit-ozet .ornek-notu { margin: 8px 0 0; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+.ulke-secim { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+.ulke-secim button { font-size: var(--yz-kucuk); padding: 4px 12px; border: 1px solid var(--cizgi); border-radius: 999px; background: var(--yuzey); display: inline-flex; align-items: center; gap: 8px; line-height: var(--sa-kucuk); }
+.ulke-secim button[aria-pressed="true"] { border-color: var(--murekkep); box-shadow: inset 0 0 0 1px var(--murekkep); }
+.nokta { width: 12px; height: 12px; border-radius: 2px; display: inline-block; flex: none; }
+
+/* Paneller: dört satır aynı hizada (başlık, kural, sayım, ayrıntı); sonuç ve nedeni sonuç kartlarında */
+.paneller { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, auto); gap: 16px; margin-top: 16px; }
+.panel { padding: 16px 24px 16px; display: grid; grid-template-rows: subgrid; grid-row: span 4; row-gap: 12px; align-content: start; }
+.panel > * { margin: 0; min-width: 0; }
+.panel h2 { margin: 0; font-size: var(--yz-govde); line-height: var(--sa-govde); }
+.panel .kural { font-size: var(--yz-kucuk); color: var(--murekkep-2); line-height: var(--sa-kucuk); }
+.sayac-kutu { display: grid; gap: 8px; align-content: start; }  /* iki panelde sayaç ve kareler aynı hizada */
+.sayac { font-variant-numeric: tabular-nums; font-size: var(--yz-kucuk); color: var(--murekkep-2); margin: 0; min-height: 1.4em; line-height: var(--sa-kucuk); }
+.sayim { display: flex; flex-wrap: wrap; gap: 4px; min-height: 32px; margin: 0; }
+.oy { width: 24px; height: 24px; border-radius: 4px; background: var(--bos); border: 1px solid var(--cizgi); display: inline-flex; align-items: center; justify-content: center; font-size: var(--yz-kucuk); font-weight: 600; color: var(--zemin); opacity: 0; transform: scale(.6); transition: opacity .18s, transform .18s; line-height: var(--sa-kucuk); }
+.oy.goster { opacity: 1; transform: scale(1); }
+.oy.lehte { background: var(--lehte); border-color: var(--lehte); color: var(--murekkep); }
+.oy.aleyhte { background: var(--aleyhte); border-color: var(--aleyhte); color: var(--zemin); }  /* önerilen sistem: daimî üyenin ret oyu sıradan bir ret oyu, mürekkep renginde */
+.oy.veto { background: var(--vurgu); border-color: var(--vurgu); color: var(--zemin); }           /* mevcut sistem: daimî üyenin ret oyu veto, kırmızı */
+.oy.cekimser { background: var(--cekimser); border-color: var(--cekimser); color: var(--murekkep); }
+.oy.katilmadi { background: transparent; color: var(--murekkep-2); border-style: dashed; }
+.oy.yeni { background: transparent; border: 1px dashed var(--murekkep-2); opacity: 1; transform: none; }  /* 20 üyeli Konsey: kayıtta olmayan üye; sayaca girmez */
+.yeni-grup { flex-basis: 100%; display: flex; flex-wrap: wrap; gap: 4px; }
+.yeni-not { margin: 0; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); color: var(--murekkep-2); }
+.oy.secili { outline: 3px solid var(--murekkep); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .oy { transition: none; } }
+.parametre { display: grid; gap: 8px; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+.parametre label { display: block; color: var(--murekkep-2); font-size: var(--yz-kucuk); margin-bottom: 4px; line-height: var(--sa-kucuk); }
+.parametre > div { min-width: 0; }
+.parametre select { font: inherit; font-size: var(--yz-govde); padding: 4px 8px; border: 1px solid var(--cizgi); border-radius: 4px; background: var(--yuzey); color: var(--murekkep); width: 100%; min-width: 0; }
+.parametre-yok { font-size: var(--yz-kucuk); color: var(--murekkep-2); line-height: var(--sa-kucuk); }
+details.ayarlar .parametre { margin: var(--b2) 0 0; }
+.ayar-cumle { margin: 0; color: var(--murekkep-2); }
+.ayar-notu { margin: var(--b1) 0 0; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); color: var(--murekkep-2); }  /* varsayılandan farklı ayar */
+/* Sonuç bloğu (kaynaklar/kimlik/sonuc-taslak.html): başlıkta tarih ve belge; iki sonuç kartı yan yana (sistem adı ve kural
+   özeti, büyük sonuç sözcüğü, tek cümle neden); altında fark cümlesi, düğmeler ve sayım sırası notu. Mobilde kartlar alt alta. */
+.sonuc-blok { margin: 16px 0 0; padding: 24px; }
+.sonuc-baslik { margin: 0 0 16px; font-family: var(--serif); font-weight: 600; font-size: var(--yz-govde); line-height: var(--sa-govde); color: var(--murekkep-2); }
+.sonuc-kartlar { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.sonuc-kart { padding: 16px 24px; background: var(--zemin); border: 1px solid var(--cizgi); border-radius: 6px; display: grid; gap: 8px; align-content: start; }
+.sonuc-kart > * { margin: 0; min-width: 0; }
+.sonuc-kart .ad, .sonuc-kart .neden { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); color: var(--murekkep-2); }
+.sonuc { font-family: var(--serif); font-size: var(--yz-baslik); font-weight: 600; line-height: var(--sa-baslik); margin: 0; min-height: var(--sa-baslik); }
+/* Sonuç renkleri: yeşil yalnızca "Kabul edilirdi"; vetoyla "Düştü" ret kırmızısı; "Yeni üyelerin oyuna bağlı" ikincil;
+   önerilen sistemde çoğunluk olmadan düşme (veto değil) mürekkep */
+.sonuc.kabul { color: var(--kabul); }
+.sonuc.dustu { color: var(--vurgu); }
+.sonuc.bagli { color: var(--murekkep-2); }
+.sonuc.yok { color: var(--murekkep); }
+.sonuc.belirsiz { color: var(--murekkep-2); }
+.sonuc-blok .fark { margin: 24px 0 0; }
+.sonuc-blok .sira-notu { margin: 16px 0 0; }
+.panel .ayrinti { display: grid; gap: 12px; padding-top: 12px; border-top: 1px solid var(--cizgi); font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+.panel .ayrinti p { margin: 0; color: var(--murekkep-2); }
+details.ayarlar, details.unsur-kutu, details.karsilastir { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+details.ayarlar summary, details.unsur-kutu summary, details.karsilastir summary { cursor: pointer; font-weight: 600; }
+.panel .unsurlar { margin: 8px 0 0; padding: 0; list-style: none; font-size: var(--yz-kucuk); display: grid; gap: 8px; line-height: var(--sa-kucuk); }
+.panel .unsurlar li { padding-left: 12px; border-left: 2px solid var(--cizgi); }
+.panel .unsurlar .kunye { color: var(--murekkep-2); }
+details.karsilastir ul { margin: 8px 0 0; padding-left: 16px; display: grid; gap: 8px; }
+details.karsilastir .dayanak { color: var(--murekkep-2); }
+.sira-notu { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); color: var(--murekkep-2); max-width: var(--olcu); margin: var(--b2) 0 0; }  /* iki panelin ortak notu */
+.fark { margin: 16px 0 0; font-family: var(--serif); font-size: var(--yz-govde); max-width: var(--olcu); line-height: var(--sa-govde); }
+.dugmeler { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: var(--b3); margin: var(--b6) 0 0; }  /* düğmeler: web/temel.css */
+
+/* Yapışkan sonuç şeridi */
+.serit { position: sticky; bottom: 0; margin: 16px 0 0; padding: 8px 16px; background: var(--zemin); box-shadow: 0 -2px 8px rgba(19, 33, 58, .06); display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center; font-size: var(--yz-kucuk); z-index: 1; line-height: var(--sa-kucuk); }
+.serit b { font-family: var(--serif); font-size: var(--yz-govde); line-height: var(--sa-govde); }
+.serit-metin { display: flex; flex-wrap: wrap; gap: 4px 24px; align-items: center; }
+.serit .dugme { margin-left: auto; }
+.serit .kabul { color: var(--kabul); }
+.serit .dustu { color: var(--vurgu); }
+.serit .bagli { color: var(--murekkep-2); }
+.serit .yok { color: var(--murekkep); }
+.serit .belirsiz { color: var(--murekkep-2); }
+
+/* Toplu görünüm */
+table { border-collapse: collapse; width: 100%; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+th, td { text-align: left; padding: 8px 12px; border-top: 1px solid var(--cizgi); vertical-align: top; }
+thead th { border-top: none; font: 600 var(--yz-kucuk)/var(--sa-kucuk) var(--sans); color: var(--murekkep-2); }
+td.sayi, th.sayi { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tablo-kap { overflow-x: auto; }
+.tablo-not { font-size: var(--yz-kucuk); color: var(--murekkep-2); margin: 8px 0 0; max-width: var(--olcu); line-height: var(--sa-kucuk); }
+
+/* Sınırlar: metin kartı, genişliği metin sütunu (KILAVUZ bölüm 2, "Kartlar") */
+.sinirlar { margin-top: 24px; padding: 16px 16px; border-left: 3px solid var(--murekkep-2); max-width: var(--olcu-metin); }
+.sinirlar h2 { margin: 0 0 8px; font-size: var(--yz-govde); line-height: var(--sa-govde); }
+.sinirlar ul { margin: 0; padding-left: 16px; font-size: var(--yz-kucuk); display: grid; gap: 4px; line-height: var(--sa-kucuk); }
+.sinirlar li { max-width: var(--olcu); }
+.gorunmez { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (max-width: 760px) {
+  body { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+  .kap { padding: 0 16px 48px; }
+  .paneller { grid-template-columns: 1fr; grid-template-rows: none; }
+  .panel { padding: 16px; grid-template-rows: auto; grid-row: auto; }
+  .parametre-yok { display: none; }
+  .sonuc-blok { padding: 16px; }
+  .sonuc-kartlar { grid-template-columns: 1fr; }
+  .sonuc-kart { padding: 16px; }
+  .serit { padding: 8px 12px; }
+}
+
+/* Sayfa üstü ve giriş (temel.css basamakları): üstte 48 px (dar ekranda 32 px), ilk bölüme 48 px */
+.giris { padding: var(--b12) 0 var(--b12); }
+@media (max-width: 760px) { .giris { padding-top: var(--b8); } }
+</style>
+</head>
+<body data-sayfa="simulasyon">
+<header id="cubuk" class="cubuk"></header>
+<div class="kap">
+  <header class="giris">
+    <h1 data-t="baslik"></h1>
+    <p data-t="giris"></p>
+    <details class="yontem"><summary data-t="yontem.baslik"></summary><p data-t="yontem.metin"></p></details>
+    <ol class="adimlar" id="adimlar" aria-label="">
+      <li data-adim="1"><span class="no">1</span><span data-t="adim.1"></span></li>
+      <li data-adim="2"><span class="no">2</span><span data-t="adim.2"></span></li>
+      <li data-adim="3"><span class="no">3</span><span data-t="adim.3"></span></li>
+    </ol>
+  </header>
+
+  <main>
+    <section aria-labelledby="h-secim">
+      <h2 id="h-secim" data-t="h.secim"></h2>
+      <p class="aciklama" data-t="ornek.baslik"></p>
+      <div class="ornekler" id="ornekler"></div>
+      <div class="kutu">
+        <div class="secim">
+          <div><label for="f-konu" data-t="f.konu"></label><select id="f-konu"></select></div>
+          <div><label for="f-yil" data-t="f.yil"></label><select id="f-yil"></select></div>
+          <div><label for="f-uye" data-t="f.uye"></label><select id="f-uye"></select></div>
+        </div>
+        <p class="bildirim" id="bildirim" role="status" aria-live="polite"></p>
+        <div class="liste" id="liste">
+          <div class="liste-bas"><span class="sayi" id="eslesen"></span><span class="gez"><button type="button" id="onceki"></button><span class="konum" id="konum"></span><button type="button" id="sonraki"></button><button type="button" id="rastgele" data-t="f.rastgele"></button></span></div>
+          <label for="f-kayit" data-t="f.kayit"></label><select id="f-kayit"></select>
+        </div>
+        <div class="bos-sonuc" id="bos" hidden><p data-t="bos.metin"></p><button type="button" id="temizle" data-t="bos.temizle"></button></div>
+        <div class="kayit-ozet" id="kayit-ozet"></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-paneller" id="paneller-bolum">
+      <h2 id="h-paneller" class="gorunmez" data-t="h.paneller"></h2>
+      <div class="paneller">
+        <article class="panel kutu" id="panel-oneri" aria-labelledby="h-oneri">
+          <h2 id="h-oneri" data-t="p.oneri"></h2>
+          <p class="kural" data-t="p.oneriKural"></p>
+          <div class="sayac-kutu"><p class="sayac" id="sayac-oneri"></p><div class="sayim" id="sayim-oneri" aria-live="polite"></div><p class="yeni-not" id="yeni-not" hidden></p></div>
+          <div class="ayrinti">
+            <details class="ayarlar" id="ayarlar"><summary data-t="ayar.baslik"></summary><div class="parametre" id="parametre"></div></details>
+            <details class="unsur-kutu">
+              <summary data-t="p.unsurBaslik"></summary>
+              <ul class="unsurlar" id="unsurlar"></ul>
+            </details>
+            <details class="karsilastir" id="karsilastir">
+              <summary data-t="k.baslik"></summary>
+              <ul id="karsilastir-liste"></ul>
+            </details>
+          </div>
+        </article>
+        <article class="panel kutu" id="panel-mevcut" aria-labelledby="h-mevcut">
+          <h2 id="h-mevcut" data-t="p.mevcut"></h2>
+          <p class="kural" data-t="p.mevcutKural"></p>
+          <div class="sayac-kutu"><p class="sayac" id="sayac-mevcut"></p><div class="sayim" id="sayim-mevcut" aria-live="polite"></div></div>
+          <div class="ayrinti">
+            <p class="parametre-yok" data-t="p.parametreYok"></p>
+            <p class="kural-ayrinti" data-t="p.mevcutAyrinti"></p>
+          </div>
+        </article>
+      </div>
+      <div class="sonuc-blok kutu" id="sonuc-blok">
+        <h2 class="sonuc-baslik" id="h-sonuc"></h2>
+        <div class="sonuc-kartlar" id="sonuc-kartlar">
+          <div class="sonuc-kart" id="kart-oneri"><p class="ad" id="ad-oneri"></p><p class="sonuc" id="sonuc-oneri" aria-live="polite"></p><p class="neden" id="aciklama-oneri"></p><p class="ayar-notu" id="ayar-notu" hidden></p></div>
+          <div class="sonuc-kart" id="kart-mevcut"><p class="ad" id="ad-mevcut"></p><p class="sonuc" id="sonuc-mevcut" aria-live="polite"></p><p class="neden" id="aciklama-mevcut"></p></div>
+        </div>
+        <p class="fark" id="fark" hidden></p>
+        <div class="dugmeler">
+          <button type="button" class="dugme" id="tekrar"><svg class="dongu" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M16 10a6 6 0 1 1-1.76-4.24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M16 3v4h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-t="tekrar"></span></button>
+          <button type="button" class="dugme ikincil" id="rastgele-kayit" data-t="rastgeleKayit"></button>
+        </div>
+        <p class="sira-notu" data-t="siraNotu"></p>
+      </div>
+      <div class="serit kutu" id="serit" hidden><span class="serit-metin" id="serit-metin" aria-live="polite"></span><button type="button" class="dugme kucuk" id="serit-tekrar"><svg class="dongu" width="16" height="16" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M16 10a6 6 0 1 1-1.76-4.24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M16 3v4h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-t="tekrarKisa"></span></button></div>
+    </section>
+
+    <aside class="sinirlar kutu" aria-labelledby="h-sinir">
+      <h2 id="h-sinir" data-t="s.baslik"></h2>
+      <ul id="sinir-liste"></ul>
+    </aside>
+
+    <section aria-labelledby="h-toplu">
+      <h2 id="h-toplu"></h2>
+      <p class="aciklama" id="toplu-ozet"></p>
+      <div class="tablo-kap kutu"><table id="toplu"></table></div>
+      <p class="tablo-not" id="toplu-not"></p>
+    </section>
+  </main>
+</div>
+
+<script src="veri.js"></script>
+<script src="suzgec.js"></script>
+<script>
+(function () {
+  "use strict";
+  const $ = (s) => document.querySelector(s);
+  const DILLER = ["tr", "en"];
+  const parametre = new URLSearchParams(location.search).get("lang");
+  const DIL = DILLER.includes(parametre) ? parametre : "tr";
+  const SOZLUK = {
+    tr: {
+      sayfaBasligi: "Ya veto olmasaydı? · Veto Atlası",
+      sayfaAciklamasi: "Gerçek bir veto kaydının oyları iki sistemde sayılır: BM Şartı 27/3 ve “Daha Adil Bir Dünya Mümkün” modeli.",
+      baslik: "Ya veto olmasaydı?",
+      giris: "Gerçek bir veto kaydı seçin; kayıtlı oyları, kitaptaki modele ve BM Şartı’nın 27/3 maddesine göre iki panelde aynı anda sayılır.",
+      "yontem.baslik": "Nasıl hesaplanıyor?",
+      "yontem.metin": "Sayım yalnızca kayıtlı oyları kullanır; hiçbir oy değiştirilmez, eklenmez ya da tahmin edilmez. Mevcut sistemde Madde 27/3 uygulanır: dokuz (1966 öncesinde yedi) olumlu oy ve daimî üyelerin olumlu oyu. Önerilen sistemde veto yoktur; kitabın belirtmediği karar eşiği ve üye sayısı “Ayarlar” kutusunda atlasın varsayımı olarak seçilir ve sayfa hiçbir modeli tercih etmez.",
+      "adim.etiket": "Adımlar", "adim.1": "Kaydı seç", "adim.2": "Oyları say", "adim.3": "Karşılaştır",
+      "h.secim": "1 · Kaydı seçin", "ornek.baslik": "Öne çıkan kayıtlar",
+      "f.konu": "Konu", "f.yil": "Yıl", "f.uye": "Veto eden üye", "f.kayit": "Kayıt", "f.rastgele": "Rastgele", onceki: "← Önceki", sonraki: "Sonraki →",
+      tum: "Tümü", kayitSayisi: ({ n }) => `${n} kayıt`, konum: ({ i, n }) => `${i} / ${n}`, oyYokKisa: "(oy dağılımı kayıtlı değil)",
+      "bos.metin": "Bu seçimle eşleşen kayıt yok.", "bos.temizle": "Filtreleri temizle",
+      "sifir.yilBaslar": ({ secim, yil, ek }) => `Yıl filtresi sıfırlandı: ${secim} kayıtları ${yil}’${ek} başlıyor.`,
+      "sifir.yilBiter": ({ secim, yil, ek }) => `Yıl filtresi sıfırlandı: ${secim} kayıtları ${yil}’${ek} bitiyor.`,
+      "sifir.yilYok": ({ secim, yil }) => `Yıl filtresi sıfırlandı: ${secim} için ${yil} kaydı yok.`,
+      "sifir.uye": ({ secim, uye }) => `Üye filtresi sıfırlandı: ${secim} kayıtlarında ${uye} vetosu yok.`,
+      ornekNotu: ({ boy, lehte, ek }) => `Bu örnekte ${boy} üyeden ${lehte}’${ek} evet dedi.`,
+      "h.paneller": "2 · Oyları sayın, 3 · Karşılaştırın",
+      ulkeSec: "Veto eden ülkeyi seçin:", ulkeTek: "Veto eden ülke:",
+      "p.oneri": "Önerilen sistem", "p.oneriKural": "“Daha Adil Bir Dünya Mümkün” (Eylül 2021) modeli: veto yoktur, her üyenin oyu eşit ağırlıkta sayılır, sonucu seçilen eşik belirler.", "p.unsurBaslik": "Kitap ne diyor?",
+      "p.mevcut": "Mevcut sistem", "p.mevcutKural": "BM Şartı, Madde 27/3: usul dışı kararlar dokuz üyenin olumlu oyuyla alınır; daimî üyelerin olumlu oyu gerekir.", "p.parametreYok": "Parametre yok: kural Şart’ta sabittir.",
+      "p.mevcutAyrinti": "On bir üyeli Konsey’de yedi oy kuralı, Şart değişikliğinin yürürlüğe girdiği 31 Ağustos 1965’e kadar geçerliydi; bu tarihle 1965 sonu arasında veto kullanılmadığı için veri seti 1966 öncesini on bir üyeli sayar.",
+      "u.veto": "Veto yok", "u.daimi": "Daimî üyelik yok", "u.hesap": "Konsey Genel Kurul’a hesap verir", "u.secim": "Üyeler Genel Kurul’dan",
+      kitapta: "Kitapta",
+      "ayar.baslik": "Ayarlar", "ayar.cumle": "Kitap karar eşiğini ve üye sayısını belirtmiyor; bu iki seçenek atlasın varsayımıdır.",
+      "ayar.not": ({ p }) => `Ayar: ${p}`, "ayar.ucteiki": "üçte iki eşiği", "ayar.salt": "salt çoğunluk eşiği", "ayar.kitap20": "20 üyeli Konsey",
+      "pr.esik": "Karar eşiği", "pr.esikCogunluk": "Mevcut çoğunluk kuralı: 15 üyede 9, 1966 öncesinde 11 üyede 7 (varsayılan)",
+      "pr.esikUcteIki": "Üçte iki: 15 üyede 10, 11 üyede 8", "pr.esikSalt": "Salt çoğunluk: 15 üyede 8, 11 üyede 6",
+      "pr.uye": "Üye seçimi", "pr.uyeKayitli": "Kayıtlı Konsey üyeleri (oyları kayıtlı olan 15 ya da 11 üye) (varsayılan)",
+      "pr.uyeKitap20": "Kitaptaki 20 üyeli Konsey (20 daimî üye ya da Genel Kurul’dan seçilen 20 ülke)",
+      "pr.esik20Cogunluk": ({ e }) => `Mevcut çoğunluk kuralının oranı: 20 üyede ${e} (varsayılan)`, "pr.esik20UcteIki": ({ e }) => `Üçte iki: 20 üyede ${e}`, "pr.esik20Salt": ({ e }) => `Salt çoğunluk: 20 üyede ${e}`,
+      sayac: ({ lehte, aleyhte, cekimser, katilmadi }) => `Evet (lehte) ${lehte} · Hayır (aleyhte) ${aleyhte} · Çekimser ${cekimser}` + (katilmadi ? ` · Oylamaya katılmayan ${katilmadi}` : ""),
+      siraNotu: "Oyların sayım sırası bir gösterimdir; toplantı kayıtlarında üye bazlı oylama sırası yoktur.",
+      "r.dustu": "Düştü", "r.kabul": "Kabul edilirdi", "r.cogunlukYok": "Düşerdi: çoğunluk yok", "r.bagli": "Yeni üyelerin oyuna bağlı", "r.sayiliyor": "Sayılıyor…", "r.oyYok": "Oy dağılımı kayıtlı değil",
+      "a.mevcut": ({ uye, lehte, n }) => `${lehte} lehte oy vardı; ${n > 1 ? `${uye} daimî üyelerinin ret oylarıyla` : `${uye} daimî üyesinin ret oyuyla`} öneri Madde 27/3 gereği düştü (kayıtlı sonuç).`,
+      "a.oneriKabul": ({ lehte, esik, boy }) => `${lehte} lehte oy, seçili eşik olan ${boy} üyede ${esik} oyu karşılıyor; veto olmadığı için ret oyları yalnızca sayıya girer.`,
+      "a.oneriYok": ({ lehte, esik, boy }) => `${lehte} lehte oy, seçili eşik olan ${boy} üyede ${esik} oyun altında kalıyor; veto olmasa da öneri bu eşikte geçmezdi.`,
+      "a.kabul20": ({ lehte, esik }) => `Kayıtlı ${lehte} evet oyu 20 üyeli Konsey’in eşiğini (${esik}) tek başına karşılıyor; yeni üyelerin oyuna bakmaya gerek yok.`,
+      "a.bagli20": ({ lehte, esik, yeni, k, ek }) => `Kayıtlı ${lehte} evet oyu var; 20 üyeli Konsey’de ${esik} gerekir. Kayıtta olmayan ${yeni} üyeden en az ${k}’${ek} evet derse kabul edilirdi.`,
+      "a.yok20": ({ lehte, esik, yeni }) => `Kayıtlı ${lehte} evet oyu var; 20 üyeli Konsey’de ${esik} gerekir. Kayıtta olmayan ${yeni} üyenin hepsi evet dese de eşiğe ulaşılmazdı.`,
+      "yeni.not": ({ yeni }) => `Kesikli kareler kayıtta olmayan ${yeni} üyedir; sayaca girmez. Hiçbir oy tahmin edilmez.`,
+      "a.oyYok": "Bu kayıtta oy dağılımı yok; sayım yapılamaz.",
+      "a.kapali": "Kapalı oturumda kullanılan veto: resmî bildiri oy dağılımını ve veto edeni yazmıyor; sayım yapılamaz.",
+      fark: ({ n }) => `Aynı ${n} oy. Fark: mevcut sistemde bir ret oyu kararı düşürür; önerilen sistemde sayılır.`,
+      "fark.bagli": ({ n, k }) => `Aynı ${n} oy. Fark: mevcut sistemde bir ret oyu kararı düşürür; önerilen sistemde sayılır. 20 üyeli Konsey’de sonuç yeni üyelerin oyuna bağlı: en az ${k} evet.`,
+      "serit.oneri": "Önerilen:", "serit.mevcut": "Mevcut:",
+      "sonuc.baslik": ({ tarih, belge }) => `Sonuç · ${tarih}${belge ? `, ${belge}` : ""}`,
+      "kart.oneri": ({ boy, esik }) => `veto yok, ${boy}’${sayiEki(boy, "de")} ${esik}`, "kart.mevcut": "Madde 27/3", "serit.bagli": ({ k }) => `Yeni üyelerin oyuna bağlı: en az ${k} evet`,
+      "k.baslik": "Diğer modellerle karşılaştır (G4, Uzlaşı için Birlik, Ezulwini)",
+      "k.g4": ({ uye }) => `<b>G4 (A/59/L.64, Temmuz 2005):</b> mevcut beş daimî üyenin vetosu sürer; yeni daimî üyeler, 15 yıl sonraki gözden geçirmeye kadar veto kullanmaz. ${uye} ret oyu daimî üyeye ait olduğu için öneri bu modelde de düşer. Belgenin karar eşiği (25 üyede 14 olumlu oy) kayıtlı 15 oya uygulanamaz.`,
+      "k.g4d": "Dayanak: par. 5 (b) ve 6 (b).",
+      "k.ufc": ({ uye }) => `<b>Uzlaşı için Birlik (A/59/L.68, Temmuz 2005):</b> Madde 27/3’teki daimî üyelerin olumlu oyu şartı değişmez. ${uye} ret oyu daimî üyeye ait olduğu için öneri bu modelde de düşer. Belgenin karar eşiği (25 üyede 15 olumlu oy) kayıtlı 15 oya uygulanamaz.`,
+      "k.ufcd": "Dayanak: par. 6 ve dipnot 5.",
+      "k.ez": ({ uye }) => `<b>Ezulwini Uzlaşısı (Ext/EX.CL/2 (VII), Mart 2005; A/59/L.67):</b> Afrika ilke olarak vetoya karşıdır; veto var olduğu sürece yeni daimî üyeler dahil bütün daimî üyelere tanınmalıdır. Veto sürdüğü sürece ${uye} ret oyu öneriyi bu modelde de düşürür. Belge vetonun kaldırılması için bir karar eşiği vermez; kaldırılması hâlinde sonuç ayrıca belirlenecek eşiğe bağlıdır.`,
+      "k.ezd": "Dayanak: Ezulwini C (e) 2–3; A/59/L.67 (b).",
+      "k.yok": "Veto eden üye seçilmeden karşılaştırma yapılamaz.",
+      tekrar: "Sayımı yeniden başlat", tekrarKisa: "Yeniden say", rastgeleKayit: "Rastgele kayıt",
+      "s.baslik": "Sınırlar",
+      "s.1": "Kayıtlı oyların değişmeyeceği varsayılır. Farklı bir karar kuralında üyelerin aynı oyu verip vermeyeceği bilinemez; sayım yalnızca kayıttaki oyları kullanır.",
+      "s.2": "Veto tehdidiyle oylamaya sunulmayan taslaklar ve Konsey’in eylemsizlik vakaları veri setinde yoktur; kapsam dışıdır.",
+      "s.3": "BM Şartı’nın 108. maddesine göre Şart değişiklikleri, Genel Kurul üyelerinin üçte ikisinin oyuyla kabul edilip beş daimî üye dahil üyelerin üçte ikisi tarafından onaylandığında yürürlüğe girer. Bu sayfa bu süreç hakkında bir varsayım yapmaz.",
+      "s.4": "Kapalı oturum vetoları (oy dağılımı ve veto eden resmî bildiride yok) ve oy dağılımı olmayan kayıtlar sayıma girmez; toplu görünümde ayrı sayılır.",
+      "h.toplu": ({ n }) => `${n} kayıtta sonuç`,
+      "toplu.ozet": ({ kabul, n, esik, kapali }) => `Seçili eşikte, ${esik}: ${kabul} / ${n} kayıtta öneri kabul edilirdi; ${kapali} kapalı oturum kaydında oy dağılımı yok.`,
+      "toplu.ozet20": ({ kesin, bagli, n, esik, kapali }) => `Seçili eşikte, 20 üyeli Konsey’de ${esik}: ${kesin} / ${n} kayıtta öneri kayıtlı oylarla kesin kabul edilirdi; ${bagli} kayıtta sonuç yeni üyelerin oyuna bağlı; ${kapali} kapalı oturum kaydında oy dağılımı yok.`,
+      "t.sistem": "Sistem", "t.kesin": "Kayıtlı oylarla kesin kabul", "t.bagli": "Yeni üyelerin oyuna bağlı", "t.dustu": "Düşerdi", "t.kapali": "Kapalı oturum", "t.oyYok": "Oy dağılımı yok", "t.toplam": "Toplam",
+      "t.mevcutAd": "Mevcut sistem (Madde 27/3)", "t.oneriAd": ({ esik }) => `Önerilen sistem, eşik: ${esik}`,
+      "t.oneri20Ad": ({ esik }) => `Önerilen sistem, kitaptaki 20 üyeli Konsey, eşik: ${esik}`,
+      "t.not": ({ n, kapali, oysuz, a, b, c }) => `Oy dağılımı kayıtlı ${n} kayıt sayıldı. Kapalı oturum vetoları (${kapali}) ve oy dağılımı olmayan kayıtlar (${oysuz}) ayrı sütunlarda. 11 üyeli Konsey (1965’e kadar) için eşikler 7, 8 ve 6; 15 üyeli Konsey için 9, 10 ve 8. Mevcut sistemde kayıtlı sonuç her kayıtta “düştü”dür. 20 üyeli Konsey satırlarında seçili eşiğin oranı korunur (${a}, ${b} ve ${c}); hesap yalnızca kayıtlı oylara dayanır, kayıtta olmayan 5 (1966 öncesinde 9) üyenin oyu tahmin edilmez. Bu satırlarda “Yeni üyelerin oyuna bağlı”, kayıtlı evet oylarının eşiğe ulaşmadığı ama bu üyelerin oyuyla ulaşılabilecek kayıtlardır; “Düşerdi”, bu üyelerin hepsi evet dese de eşiğe ulaşılamayan kayıtlardır.`,
+      "e.cogunluk": "mevcut çoğunluk kuralı (9/15; 7/11)", "e.ucteiki": "üçte iki (10/15; 8/11)", "e.salt": "salt çoğunluk (8/15; 6/11)",
+      "e20.cogunluk": ({ e }) => `mevcut çoğunluk kuralının oranı (${e}/20)`, "e20.ucteiki": ({ e }) => `üçte iki (${e}/20)`, "e20.salt": ({ e }) => `salt çoğunluk (${e}/20)`,
+      dilNotu: "",
+    },
+    en: {
+      sayfaBasligi: "What if there were no veto? · Veto Atlas",
+      sayfaAciklamasi: "The votes of a real veto record counted under two systems: Article 27 (3) of the UN Charter and the model in “Daha Adil Bir Dünya Mümkün”.",
+      baslik: "What if there were no veto?",
+      giris: "Choose a real veto record; its recorded votes are counted in two panels at the same time, under the book’s model and under Article 27 (3) of the UN Charter.",
+      "yontem.baslik": "How is it calculated?",
+      "yontem.metin": "The count uses only the recorded votes; no vote is changed, added or guessed. Under the current system Article 27 (3) applies: nine affirmative votes (seven before 1966) including the concurring votes of the permanent members. Under the proposed system there is no veto; the decision threshold and the number of members, which the book does not specify, are chosen in the “Settings” box as the atlas’s assumptions, and the page does not favour any model.",
+      "adim.etiket": "Steps", "adim.1": "Choose a record", "adim.2": "Count the votes", "adim.3": "Compare",
+      "h.secim": "1 · Choose a record", "ornek.baslik": "Featured records",
+      "f.konu": "Topic", "f.yil": "Year", "f.uye": "Vetoing member", "f.kayit": "Record", "f.rastgele": "Random", onceki: "← Previous", sonraki: "Next →",
+      tum: "All", kayitSayisi: ({ n }) => `${n} record${n === "1" ? "" : "s"}`, konum: ({ i, n }) => `${i} / ${n}`, oyYokKisa: "(no vote breakdown on record)",
+      "bos.metin": "No record matches this selection.", "bos.temizle": "Clear the filters",
+      "sifir.yilBaslar": ({ secim, yil }) => `Year filter reset: ${secim} records start in ${yil}.`,
+      "sifir.yilBiter": ({ secim, yil }) => `Year filter reset: ${secim} records end in ${yil}.`,
+      "sifir.yilYok": ({ secim, yil }) => `Year filter reset: no ${secim} record in ${yil}.`,
+      "sifir.uye": ({ secim, uye }) => `Member filter reset: no veto by ${uye} among the ${secim} records.`,
+      ornekNotu: ({ boy, lehte }) => `In this example, ${lehte} of the ${boy} members voted yes.`,
+      "h.paneller": "2 · Count the votes, 3 · Compare",
+      ulkeSec: "Choose the vetoing country:", ulkeTek: "Vetoing country:",
+      "p.oneri": "Proposed system", "p.oneriKural": "The model in “Daha Adil Bir Dünya Mümkün” (September 2021): there is no veto, every member’s vote counts with equal weight, and the chosen threshold decides the outcome.", "p.unsurBaslik": "What does the book say?",
+      "p.mevcut": "Current system", "p.mevcutKural": "UN Charter, Article 27 (3): decisions on non-procedural matters are made by an affirmative vote of nine members including the concurring votes of the permanent members.", "p.parametreYok": "No parameters: the rule is fixed in the Charter.",
+      "p.mevcutAyrinti": "The rule of seven votes in the eleven-member Council applied until 31 August 1965, when the Charter amendment entered into force; as no veto was cast between that date and the end of 1965, the dataset treats the period before 1966 as the eleven-member Council.",
+      "u.veto": "No veto", "u.daimi": "No permanent membership", "u.hesap": "The Council is accountable to the General Assembly", "u.secim": "Members come from the General Assembly",
+      kitapta: "In the book",
+      "ayar.baslik": "Settings", "ayar.cumle": "The book does not specify the decision threshold or the number of members; these two options are the atlas’s assumptions.",
+      "ayar.not": ({ p }) => `Settings: ${p}`, "ayar.ucteiki": "two-thirds threshold", "ayar.salt": "simple-majority threshold", "ayar.kitap20": "20-member Council",
+      "pr.esik": "Decision threshold", "pr.esikCogunluk": "Current majority rule: 9 of 15, before 1966 7 of 11 (default)",
+      "pr.esikUcteIki": "Two thirds: 10 of 15, 8 of 11", "pr.esikSalt": "Simple majority: 8 of 15, 6 of 11",
+      "pr.uye": "Choice of members", "pr.uyeKayitli": "The recorded Council members (the 15 or 11 members whose votes are recorded) (default)",
+      "pr.uyeKitap20": "The 20-member Council of the book (20 permanent members, or 20 countries elected by the General Assembly)",
+      "pr.esik20Cogunluk": ({ e }) => `Ratio of the current majority rule: ${e} of 20 (default)`, "pr.esik20UcteIki": ({ e }) => `Two thirds: ${e} of 20`, "pr.esik20Salt": ({ e }) => `Simple majority: ${e} of 20`,
+      sayac: ({ lehte, aleyhte, cekimser, katilmadi }) => `In favour ${lehte} · Against ${aleyhte} · Abstaining ${cekimser}` + (katilmadi ? ` · Not participating ${katilmadi}` : ""),
+      siraNotu: "The order in which the votes are counted is a presentation; the meeting records give no member-by-member order of voting.",
+      "r.dustu": "Not adopted", "r.kabul": "Would have been adopted", "r.cogunlukYok": "Would not have been adopted: no majority", "r.bagli": "Depends on the new members’ votes", "r.sayiliyor": "Counting…", "r.oyYok": "No vote breakdown on record",
+      "a.mevcut": ({ uye, lehte, n }) => `There were ${lehte} votes in favour; with the negative ${n > 1 ? `votes of ${uye}, permanent members` : `vote of ${uye}, a permanent member`}, the proposal was not adopted under Article 27 (3) (the recorded outcome).`,
+      "a.oneriKabul": ({ lehte, esik, boy }) => `${lehte} votes in favour meet the selected threshold of ${esik} of ${boy} members; with no veto, negative votes count only as numbers.`,
+      "a.oneriYok": ({ lehte, esik, boy }) => `${lehte} votes in favour fall below the selected threshold of ${esik} of ${boy} members; even without a veto, the proposal would not have passed at this threshold.`,
+      "a.kabul20": ({ lehte, esik }) => `The ${lehte} recorded yes votes alone meet the threshold of the 20-member Council (${esik}); the votes of the new members need not be considered.`,
+      "a.bagli20": ({ lehte, esik, yeni, k }) => `There are ${lehte} recorded yes votes; the 20-member Council needs ${esik}. The proposal would have been adopted if at least ${k} of the ${yeni} members not on record had voted yes.`,
+      "a.yok20": ({ lehte, esik, yeni }) => `There are ${lehte} recorded yes votes; the 20-member Council needs ${esik}. Even if all ${yeni} members not on record had voted yes, the threshold would not have been reached.`,
+      "yeni.not": ({ yeni }) => `The dashed squares are the ${yeni} members not on record; they are not counted. No vote is guessed.`,
+      "a.oyYok": "This record has no vote breakdown; no count can be made.",
+      "a.kapali": "Veto cast in a private meeting: the official communiqué gives neither the vote breakdown nor the vetoing member; no count can be made.",
+      fark: ({ n }) => `The same ${n} votes. The difference: under the current system one negative vote defeats the decision; under the proposed system it is counted.`,
+      "fark.bagli": ({ n, k }) => `The same ${n} votes. The difference: under the current system one negative vote defeats the decision; under the proposed system it is counted. In the 20-member Council the outcome depends on the new members’ votes: at least ${k} yes.`,
+      "serit.oneri": "Proposed:", "serit.mevcut": "Current:",
+      "sonuc.baslik": ({ tarih, belge }) => `Result · ${tarih}${belge ? `, ${belge}` : ""}`,
+      "kart.oneri": ({ boy, esik }) => `no veto, ${esik} of ${boy}`, "kart.mevcut": "Article 27 (3)", "serit.bagli": ({ k }) => `Depends on the new members’ votes: at least ${k} yes`,
+      "k.baslik": "Compare with other models (G4, Uniting for Consensus, Ezulwini)",
+      "k.g4": ({ uye }) => `<b>G4 (A/59/L.64, July 2005):</b> the veto of the five current permanent members continues; new permanent members do not exercise it until the review fifteen years later. As the negative vote of ${uye} is that of a permanent member, the proposal is not adopted under this model either. The document’s decision threshold (14 affirmative votes of 25) cannot be applied to the 15 recorded votes.`,
+      "k.g4d": "Basis: paras. 5 (b) and 6 (b).",
+      "k.ufc": ({ uye }) => `<b>Uniting for Consensus (A/59/L.68, July 2005):</b> the requirement of the concurring votes of the permanent members in Article 27 (3) is not amended. As the negative vote of ${uye} is that of a permanent member, the proposal is not adopted under this model either. The document’s decision threshold (15 affirmative votes of 25) cannot be applied to the 15 recorded votes.`,
+      "k.ufcd": "Basis: para. 6 and footnote 5.",
+      "k.ez": ({ uye }) => `<b>Ezulwini Consensus (Ext/EX.CL/2 (VII), March 2005; A/59/L.67):</b> Africa is opposed in principle to the veto; so long as it exists, it should be made available to all permanent members, including the new ones. So long as the veto exists, the negative vote of ${uye} defeats the proposal under this model too. The document gives no decision threshold for the case of abolition; in that case the outcome would depend on a threshold yet to be set.`,
+      "k.ezd": "Basis: Ezulwini C (e) 2–3; A/59/L.67 (b).",
+      "k.yok": "No comparison can be made without a vetoing member.",
+      tekrar: "Run the count again", tekrarKisa: "Count again", rastgeleKayit: "Random record",
+      "s.baslik": "Limits",
+      "s.1": "The recorded votes are assumed not to change. Whether members would have voted the same way under a different decision rule cannot be known; the count uses only the votes on record.",
+      "s.2": "Drafts never put to a vote because of a threatened veto, and cases of Council inaction, are not in the dataset and are outside the scope.",
+      "s.3": "Under Article 108 of the UN Charter, amendments come into force when adopted by two thirds of the members of the General Assembly and ratified by two thirds of the Members, including all the permanent members of the Security Council. This page makes no assumption about that process.",
+      "s.4": "Vetoes cast in private meetings (no vote breakdown or vetoing member in the official communiqué) and records without a vote breakdown are not counted; they are shown separately in the aggregate view.",
+      "h.toplu": ({ n }) => `Results across ${n} records`,
+      "toplu.ozet": ({ kabul, n, esik, kapali }) => `At the selected threshold, ${esik}: the proposal would have been adopted in ${kabul} of ${n} records; ${kapali} private-meeting records have no vote breakdown.`,
+      "toplu.ozet20": ({ kesin, bagli, n, esik, kapali }) => `At the selected threshold, in the 20-member Council ${esik}: the proposal would have been adopted on the recorded votes alone in ${kesin} of ${n} records; in ${bagli} records the outcome depends on the new members’ votes; ${kapali} private-meeting records have no vote breakdown.`,
+      "t.sistem": "System", "t.kesin": "Adopted on the recorded votes alone", "t.bagli": "Depends on the new members’ votes", "t.dustu": "Would not have been adopted", "t.kapali": "Private meeting", "t.oyYok": "No vote breakdown", "t.toplam": "Total",
+      "t.mevcutAd": "Current system (Article 27 (3))", "t.oneriAd": ({ esik }) => `Proposed system, threshold: ${esik}`,
+      "t.oneri20Ad": ({ esik }) => `Proposed system, the 20-member Council of the book, threshold: ${esik}`,
+      "t.not": ({ n, kapali, oysuz, a, b, c }) => `${n} records with a recorded vote breakdown were counted. Vetoes in private meetings (${kapali}) and records without a vote breakdown (${oysuz}) are in separate columns. Thresholds for the 11-member Council (until 1965): 7, 8 and 6; for the 15-member Council: 9, 10 and 8. Under the current system the recorded outcome is “not adopted” for every record. In the 20-member Council rows the ratio of the selected threshold is kept (${a}, ${b} and ${c}); the computation relies only on the recorded votes, and the votes of the 5 (before 1966, 9) members not on record are not guessed. In these rows, “depends on the new members’ votes” covers records whose recorded yes votes fall short of the threshold but could reach it with these members’ votes; “would not have been adopted” covers records that would not reach it even if all of them voted yes.`,
+      "e.cogunluk": "current majority rule (9/15; 7/11)", "e.ucteiki": "two thirds (10/15; 8/11)", "e.salt": "simple majority (8/15; 6/11)",
+      "e20.cogunluk": ({ e }) => `ratio of the current majority rule (${e}/20)`, "e20.ucteiki": ({ e }) => `two thirds (${e}/20)`, "e20.salt": ({ e }) => `simple majority (${e}/20)`,
+      dilNotu: "Turkish original; the source has no English text.",
+    },
+  };
+  const t = (a, p) => { const v = SOZLUK[DIL][a] ?? SOZLUK.tr[a]; return typeof v === "function" ? v(p || {}) : v; };
+  const ek = DIL === "tr" ? "" : "?lang=" + DIL;
+  document.documentElement.lang = DIL;
+  document.title = t("sayfaBasligi");
+  const metaYaz = (s, d) => { const e = document.querySelector(s); if (e) e.setAttribute("content", d); };
+  metaYaz('meta[name="description"]', t("sayfaAciklamasi"));
+  metaYaz('meta[property="og:title"]', t("sayfaBasligi"));
+  metaYaz('meta[property="og:description"]', t("sayfaAciklamasi"));
+  metaYaz('meta[property="og:locale"]', DIL === "tr" ? "tr_TR" : "en_GB");
+  metaYaz('meta[property="og:locale:alternate"]', DIL === "tr" ? "en_GB" : "tr_TR");
+  document.querySelectorAll("[data-t]").forEach((e) => { e.textContent = t(e.dataset.t); });
+  $("#adimlar").setAttribute("aria-label", t("adim.etiket"));
+  $("#onceki").textContent = t("onceki"); $("#sonraki").textContent = t("sonraki");
+  $("#sinir-liste").innerHTML = ["s.1", "s.2", "s.3", "s.4"].map((k) => `<li>${t(k)}</li>`).join("");
+
+  const V = window.VETO_VERISI;
+  if (!V) return;
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const YEREL = DIL === "tr" ? "tr-TR" : "en-GB";
+  const sayi = (n) => n.toLocaleString(YEREL);
+  const AYLAR = { tr: ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"],
+    en: ["January","February","March","April","May","June","July","August","September","October","November","December"] }[DIL];
+  const tarihUzun = (x) => { const [y, a, g] = x.split("-"); return `${+g} ${AYLAR[+a - 1]} ${y}`; };
+  // Türkçe sayı ekleri: sayının son söylenen kelimesine göre ünlü uyumu ve ünsüz benzeşmesi (13’ü, 12’si, 2011’den, 2014’ten, 2023’te)
+  const sonKelime = (n) => { n = Math.abs(n); if (n % 10) return ["", "bir", "iki", "üç", "dört", "beş", "altı", "yedi", "sekiz", "dokuz"][n % 10];
+    if (n % 100) return ["", "on", "yirmi", "otuz", "kırk", "elli", "altmış", "yetmiş", "seksen", "doksan"][Math.floor(n / 10) % 10]; return n % 1000 ? "yüz" : "bin"; };
+  const sayiEki = (n, tur) => {
+    const s = sonKelime(n), son = s[s.length - 1], u = [...s].filter((c) => "aeıioöuü".includes(c)).pop();
+    const kalin = "aıou".includes(u), yuvarlak = "oöuü".includes(u), sert = "çfhkpsşt".includes(son), unlu = "aeıioöuü".includes(son);
+    if (tur === "den") return (sert ? "t" : "d") + (kalin ? "an" : "en");
+    if (tur === "de") return (sert ? "t" : "d") + (kalin ? "a" : "e");
+    return (unlu ? "s" : "") + (kalin ? (yuvarlak ? "u" : "ı") : (yuvarlak ? "ü" : "i"));
+  };
+  const UYELER = {
+    SSCB: { renk: "var(--u-sscb)", tr: "Sovyetler Birliği", en: "Soviet Union" }, RUS: { renk: "var(--u-rus)", tr: "Rusya Federasyonu", en: "Russian Federation" },
+    USA: { renk: "var(--u-usa)", tr: "ABD", en: "United States" }, GBR: { renk: "var(--u-gbr)", tr: "Birleşik Krallık", en: "United Kingdom" },
+    FRA: { renk: "var(--u-fra)", tr: "Fransa", en: "France" }, CHN: { renk: "var(--u-chn)", tr: "Çin", en: "China" },
+  };
+  const uyeAd = (u) => UYELER[u][DIL];
+  // İngilizcede cümle içinde belirli tanımlıkla (the United States, the Russian Federation); France ve China tanımlıksız.
+  // Listelerde, düğmelerde ve etiketlerde ad tanımlıksız kalır (uyeAd).
+  const CUMLE_EN = { SSCB: "the Soviet Union", RUS: "the Russian Federation", USA: "the United States", GBR: "the United Kingdom" };
+  const uyeAdMetin = (u) => (DIL === "en" && CUMLE_EN[u]) || uyeAd(u);
+  const konuAd = (k) => (DIL === "en" ? (V.meta.konularEn || {})[k] || k : k);
+  const baslik = (k) => (DIL === "en" ? k.gundem : k.gundemTr || k.gundem);
+  const bag = (kod) => `<a href="https://undocs.org/${esc(kod)}" target="_blank" rel="noopener">${esc(kod)}</a>`;
+  const azHareket = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const kayitlar = V.kayitlar.slice().sort((a, b) => b.tarih.localeCompare(a.tarih) || b.id.localeCompare(a.id));
+  const kayitBul = (id) => kayitlar.find((k) => k.id === id);
+  const konseyBuyuklugu = (k) => (k.tarih < "1966-01-01" ? 11 : 15);
+  const ESIKLER = { cogunluk: (n) => (n === 15 ? 9 : 7), ucteiki: (n) => (n === 15 ? 10 : 8), salt: (n) => (n === 15 ? 8 : 6) };
+  // Kitaptaki 20 üyeli Konsey: seçili eşiğin oranı korunur (9/15 → 12/20; üçte iki → 14/20; salt çoğunluk → 11/20). Hesap yalnızca
+  // kayıtlı oylara dayanır; kayıtta olmayan 5 (1966 öncesinde 9) üyenin oyu tahmin edilmez. Sonuç: kayıtlı evet oyları eşiği
+  // karşılıyorsa kabul; karşılamıyorsa bu üyelerden en az k evetle "yeni üyelerin oyuna bağlı"; hepsi evet dese de yetmiyorsa düşerdi.
+  const esik20 = (e) => Math.ceil(20 * ESIKLER[e](15) / 15);
+  const sonuc20 = (lehte, boy, esik) => { const yeni = 20 - boy, k = esik - lehte; return { tur: k <= 0 ? "kabul" : k <= yeni ? "bagli" : "cogunlukYok", k, yeni }; };
+  const sayilabilir = (k) => !k.kapali && !!k.oy;
+  const oyKisa = (k) => (k.oy ? `${k.oy.lehte}-${k.oy.aleyhte}-${k.oy.cekimser}` : "");
+
+  // ---------- Öne çıkan kayıtlar: kimlik ve kısa ad sabit; tarih, konu, üye ve oy veri setinden ----------
+  const ORNEKLER = [
+    { id: "V-2024-02-20-1", tr: "Gazze: ateşkes taslağı", en: "Gaza: ceasefire draft" },
+    { id: "V-2012-02-04-1", tr: "Suriye: Rusya ve Çin birlikte", en: "Syria: Russia and China together" },
+    { id: "V-2015-07-08-1", tr: "Srebrenitsa", en: "Srebrenica" },
+    { id: "V-1981-04-30-1", tr: "Namibya: üç Batılı üye", en: "Namibia: three Western members" },
+    { id: "V-2004-04-21-1", tr: "Kıbrıs", en: "Cyprus" },
+    { id: "V-1955-12-15-1", tr: "Japonya’nın üyelik başvurusu", en: "Japan’s application for membership" },
+  ].filter((o) => { const k = kayitBul(o.id); return k && sayilabilir(k); });
+  const ornekMi = (k) => !!k && ORNEKLER.some((o) => o.id === k.id);
+  $("#ornekler").innerHTML = ORNEKLER.map((o) => { const k = kayitBul(o.id); return `<button type="button" data-ornek="${esc(o.id)}" aria-pressed="false">
+      <span class="tarih">${esc(tarihUzun(k.tarih))}</span><span class="ad">${esc(o[DIL])}</span>
+      <span class="alt">${esc(konuAd(k.konu))} · ${esc(k.uyeler.map(uyeAd).join(", "))} · ${esc(oyKisa(k))}</span></button>`; }).join("");
+  const ornekleriIsaretle = () => $("#ornekler").querySelectorAll("[data-ornek]").forEach((b) => b.setAttribute("aria-pressed", String(!!durum.kayit && b.dataset.ornek === durum.kayit.id)));
+
+  // ---------- Kitabın belirttiği unsurlar (alıntı bankasından, bölüm başlığıyla) ----------
+  const alinti = (id) => (V.alintilar || []).find((a) => a.id === id);
+  const kunye = (a) => `${t("kitapta")}: ${DIL === "en" ? `<span lang="tr">${esc(a.bolum)}</span>` : esc(a.bolum)}`;
+  const UNSUR = [["u.veto", "kitap-4"], ["u.daimi", "kitap-7"], ["u.hesap", "kitap-6"], ["u.secim", "kitap-3"]];
+  $("#unsurlar").innerHTML = UNSUR.map(([ad, id]) => { const a = alinti(id); return a
+    ? `<li><b>${t(ad)}</b> <span class="etiket kaynakli">${kunye(a)}</span><br><span lang="tr">“${esc(a.metin_tr)}”</span>${DIL === "en" ? ` <span class="kunye">(${t("dilNotu")})</span>` : ""}</li>`
+    : ""; }).join("");
+
+  // ---------- Ayarlar: kitabın belirtmediği karar eşiği ve üye sayısı (atlasın varsayımı), varsayılan olarak kapalı kutuda ----------
+  const durum = { esik: "cogunluk", uye: "kayitli", kayit: null, ulke: null };
+  $("#parametre").innerHTML = `
+    <p class="ayar-cumle">${t("ayar.cumle")}</p>
+    <div><label for="pr-esik">${t("pr.esik")}</label>
+      <select id="pr-esik"><option value="cogunluk">${t("pr.esikCogunluk")}</option><option value="ucteiki">${t("pr.esikUcteIki")}</option><option value="salt">${t("pr.esikSalt")}</option></select></div>
+    <div><label for="pr-uye">${t("pr.uye")}</label>
+      <select id="pr-uye"><option value="kayitli">${t("pr.uyeKayitli")}</option><option value="kitap20">${t("pr.uyeKitap20")}</option></select></div>`;
+  // Varsayılandan farklı ayar: kutu kapalıyken de sonucun hangi varsayımla geldiği panelde tek satırda yazar
+  const ayarNotu = () => {
+    const p = [durum.esik !== "cogunluk" ? t("ayar." + durum.esik) : "", durum.uye !== "kayitli" ? t("ayar." + durum.uye) : ""].filter(Boolean);
+    $("#ayar-notu").textContent = p.length ? t("ayar.not", { p: p.join(", ") }) : "";
+    $("#ayar-notu").hidden = !p.length;
+  };
+  $("#pr-esik").addEventListener("change", (e) => { durum.esik = e.target.value; ayarNotu(); goster(false); topluYaz(); });
+  // Eşik seçenekleri seçili üye sayısına göre: 20 üyeli Konsey'de eşiğin 20 üyedeki karşılığı
+  const esikEtiketleri = () => [["cogunluk", "Cogunluk"], ["ucteiki", "UcteIki"], ["salt", "Salt"]].forEach(([e, a]) => {
+    $(`#pr-esik option[value="${e}"]`).textContent = durum.uye === "kitap20" ? t("pr.esik20" + a, { e: sayi(esik20(e)) }) : t("pr.esik" + a);
+  });
+  $("#pr-uye").addEventListener("change", (e) => { durum.uye = e.target.value; esikEtiketleri(); ayarNotu(); goster(false); topluYaz(); });
+
+  // ---------- Birbirine bağlı filtreler (web/suzgec.js) ----------
+  // Konu birincil: bütün konular listelenir; konu değişince yeni konuyla kaydı kalmayan yıl, sonra üye "Tümü"ye döner ve
+  // bildirim satırında söylenir. Yıl ve üye listeleri konuya ve birbirine bağlıdır; birbirini geçersiz kılmaz.
+  // Her seçeneğin yanındaki sayı, o seçenek seçilince eşleşecek kayıt sayısıdır. Sıfır eşleşme oluşmaz.
+  const SZ = window.VetoSuzgec;
+  const SIRA = SZ.SIRA;
+  const KONULAR = [...new Set([...(V.meta.konular || []), ...SZ.degerListesi(kayitlar, "konu")])];
+  const SIRALAR = { konu: KONULAR, yil: SZ.degerListesi(kayitlar, "yil"), uye: Object.keys(UYELER).filter((u) => kayitlar.some((k) => k.uyeler.includes(u))) };
+  const DEGER_ADI = { konu: konuAd, yil: (y) => y, uye: uyeAd };
+  const filtre = { konu: "", yil: "", uye: "" };
+  const suzulmus = () => SZ.eslesenler(kayitlar, filtre);
+  const secenek = (deger, yazi) => `<option value="${esc(deger)}">${esc(yazi)}</option>`;
+  function filtreleriCiz() {
+    SIRA.forEach((ad) => {
+      $("#f-" + ad).innerHTML = SZ.secenekler(kayitlar, filtre, ad, SIRALAR[ad])
+        .map((o) => secenek(o.deger, `${o.deger ? DEGER_ADI[ad](o.deger) : t("tum")} (${sayi(o.sayi)})`)).join("");
+      $("#f-" + ad).value = filtre[ad];
+    });
+  }
+  // Sıfırlanan filtre için kısa satır; durum, sıfırlamadan sonraki filtre durumudur
+  function sifirlamaNotu(x, durum) {
+    if (x.ad === "yil") {
+      const yillar = SZ.eslesenler(kayitlar, { konu: durum.konu, yil: "", uye: "" }).map((k) => k.tarih.slice(0, 4)).sort();
+      const ilk = yillar[0], son = yillar[yillar.length - 1], secim = konuAd(durum.konu);
+      if (ilk && x.deger < ilk) return t("sifir.yilBaslar", { secim, yil: ilk, ek: sayiEki(+ilk, "den") });
+      if (son && x.deger > son) return t("sifir.yilBiter", { secim, yil: son, ek: sayiEki(+son, "de") });
+      return t("sifir.yilYok", { secim, yil: x.deger });
+    }
+    return t("sifir.uye", { secim: [konuAd(durum.konu), durum.yil].filter(Boolean).join(" "), uye: uyeAdMetin(x.deger) });
+  }
+  function filtreDegisti(ad, deger) {
+    const r = SZ.sec(kayitlar, filtre, ad, deger);
+    Object.assign(filtre, r.durum);
+    $("#bildirim").textContent = r.sifirlanan.map((x) => sifirlamaNotu(x, r.durum)).join(" ");
+    filtreleriCiz();
+    listeYaz();
+  }
+  SIRA.forEach((ad) => $("#f-" + ad).addEventListener("change", (e) => filtreDegisti(ad, e.target.value)));
+  function filtreleriTemizle() { SIRA.forEach((ad) => { filtre[ad] = ""; }); $("#bildirim").textContent = ""; filtreleriCiz(); }
+
+  // ---------- Kayıt listesi ----------
+  let L = [];
+  function listeYaz() {
+    L = suzulmus();
+    $("#eslesen").textContent = t("kayitSayisi", { n: sayi(L.length) });
+    $("#f-kayit").innerHTML = L.map((k) => secenek(k.id, `${tarihUzun(k.tarih)} · ${baslik(k)}${sayilabilir(k) ? "" : " " + t("oyYokKisa")}`)).join("");
+    $("#bos").hidden = L.length > 0;
+    $("#liste").hidden = L.length === 0;
+    if (!L.length) { sec(null); return; }  // kodda ulaşılmaz: her görünür seçenek en az bir kayıt verir
+    if (!L.some((k) => k.id === (durum.kayit || {}).id)) sec(L[0]);
+    else konumYaz();
+  }
+  function konumYaz() {
+    const i = durum.kayit ? L.findIndex((k) => k.id === durum.kayit.id) : -1;
+    if (i >= 0) $("#f-kayit").value = durum.kayit.id;
+    $("#konum").textContent = i >= 0 ? t("konum", { i: sayi(i + 1), n: sayi(L.length) }) : "";
+    $("#onceki").disabled = i <= 0; $("#sonraki").disabled = i < 0 || i >= L.length - 1;
+  }
+  $("#f-kayit").addEventListener("change", (e) => sec(kayitBul(e.target.value)));
+  $("#onceki").addEventListener("click", () => { const i = L.findIndex((k) => k.id === durum.kayit.id); if (i > 0) sec(L[i - 1]); });
+  $("#sonraki").addEventListener("click", () => { const i = L.findIndex((k) => k.id === durum.kayit.id); if (i >= 0 && i < L.length - 1) sec(L[i + 1]); });
+  const rastgeleSec = () => {
+    if (!L.length) return;
+    const aday = L.length > 1 && durum.kayit ? L.filter((k) => k.id !== durum.kayit.id) : L;
+    sec(aday[Math.floor(Math.random() * aday.length)]);
+  };
+  $("#rastgele").addEventListener("click", rastgeleSec);
+  $("#rastgele-kayit").addEventListener("click", rastgeleSec);
+  $("#temizle").addEventListener("click", () => { filtreleriTemizle(); listeYaz(); });
+  $("#ornekler").addEventListener("click", (e) => { const b = e.target.closest("[data-ornek]"); if (!b) return; filtreleriTemizle(); sec(kayitBul(b.dataset.ornek)); listeYaz(); });
+  // Sayım sürerken yeniden başlatma düğmeleri pasif (aria-disabled; odaklanabilir kalır, tıklama yok sayılır)
+  const sayimSuruyor = (v) => ["#tekrar", "#serit-tekrar"].forEach((s) => $(s).setAttribute("aria-disabled", String(v)));
+  const yenidenSay = (kaynak) => { if ($("#tekrar").getAttribute("aria-disabled") === "true") return; goster(true, kaynak); };
+  $("#tekrar").addEventListener("click", () => yenidenSay("panel"));
+  $("#serit-tekrar").addEventListener("click", () => yenidenSay("serit"));
+
+  function adresYaz(id) {
+    try { const u = new URL(location.href); if (id) u.searchParams.set("kayit", id); else u.searchParams.delete("kayit"); history.replaceState(null, "", u); } catch (e) { /* tek dosya sürümünde (srcdoc) adres yazılamaz */ }
+  }
+  function sec(k) {
+    durum.kayit = k;
+    durum.ulke = k && k.uyeler.length === 1 ? k.uyeler[0] : null;
+    adresYaz(k ? k.id : null);
+    ornekleriIsaretle();
+    konumYaz();
+    ozetYaz();
+    goster(true);
+  }
+  function ozetYaz() {
+    const k = durum.kayit;
+    if (!k) { $("#kayit-ozet").innerHTML = ""; $("#kayit-ozet").hidden = true; return; }
+    $("#kayit-ozet").hidden = false;
+    const belgeler = k.belgeler.map((b) => bag(b.kod)).join(", ");
+    const ulkeler = k.kapali ? "" : `<div class="ulke-secim"><span>${k.uyeler.length > 1 ? t("ulkeSec") : t("ulkeTek")}</span>${k.uyeler.map((u) =>
+      `<button type="button" data-ulke="${u}" aria-pressed="${durum.ulke === u}"><span class="nokta" style="background:${UYELER[u].renk}"></span>${uyeAd(u)}</button>`).join("")}</div>`;
+    const notu = ornekMi(k) ? `<p class="ornek-notu">${esc(t("ornekNotu", { boy: konseyBuyuklugu(k), lehte: k.oy.lehte, ek: sayiEki(k.oy.lehte, "i") }))}</p>` : "";
+    $("#kayit-ozet").innerHTML = `<div class="tarih">${tarihUzun(k.tarih)} · ${esc(konuAd(k.konu))}</div><div class="gundem" ${DIL === "en" ? 'lang="en"' : ""}>${esc(baslik(k))}</div><div class="belgeler">${belgeler}</div>${ulkeler}${notu}`;
+    $("#kayit-ozet").querySelectorAll("[data-ulke]").forEach((b) => b.addEventListener("click", () => {
+      durum.ulke = b.dataset.ulke;
+      $("#kayit-ozet").querySelectorAll("[data-ulke]").forEach((x) => x.setAttribute("aria-pressed", x === b));
+      goster(false);
+    }));
+  }
+
+  // ---------- Adım göstergesi ----------
+  function adim(n) {
+    document.querySelectorAll("#adimlar li").forEach((li) => { const a = +li.dataset.adim; li.classList.toggle("tamam", a < n); if (a === n) li.setAttribute("aria-current", "step"); else li.removeAttribute("aria-current"); });
+  }
+
+  // ---------- Sayım ----------
+  let zamanlayici = [];
+  const temizle = () => { zamanlayici.forEach(clearTimeout); zamanlayici = []; };
+  function oyListesi(k) {
+    // Sıra: lehte, aleyhte (veto eden üyeler önce), çekimser, oylamaya katılmayan. Kayıtta üye bazlı sıra olmadığı için sayım sırası gösterimdir.
+    const boy = konseyBuyuklugu(k), oy = k.oy;
+    const L = [];
+    for (let i = 0; i < oy.lehte; i++) L.push({ tur: "lehte" });
+    k.uyeler.forEach((u) => L.push({ tur: "aleyhte", uye: u }));
+    for (let i = k.uyeler.length; i < oy.aleyhte; i++) L.push({ tur: "aleyhte" });
+    for (let i = 0; i < oy.cekimser; i++) L.push({ tur: "cekimser" });
+    for (let i = oy.lehte + oy.aleyhte + oy.cekimser; i < boy; i++) L.push({ tur: "katilmadi" });
+    return L;
+  }
+  const kisa = { SSCB: "SU", RUS: "RU", USA: "US", GBR: "UK", FRA: "FR", CHN: "CN" };
+  const ALANLAR = ["mevcut", "oneri"];
+  // Yapışkan şerit yalnızca bir sonuç varken ve sonuç kartları ekran dışındayken görünür
+  let seritDolu = false, kartlarGorunur = true;
+  const seritGuncelle = () => { $("#serit").hidden = !seritDolu || kartlarGorunur; };
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver((g) => { kartlarGorunur = g[g.length - 1].isIntersecting; seritGuncelle(); }).observe($("#sonuc-kartlar"));
+  }
+  function panelleriTemizle(seritKalsin) {
+    ALANLAR.forEach((a) => { $("#sayim-" + a).innerHTML = ""; $("#sayac-" + a).textContent = ""; $("#sonuc-" + a).className = "sonuc"; $("#sonuc-" + a).textContent = ""; $("#aciklama-" + a).textContent = ""; });
+    $("#karsilastir-liste").innerHTML = ""; $("#fark").hidden = true;
+    // Şeritten yeniden sayımda şerit ve odaktaki düğmesi yerinde kalır; sonuç yerine "Sayılıyor…" yazar
+    if (seritKalsin && seritDolu) $("#serit-metin").textContent = t("r.sayiliyor");
+    else { seritDolu = false; $("#serit-metin").innerHTML = ""; }
+    seritGuncelle();
+    $("#yeni-not").hidden = true; $("#yeni-not").textContent = "";
+  }
+  function goster(animasyon, kaynak) {
+    temizle();
+    panelleriTemizle(kaynak === "serit");
+    sayimSuruyor(false);
+    const k = durum.kayit;
+    $("#paneller-bolum").hidden = !k;
+    if (!k) { adim(1); return; }
+    const boy = konseyBuyuklugu(k);
+    const yirmi = durum.uye === "kitap20";
+    const esik = yirmi ? esik20(durum.esik) : ESIKLER[durum.esik](boy);
+    const belge = (k.belgeler.find((b) => b.tur === "taslak") || k.belgeler[0] || {}).kod;
+    $("#h-sonuc").textContent = t("sonuc.baslik", { tarih: tarihUzun(k.tarih), belge });
+    $("#ad-oneri").textContent = `${t("p.oneri")} · ${t("kart.oneri", { boy: yirmi ? 20 : boy, esik })}`;
+    $("#ad-mevcut").textContent = `${t("p.mevcut")} · ${t("kart.mevcut")}`;
+    if (!sayilabilir(k)) {
+      ALANLAR.forEach((a) => { $("#sonuc-" + a).className = "sonuc belirsiz"; $("#sonuc-" + a).textContent = t("r.oyYok"); $("#aciklama-" + a).textContent = t(k.kapali ? "a.kapali" : "a.oyYok"); });
+      $("#karsilastir-liste").innerHTML = `<li>${t("k.yok")}</li>`;
+      adim(1);
+      return;
+    }
+    adim(2);
+    const L = oyListesi(k), oy = k.oy;
+    const katilmadi = boy - oy.lehte - oy.aleyhte - oy.cekimser;
+    const sayacMetni = t("sayac", { lehte: oy.lehte, aleyhte: oy.aleyhte, cekimser: oy.cekimser, katilmadi });
+    const s20 = yirmi ? sonuc20(oy.lehte, boy, esik) : null;
+    const ulkeAdi = durum.ulke ? uyeAdMetin(durum.ulke) : k.uyeler.map(uyeAdMetin).join(DIL === "tr" ? " ve " : " and ");
+    const sonucOneri = yirmi ? s20.tur : (oy.lehte >= esik ? "kabul" : "cogunlukYok");
+    ALANLAR.forEach((a) => {
+      // Mevcut sistemde daimî üyenin ret oyu veto (kırmızı); önerilen sistemde aynı oy sıradan bir ret oyu (mürekkep)
+      $("#sayim-" + a).innerHTML = L.map((o, i) => `<span class="oy ${o.uye && a === "mevcut" ? "veto" : o.tur}${o.uye && o.uye === durum.ulke ? " secili" : ""}" data-i="${i}"${o.uye ? ` title="${esc(uyeAd(o.uye))}"` : ""}>${o.uye ? kisa[o.uye] : ""}</span>`).join("")
+        // 20 üyeli Konsey: kayıtta olmayan üyeler kesikli boş kare; sayılmaz, sayaca girmez
+        + (a === "oneri" && yirmi ? `<span class="yeni-grup" aria-hidden="true">${'<span class="oy yeni"></span>'.repeat(s20.yeni)}</span>` : "");
+      $("#sayac-" + a).textContent = sayacMetni;
+      $("#sonuc-" + a).textContent = animasyon && !azHareket ? t("r.sayiliyor") : "";
+    });
+    if (yirmi) { $("#yeni-not").textContent = t("yeni.not", { yeni: sayi(s20.yeni) }); $("#yeni-not").hidden = false; }
+    const bitir = () => {
+      $("#sonuc-mevcut").className = "sonuc dustu"; $("#sonuc-mevcut").textContent = t("r.dustu");
+      $("#aciklama-mevcut").textContent = t("a.mevcut", { uye: ulkeAdi, lehte: sayi(oy.lehte), n: durum.ulke ? 1 : k.uyeler.length });
+      const so = $("#sonuc-oneri");
+      so.className = "sonuc " + (sonucOneri === "kabul" ? "kabul" : sonucOneri === "bagli" ? "bagli" : "yok");
+      so.textContent = t(sonucOneri === "kabul" ? "r.kabul" : sonucOneri === "bagli" ? "r.bagli" : "r.cogunlukYok");
+      $("#aciklama-oneri").textContent = yirmi
+        ? t({ kabul: "a.kabul20", bagli: "a.bagli20", cogunlukYok: "a.yok20" }[sonucOneri], { lehte: sayi(oy.lehte), esik: sayi(esik), yeni: sayi(s20.yeni), k: sayi(s20.k), ek: sayiEki(s20.k, "i") })
+        : t(sonucOneri === "kabul" ? "a.oneriKabul" : "a.oneriYok", { lehte: sayi(oy.lehte), esik, boy });
+      $("#karsilastir-liste").innerHTML = [["k.g4", "k.g4d"], ["k.ufc", "k.ufcd"], ["k.ez", "k.ezd"]].map(([m, d]) =>
+        `<li>${t(m, { uye: esc(ulkeAdi) })} <span class="dayanak">${t(d)}</span></li>`).join("");
+      const n = sayi(oy.lehte + oy.aleyhte + oy.cekimser);
+      $("#fark").textContent = sonucOneri === "bagli" ? t("fark.bagli", { n, k: sayi(s20.k) }) : t("fark", { n }); $("#fark").hidden = false;
+      const seritOneri = sonucOneri === "bagli" ? t("serit.bagli", { k: sayi(s20.k) }) : so.textContent;
+      $("#serit-metin").innerHTML = `<span>${t("serit.oneri")} <b class="${so.className.replace("sonuc ", "")}">${esc(seritOneri)}</b></span><span>${t("serit.mevcut")} <b class="dustu">${t("r.dustu")}</b></span>`;
+      seritDolu = true; seritGuncelle();
+      sayimSuruyor(false);
+      adim(3);
+    };
+    if (!animasyon || azHareket) {
+      document.querySelectorAll(".oy").forEach((e) => e.classList.add("goster"));
+      bitir();
+      return;
+    }
+    sayimSuruyor(true);
+    const ilkVeto = L.findIndex((o) => o.tur === "aleyhte" && o.uye);
+    L.forEach((o, i) => zamanlayici.push(setTimeout(() => {
+      ALANLAR.forEach((a) => $(`#sayim-${a} [data-i="${i}"]`).classList.add("goster"));
+      if (i === ilkVeto) { $("#sonuc-mevcut").className = "sonuc dustu"; $("#sonuc-mevcut").textContent = t("r.dustu"); }
+      if (i === L.length - 1) bitir();
+    }, 140 * (i + 1))));
+  }
+
+  // ---------- Toplu görünüm ----------
+  // Kayıtlı üyelerle üç eşik ve kitaptaki 20 üyeli Konsey'le üç eşik; sayılar sayfa açılırken veri setinden hesaplanır
+  function topluYaz() {
+    const oylu = kayitlar.filter(sayilabilir), kapali = kayitlar.filter((k) => k.kapali), oysuz = kayitlar.filter((k) => !k.kapali && !k.oy);
+    const satir = (ad, kesin, bagli, dustu, secili) => `<tr><th scope="row">${ad}${secili ? " ▸" : ""}</th><td class="sayi">${sayi(kesin)}</td><td class="sayi">${bagli === null ? "–" : sayi(bagli)}</td><td class="sayi">${sayi(dustu)}</td><td class="sayi">${sayi(kapali.length)}</td><td class="sayi">${sayi(oysuz.length)}</td><td class="sayi">${sayi(kayitlar.length)}</td></tr>`;
+    const ADLAR = ["cogunluk", "ucteiki", "salt"];
+    const satirlar = [satir(t("t.mevcutAd"), 0, null, oylu.length, false)];
+    const ozet = {};
+    ADLAR.forEach((e) => {
+      const kesin = oylu.filter((k) => k.oy.lehte >= ESIKLER[e](konseyBuyuklugu(k))).length;
+      ozet["kayitli." + e] = { kesin, bagli: 0 };
+      satirlar.push(satir(t("t.oneriAd", { esik: t("e." + e) }), kesin, null, oylu.length - kesin, durum.uye === "kayitli" && e === durum.esik));
+    });
+    ADLAR.forEach((e) => {
+      const turler = oylu.map((k) => sonuc20(k.oy.lehte, konseyBuyuklugu(k), esik20(e)).tur);
+      const kesin = turler.filter((x) => x === "kabul").length, bagli = turler.filter((x) => x === "bagli").length;
+      ozet["kitap20." + e] = { kesin, bagli };
+      satirlar.push(satir(t("t.oneri20Ad", { esik: t("e20." + e, { e: sayi(esik20(e)) }) }), kesin, bagli, turler.length - kesin - bagli, durum.uye === "kitap20" && e === durum.esik));
+    });
+    $("#h-toplu").textContent = t("h.toplu", { n: sayi(kayitlar.length) });
+    const o = ozet[durum.uye + "." + durum.esik];
+    $("#toplu-ozet").textContent = durum.uye === "kitap20"
+      ? t("toplu.ozet20", { kesin: sayi(o.kesin), bagli: sayi(o.bagli), n: sayi(kayitlar.length), esik: t("e20." + durum.esik, { e: sayi(esik20(durum.esik)) }), kapali: sayi(kapali.length) })
+      : t("toplu.ozet", { kabul: sayi(o.kesin), n: sayi(kayitlar.length), esik: t("e." + durum.esik), kapali: sayi(kapali.length) });
+    $("#toplu").innerHTML = `<thead><tr><th>${t("t.sistem")}</th><th class="sayi">${t("t.kesin")}</th><th class="sayi">${t("t.bagli")}</th><th class="sayi">${t("t.dustu")}</th><th class="sayi">${t("t.kapali")}</th><th class="sayi">${t("t.oyYok")}</th><th class="sayi">${t("t.toplam")}</th></tr></thead><tbody>${satirlar.join("")}</tbody>`;
+    const [a, b, c] = ADLAR.map((e) => sayi(esik20(e)));
+    $("#toplu-not").textContent = t("t.not", { n: sayi(oylu.length), kapali: sayi(kapali.length), oysuz: sayi(oysuz.length), a, b, c });
+  }
+
+  // ---------- Açılış: ?kayit=<id> varsa o kayıt, yoksa ilk öne çıkan örnek ----------
+  filtreleriCiz();
+  const istenen = kayitBul(new URLSearchParams(location.search).get("kayit") || "");
+  const ilk = istenen || (ORNEKLER.length ? kayitBul(ORNEKLER[0].id) : null) || kayitlar[0];
+  sec(ilk);
+  listeYaz();
+  topluYaz();
+})();
+</script>
+</body>
+</html>

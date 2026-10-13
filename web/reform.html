@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Reform modelleri · Veto Atlası</title>
+<meta name="description" content="Güvenlik Konseyi reformu için dört model aynı dört ölçütle: Ezulwini Uzlaşısı, G4, Uzlaşı için Birlik ve “Daha Adil Bir Dünya Mümkün”. / Four models for Security Council reform against the same four criteria: the Ezulwini Consensus, the G4, Uniting for Consensus and “Daha Adil Bir Dünya Mümkün”.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Veto Atlası / Veto Atlas">
+<meta property="og:title" content="Reform modelleri · Veto Atlası / Reform models · Veto Atlas">
+<meta property="og:description" content="Güvenlik Konseyi reformu için dört model aynı dört ölçütle: Ezulwini Uzlaşısı, G4, Uzlaşı için Birlik ve “Daha Adil Bir Dünya Mümkün”. / Four models for Security Council reform against the same four criteria: the Ezulwini Consensus, the G4, Uniting for Consensus and “Daha Adil Bir Dünya Mümkün”.">
+<meta property="og:image" content="https://vetoatlas.com/onizleme.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:locale:alternate" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="https://vetoatlas.com/reform">
+<link rel="canonical" href="https://vetoatlas.com/reform">
+<link rel="alternate" hreflang="tr" href="https://vetoatlas.com/reform">
+<link rel="alternate" hreflang="en" href="https://vetoatlas.com/reform?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://vetoatlas.com/reform">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#FBF8F1">
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="temel.css">
+<script src="cubuk.js"></script>
+<style>
+:root {
+  --zemin: #FBF8F1; --yuzey: #FFFFFF; --murekkep: #13213A; --murekkep-2: #5A6578; --cizgi: #E1DBCF; --vurgu: #A4262C;
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans: "Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+:root[data-theme="dark"] {--zemin: #1C1A17; --yuzey: #272420; --murekkep: #EDE8E0; --murekkep-2: #ABA496; --cizgi: #3B3731; --vurgu: #E05A52; }
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--zemin); color: var(--murekkep); font-family: var(--sans); font-size: var(--yz-govde); line-height: var(--sa-govde); }
+.kap { max-width: 1180px; margin: 0 auto; padding: 0 24px 64px; }
+a { color: inherit; text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--murekkep); outline-offset: 2px; }
+[hidden] { display: none !important; }
+.kutu { background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 6px; }
+
+/* Sayfa üstü ve giriş (temel.css basamakları): üstte 48 px (dar ekranda 32 px), karşılaştırmaya 48 px */
+.giris { padding: var(--b12) 0 var(--b12); }
+h1 { font-family: var(--serif); font-weight: 600; font-size: var(--yz-baslik); line-height: var(--sa-baslik); margin: 0 0 16px; }
+.giris p { font-family: var(--serif); font-size: var(--yz-govde); line-height: var(--sa-govde); max-width: var(--olcu-metin); margin: 0 0 12px; }
+details.yontem { font-size: var(--yz-kucuk); max-width: var(--olcu-metin); margin: 8px 0 0; line-height: var(--sa-kucuk); }
+details.yontem summary { cursor: pointer; font-weight: 600; font-family: var(--sans); }
+details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: var(--murekkep-2); margin: 8px 0 0; line-height: var(--sa-kucuk); }
+
+/* Karşılaştırma, geniş ekranda tablo: ölçütler satırda, modeller sütunda (belgelerin tarih sırasıyla) */
+.tablo-kap { overflow-x: auto; }
+table.reform { border-collapse: collapse; width: 100%; table-layout: fixed; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+.reform th, .reform td { text-align: left; padding: 16px; border-top: 1px solid var(--cizgi); vertical-align: top; }
+.reform thead th { border-top: none; font: 600 var(--yz-kucuk)/var(--sa-kucuk) var(--sans); color: var(--murekkep-2); }
+.reform col.olcut { width: 176px; }
+.reform tbody th { font-weight: 600; }
+.reform small, .olcutler small { display: block; color: var(--murekkep-2); margin-top: 8px; }
+/* Dar ekranda ölçüt ölçüt: her ölçütün altında dört model alt alta (aynı veri, tablo gizlenir); kutu metin sütunu
+   genişliğinde (KILAVUZ bölüm 2, "Kartlar") */
+.olcutler { display: none; max-width: var(--olcu-metin); }
+.olcutler section { padding: 16px; }
+.olcutler section + section { border-top: 1px solid var(--cizgi); }
+.olcutler h2 { font-family: var(--serif); font-weight: 600; font-size: var(--yz-govde); line-height: var(--sa-govde); margin: 0; }
+.olcutler dl { margin: 0; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+.olcutler dt { font-weight: 600; margin: 12px 0 0; }
+.olcutler dd { margin: 4px 0 0; max-width: var(--olcu); }
+@media (max-width: 960px) {
+  .tablo-kap { display: none; }
+  .olcutler { display: block; }
+}
+@media (max-width: 760px) {
+  body { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+  .kap { padding: 0 16px 48px; }
+  .giris { padding-top: var(--b8); }
+}
+</style>
+</head>
+<body data-sayfa="reform">
+<header id="cubuk" class="cubuk"></header>
+<div class="kap">
+  <header class="giris">
+    <h1 id="baslik" data-t="baslik"></h1>
+    <p data-t="giris"></p>
+    <details class="yontem"><summary data-t="okuma"></summary><p data-t="okumaMetni"></p></details>
+  </header>
+
+  <main>
+    <div class="tablo-kap kutu"><table class="reform" id="reform" aria-labelledby="baslik"></table></div>
+    <div class="olcutler kutu" id="olcutler"></div>
+  </main>
+</div>
+
+<script src="veri.js"></script>
+<script>
+(function () {
+  "use strict";
+  const $ = (s) => document.querySelector(s);
+  const DILLER = ["tr", "en"];
+  const parametre = new URLSearchParams(location.search).get("lang");
+  const DIL = DILLER.includes(parametre) ? parametre : "tr";
+  const SOZLUK = {
+    tr: {
+      sayfaBasligi: "Reform modelleri · Veto Atlası",
+      sayfaAciklamasi: "Güvenlik Konseyi reformu için dört model aynı dört ölçütle: Ezulwini Uzlaşısı, G4, Uzlaşı için Birlik ve “Daha Adil Bir Dünya Mümkün”.",
+      baslik: "Reform modelleri",
+      giris: "Güvenlik Konseyi reformu için dört model aynı ölçütlerle, belgelerin tarih sırasıyla.",
+      okuma: "Nasıl okunur?",
+      okumaMetni: "Hücreler belgelerin kendi hükümlerini özetler; dayanak paragrafları her hücrenin altındadır.",
+      olcut: "Ölçüt",
+      "olcut.toplam": "Toplam üye sayısı", "olcut.yeni_daimi": "Yeni daimî üye var mı", "olcut.veto": "Veto kimde", "olcut.genel_kurul": "Genel Kurul ile ilişki",
+      "model.Ezulwini Uzlaşısı": "Ezulwini Uzlaşısı (Afrika Birliği, Mart 2005)", "model.G4": "G4 (A/59/L.64, Temmuz 2005)",
+      "model.Uzlaşı için Birlik": "Uzlaşı için Birlik (A/59/L.68, Temmuz 2005)", "model.Daha Adil Bir Dünya Mümkün": "“Daha Adil Bir Dünya Mümkün” (Eylül 2021)",
+      dayanak: "Dayanak",
+    },
+    en: {
+      sayfaBasligi: "Reform models · Veto Atlas",
+      sayfaAciklamasi: "Four models for Security Council reform against the same four criteria: the Ezulwini Consensus, the G4, Uniting for Consensus and “Daha Adil Bir Dünya Mümkün”.",
+      baslik: "Reform models",
+      giris: "Four models for Security Council reform against the same criteria, in the date order of the documents.",
+      okuma: "How to read this table",
+      okumaMetni: "Cells summarise each document’s own provisions; the paragraphs relied on are given under each cell.",
+      olcut: "Criterion",
+      "olcut.toplam": "Total membership", "olcut.yeni_daimi": "New permanent members?", "olcut.veto": "Who holds the veto", "olcut.genel_kurul": "Relationship with the General Assembly",
+      "model.Ezulwini Uzlaşısı": "Ezulwini Consensus (African Union, March 2005)", "model.G4": "G4 (A/59/L.64, July 2005)",
+      "model.Uzlaşı için Birlik": "Uniting for Consensus (A/59/L.68, July 2005)", "model.Daha Adil Bir Dünya Mümkün": "“Daha Adil Bir Dünya Mümkün” (September 2021)",
+      dayanak: "Basis",
+    },
+  };
+  const t = (a) => SOZLUK[DIL][a] ?? SOZLUK.tr[a];
+  document.documentElement.lang = DIL;
+  document.title = t("sayfaBasligi");
+  const metaYaz = (s, d) => { const e = document.querySelector(s); if (e) e.setAttribute("content", d); };
+  metaYaz('meta[name="description"]', t("sayfaAciklamasi"));
+  metaYaz('meta[property="og:title"]', t("sayfaBasligi"));
+  metaYaz('meta[property="og:description"]', t("sayfaAciklamasi"));
+  metaYaz('meta[property="og:locale"]', DIL === "tr" ? "tr_TR" : "en_GB");
+  metaYaz('meta[property="og:locale:alternate"]', DIL === "tr" ? "en_GB" : "tr_TR");
+  document.querySelectorAll("[data-t]").forEach((e) => { e.textContent = t(e.dataset.t); });
+
+  const V = window.VETO_VERISI;
+  if (!V) return;
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const R = V.reformModelleri || [];
+  // Dayanak etiketlerinin İngilizcesi (belge kodları ve paragraf numaraları değişmez)
+  const dayanakEn = (s) => s.replace(/2\. Bölüm/g, "Chapter 2").replace(/Giriş/g, "Introduction").replace(/par\./g, "para.")
+    .replace(/dipnot/g, "footnote").replace(/ ve /g, " and ").replace(/kitap \(Eylül 2021\)/, "book (September 2021)");
+  const MODELLER = ["Ezulwini Uzlaşısı", "G4", "Uzlaşı için Birlik", "Daha Adil Bir Dünya Mümkün"].filter((m) => R.some((r) => r.model === m));
+  const OLCUTLER = ["toplam", "yeni_daimi", "veto", "genel_kurul"];
+  const hucre = (m, o) => {
+    const r = R.find((x) => x.model === m && x.olcut === o);
+    return `${esc(DIL === "en" ? r.en : r.tr)}<small>${t("dayanak")}: ${esc(DIL === "en" ? dayanakEn(r.belge) : r.belge)}, ${esc(DIL === "en" ? dayanakEn(r.dayanak) : r.dayanak)}</small>`;
+  };
+  // Geniş ekranda tablo; dar ekranda aynı hücreler ölçüt ölçüt alt alta (CSS hangisinin görüneceğini seçer)
+  $("#reform").innerHTML = `<colgroup><col class="olcut">${MODELLER.map(() => "<col>").join("")}</colgroup>
+    <thead><tr><th scope="col">${t("olcut")}</th>${MODELLER.map((m) => `<th scope="col">${esc(t("model." + m))}</th>`).join("")}</tr></thead>
+    <tbody>${OLCUTLER.map((o) => `<tr><th scope="row">${t("olcut." + o)}</th>${MODELLER.map((m) => `<td>${hucre(m, o)}</td>`).join("")}</tr>`).join("")}</tbody>`;
+  $("#olcutler").innerHTML = OLCUTLER.map((o) => `<section aria-labelledby="olcut-${o}"><h2 id="olcut-${o}">${t("olcut." + o)}</h2>
+    <dl>${MODELLER.map((m) => `<dt>${esc(t("model." + m))}</dt><dd>${hucre(m, o)}</dd>`).join("")}</dl></section>`).join("");
+})();
+</script>
+</body>
+</html>

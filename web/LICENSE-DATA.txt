@@ -1,0 +1,56 @@
+Veto Atlası / Veto Atlas: veri ve içerik lisansı / data and content licence
+
+Copyright (c) 2026 Nuh Mehmet Yıldız
+
+TÜRKÇE
+
+Kod (betikler, Python paketi, sayfaların kodu) LICENSE dosyasındaki MIT lisansıyla yayımlanır.
+
+Atlasın kendi derlemesi Creative Commons Atıf 4.0 Uluslararası (CC BY 4.0) lisansıyla yayımlanır:
+https://creativecommons.org/licenses/by/4.0/deed.tr
+
+Derleme şunları kapsar: veto kayıtlarının seçimi, düzeni ve yapısı; düzeltme dosyası ve gerekçeleri; konu
+atamaları, Türkçe gündem başlıkları ve çevirileri; açık veri dosyaları (web/veri/); metodoloji metinleri ve sayfa
+metinleri; paylaşım kartları ve önizleme görseli.
+
+Aşağıdakiler bu lisansın dışındadır; her biri kendi lisans ve koşullarına tabidir:
+
+1. Alıntılar. Cumhurbaşkanı Recep Tayyip Erdoğan'ın BM Genel Kurulu konuşmalarından alıntılar ve "Daha Adil Bir
+   Dünya Mümkün" (Turkuvaz Kitap, 2021) kitabından alıntılar. Atlasta künyeleriyle, değiştirilmeden yer alırlar.
+2. Nüfus verisi. BM Ekonomik ve Sosyal İşler Dairesi Nüfus Bölümü, World Population Prospects 2024 (WPP 2024);
+   UN DESA'nın koşulları, CC BY 3.0 IGO.
+3. Oy dağılımları. Sievers ve Daws, The Procedure of the UN Security Council, Tablo 4'ten alınan oy dağılımları;
+   kaynağın koşulları.
+4. Yazı tipleri. Source Serif 4 ve Source Sans 3 (web/fonts/); SIL Open Font License 1.1 (web/fonts/OFL-*.txt).
+5. Birleşmiş Milletler belgeleri. Toplantı kayıtları (S/PV, A/PV), karar taslakları, kararlar ve BM Dag Hammarskjöld
+   Kütüphanesi'nin (DHL) veto listesi; BM'nin kendi kullanım koşullarına tabidir. Atlas bu belgelere belge simgesi ve
+   bağlantıyla atıf yapar.
+6. Test kesiti. tests/fixtures/veto_ornek.html, DHL veto listesi sayfasından alınmış 13 satırlık bir test kesitidir;
+   yalnızca ayrıştırıcının testleri için kullanılır ve DHL sayfasının koşullarına tabidir.
+
+ENGLISH
+
+The code (scripts, Python package, page code) is released under the MIT License in the LICENSE file.
+
+The atlas's own compilation is released under the Creative Commons Attribution 4.0 International licence
+(CC BY 4.0): https://creativecommons.org/licenses/by/4.0/
+
+The compilation covers: the selection, arrangement and structure of the veto records; the corrections file and its
+reasons; topic assignments, Turkish agenda titles and translations; the open data files (web/veri/); the methodology
+texts and page texts; the share cards and the preview image.
+
+The following are outside this licence; each remains subject to its own licence and terms:
+
+1. Quotations. Quotations from President Recep Tayyip Erdoğan's speeches to the UN General Assembly and from the
+   book "Daha Adil Bir Dünya Mümkün" (Turkuvaz Kitap, 2021). They appear in the atlas unaltered, with their
+   citations.
+2. Population data. UN Department of Economic and Social Affairs, Population Division, World Population Prospects
+   2024 (WPP 2024); UN DESA's terms, CC BY 3.0 IGO.
+3. Vote breakdowns. Vote breakdowns taken from Sievers and Daws, The Procedure of the UN Security Council, Table 4;
+   the source's terms.
+4. Fonts. Source Serif 4 and Source Sans 3 (web/fonts/); SIL Open Font License 1.1 (web/fonts/OFL-*.txt).
+5. United Nations documents. Meeting records (S/PV, A/PV), draft resolutions, resolutions and the veto list of the
+   UN Dag Hammarskjöld Library (DHL); subject to the UN's own terms of use. The atlas refers to these documents by
+   document symbol and link.
+6. Test excerpt. tests/fixtures/veto_ornek.html is a 13-row test excerpt taken from the DHL veto list page; it is used
+   only for the parser tests and is subject to the terms of the DHL page.

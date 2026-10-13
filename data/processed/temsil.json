@@ -1,0 +1,4624 @@
+{
+ "meta": {
+  "uretim": "2026-10-10",
+  "erisim_tarihi": "2026-10-10",
+  "uye_sayisi": 193,
+  "uye_sayisi_1963": 113,
+  "nufus_yillari": [
+   1963,
+   2023
+  ],
+  "olcek_donemi": "2025–2027",
+  "personel_tarihi": "2026-02-28",
+  "gk_donemi": "2026",
+  "toplamlar": {
+   "nufus_2023_bin": 8009868.794,
+   "nufus_1963_bin": 2956865.017,
+   "dunya_nufus_2023_bin": 8056505.564,
+   "dunya_nufus_1963_bin": 3156362.989,
+   "butce_yuzde": 100.0,
+   "personel": 47298,
+   "koltuk": 15,
+   "daimi": 5
+  },
+  "secilmis_koltuk_dagilimi": {
+   "AFR": 3,
+   "ASP": 2,
+   "EEG": 1,
+   "GRULAC": 2,
+   "WEOG": 2
+  },
+  "girdi_sha256": {
+   "baris_gucu_2026-02.csv": "f262163fce71e0d48a50c9afee05a9316405c74e127b562c30e0de4b2d2cac10",
+   "bolgesel_gruplar.csv": "7931c98a6f0619b1563a860d3979d2a840bcefafde801c8887b0b378c2dc3e15",
+   "butce_olcegi_2025_2027.csv": "30fa3e187048387fac276411706430b6b4888c074a24495bce04143586a0e745",
+   "gk_uyeleri_2026.csv": "30e2baa9643d6aa3483c38d8cd2b63253fdfe1feb6263ae813d413adba49f836",
+   "iit_uyeleri.csv": "757d48448baeae15fd9225454d7cc8435aae45928fca77efda565129db4cbf9c",
+   "nufus_wpp2024.csv": "73169f486144b814d79408509e6539b9578da7cff0933382eeae3546032fec0f",
+   "uye_devletler.csv": "b5ea080236cf28bdff70c992eff3b4b6a852cd4d70c629c19e5749b5019cfdc4"
+  }
+ },
+ "gruplar": [
+  {
+   "kod": "AFR",
+   "ad": {
+    "tr": "Afrika Grubu",
+    "en": "African Group"
+   },
+   "uyeler": [
+    "AGO",
+    "BDI",
+    "BEN",
+    "BFA",
+    "BWA",
+    "CAF",
+    "CIV",
+    "CMR",
+    "COD",
+    "COG",
+    "COM",
+    "CPV",
+    "DJI",
+    "DZA",
+    "EGY",
+    "ERI",
+    "ETH",
+    "GAB",
+    "GHA",
+    "GIN",
+    "GMB",
+    "GNB",
+    "GNQ",
+    "KEN",
+    "LBR",
+    "LBY",
+    "LSO",
+    "MAR",
+    "MDG",
+    "MLI",
+    "MOZ",
+    "MRT",
+    "MUS",
+    "MWI",
+    "NAM",
+    "NER",
+    "NGA",
+    "RWA",
+    "SDN",
+    "SEN",
+    "SLE",
+    "SOM",
+    "SSD",
+    "STP",
+    "SWZ",
+    "SYC",
+    "TCD",
+    "TGO",
+    "TUN",
+    "TZA",
+    "UGA",
+    "ZAF",
+    "ZMB",
+    "ZWE"
+   ],
+   "uye_sayisi": 54,
+   "uye_sayisi_1963": 35,
+   "nufus_2023_bin": 1461863.68,
+   "nufus_1963_bin": 272358.873,
+   "butce_yuzde": 1.088,
+   "personel": 18489,
+   "paylar": {
+    "nufus_2023": 0.182508,
+    "nufus_1963": 0.092111,
+    "uye": 0.279793,
+    "nufus_2023_dunya": 0.181451,
+    "nufus_1963_dunya": 0.086289,
+    "butce": 0.01088,
+    "personel": 0.390904
+   },
+   "koltuk": {
+    "daimi": 0,
+    "secilmis": 3,
+    "toplam": 3,
+    "daimi_payi": 0.0,
+    "toplam_payi": 0.2
+   },
+   "oranlar": {
+    "nufus_2023": 1.096,
+    "uye": 0.715,
+    "butce": 18.382,
+    "personel": 0.512
+   },
+   "notlar": [
+    {
+     "tr": "Birleşik Arap Cumhuriyeti 1963: yalnızca Mısır (Suriye 1961'de ayrıldı)",
+     "en": "United Arab Republic 1963: Egypt only (Syria withdrew in 1961)"
+    },
+    {
+     "tr": "Etiyopya 1963: Etiyopya + Eritre",
+     "en": "Ethiopia 1963: Ethiopia + Eritrea"
+    },
+    {
+     "tr": "Sudan 1963: Sudan + Güney Sudan",
+     "en": "Sudan 1963: Sudan + South Sudan"
+    },
+    {
+     "tr": "Tanganyika: WPP Tanzanya serisi (Zanzibar dâhil)",
+     "en": "Tanganyika: WPP series for Tanzania (including Zanzibar)"
+    },
+    {
+     "tr": "Zanzibar (üye 16 Aralık 1963 – 26 Nisan 1964): nüfusu WPP'de Tanzanya serisinin içinde, Tanganyika satırında sayıldı",
+     "en": "Zanzibar (member 16 December 1963 – 26 April 1964): its population is within the WPP series for Tanzania, counted in the Tanganyika row"
+    }
+   ]
+  },
+  {
+   "kod": "ASP",
+   "ad": {
+    "tr": "Asya-Pasifik Grubu",
+    "en": "Asia-Pacific Group"
+   },
+   "uyeler": [
+    "AFG",
+    "ARE",
+    "BGD",
+    "BHR",
+    "BRN",
+    "BTN",
+    "CHN",
+    "CYP",
+    "FJI",
+    "FSM",
+    "IDN",
+    "IND",
+    "IRN",
+    "IRQ",
+    "JOR",
+    "JPN",
+    "KAZ",
+    "KGZ",
+    "KHM",
+    "KIR",
+    "KOR",
+    "KWT",
+    "LAO",
+    "LBN",
+    "LKA",
+    "MDV",
+    "MHL",
+    "MMR",
+    "MNG",
+    "MYS",
+    "NPL",
+    "NRU",
+    "OMN",
+    "PAK",
+    "PHL",
+    "PLW",
+    "PNG",
+    "PRK",
+    "QAT",
+    "SAU",
+    "SGP",
+    "SLB",
+    "SYR",
+    "THA",
+    "TJK",
+    "TKM",
+    "TLS",
+    "TON",
+    "TUV",
+    "UZB",
+    "VNM",
+    "VUT",
+    "WSM",
+    "YEM"
+   ],
+   "uye_sayisi": 54,
+   "uye_sayisi_1963": 24,
+   "nufus_2023_bin": 4626184.495,
+   "nufus_1963_bin": 1625565.208,
+   "butce_yuzde": 35.961,
+   "personel": 22600,
+   "paylar": {
+    "nufus_2023": 0.577561,
+    "nufus_1963": 0.54976,
+    "uye": 0.279793,
+    "nufus_2023_dunya": 0.574217,
+    "nufus_1963_dunya": 0.515012,
+    "butce": 0.35961,
+    "personel": 0.477821
+   },
+   "koltuk": {
+    "daimi": 1,
+    "secilmis": 2,
+    "toplam": 3,
+    "daimi_payi": 0.2,
+    "toplam_payi": 0.2
+   },
+   "oranlar": {
+    "nufus_2023": 0.346,
+    "uye": 0.715,
+    "butce": 0.556,
+    "personel": 0.419
+   },
+   "notlar": [
+    {
+     "tr": "Çin 1963 (koltuk Çin Cumhuriyeti'nde): WPP 'China' + 'China, Taiwan Province of China'",
+     "en": "China 1963 (seat held by the Republic of China): WPP 'China' + 'China, Taiwan Province of China'"
+    },
+    {
+     "tr": "Malezya 1963 (16 Eylül'den itibaren Singapur dâhil): Malezya + Singapur",
+     "en": "Malaysia 1963 (including Singapore from 16 September): Malaysia + Singapore"
+    },
+    {
+     "tr": "Pakistan 1963: Pakistan + Bangladeş",
+     "en": "Pakistan 1963: Pakistan + Bangladesh"
+    },
+    {
+     "tr": "Yemen 1963 (Yemen Arap Cumhuriyeti): WPP serisi bütün Yemen'i kapsar, ayrılamadı",
+     "en": "Yemen 1963 (Yemen Arab Republic): the WPP series covers all of Yemen and cannot be split"
+    }
+   ]
+  },
+  {
+   "kod": "EEG",
+   "ad": {
+    "tr": "Doğu Avrupa Grubu",
+    "en": "Eastern European Group"
+   },
+   "uyeler": [
+    "ALB",
+    "ARM",
+    "AZE",
+    "BGR",
+    "BIH",
+    "BLR",
+    "CZE",
+    "EST",
+    "GEO",
+    "HRV",
+    "HUN",
+    "LTU",
+    "LVA",
+    "MDA",
+    "MKD",
+    "MNE",
+    "POL",
+    "ROU",
+    "RUS",
+    "SRB",
+    "SVK",
+    "SVN",
+    "UKR"
+   ],
+   "uye_sayisi": 23,
+   "uye_sayisi_1963": 10,
+   "nufus_2023_bin": 331173.079,
+   "nufus_1963_bin": 324385.299,
+   "butce_yuzde": 4.66,
+   "personel": 768,
+   "paylar": {
+    "nufus_2023": 0.041346,
+    "nufus_1963": 0.109706,
+    "uye": 0.119171,
+    "nufus_2023_dunya": 0.041106,
+    "nufus_1963_dunya": 0.102772,
+    "butce": 0.0466,
+    "personel": 0.016237
+   },
+   "koltuk": {
+    "daimi": 1,
+    "secilmis": 1,
+    "toplam": 2,
+    "daimi_payi": 0.2,
+    "toplam_payi": 0.133333
+   },
+   "oranlar": {
+    "nufus_2023": 3.225,
+    "uye": 1.119,
+    "butce": 2.861,
+    "personel": 8.212
+   },
+   "notlar": [
+    {
+     "tr": "SSCB: Rusya Federasyonu ile 1963'te ayrı BM üyesi olmayan 12 cumhuriyetin toplamı; Ukrayna SSC ve Beyaz Rusya SSC ayrı üye olarak kendi satırlarında",
+     "en": "USSR: sum of the Russian Federation and the 12 republics that were not separate UN members in 1963; the Ukrainian SSR and the Byelorussian SSR are separate members in their own rows"
+    },
+    {
+     "tr": "Çekoslovakya (üye 1945–1992): Çekya + Slovakya",
+     "en": "Czechoslovakia (member 1945–1992): Czechia + Slovakia"
+    },
+    {
+     "tr": "Yugoslavya (üye 1945–1992): Slovenya, Hırvatistan, Bosna-Hersek, Sırbistan, Karadağ, Kuzey Makedonya ve Kosova (WPP: 'Kosovo (under UNSC res. 1244)') serilerinin toplamı",
+     "en": "Yugoslavia (member 1945–1992): sum of the series for Slovenia, Croatia, Bosnia and Herzegovina, Serbia, Montenegro, North Macedonia and Kosovo (WPP: 'Kosovo (under UNSC res. 1244)')"
+    }
+   ]
+  },
+  {
+   "kod": "GRULAC",
+   "ad": {
+    "tr": "Latin Amerika ve Karayipler Grubu",
+    "en": "Latin American and Caribbean Group"
+   },
+   "uyeler": [
+    "ARG",
+    "ATG",
+    "BHS",
+    "BLZ",
+    "BOL",
+    "BRA",
+    "BRB",
+    "CHL",
+    "COL",
+    "CRI",
+    "CUB",
+    "DMA",
+    "DOM",
+    "ECU",
+    "GRD",
+    "GTM",
+    "GUY",
+    "HND",
+    "HTI",
+    "JAM",
+    "KNA",
+    "LCA",
+    "MEX",
+    "NIC",
+    "PAN",
+    "PER",
+    "PRY",
+    "SLV",
+    "SUR",
+    "TTO",
+    "URY",
+    "VCT",
+    "VEN"
+   ],
+   "uye_sayisi": 33,
+   "uye_sayisi_1963": 22,
+   "nufus_2023_bin": 651640.538,
+   "nufus_1963_bin": 229689.816,
+   "butce_yuzde": 4.511,
+   "personel": 1771,
+   "paylar": {
+    "nufus_2023": 0.081355,
+    "nufus_1963": 0.07768,
+    "uye": 0.170984,
+    "nufus_2023_dunya": 0.080884,
+    "nufus_1963_dunya": 0.07277,
+    "butce": 0.04511,
+    "personel": 0.037443
+   },
+   "koltuk": {
+    "daimi": 0,
+    "secilmis": 2,
+    "toplam": 2,
+    "daimi_payi": 0.0,
+    "toplam_payi": 0.133333
+   },
+   "oranlar": {
+    "nufus_2023": 1.639,
+    "uye": 0.78,
+    "butce": 2.956,
+    "personel": 3.561
+   },
+   "notlar": []
+  },
+  {
+   "kod": "WEOG",
+   "ad": {
+    "tr": "Batı Avrupa ve Diğerleri Grubu",
+    "en": "Western European and Others Group"
+   },
+   "uyeler": [
+    "AND",
+    "AUS",
+    "AUT",
+    "BEL",
+    "CAN",
+    "CHE",
+    "DEU",
+    "DNK",
+    "ESP",
+    "FIN",
+    "FRA",
+    "GBR",
+    "GRC",
+    "IRL",
+    "ISL",
+    "ISR",
+    "ITA",
+    "LIE",
+    "LUX",
+    "MCO",
+    "MLT",
+    "NLD",
+    "NOR",
+    "NZL",
+    "PRT",
+    "SMR",
+    "SWE",
+    "TUR",
+    "USA"
+   ],
+   "uye_sayisi": 29,
+   "uye_sayisi_1963": 22,
+   "nufus_2023_bin": 939007.002,
+   "nufus_1963_bin": 504865.821,
+   "butce_yuzde": 53.78,
+   "personel": 3670,
+   "paylar": {
+    "nufus_2023": 0.117231,
+    "nufus_1963": 0.170744,
+    "uye": 0.150259,
+    "nufus_2023_dunya": 0.116553,
+    "nufus_1963_dunya": 0.159952,
+    "butce": 0.5378,
+    "personel": 0.077593
+   },
+   "koltuk": {
+    "daimi": 3,
+    "secilmis": 2,
+    "toplam": 5,
+    "daimi_payi": 0.6,
+    "toplam_payi": 0.333333
+   },
+   "oranlar": {
+    "nufus_2023": 2.843,
+    "uye": 2.218,
+    "butce": 0.62,
+    "personel": 4.296
+   },
+   "notlar": [
+    {
+     "tr": "DGACM: Mayıs 2000'de geçici, 2004'te kalıcı olarak WEOG üyesi.",
+     "en": "DGACM: WEOG member on a temporary basis from May 2000, permanent from 2004."
+    },
+    {
+     "tr": "DGACM: iki grupta (WEOG ve Asya-Pasifik) listelenir; seçimlerde yalnızca WEOG üyesi sayılır. Burada WEOG'da sayıldı.",
+     "en": "DGACM: listed in two groups (WEOG and Asia-Pacific); for electoral purposes a member of WEOG only. Counted in WEOG here."
+    },
+    {
+     "tr": "DGACM: hiçbir bölgesel grubun üyesi değildir; WEOG toplantılarına gözlemci katılır ve seçimlerde WEOG üyesi sayılır. Burada WEOG'da sayıldı.",
+     "en": "DGACM: not a member of any regional group; attends WEOG meetings as an observer and is considered a WEOG member for electoral purposes. Counted in WEOG here."
+    }
+   ]
+  }
+ ],
+ "kumeler": [
+  {
+   "kod": "P5",
+   "ad": {
+    "tr": "Beş daimî üye",
+    "en": "Five permanent members"
+   },
+   "uyeler": [
+    "CHN",
+    "FRA",
+    "GBR",
+    "RUS",
+    "USA"
+   ],
+   "uye_sayisi": 5,
+   "uye_sayisi_1963": 5,
+   "nufus_2023_bin": 2047235.831,
+   "nufus_1963_bin": 1144403.91,
+   "butce_yuzde": 51.947,
+   "personel": 2597,
+   "paylar": {
+    "nufus_2023": 0.255589,
+    "nufus_1963": 0.387033,
+    "uye": 0.025907,
+    "nufus_2023_dunya": 0.25411,
+    "nufus_1963_dunya": 0.36257,
+    "butce": 0.51947,
+    "personel": 0.054907
+   },
+   "koltuk": {
+    "daimi": 5,
+    "secilmis": 0,
+    "toplam": 5,
+    "daimi_payi": 1.0,
+    "toplam_payi": 0.333333
+   },
+   "oranlar": {
+    "nufus_2023": 1.304,
+    "uye": 12.867,
+    "butce": 0.642,
+    "personel": 6.071
+   },
+   "notlar": [
+    {
+     "tr": "1963 nüfusu: Çin koltuğu Çin Cumhuriyeti'ndeydi, nüfus WPP 'China' + 'China, Taiwan Province of China' serilerinin toplamıdır; SSCB 13 cumhuriyetin toplamıdır (Ukrayna ve Beyaz Rusya ayrı üye).",
+     "en": "1963 population: the China seat was held by the Republic of China; the population is the sum of the WPP series 'China' and 'China, Taiwan Province of China'; the USSR is the sum of 13 republics (Ukraine and Byelorussia separate members)."
+    }
+   ]
+  },
+  {
+   "kod": "IIT",
+   "ad": {
+    "tr": "İslam İşbirliği Teşkilatı üyeleri",
+    "en": "Organisation of Islamic Cooperation members"
+   },
+   "uyeler": [
+    "AFG",
+    "ALB",
+    "ARE",
+    "AZE",
+    "BEN",
+    "BFA",
+    "BGD",
+    "BHR",
+    "BRN",
+    "CIV",
+    "CMR",
+    "COM",
+    "DJI",
+    "DZA",
+    "EGY",
+    "GAB",
+    "GIN",
+    "GMB",
+    "GNB",
+    "GUY",
+    "IDN",
+    "IRN",
+    "IRQ",
+    "JOR",
+    "KAZ",
+    "KGZ",
+    "KWT",
+    "LBN",
+    "LBY",
+    "MAR",
+    "MDV",
+    "MLI",
+    "MOZ",
+    "MRT",
+    "MYS",
+    "NER",
+    "NGA",
+    "OMN",
+    "PAK",
+    "QAT",
+    "SAU",
+    "SDN",
+    "SEN",
+    "SLE",
+    "SOM",
+    "SUR",
+    "SYR",
+    "TCD",
+    "TGO",
+    "TJK",
+    "TKM",
+    "TUN",
+    "TUR",
+    "UGA",
+    "UZB",
+    "YEM"
+   ],
+   "uye_sayisi": 56,
+   "uye_sayisi_1963": 36,
+   "nufus_2023_bin": 2044098.881,
+   "nufus_1963_bin": 470878.074,
+   "butce_yuzde": 5.65,
+   "personel": 16349,
+   "paylar": {
+    "nufus_2023": 0.255198,
+    "nufus_1963": 0.159249,
+    "uye": 0.290155,
+    "nufus_2023_dunya": 0.25372,
+    "nufus_1963_dunya": 0.149184,
+    "butce": 0.0565,
+    "personel": 0.345659
+   },
+   "koltuk": {
+    "daimi": 0,
+    "secilmis": 3,
+    "toplam": 3,
+    "daimi_payi": 0.0,
+    "toplam_payi": 0.2
+   },
+   "oranlar": {
+    "nufus_2023": 0.784,
+    "uye": 0.689,
+    "butce": 3.54,
+    "personel": 0.579
+   },
+   "notlar": [
+    {
+     "tr": "İİT'nin 57 üyesinden Filistin BM üyesi değildir; paylara 56 üye girer.",
+     "en": "Of the 57 OIC members, Palestine is not a UN Member State; 56 members enter the shares."
+    },
+    {
+     "tr": "1963: İİT 1969'da kuruldu; 1963 değeri bugünkü üyelerden o tarihte BM üyesi olanların 1963 sınırlarıyla toplamıdır (Pakistan Bangladeş'i, Malezya Singapur'u, Sudan Güney Sudan'ı kapsar).",
+     "en": "1963: the OIC was founded in 1969; the 1963 value is the sum of today's members that were UN members at that time, with their 1963 borders (Pakistan includes Bangladesh, Malaysia includes Singapore, Sudan includes South Sudan)."
+    }
+   ]
+  }
+ ],
+ "uyeler": [
+  {
+   "iso3": "AFG",
+   "ad": "Afghanistan",
+   "kabul_tarihi": "1946-11-19",
+   "grup": "ASP",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 40864.868,
+   "butce_yuzde": 0.005,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "AGO",
+   "ad": "Angola",
+   "kabul_tarihi": "1976-12-01",
+   "grup": "AFR",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 36186.956,
+   "butce_yuzde": 0.01,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "ALB",
+   "ad": "Albania",
+   "kabul_tarihi": "1955-12-14",
+   "grup": "EEG",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 2821.649,
+   "butce_yuzde": 0.01,
+   "personel": 1,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "AND",
+   "ad": "Andorra",
+   "kabul_tarihi": "1993-07-28",
+   "grup": "WEOG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 80.294,
+   "butce_yuzde": 0.004,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "ARE",
+   "ad": "United Arab Emirates",
+   "kabul_tarihi": "1971-12-09",
+   "grup": "ASP",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 10445.031,
+   "butce_yuzde": 0.574,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "ARG",
+   "ad": "Argentina",
+   "kabul_tarihi": "1945-10-24",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 45459.024,
+   "butce_yuzde": 0.49,
+   "personel": 259,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "ARM",
+   "ad": "Armenia",
+   "kabul_tarihi": "1992-03-02",
+   "grup": "EEG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 2902.348,
+   "butce_yuzde": 0.007,
+   "personel": 1,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "ATG",
+   "ad": "Antigua and Barbuda",
+   "kabul_tarihi": "1981-11-11",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 93.082,
+   "butce_yuzde": 0.002,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "AUS",
+   "ad": "Australia",
+   "kabul_tarihi": "1945-11-01",
+   "grup": "WEOG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 26320.802,
+   "butce_yuzde": 2.04,
+   "personel": 24,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "AUT",
+   "ad": "Austria",
+   "kabul_tarihi": "1955-12-14",
+   "grup": "WEOG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 9136.103,
+   "butce_yuzde": 0.626,
+   "personel": 180,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "AZE",
+   "ad": "Azerbaijan",
+   "kabul_tarihi": "1992-03-02",
+   "grup": "EEG",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 10331.625,
+   "butce_yuzde": 0.034,
+   "personel": 2,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "BDI",
+   "ad": "Burundi",
+   "kabul_tarihi": "1962-09-18",
+   "grup": "AFR",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 13503.998,
+   "butce_yuzde": 0.001,
+   "personel": 761,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "BEL",
+   "ad": "Belgium",
+   "kabul_tarihi": "1945-12-27",
+   "grup": "WEOG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 11698.104,
+   "butce_yuzde": 0.773,
+   "personel": 1,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "BEN",
+   "ad": "Benin",
+   "kabul_tarihi": "1960-09-20",
+   "grup": "AFR",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 13934.166,
+   "butce_yuzde": 0.005,
+   "personel": 19,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "BFA",
+   "ad": "Burkina Faso",
+   "kabul_tarihi": "1960-09-20",
+   "grup": "AFR",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 22765.636,
+   "butce_yuzde": 0.005,
+   "personel": 61,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "BGD",
+   "ad": "Bangladesh",
+   "kabul_tarihi": "1974-09-17",
+   "grup": "ASP",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 170426.512,
+   "butce_yuzde": 0.01,
+   "personel": 4148,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "BGR",
+   "ad": "Bulgaria",
+   "kabul_tarihi": "1955-12-14",
+   "grup": "EEG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 6813.384,
+   "butce_yuzde": 0.071,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "BHR",
+   "ad": "Bahrain",
+   "kabul_tarihi": "1971-09-21",
+   "grup": "ASP",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 1551.527,
+   "butce_yuzde": 0.05,
+   "personel": 0,
+   "gk": {
+    "tur": "secilmis",
+    "donem_sonu": "2027"
+   },
+   "not": null
+  },
+  {
+   "iso3": "BHS",
+   "ad": "Bahamas (The)",
+   "kabul_tarihi": "1973-09-18",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 398.515,
+   "butce_yuzde": 0.015,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "BIH",
+   "ad": "Bosnia and Herzegovina",
+   "kabul_tarihi": "1992-05-22",
+   "grup": "EEG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 3194.466,
+   "butce_yuzde": 0.014,
+   "personel": 15,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "BLR",
+   "ad": "Belarus",
+   "kabul_tarihi": "1945-10-24",
+   "grup": "EEG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 9145.462,
+   "butce_yuzde": 0.043,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "BLZ",
+   "ad": "Belize",
+   "kabul_tarihi": "1981-09-25",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 408.114,
+   "butce_yuzde": 0.001,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "BOL",
+   "ad": "Bolivia (Plurinational State of)",
+   "kabul_tarihi": "1945-11-14",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 12159.495,
+   "butce_yuzde": 0.018,
+   "personel": 13,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "BRA",
+   "ad": "Brazil",
+   "kabul_tarihi": "1945-10-24",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 210707.0,
+   "butce_yuzde": 1.411,
+   "personel": 70,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "BRB",
+   "ad": "Barbados",
+   "kabul_tarihi": "1966-12-09",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 282.296,
+   "butce_yuzde": 0.007,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "BRN",
+   "ad": "Brunei Darussalam",
+   "kabul_tarihi": "1984-09-21",
+   "grup": "ASP",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 457.028,
+   "butce_yuzde": 0.019,
+   "personel": 21,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "BTN",
+   "ad": "Bhutan",
+   "kabul_tarihi": "1971-09-21",
+   "grup": "ASP",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 783.664,
+   "butce_yuzde": 0.001,
+   "personel": 182,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "BWA",
+   "ad": "Botswana",
+   "kabul_tarihi": "1966-10-17",
+   "grup": "AFR",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 2459.937,
+   "butce_yuzde": 0.013,
+   "personel": 2,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "CAF",
+   "ad": "Central African Republic",
+   "kabul_tarihi": "1960-09-20",
+   "grup": "AFR",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 5064.592,
+   "butce_yuzde": 0.001,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "CAN",
+   "ad": "Canada",
+   "kabul_tarihi": "1945-11-09",
+   "grup": "WEOG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 39059.725,
+   "butce_yuzde": 2.543,
+   "personel": 27,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "CHE",
+   "ad": "Switzerland",
+   "kabul_tarihi": "2002-09-10",
+   "grup": "WEOG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 8843.053,
+   "butce_yuzde": 1.029,
+   "personel": 23,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "CHL",
+   "ad": "Chile",
+   "kabul_tarihi": "1945-10-24",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 19603.239,
+   "butce_yuzde": 0.374,
+   "personel": 12,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "CHN",
+   "ad": "China (the People's Republic of)",
+   "kabul_tarihi": "1945-10-24",
+   "grup": "ASP",
+   "iit": false,
+   "p5": true,
+   "nufus_2023": 1424260.946,
+   "butce_yuzde": 20.004,
+   "personel": 1661,
+   "gk": {
+    "tur": "daimi",
+    "donem_sonu": null
+   },
+   "not": null
+  },
+  {
+   "iso3": "CIV",
+   "ad": "Côte D'Ivoire",
+   "kabul_tarihi": "1960-09-20",
+   "grup": "AFR",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 30783.52,
+   "butce_yuzde": 0.024,
+   "personel": 184,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "CMR",
+   "ad": "Cameroon",
+   "kabul_tarihi": "1960-09-20",
+   "grup": "AFR",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 27997.833,
+   "butce_yuzde": 0.014,
+   "personel": 934,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "COD",
+   "ad": "Democratic Republic of the Congo",
+   "kabul_tarihi": "1960-09-20",
+   "grup": "AFR",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 104063.312,
+   "butce_yuzde": 0.01,
+   "personel": 0,
+   "gk": {
+    "tur": "secilmis",
+    "donem_sonu": "2027"
+   },
+   "not": null
+  },
+  {
+   "iso3": "COG",
+   "ad": "Congo",
+   "kabul_tarihi": "1960-09-20",
+   "grup": "AFR",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 6108.142,
+   "butce_yuzde": 0.005,
+   "personel": 147,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "COL",
+   "ad": "Colombia",
+   "kabul_tarihi": "1945-11-05",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 52032.604,
+   "butce_yuzde": 0.197,
+   "personel": 4,
+   "gk": {
+    "tur": "secilmis",
+    "donem_sonu": "2027"
+   },
+   "not": null
+  },
+  {
+   "iso3": "COM",
+   "ad": "Comoros",
+   "kabul_tarihi": "1975-11-12",
+   "grup": "AFR",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 842.267,
+   "butce_yuzde": 0.001,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "CPV",
+   "ad": "Cabo Verde",
+   "kabul_tarihi": "1975-09-16",
+   "grup": "AFR",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 521.047,
+   "butce_yuzde": 0.001,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "CRI",
+   "ad": "Costa Rica",
+   "kabul_tarihi": "1945-11-02",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 5092.976,
+   "butce_yuzde": 0.063,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "CUB",
+   "ad": "Cuba",
+   "kabul_tarihi": "1945-10-24",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 11039.268,
+   "butce_yuzde": 0.122,
+   "personel": 2,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "CYP",
+   "ad": "Cyprus",
+   "kabul_tarihi": "1960-09-20",
+   "grup": "ASP",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 1338.114,
+   "butce_yuzde": 0.035,
+   "personel": 2,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "CZE",
+   "ad": "Czechia",
+   "kabul_tarihi": "1993-01-19",
+   "grup": "EEG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 10827.878,
+   "butce_yuzde": 0.344,
+   "personel": 5,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "DEU",
+   "ad": "Germany",
+   "kabul_tarihi": "1973-09-18",
+   "grup": "WEOG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 84400.899,
+   "butce_yuzde": 5.692,
+   "personel": 204,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "DJI",
+   "ad": "Djibouti",
+   "kabul_tarihi": "1977-09-20",
+   "grup": "AFR",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 1145.015,
+   "butce_yuzde": 0.002,
+   "personel": 168,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "DMA",
+   "ad": "Dominica",
+   "kabul_tarihi": "1978-12-18",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 66.668,
+   "butce_yuzde": 0.001,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "DNK",
+   "ad": "Denmark",
+   "kabul_tarihi": "1945-10-24",
+   "grup": "WEOG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 5932.37,
+   "butce_yuzde": 0.531,
+   "personel": 10,
+   "gk": {
+    "tur": "secilmis",
+    "donem_sonu": "2026"
+   },
+   "not": null
+  },
+  {
+   "iso3": "DOM",
+   "ad": "Dominican Republic",
+   "kabul_tarihi": "1945-10-24",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 11282.543,
+   "butce_yuzde": 0.069,
+   "personel": 3,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "DZA",
+   "ad": "Algeria",
+   "kabul_tarihi": "1962-10-08",
+   "grup": "AFR",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 45831.343,
+   "butce_yuzde": 0.087,
+   "personel": 1,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "ECU",
+   "ad": "Ecuador",
+   "kabul_tarihi": "1945-12-21",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 17902.009,
+   "butce_yuzde": 0.065,
+   "personel": 9,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "EGY",
+   "ad": "Egypt",
+   "kabul_tarihi": "1945-10-24",
+   "grup": "AFR",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 113493.134,
+   "butce_yuzde": 0.182,
+   "personel": 1168,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "ERI",
+   "ad": "Eritrea",
+   "kabul_tarihi": "1993-05-28",
+   "grup": "AFR",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 3438.999,
+   "butce_yuzde": 0.001,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "ESP",
+   "ad": "Spain",
+   "kabul_tarihi": "1955-12-14",
+   "grup": "WEOG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 47907.344,
+   "butce_yuzde": 1.895,
+   "personel": 665,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "EST",
+   "ad": "Estonia",
+   "kabul_tarihi": "1991-09-17",
+   "grup": "EEG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 1367.166,
+   "butce_yuzde": 0.045,
+   "personel": 3,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "ETH",
+   "ad": "Ethiopia",
+   "kabul_tarihi": "1945-11-13",
+   "grup": "AFR",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 127028.36,
+   "butce_yuzde": 0.01,
+   "personel": 926,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "FIN",
+   "ad": "Finland",
+   "kabul_tarihi": "1955-12-14",
+   "grup": "WEOG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 5590.327,
+   "butce_yuzde": 0.386,
+   "personel": 163,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "FJI",
+   "ad": "Fiji",
+   "kabul_tarihi": "1970-10-13",
+   "grup": "ASP",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 921.747,
+   "butce_yuzde": 0.003,
+   "personel": 164,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "FRA",
+   "ad": "France",
+   "kabul_tarihi": "1945-10-24",
+   "grup": "WEOG",
+   "iit": false,
+   "p5": true,
+   "nufus_2023": 66381.485,
+   "butce_yuzde": 3.858,
+   "personel": 609,
+   "gk": {
+    "tur": "daimi",
+    "donem_sonu": null
+   },
+   "not": null
+  },
+  {
+   "iso3": "FSM",
+   "ad": "Micronesia (Federated States of)",
+   "kabul_tarihi": "1991-09-17",
+   "grup": "ASP",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 112.368,
+   "butce_yuzde": 0.001,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "GAB",
+   "ad": "Gabon",
+   "kabul_tarihi": "1960-09-20",
+   "grup": "AFR",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 2457.715,
+   "butce_yuzde": 0.011,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "GBR",
+   "ad": "United Kingdom of Great Britain and Northern Ireland",
+   "kabul_tarihi": "1945-10-24",
+   "grup": "WEOG",
+   "iit": false,
+   "p5": true,
+   "nufus_2023": 68442.882,
+   "butce_yuzde": 3.991,
+   "personel": 251,
+   "gk": {
+    "tur": "daimi",
+    "donem_sonu": null
+   },
+   "not": null
+  },
+  {
+   "iso3": "GEO",
+   "ad": "Georgia",
+   "kabul_tarihi": "1992-07-31",
+   "grup": "EEG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 3807.145,
+   "butce_yuzde": 0.009,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "GHA",
+   "ad": "Ghana",
+   "kabul_tarihi": "1957-03-08",
+   "grup": "AFR",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 33467.371,
+   "butce_yuzde": 0.025,
+   "personel": 1935,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "GIN",
+   "ad": "Guinea",
+   "kabul_tarihi": "1958-12-12",
+   "grup": "AFR",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 14229.395,
+   "butce_yuzde": 0.004,
+   "personel": 18,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "GMB",
+   "ad": "Gambia (Republic of The)",
+   "kabul_tarihi": "1965-09-21",
+   "grup": "AFR",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 2666.786,
+   "butce_yuzde": 0.001,
+   "personel": 32,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "GNB",
+   "ad": "Guinea Bissau",
+   "kabul_tarihi": "1974-09-17",
+   "grup": "AFR",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 2129.29,
+   "butce_yuzde": 0.001,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "GNQ",
+   "ad": "Equatorial Guinea",
+   "kabul_tarihi": "1968-11-12",
+   "grup": "AFR",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 1825.48,
+   "butce_yuzde": 0.008,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "GRC",
+   "ad": "Greece",
+   "kabul_tarihi": "1945-10-25",
+   "grup": "WEOG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 10349.296,
+   "butce_yuzde": 0.28,
+   "personel": 1,
+   "gk": {
+    "tur": "secilmis",
+    "donem_sonu": "2026"
+   },
+   "not": null
+  },
+  {
+   "iso3": "GRD",
+   "ad": "Grenada",
+   "kabul_tarihi": "1974-09-17",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 117.007,
+   "butce_yuzde": 0.001,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "GTM",
+   "ad": "Guatemala",
+   "kabul_tarihi": "1945-11-21",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 17984.483,
+   "butce_yuzde": 0.046,
+   "personel": 201,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "GUY",
+   "ad": "Guyana",
+   "kabul_tarihi": "1966-09-20",
+   "grup": "GRULAC",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 824.074,
+   "butce_yuzde": 0.011,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "HND",
+   "ad": "Honduras",
+   "kabul_tarihi": "1945-12-17",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 10554.31,
+   "butce_yuzde": 0.01,
+   "personel": 10,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "HRV",
+   "ad": "Croatia",
+   "kabul_tarihi": "1992-05-22",
+   "grup": "EEG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 3902.712,
+   "butce_yuzde": 0.088,
+   "personel": 13,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "HTI",
+   "ad": "Haiti",
+   "kabul_tarihi": "1945-10-24",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 11569.602,
+   "butce_yuzde": 0.006,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "HUN",
+   "ad": "Hungary",
+   "kabul_tarihi": "1955-12-14",
+   "grup": "EEG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 9683.205,
+   "butce_yuzde": 0.223,
+   "personel": 30,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "IDN",
+   "ad": "Indonesia",
+   "kabul_tarihi": "1950-09-28",
+   "grup": "ASP",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 280026.489,
+   "butce_yuzde": 0.579,
+   "personel": 1961,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "IND",
+   "ad": "India",
+   "kabul_tarihi": "1945-10-30",
+   "grup": "ASP",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 1431702.948,
+   "butce_yuzde": 1.106,
+   "personel": 4278,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "IRL",
+   "ad": "Ireland",
+   "kabul_tarihi": "1955-12-14",
+   "grup": "WEOG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 5165.835,
+   "butce_yuzde": 0.472,
+   "personel": 323,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "IRN",
+   "ad": "Iran (Islamic Republic of)",
+   "kabul_tarihi": "1945-10-24",
+   "grup": "ASP",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 90102.637,
+   "butce_yuzde": 0.386,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "IRQ",
+   "ad": "Iraq",
+   "kabul_tarihi": "1945-12-21",
+   "grup": "ASP",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 44590.195,
+   "butce_yuzde": 0.131,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "ISL",
+   "ad": "Iceland",
+   "kabul_tarihi": "1946-11-19",
+   "grup": "WEOG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 384.375,
+   "butce_yuzde": 0.035,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "ISR",
+   "ad": "Israel",
+   "kabul_tarihi": "1949-05-11",
+   "grup": "WEOG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 9190.811,
+   "butce_yuzde": 0.609,
+   "personel": 0,
+   "gk": null,
+   "not": {
+    "tr": "DGACM: Mayıs 2000'de geçici, 2004'te kalıcı olarak WEOG üyesi.",
+    "en": "DGACM: WEOG member on a temporary basis from May 2000, permanent from 2004."
+   }
+  },
+  {
+   "iso3": "ITA",
+   "ad": "Italy",
+   "kabul_tarihi": "1955-12-14",
+   "grup": "WEOG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 59563.765,
+   "butce_yuzde": 2.813,
+   "personel": 901,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "JAM",
+   "ad": "Jamaica",
+   "kabul_tarihi": "1962-09-18",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 2839.75,
+   "butce_yuzde": 0.007,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "JOR",
+   "ad": "Jordan",
+   "kabul_tarihi": "1955-12-14",
+   "grup": "ASP",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 11347.484,
+   "butce_yuzde": 0.021,
+   "personel": 218,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "JPN",
+   "ad": "Japan",
+   "kabul_tarihi": "1956-12-18",
+   "grup": "ASP",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 124670.714,
+   "butce_yuzde": 6.93,
+   "personel": 2,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "KAZ",
+   "ad": "Kazakhstan",
+   "kabul_tarihi": "1992-03-02",
+   "grup": "ASP",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 20196.0,
+   "butce_yuzde": 0.131,
+   "personel": 156,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "KEN",
+   "ad": "Kenya",
+   "kabul_tarihi": "1963-12-16",
+   "grup": "AFR",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 54793.511,
+   "butce_yuzde": 0.037,
+   "personel": 455,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "KGZ",
+   "ad": "Kyrgyzstan",
+   "kabul_tarihi": "1992-03-02",
+   "grup": "ASP",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 7016.437,
+   "butce_yuzde": 0.003,
+   "personel": 11,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "KHM",
+   "ad": "Cambodia",
+   "kabul_tarihi": "1955-12-14",
+   "grup": "ASP",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 17314.678,
+   "butce_yuzde": 0.008,
+   "personel": 583,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "KIR",
+   "ad": "Kiribati",
+   "kabul_tarihi": "1999-09-14",
+   "grup": "ASP",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 131.534,
+   "butce_yuzde": 0.001,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "KNA",
+   "ad": "Saint Kitts and Nevis",
+   "kabul_tarihi": "1983-09-23",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 46.713,
+   "butce_yuzde": 0.001,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "KOR",
+   "ad": "Republic of Korea",
+   "kabul_tarihi": "1991-09-17",
+   "grup": "ASP",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 51759.392,
+   "butce_yuzde": 2.349,
+   "personel": 429,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "KWT",
+   "ad": "Kuwait",
+   "kabul_tarihi": "1963-05-14",
+   "grup": "ASP",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 4793.42,
+   "butce_yuzde": 0.222,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "LAO",
+   "ad": "Lao People’s Democratic Republic",
+   "kabul_tarihi": "1955-12-14",
+   "grup": "ASP",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 7612.311,
+   "butce_yuzde": 0.006,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "LBN",
+   "ad": "Lebanon",
+   "kabul_tarihi": "1945-10-24",
+   "grup": "ASP",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 5761.194,
+   "butce_yuzde": 0.022,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "LBR",
+   "ad": "Liberia",
+   "kabul_tarihi": "1945-11-02",
+   "grup": "AFR",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 5432.67,
+   "butce_yuzde": 0.001,
+   "personel": 15,
+   "gk": {
+    "tur": "secilmis",
+    "donem_sonu": "2027"
+   },
+   "not": null
+  },
+  {
+   "iso3": "LBY",
+   "ad": "Libya",
+   "kabul_tarihi": "1955-12-14",
+   "grup": "AFR",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 7268.778,
+   "butce_yuzde": 0.04,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "LCA",
+   "ad": "Saint Lucia",
+   "kabul_tarihi": "1979-09-18",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 179.046,
+   "butce_yuzde": 0.002,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "LIE",
+   "ad": "Liechtenstein",
+   "kabul_tarihi": "1990-09-18",
+   "grup": "WEOG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 39.46,
+   "butce_yuzde": 0.009,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "LKA",
+   "ad": "Sri Lanka",
+   "kabul_tarihi": "1955-12-14",
+   "grup": "ASP",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 22904.797,
+   "butce_yuzde": 0.038,
+   "personel": 318,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "LSO",
+   "ad": "Lesotho",
+   "kabul_tarihi": "1966-10-17",
+   "grup": "AFR",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 2298.496,
+   "butce_yuzde": 0.001,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "LTU",
+   "ad": "Lithuania",
+   "kabul_tarihi": "1991-09-17",
+   "grup": "EEG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 2841.385,
+   "butce_yuzde": 0.081,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "LUX",
+   "ad": "Luxembourg",
+   "kabul_tarihi": "1945-10-24",
+   "grup": "WEOG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 660.992,
+   "butce_yuzde": 0.073,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "LVA",
+   "ad": "Latvia",
+   "kabul_tarihi": "1991-09-17",
+   "grup": "EEG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 1885.099,
+   "butce_yuzde": 0.05,
+   "personel": 5,
+   "gk": {
+    "tur": "secilmis",
+    "donem_sonu": "2027"
+   },
+   "not": null
+  },
+  {
+   "iso3": "MAR",
+   "ad": "Morocco",
+   "kabul_tarihi": "1956-11-12",
+   "grup": "AFR",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 37523.726,
+   "butce_yuzde": 0.059,
+   "personel": 1337,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "MCO",
+   "ad": "Monaco",
+   "kabul_tarihi": "1993-05-28",
+   "grup": "WEOG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 39.136,
+   "butce_yuzde": 0.011,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "MDA",
+   "ad": "Republic of Moldova",
+   "kabul_tarihi": "1992-03-02",
+   "grup": "EEG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 3080.724,
+   "butce_yuzde": 0.006,
+   "personel": 41,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "MDG",
+   "ad": "Madagascar",
+   "kabul_tarihi": "1960-09-20",
+   "grup": "AFR",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 30813.475,
+   "butce_yuzde": 0.004,
+   "personel": 2,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "MDV",
+   "ad": "Maldives",
+   "kabul_tarihi": "1965-09-21",
+   "grup": "ASP",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 525.144,
+   "butce_yuzde": 0.004,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "MEX",
+   "ad": "Mexico",
+   "kabul_tarihi": "1945-11-07",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 129171.119,
+   "butce_yuzde": 1.137,
+   "personel": 15,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "MHL",
+   "ad": "Marshall Islands",
+   "kabul_tarihi": "1991-09-17",
+   "grup": "ASP",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 39.472,
+   "butce_yuzde": 0.001,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "MKD",
+   "ad": "North Macedonia",
+   "kabul_tarihi": "1993-04-08",
+   "grup": "EEG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 1836.091,
+   "butce_yuzde": 0.008,
+   "personel": 2,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "MLI",
+   "ad": "Mali",
+   "kabul_tarihi": "1960-09-28",
+   "grup": "AFR",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 23415.909,
+   "butce_yuzde": 0.005,
+   "personel": 10,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "MLT",
+   "ad": "Malta",
+   "kabul_tarihi": "1964-12-01",
+   "grup": "WEOG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 529.518,
+   "butce_yuzde": 0.02,
+   "personel": 6,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "MMR",
+   "ad": "Myanmar",
+   "kabul_tarihi": "1948-04-19",
+   "grup": "ASP",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 53947.114,
+   "butce_yuzde": 0.01,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "MNE",
+   "ad": "Montenegro",
+   "kabul_tarihi": "2006-06-28",
+   "grup": "EEG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 627.669,
+   "butce_yuzde": 0.004,
+   "personel": 1,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "MNG",
+   "ad": "Mongolia",
+   "kabul_tarihi": "1961-10-27",
+   "grup": "ASP",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 3409.595,
+   "butce_yuzde": 0.004,
+   "personel": 560,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "MOZ",
+   "ad": "Mozambique",
+   "kabul_tarihi": "1975-09-16",
+   "grup": "AFR",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 33140.626,
+   "butce_yuzde": 0.002,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "MRT",
+   "ad": "Mauritania",
+   "kabul_tarihi": "1961-10-27",
+   "grup": "AFR",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 4948.362,
+   "butce_yuzde": 0.003,
+   "personel": 344,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "MUS",
+   "ad": "Mauritius",
+   "kabul_tarihi": "1968-04-24",
+   "grup": "AFR",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 1274.659,
+   "butce_yuzde": 0.01,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "MWI",
+   "ad": "Malawi",
+   "kabul_tarihi": "1964-12-01",
+   "grup": "AFR",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 20832.833,
+   "butce_yuzde": 0.003,
+   "personel": 763,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "MYS",
+   "ad": "Malaysia",
+   "kabul_tarihi": "1957-09-17",
+   "grup": "ASP",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 34908.354,
+   "butce_yuzde": 0.326,
+   "personel": 542,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "NAM",
+   "ad": "Namibia",
+   "kabul_tarihi": "1990-04-23",
+   "grup": "AFR",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 2928.037,
+   "butce_yuzde": 0.007,
+   "personel": 3,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "NER",
+   "ad": "Niger",
+   "kabul_tarihi": "1960-09-20",
+   "grup": "AFR",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 25727.295,
+   "butce_yuzde": 0.004,
+   "personel": 49,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "NGA",
+   "ad": "Nigeria",
+   "kabul_tarihi": "1960-10-07",
+   "grup": "AFR",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 225494.749,
+   "butce_yuzde": 0.15,
+   "personel": 217,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "NIC",
+   "ad": "Nicaragua",
+   "kabul_tarihi": "1945-10-24",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 6777.156,
+   "butce_yuzde": 0.004,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "NLD",
+   "ad": "Netherlands (Kingdom of the)",
+   "kabul_tarihi": "1945-12-10",
+   "grup": "WEOG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 18019.495,
+   "butce_yuzde": 1.298,
+   "personel": 11,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "NOR",
+   "ad": "Norway",
+   "kabul_tarihi": "1945-11-27",
+   "grup": "WEOG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 5488.555,
+   "butce_yuzde": 0.653,
+   "personel": 41,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "NPL",
+   "ad": "Nepal",
+   "kabul_tarihi": "1955-12-14",
+   "grup": "ASP",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 29715.279,
+   "butce_yuzde": 0.01,
+   "personel": 4340,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "NRU",
+   "ad": "Naoero",
+   "kabul_tarihi": "1999-09-14",
+   "grup": "ASP",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 11.845,
+   "butce_yuzde": 0.001,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "NZL",
+   "ad": "New Zealand",
+   "kabul_tarihi": "1945-10-24",
+   "grup": "WEOG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 5151.357,
+   "butce_yuzde": 0.302,
+   "personel": 11,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "OMN",
+   "ad": "Oman",
+   "kabul_tarihi": "1971-10-07",
+   "grup": "ASP",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 4933.394,
+   "butce_yuzde": 0.115,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "PAK",
+   "ad": "Pakistan",
+   "kabul_tarihi": "1947-09-30",
+   "grup": "ASP",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 245673.401,
+   "butce_yuzde": 0.123,
+   "personel": 2413,
+   "gk": {
+    "tur": "secilmis",
+    "donem_sonu": "2026"
+   },
+   "not": null
+  },
+  {
+   "iso3": "PAN",
+   "ad": "Panama",
+   "kabul_tarihi": "1945-11-13",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 4430.03,
+   "butce_yuzde": 0.086,
+   "personel": 0,
+   "gk": {
+    "tur": "secilmis",
+    "donem_sonu": "2026"
+   },
+   "not": null
+  },
+  {
+   "iso3": "PER",
+   "ad": "Peru",
+   "kabul_tarihi": "1945-10-31",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 33656.344,
+   "butce_yuzde": 0.145,
+   "personel": 251,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "PHL",
+   "ad": "Philippines",
+   "kabul_tarihi": "1945-10-24",
+   "grup": "ASP",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 114411.351,
+   "butce_yuzde": 0.198,
+   "personel": 28,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "PLW",
+   "ad": "Palau",
+   "kabul_tarihi": "1994-12-15",
+   "grup": "ASP",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 17.748,
+   "butce_yuzde": 0.001,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "PNG",
+   "ad": "Papua New Guinea",
+   "kabul_tarihi": "1975-10-10",
+   "grup": "ASP",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 10296.209,
+   "butce_yuzde": 0.009,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "POL",
+   "ad": "Poland",
+   "kabul_tarihi": "1945-10-24",
+   "grup": "EEG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 38813.949,
+   "butce_yuzde": 0.831,
+   "personel": 148,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "PRK",
+   "ad": "Democratic People's Republic of Korea",
+   "kabul_tarihi": "1991-09-17",
+   "grup": "ASP",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 26376.094,
+   "butce_yuzde": 0.005,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "PRT",
+   "ad": "Portugal",
+   "kabul_tarihi": "1955-12-14",
+   "grup": "WEOG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 10430.825,
+   "butce_yuzde": 0.328,
+   "personel": 166,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "PRY",
+   "ad": "Paraguay",
+   "kabul_tarihi": "1945-10-24",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 6801.526,
+   "butce_yuzde": 0.023,
+   "personel": 11,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "QAT",
+   "ad": "Qatar",
+   "kabul_tarihi": "1971-09-21",
+   "grup": "ASP",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 2945.712,
+   "butce_yuzde": 0.245,
+   "personel": 1,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "ROU",
+   "ad": "Romania",
+   "kabul_tarihi": "1955-12-14",
+   "grup": "EEG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 19169.119,
+   "butce_yuzde": 0.358,
+   "personel": 30,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "RUS",
+   "ad": "Russian Federation",
+   "kabul_tarihi": "1945-10-24",
+   "grup": "EEG",
+   "iit": false,
+   "p5": true,
+   "nufus_2023": 145675.42,
+   "butce_yuzde": 2.094,
+   "personel": 56,
+   "gk": {
+    "tur": "daimi",
+    "donem_sonu": null
+   },
+   "not": null
+  },
+  {
+   "iso3": "RWA",
+   "ad": "Rwanda",
+   "kabul_tarihi": "1962-09-18",
+   "grup": "AFR",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 13802.596,
+   "butce_yuzde": 0.003,
+   "personel": 4405,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "SAU",
+   "ad": "Saudi Arabia",
+   "kabul_tarihi": "1945-10-24",
+   "grup": "ASP",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 32867.343,
+   "butce_yuzde": 1.217,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "SDN",
+   "ad": "Sudan",
+   "kabul_tarihi": "1956-11-12",
+   "grup": "AFR",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 50037.008,
+   "butce_yuzde": 0.008,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "SEN",
+   "ad": "Senegal",
+   "kabul_tarihi": "1960-09-28",
+   "grup": "AFR",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 17867.073,
+   "butce_yuzde": 0.007,
+   "personel": 887,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "SGP",
+   "ad": "Singapore",
+   "kabul_tarihi": "1965-09-21",
+   "grup": "ASP",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 5765.718,
+   "butce_yuzde": 0.479,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "SLB",
+   "ad": "Solomon Islands",
+   "kabul_tarihi": "1978-09-19",
+   "grup": "ASP",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 790.472,
+   "butce_yuzde": 0.001,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "SLE",
+   "ad": "Sierra Leone",
+   "kabul_tarihi": "1961-09-27",
+   "grup": "AFR",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 8368.119,
+   "butce_yuzde": 0.001,
+   "personel": 17,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "SLV",
+   "ad": "El Salvador",
+   "kabul_tarihi": "1945-10-24",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 6295.263,
+   "butce_yuzde": 0.013,
+   "personel": 41,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "SMR",
+   "ad": "San Marino",
+   "kabul_tarihi": "1992-03-02",
+   "grup": "WEOG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 33.858,
+   "butce_yuzde": 0.002,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "SOM",
+   "ad": "Somalia",
+   "kabul_tarihi": "1960-09-20",
+   "grup": "AFR",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 18031.404,
+   "butce_yuzde": 0.002,
+   "personel": 0,
+   "gk": {
+    "tur": "secilmis",
+    "donem_sonu": "2026"
+   },
+   "not": null
+  },
+  {
+   "iso3": "SRB",
+   "ad": "Serbia",
+   "kabul_tarihi": "2000-11-01",
+   "grup": "EEG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 6788.068,
+   "butce_yuzde": 0.04,
+   "personel": 182,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "SSD",
+   "ad": "South Sudan",
+   "kabul_tarihi": "2011-07-14",
+   "grup": "AFR",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 11146.895,
+   "butce_yuzde": 0.005,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "STP",
+   "ad": "Sao Tome and Principe",
+   "kabul_tarihi": "1975-09-16",
+   "grup": "AFR",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 228.558,
+   "butce_yuzde": 0.001,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "SUR",
+   "ad": "Suriname",
+   "kabul_tarihi": "1975-12-04",
+   "grup": "GRULAC",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 626.028,
+   "butce_yuzde": 0.002,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "SVK",
+   "ad": "Slovakia",
+   "kabul_tarihi": "1993-01-19",
+   "grup": "EEG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 5516.536,
+   "butce_yuzde": 0.149,
+   "personel": 224,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "SVN",
+   "ad": "Slovenia",
+   "kabul_tarihi": "1992-05-22",
+   "grup": "EEG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 2117.568,
+   "butce_yuzde": 0.077,
+   "personel": 9,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "SWE",
+   "ad": "Sweden",
+   "kabul_tarihi": "1946-11-19",
+   "grup": "WEOG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 10521.91,
+   "butce_yuzde": 0.822,
+   "personel": 13,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "SWZ",
+   "ad": "Eswatini",
+   "kabul_tarihi": "1968-09-24",
+   "grup": "AFR",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 1224.706,
+   "butce_yuzde": 0.002,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "SYC",
+   "ad": "Seychelles",
+   "kabul_tarihi": "1976-09-21",
+   "grup": "AFR",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 126.694,
+   "butce_yuzde": 0.002,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "SYR",
+   "ad": "Syrian Arab Republic",
+   "kabul_tarihi": "1945-10-24",
+   "grup": "ASP",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 23014.618,
+   "butce_yuzde": 0.006,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "TCD",
+   "ad": "Chad",
+   "kabul_tarihi": "1960-09-20",
+   "grup": "AFR",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 18767.684,
+   "butce_yuzde": 0.005,
+   "personel": 17,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "TGO",
+   "ad": "Togo",
+   "kabul_tarihi": "1960-09-20",
+   "grup": "AFR",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 9196.283,
+   "butce_yuzde": 0.002,
+   "personel": 50,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "THA",
+   "ad": "Thailand",
+   "kabul_tarihi": "1946-12-15",
+   "grup": "ASP",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 71715.662,
+   "butce_yuzde": 0.341,
+   "personel": 292,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "TJK",
+   "ad": "Tajikistan",
+   "kabul_tarihi": "1992-03-02",
+   "grup": "ASP",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 10287.891,
+   "butce_yuzde": 0.003,
+   "personel": 2,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "TKM",
+   "ad": "Turkmenistan",
+   "kabul_tarihi": "1992-03-02",
+   "grup": "ASP",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 7298.173,
+   "butce_yuzde": 0.036,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "TLS",
+   "ad": "Timor-Leste",
+   "kabul_tarihi": "2002-09-27",
+   "grup": "ASP",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 1376.847,
+   "butce_yuzde": 0.001,
+   "personel": 2,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "TON",
+   "ad": "Tonga",
+   "kabul_tarihi": "1999-09-14",
+   "grup": "ASP",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 104.816,
+   "butce_yuzde": 0.001,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "TTO",
+   "ad": "Trinidad and Tobago",
+   "kabul_tarihi": "1962-09-18",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 1500.11,
+   "butce_yuzde": 0.033,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "TUN",
+   "ad": "Tunisia",
+   "kabul_tarihi": "1956-11-12",
+   "grup": "AFR",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 12160.602,
+   "butce_yuzde": 0.018,
+   "personel": 693,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "TUR",
+   "ad": "Türkiye",
+   "kabul_tarihi": "1945-10-24",
+   "grup": "WEOG",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 87169.328,
+   "butce_yuzde": 0.685,
+   "personel": 20,
+   "gk": null,
+   "not": {
+    "tr": "DGACM: iki grupta (WEOG ve Asya-Pasifik) listelenir; seçimlerde yalnızca WEOG üyesi sayılır. Burada WEOG'da sayıldı.",
+    "en": "DGACM: listed in two groups (WEOG and Asia-Pacific); for electoral purposes a member of WEOG only. Counted in WEOG here."
+   }
+  },
+  {
+   "iso3": "TUV",
+   "ad": "Tuvalu",
+   "kabul_tarihi": "2000-09-05",
+   "grup": "ASP",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 9.904,
+   "butce_yuzde": 0.001,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "TZA",
+   "ad": "United Republic of Tanzania",
+   "kabul_tarihi": "1961-12-14",
+   "grup": "AFR",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 65657.004,
+   "butce_yuzde": 0.01,
+   "personel": 913,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "UGA",
+   "ad": "Uganda",
+   "kabul_tarihi": "1962-10-25",
+   "grup": "AFR",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 47981.11,
+   "butce_yuzde": 0.01,
+   "personel": 647,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "UKR",
+   "ad": "Ukraine",
+   "kabul_tarihi": "1945-10-24",
+   "grup": "EEG",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 38024.411,
+   "butce_yuzde": 0.074,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "URY",
+   "ad": "Uruguay",
+   "kabul_tarihi": "1945-12-18",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 3388.682,
+   "butce_yuzde": 0.079,
+   "personel": 870,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "USA",
+   "ad": "United States of America",
+   "kabul_tarihi": "1945-10-24",
+   "grup": "WEOG",
+   "iit": false,
+   "p5": true,
+   "nufus_2023": 342475.098,
+   "butce_yuzde": 22.0,
+   "personel": 20,
+   "gk": {
+    "tur": "daimi",
+    "donem_sonu": null
+   },
+   "not": {
+    "tr": "DGACM: hiçbir bölgesel grubun üyesi değildir; WEOG toplantılarına gözlemci katılır ve seçimlerde WEOG üyesi sayılır. Burada WEOG'da sayıldı.",
+    "en": "DGACM: not a member of any regional group; attends WEOG meetings as an observer and is considered a WEOG member for electoral purposes. Counted in WEOG here."
+   }
+  },
+  {
+   "iso3": "UZB",
+   "ad": "Uzbekistan",
+   "kabul_tarihi": "1992-03-02",
+   "grup": "ASP",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 35294.16,
+   "butce_yuzde": 0.024,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "VCT",
+   "ad": "Saint Vincent and the Grenadines",
+   "kabul_tarihi": "1980-09-16",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 101.679,
+   "butce_yuzde": 0.001,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "VEN",
+   "ad": "Venezuela, Bolivarian Republic of",
+   "kabul_tarihi": "1945-11-15",
+   "grup": "GRULAC",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 28250.783,
+   "butce_yuzde": 0.069,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "VNM",
+   "ad": "Viet Nam",
+   "kabul_tarihi": "1977-09-20",
+   "grup": "ASP",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 100029.091,
+   "butce_yuzde": 0.159,
+   "personel": 272,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "VUT",
+   "ad": "Vanuatu",
+   "kabul_tarihi": "1981-09-15",
+   "grup": "ASP",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 316.732,
+   "butce_yuzde": 0.001,
+   "personel": 6,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "WSM",
+   "ad": "Samoa",
+   "kabul_tarihi": "1976-12-15",
+   "grup": "ASP",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 215.984,
+   "butce_yuzde": 0.001,
+   "personel": 8,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "YEM",
+   "ad": "Yemen",
+   "kabul_tarihi": "1947-09-30",
+   "grup": "ASP",
+   "iit": true,
+   "p5": false,
+   "nufus_2023": 38794.337,
+   "butce_yuzde": 0.003,
+   "personel": 0,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "ZAF",
+   "ad": "South Africa",
+   "kabul_tarihi": "1945-11-07",
+   "grup": "AFR",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 62796.883,
+   "butce_yuzde": 0.251,
+   "personel": 405,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "ZMB",
+   "ad": "Zambia",
+   "kabul_tarihi": "1964-12-01",
+   "grup": "AFR",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 20430.382,
+   "butce_yuzde": 0.006,
+   "personel": 887,
+   "gk": null,
+   "not": null
+  },
+  {
+   "iso3": "ZWE",
+   "ad": "Zimbabwe",
+   "kabul_tarihi": "1980-08-25",
+   "grup": "AFR",
+   "iit": false,
+   "p5": false,
+   "nufus_2023": 16203.259,
+   "butce_yuzde": 0.007,
+   "personel": 17,
+   "gk": null,
+   "not": null
+  }
+ ],
+ "uyeler_1963": [
+  {
+   "uye_1963": "Afghanistan",
+   "iso3": "AFG",
+   "grup": "ASP",
+   "bilesenler": [
+    "AFG"
+   ],
+   "nufus_1963": 9502.129,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Albania",
+   "iso3": "ALB",
+   "grup": "EEG",
+   "bilesenler": [
+    "ALB"
+   ],
+   "nufus_1963": 1766.863,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Argentina",
+   "iso3": "ARG",
+   "grup": "GRULAC",
+   "bilesenler": [
+    "ARG"
+   ],
+   "nufus_1963": 21246.74,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Australia",
+   "iso3": "AUS",
+   "grup": "WEOG",
+   "bilesenler": [
+    "AUS"
+   ],
+   "nufus_1963": 10807.217,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Austria",
+   "iso3": "AUT",
+   "grup": "WEOG",
+   "bilesenler": [
+    "AUT"
+   ],
+   "nufus_1963": 7151.534,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Burundi",
+   "iso3": "BDI",
+   "grup": "AFR",
+   "bilesenler": [
+    "BDI"
+   ],
+   "nufus_1963": 2937.612,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Belgium",
+   "iso3": "BEL",
+   "grup": "WEOG",
+   "bilesenler": [
+    "BEL"
+   ],
+   "nufus_1963": 9246.191,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Benin",
+   "iso3": "BEN",
+   "grup": "AFR",
+   "bilesenler": [
+    "BEN"
+   ],
+   "nufus_1963": 2628.072,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Burkina Faso",
+   "iso3": "BFA",
+   "grup": "AFR",
+   "bilesenler": [
+    "BFA"
+   ],
+   "nufus_1963": 4955.932,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Bulgaria",
+   "iso3": "BGR",
+   "grup": "EEG",
+   "bilesenler": [
+    "BGR"
+   ],
+   "nufus_1963": 8040.661,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Belarus",
+   "iso3": "BLR",
+   "grup": "EEG",
+   "bilesenler": [
+    "BLR"
+   ],
+   "nufus_1963": 8473.332,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Bolivia (Plurinational State of)",
+   "iso3": "BOL",
+   "grup": "GRULAC",
+   "bilesenler": [
+    "BOL"
+   ],
+   "nufus_1963": 3897.524,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Brazil",
+   "iso3": "BRA",
+   "grup": "GRULAC",
+   "bilesenler": [
+    "BRA"
+   ],
+   "nufus_1963": 78005.076,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Central African Republic",
+   "iso3": "CAF",
+   "grup": "AFR",
+   "bilesenler": [
+    "CAF"
+   ],
+   "nufus_1963": 1785.218,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Canada",
+   "iso3": "CAN",
+   "grup": "WEOG",
+   "bilesenler": [
+    "CAN"
+   ],
+   "nufus_1963": 18786.925,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Chile",
+   "iso3": "CHL",
+   "grup": "GRULAC",
+   "bilesenler": [
+    "CHL"
+   ],
+   "nufus_1963": 8583.502,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "China (seat: Republic of China)",
+   "iso3": "CHN",
+   "grup": "ASP",
+   "bilesenler": [
+    "CHN",
+    "TWN"
+   ],
+   "nufus_1963": 685371.069,
+   "iit_bugun": false,
+   "p5": true,
+   "not": {
+    "tr": "Çin 1963 (koltuk Çin Cumhuriyeti'nde): WPP 'China' + 'China, Taiwan Province of China'",
+    "en": "China 1963 (seat held by the Republic of China): WPP 'China' + 'China, Taiwan Province of China'"
+   }
+  },
+  {
+   "uye_1963": "Côte D'Ivoire",
+   "iso3": "CIV",
+   "grup": "AFR",
+   "bilesenler": [
+    "CIV"
+   ],
+   "nufus_1963": 4032.735,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Cameroon",
+   "iso3": "CMR",
+   "grup": "AFR",
+   "bilesenler": [
+    "CMR"
+   ],
+   "nufus_1963": 5396.727,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Democratic Republic of the Congo",
+   "iso3": "COD",
+   "grup": "AFR",
+   "bilesenler": [
+    "COD"
+   ],
+   "nufus_1963": 16287.139,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Congo",
+   "iso3": "COG",
+   "grup": "AFR",
+   "bilesenler": [
+    "COG"
+   ],
+   "nufus_1963": 1127.846,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Colombia",
+   "iso3": "COL",
+   "grup": "GRULAC",
+   "bilesenler": [
+    "COL"
+   ],
+   "nufus_1963": 16853.964,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Costa Rica",
+   "iso3": "CRI",
+   "grup": "GRULAC",
+   "bilesenler": [
+    "CRI"
+   ],
+   "nufus_1963": 1455.431,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Cuba",
+   "iso3": "CUB",
+   "grup": "GRULAC",
+   "bilesenler": [
+    "CUB"
+   ],
+   "nufus_1963": 7619.757,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Cyprus",
+   "iso3": "CYP",
+   "grup": "ASP",
+   "bilesenler": [
+    "CYP"
+   ],
+   "nufus_1963": 604.472,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Denmark",
+   "iso3": "DNK",
+   "grup": "WEOG",
+   "bilesenler": [
+    "DNK"
+   ],
+   "nufus_1963": 4665.596,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Dominican Republic",
+   "iso3": "DOM",
+   "grup": "GRULAC",
+   "bilesenler": [
+    "DOM"
+   ],
+   "nufus_1963": 3533.737,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Algeria",
+   "iso3": "DZA",
+   "grup": "AFR",
+   "bilesenler": [
+    "DZA"
+   ],
+   "nufus_1963": 11886.386,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Ecuador",
+   "iso3": "ECU",
+   "grup": "GRULAC",
+   "bilesenler": [
+    "ECU"
+   ],
+   "nufus_1963": 4929.079,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "United Arab Republic",
+   "iso3": "EGY",
+   "grup": "AFR",
+   "bilesenler": [
+    "EGY"
+   ],
+   "nufus_1963": 28709.927,
+   "iit_bugun": true,
+   "p5": false,
+   "not": {
+    "tr": "Birleşik Arap Cumhuriyeti 1963: yalnızca Mısır (Suriye 1961'de ayrıldı)",
+    "en": "United Arab Republic 1963: Egypt only (Syria withdrew in 1961)"
+   }
+  },
+  {
+   "uye_1963": "Spain",
+   "iso3": "ESP",
+   "grup": "WEOG",
+   "bilesenler": [
+    "ESP"
+   ],
+   "nufus_1963": 31207.876,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Ethiopia",
+   "iso3": "ETH",
+   "grup": "AFR",
+   "bilesenler": [
+    "ETH",
+    "ERI"
+   ],
+   "nufus_1963": 23783.644,
+   "iit_bugun": false,
+   "p5": false,
+   "not": {
+    "tr": "Etiyopya 1963: Etiyopya + Eritre",
+    "en": "Ethiopia 1963: Ethiopia + Eritrea"
+   }
+  },
+  {
+   "uye_1963": "Finland",
+   "iso3": "FIN",
+   "grup": "WEOG",
+   "bilesenler": [
+    "FIN"
+   ],
+   "nufus_1963": 4507.63,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "France",
+   "iso3": "FRA",
+   "grup": "WEOG",
+   "bilesenler": [
+    "FRA"
+   ],
+   "nufus_1963": 47571.317,
+   "iit_bugun": false,
+   "p5": true,
+   "not": null
+  },
+  {
+   "uye_1963": "Gabon",
+   "iso3": "GAB",
+   "grup": "AFR",
+   "bilesenler": [
+    "GAB"
+   ],
+   "nufus_1963": 527.949,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "United Kingdom of Great Britain and Northern Ireland",
+   "iso3": "GBR",
+   "grup": "WEOG",
+   "bilesenler": [
+    "GBR"
+   ],
+   "nufus_1963": 53479.064,
+   "iit_bugun": false,
+   "p5": true,
+   "not": null
+  },
+  {
+   "uye_1963": "Ghana",
+   "iso3": "GHA",
+   "grup": "AFR",
+   "bilesenler": [
+    "GHA"
+   ],
+   "nufus_1963": 7425.288,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Guinea",
+   "iso3": "GIN",
+   "grup": "AFR",
+   "bilesenler": [
+    "GIN"
+   ],
+   "nufus_1963": 3717.114,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Greece",
+   "iso3": "GRC",
+   "grup": "WEOG",
+   "bilesenler": [
+    "GRC"
+   ],
+   "nufus_1963": 8481.345,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Guatemala",
+   "iso3": "GTM",
+   "grup": "GRULAC",
+   "bilesenler": [
+    "GTM"
+   ],
+   "nufus_1963": 4375.613,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Honduras",
+   "iso3": "HND",
+   "grup": "GRULAC",
+   "bilesenler": [
+    "HND"
+   ],
+   "nufus_1963": 2212.971,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Haiti",
+   "iso3": "HTI",
+   "grup": "GRULAC",
+   "bilesenler": [
+    "HTI"
+   ],
+   "nufus_1963": 4038.292,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Hungary",
+   "iso3": "HUN",
+   "grup": "EEG",
+   "bilesenler": [
+    "HUN"
+   ],
+   "nufus_1963": 10068.296,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Indonesia",
+   "iso3": "IDN",
+   "grup": "ASP",
+   "bilesenler": [
+    "IDN"
+   ],
+   "nufus_1963": 94691.585,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "India",
+   "iso3": "IND",
+   "grup": "ASP",
+   "bilesenler": [
+    "IND"
+   ],
+   "nufus_1963": 462619.398,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Ireland",
+   "iso3": "IRL",
+   "grup": "WEOG",
+   "bilesenler": [
+    "IRL"
+   ],
+   "nufus_1963": 2836.703,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Iran (Islamic Republic of)",
+   "iso3": "IRN",
+   "grup": "ASP",
+   "bilesenler": [
+    "IRN"
+   ],
+   "nufus_1963": 23153.849,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Iraq",
+   "iso3": "IRQ",
+   "grup": "ASP",
+   "bilesenler": [
+    "IRQ"
+   ],
+   "nufus_1963": 7539.307,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Iceland",
+   "iso3": "ISL",
+   "grup": "WEOG",
+   "bilesenler": [
+    "ISL"
+   ],
+   "nufus_1963": 183.958,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Israel",
+   "iso3": "ISR",
+   "grup": "WEOG",
+   "bilesenler": [
+    "ISR"
+   ],
+   "nufus_1963": 2087.315,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Italy",
+   "iso3": "ITA",
+   "grup": "WEOG",
+   "bilesenler": [
+    "ITA"
+   ],
+   "nufus_1963": 50366.775,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Jamaica",
+   "iso3": "JAM",
+   "grup": "GRULAC",
+   "bilesenler": [
+    "JAM"
+   ],
+   "nufus_1963": 1708.842,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Jordan",
+   "iso3": "JOR",
+   "grup": "ASP",
+   "bilesenler": [
+    "JOR"
+   ],
+   "nufus_1963": 961.901,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Japan",
+   "iso3": "JPN",
+   "grup": "ASP",
+   "bilesenler": [
+    "JPN"
+   ],
+   "nufus_1963": 98507.594,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Kenya",
+   "iso3": "KEN",
+   "grup": "AFR",
+   "bilesenler": [
+    "KEN"
+   ],
+   "nufus_1963": 8459.465,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Cambodia",
+   "iso3": "KHM",
+   "grup": "ASP",
+   "bilesenler": [
+    "KHM"
+   ],
+   "nufus_1963": 5762.193,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Kuwait",
+   "iso3": "KWT",
+   "grup": "ASP",
+   "bilesenler": [
+    "KWT"
+   ],
+   "nufus_1963": 405.57,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Lao People’s Democratic Republic",
+   "iso3": "LAO",
+   "grup": "ASP",
+   "bilesenler": [
+    "LAO"
+   ],
+   "nufus_1963": 2245.534,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Lebanon",
+   "iso3": "LBN",
+   "grup": "ASP",
+   "bilesenler": [
+    "LBN"
+   ],
+   "nufus_1963": 1939.654,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Liberia",
+   "iso3": "LBR",
+   "grup": "AFR",
+   "bilesenler": [
+    "LBR"
+   ],
+   "nufus_1963": 1211.971,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Libya",
+   "iso3": "LBY",
+   "grup": "AFR",
+   "bilesenler": [
+    "LBY"
+   ],
+   "nufus_1963": 1655.883,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Sri Lanka",
+   "iso3": "LKA",
+   "grup": "ASP",
+   "bilesenler": [
+    "LKA"
+   ],
+   "nufus_1963": 10267.663,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Luxembourg",
+   "iso3": "LUX",
+   "grup": "WEOG",
+   "bilesenler": [
+    "LUX"
+   ],
+   "nufus_1963": 321.219,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Morocco",
+   "iso3": "MAR",
+   "grup": "AFR",
+   "bilesenler": [
+    "MAR"
+   ],
+   "nufus_1963": 12420.979,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Madagascar",
+   "iso3": "MDG",
+   "grup": "AFR",
+   "bilesenler": [
+    "MDG"
+   ],
+   "nufus_1963": 5453.852,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Mexico",
+   "iso3": "MEX",
+   "grup": "GRULAC",
+   "bilesenler": [
+    "MEX"
+   ],
+   "nufus_1963": 39763.462,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Mali",
+   "iso3": "MLI",
+   "grup": "AFR",
+   "bilesenler": [
+    "MLI"
+   ],
+   "nufus_1963": 5605.056,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Myanmar",
+   "iso3": "MMR",
+   "grup": "ASP",
+   "bilesenler": [
+    "MMR"
+   ],
+   "nufus_1963": 22955.464,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Mongolia",
+   "iso3": "MNG",
+   "grup": "ASP",
+   "bilesenler": [
+    "MNG"
+   ],
+   "nufus_1963": 1057.442,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Mauritania",
+   "iso3": "MRT",
+   "grup": "AFR",
+   "bilesenler": [
+    "MRT"
+   ],
+   "nufus_1963": 880.975,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Malaysia (Federation of Malaya until 16 September 1963)",
+   "iso3": "MYS",
+   "grup": "ASP",
+   "bilesenler": [
+    "MYS",
+    "SGP"
+   ],
+   "nufus_1963": 10236.161,
+   "iit_bugun": true,
+   "p5": false,
+   "not": {
+    "tr": "Malezya 1963 (16 Eylül'den itibaren Singapur dâhil): Malezya + Singapur",
+    "en": "Malaysia 1963 (including Singapore from 16 September): Malaysia + Singapore"
+   }
+  },
+  {
+   "uye_1963": "Niger",
+   "iso3": "NER",
+   "grup": "AFR",
+   "bilesenler": [
+    "NER"
+   ],
+   "nufus_1963": 3768.48,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Nigeria",
+   "iso3": "NGA",
+   "grup": "AFR",
+   "bilesenler": [
+    "NGA"
+   ],
+   "nufus_1963": 47462.465,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Nicaragua",
+   "iso3": "NIC",
+   "grup": "GRULAC",
+   "bilesenler": [
+    "NIC"
+   ],
+   "nufus_1963": 1920.729,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Netherlands (Kingdom of the)",
+   "iso3": "NLD",
+   "grup": "WEOG",
+   "bilesenler": [
+    "NLD"
+   ],
+   "nufus_1963": 11892.418,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Norway",
+   "iso3": "NOR",
+   "grup": "WEOG",
+   "bilesenler": [
+    "NOR"
+   ],
+   "nufus_1963": 3652.964,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Nepal",
+   "iso3": "NPL",
+   "grup": "ASP",
+   "bilesenler": [
+    "NPL"
+   ],
+   "nufus_1963": 10624.175,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "New Zealand",
+   "iso3": "NZL",
+   "grup": "WEOG",
+   "bilesenler": [
+    "NZL"
+   ],
+   "nufus_1963": 2511.968,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Pakistan",
+   "iso3": "PAK",
+   "grup": "ASP",
+   "bilesenler": [
+    "PAK",
+    "BGD"
+   ],
+   "nufus_1963": 104474.02100000001,
+   "iit_bugun": true,
+   "p5": false,
+   "not": {
+    "tr": "Pakistan 1963: Pakistan + Bangladeş",
+    "en": "Pakistan 1963: Pakistan + Bangladesh"
+   }
+  },
+  {
+   "uye_1963": "Panama",
+   "iso3": "PAN",
+   "grup": "GRULAC",
+   "bilesenler": [
+    "PAN"
+   ],
+   "nufus_1963": 1213.378,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Peru",
+   "iso3": "PER",
+   "grup": "GRULAC",
+   "bilesenler": [
+    "PER"
+   ],
+   "nufus_1963": 10940.943,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Philippines",
+   "iso3": "PHL",
+   "grup": "ASP",
+   "bilesenler": [
+    "PHL"
+   ],
+   "nufus_1963": 30194.058,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Poland",
+   "iso3": "POL",
+   "grup": "EEG",
+   "bilesenler": [
+    "POL"
+   ],
+   "nufus_1963": 30506.112,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Portugal",
+   "iso3": "PRT",
+   "grup": "WEOG",
+   "bilesenler": [
+    "PRT"
+   ],
+   "nufus_1963": 8900.1,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Paraguay",
+   "iso3": "PRY",
+   "grup": "GRULAC",
+   "bilesenler": [
+    "PRY"
+   ],
+   "nufus_1963": 1996.582,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Romania",
+   "iso3": "ROU",
+   "grup": "EEG",
+   "bilesenler": [
+    "ROU"
+   ],
+   "nufus_1963": 18551.465,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Union of Soviet Socialist Republics",
+   "iso3": "RUS",
+   "grup": "EEG",
+   "bilesenler": [
+    "RUS",
+    "ARM",
+    "AZE",
+    "GEO",
+    "KAZ",
+    "KGZ",
+    "TJK",
+    "TKM",
+    "UZB",
+    "EST",
+    "LVA",
+    "LTU",
+    "MDA"
+   ],
+   "nufus_1963": 169673.49599999998,
+   "iit_bugun": false,
+   "p5": true,
+   "not": {
+    "tr": "SSCB: Rusya Federasyonu ile 1963'te ayrı BM üyesi olmayan 12 cumhuriyetin toplamı; Ukrayna SSC ve Beyaz Rusya SSC ayrı üye olarak kendi satırlarında",
+    "en": "USSR: sum of the Russian Federation and the 12 republics that were not separate UN members in 1963; the Ukrainian SSR and the Byelorussian SSR are separate members in their own rows"
+   }
+  },
+  {
+   "uye_1963": "Rwanda",
+   "iso3": "RWA",
+   "grup": "AFR",
+   "bilesenler": [
+    "RWA"
+   ],
+   "nufus_1963": 3224.503,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Saudi Arabia",
+   "iso3": "SAU",
+   "grup": "ASP",
+   "bilesenler": [
+    "SAU"
+   ],
+   "nufus_1963": 2669.106,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Sudan",
+   "iso3": "SDN",
+   "grup": "AFR",
+   "bilesenler": [
+    "SDN",
+    "SSD"
+   ],
+   "nufus_1963": 12113.580000000002,
+   "iit_bugun": true,
+   "p5": false,
+   "not": {
+    "tr": "Sudan 1963: Sudan + Güney Sudan",
+    "en": "Sudan 1963: Sudan + South Sudan"
+   }
+  },
+  {
+   "uye_1963": "Senegal",
+   "iso3": "SEN",
+   "grup": "AFR",
+   "bilesenler": [
+    "SEN"
+   ],
+   "nufus_1963": 3584.561,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Sierra Leone",
+   "iso3": "SLE",
+   "grup": "AFR",
+   "bilesenler": [
+    "SLE"
+   ],
+   "nufus_1963": 2361.717,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "El Salvador",
+   "iso3": "SLV",
+   "grup": "GRULAC",
+   "bilesenler": [
+    "SLV"
+   ],
+   "nufus_1963": 2988.166,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Somalia",
+   "iso3": "SOM",
+   "grup": "AFR",
+   "bilesenler": [
+    "SOM"
+   ],
+   "nufus_1963": 3069.706,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Sweden",
+   "iso3": "SWE",
+   "grup": "WEOG",
+   "bilesenler": [
+    "SWE"
+   ],
+   "nufus_1963": 7581.045,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Syrian Arab Republic",
+   "iso3": "SYR",
+   "grup": "ASP",
+   "bilesenler": [
+    "SYR"
+   ],
+   "nufus_1963": 5033.096,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Chad",
+   "iso3": "TCD",
+   "grup": "AFR",
+   "bilesenler": [
+    "TCD"
+   ],
+   "nufus_1963": 3207.811,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Togo",
+   "iso3": "TGO",
+   "grup": "AFR",
+   "bilesenler": [
+    "TGO"
+   ],
+   "nufus_1963": 1748.32,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Thailand",
+   "iso3": "THA",
+   "grup": "ASP",
+   "bilesenler": [
+    "THA"
+   ],
+   "nufus_1963": 28903.705,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Trinidad and Tobago",
+   "iso3": "TTO",
+   "grup": "GRULAC",
+   "bilesenler": [
+    "TTO"
+   ],
+   "nufus_1963": 888.586,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Tunisia",
+   "iso3": "TUN",
+   "grup": "AFR",
+   "bilesenler": [
+    "TUN"
+   ],
+   "nufus_1963": 4396.949,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Türkiye",
+   "iso3": "TUR",
+   "grup": "WEOG",
+   "bilesenler": [
+    "TUR"
+   ],
+   "nufus_1963": 30317.697,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Tanganyika",
+   "iso3": "TZA",
+   "grup": "AFR",
+   "bilesenler": [
+    "TZA"
+   ],
+   "nufus_1963": 10640.041,
+   "iit_bugun": false,
+   "p5": false,
+   "not": {
+    "tr": "Tanganyika: WPP Tanzanya serisi (Zanzibar dâhil)",
+    "en": "Tanganyika: WPP series for Tanzania (including Zanzibar)"
+   }
+  },
+  {
+   "uye_1963": "Uganda",
+   "iso3": "UGA",
+   "grup": "AFR",
+   "bilesenler": [
+    "UGA"
+   ],
+   "nufus_1963": 8209.749,
+   "iit_bugun": true,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Ukraine",
+   "iso3": "UKR",
+   "grup": "EEG",
+   "bilesenler": [
+    "UKR"
+   ],
+   "nufus_1963": 44207.462,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Uruguay",
+   "iso3": "URY",
+   "grup": "GRULAC",
+   "bilesenler": [
+    "URY"
+   ],
+   "nufus_1963": 2608.708,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "United States of America",
+   "iso3": "USA",
+   "grup": "WEOG",
+   "bilesenler": [
+    "USA"
+   ],
+   "nufus_1963": 188308.964,
+   "iit_bugun": false,
+   "p5": true,
+   "not": null
+  },
+  {
+   "uye_1963": "Venezuela, Bolivarian Republic of",
+   "iso3": "VEN",
+   "grup": "GRULAC",
+   "bilesenler": [
+    "VEN"
+   ],
+   "nufus_1963": 8908.734,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Yemen",
+   "iso3": "YEM",
+   "grup": "ASP",
+   "bilesenler": [
+    "YEM"
+   ],
+   "nufus_1963": 5846.062,
+   "iit_bugun": true,
+   "p5": false,
+   "not": {
+    "tr": "Yemen 1963 (Yemen Arap Cumhuriyeti): WPP serisi bütün Yemen'i kapsar, ayrılamadı",
+    "en": "Yemen 1963 (Yemen Arab Republic): the WPP series covers all of Yemen and cannot be split"
+   }
+  },
+  {
+   "uye_1963": "South Africa",
+   "iso3": "ZAF",
+   "grup": "AFR",
+   "bilesenler": [
+    "ZAF"
+   ],
+   "nufus_1963": 17681.221,
+   "iit_bugun": false,
+   "p5": false,
+   "not": null
+  },
+  {
+   "uye_1963": "Czechoslovakia",
+   "iso3": null,
+   "grup": "EEG",
+   "bilesenler": [
+    "CZE",
+    "SVK"
+   ],
+   "nufus_1963": 13863.489,
+   "iit_bugun": false,
+   "p5": false,
+   "not": {
+    "tr": "Çekoslovakya (üye 1945–1992): Çekya + Slovakya",
+    "en": "Czechoslovakia (member 1945–1992): Czechia + Slovakia"
+   }
+  },
+  {
+   "uye_1963": "Yugoslavia",
+   "iso3": null,
+   "grup": "EEG",
+   "bilesenler": [
+    "SVN",
+    "HRV",
+    "BIH",
+    "SRB",
+    "MNE",
+    "MKD",
+    "XKX"
+   ],
+   "nufus_1963": 19234.123,
+   "iit_bugun": false,
+   "p5": false,
+   "not": {
+    "tr": "Yugoslavya (üye 1945–1992): Slovenya, Hırvatistan, Bosna-Hersek, Sırbistan, Karadağ, Kuzey Makedonya ve Kosova (WPP: 'Kosovo (under UNSC res. 1244)') serilerinin toplamı",
+    "en": "Yugoslavia (member 1945–1992): sum of the series for Slovenia, Croatia, Bosnia and Herzegovina, Serbia, Montenegro, North Macedonia and Kosovo (WPP: 'Kosovo (under UNSC res. 1244)')"
+   }
+  },
+  {
+   "uye_1963": "Zanzibar",
+   "iso3": null,
+   "grup": "AFR",
+   "bilesenler": [],
+   "nufus_1963": 0,
+   "iit_bugun": false,
+   "p5": false,
+   "not": {
+    "tr": "Zanzibar (üye 16 Aralık 1963 – 26 Nisan 1964): nüfusu WPP'de Tanzanya serisinin içinde, Tanganyika satırında sayıldı",
+    "en": "Zanzibar (member 16 December 1963 – 26 April 1964): its population is within the WPP series for Tanzania, counted in the Tanganyika row"
+   }
+  }
+ ]
+}
