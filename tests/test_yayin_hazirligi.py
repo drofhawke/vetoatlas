@@ -36,7 +36,10 @@ def test_beta_seridi():
     assert 'beta: "Beta sürümü", hata: "Hata bildirin"' in c and 'beta: "Beta", hata: "Report an error"' in c
     assert 'var ILETISIM = "iletisim@vetoatlas.com";' in c and """<a href="mailto:' + ILETISIM + '">' + ILETISIM""" in c
     assert 'serit.id = "beta-serit"' in c and "yer.parentNode.insertBefore(serit, yer)" in c
-    assert '"@media print { .cubuk, .beta-serit { display: none; } }",' in c
+    # Yazdırmada beta şeridi, sayfa bağlantıları ve düğmeler basılmaz; çubuktan yalnızca logo (işaret ve ad, kâğıt renkleriyle)
+    assert '"  .beta-serit, .cubuk .c-sayfalar, .cubuk .c-menu, .cubuk .c-araclar, .cubuk .c-not { display: none !important; }",' in c
+    assert '"  .cubuk { position: static; min-height: 0; background: none; -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: none; }",' in c
+    assert '"  .cubuk .c-logo { --murekkep: #13213A; --c-isaret-kirmizi: #A4262C; }",' in c and '"  .cubuk .c-logo .c-ad { display: block; }",' in c
 
 
 def test_hakkinda_yayimlayan_iletisim_atif():

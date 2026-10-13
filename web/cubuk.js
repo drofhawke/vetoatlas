@@ -3,8 +3,10 @@
  *
  * Her sayfa <head> içinde bu betiği yükler ve <body> başında <header id="cubuk" class="cubuk"></header> taşır.
  * Çubuk: solda logo (ana sayfaya bağlantı), sağda sayfa bağlantıları, en sağda TR/EN ve tema düğmesi.
+ * Logo iki parçadır: işaret satır içi SVG (isaret-kucuk.svg geometrisi), ad HTML metni; renkler temadan gelir.
  * Çubuğun üstünde ince beta şeridi (hata bildirimi adresiyle); sayfayla kayar, yazdırılmaz.
- * Dar ekranda sayfa bağlantıları "Menü" düğmesine toplanır; çok dar ekranda logo yerine işaret görünür.
+ * Dar ekranda sayfa bağlantıları "Menü" düğmesine toplanır; çok dar ekranda yalnızca işaret görünür.
+ * Yazdırmada çubuktan yalnızca logo (işaret ve ad) basılır.
  *
  * Tema: site her zaman kâğıt (açık) temada açılır; işletim sisteminin koyu tema tercihi dikkate alınmaz.
  * Koyu kâğıt yalnızca çubuktaki düğmeyle seçilir ve localStorage'da hatırlanır (erişilemezse açık kalır).
@@ -43,11 +45,14 @@
     ".beta-serit a:focus-visible { outline: 2px solid var(--murekkep); outline-offset: 2px; }",
     ".cubuk-ic { max-width: 1180px; margin: 0 auto; padding: 12px 24px; display: flex; align-items: center; gap: 24px; min-height: 76px; }",
     ".cubuk a { color: inherit; }",
-    ".cubuk .c-logo { display: inline-flex; align-items: center; flex: none; text-decoration: none; }",
-    ".cubuk .c-logo img { height: 52px; width: auto; display: block; }",
-    ".cubuk .c-logo .c-koyu, .cubuk .c-logo .c-isaret, .cubuk .c-logo .c-isaret-koyu { display: none; }",
-    ":root[data-theme=\"dark\"] .cubuk .c-logo .c-acik { display: none; }",
-    ":root[data-theme=\"dark\"] .cubuk .c-logo .c-koyu { display: block; }",
+    "/* Logo: işaret (satır içi SVG, 40 px) ve ad (Source Serif 4 600, 26 px); işaretteki kırmızı kare marka rengidir */",
+    ".cubuk { --c-isaret-kirmizi: #A4262C; }",
+    ":root[data-theme=\"dark\"] .cubuk { --c-isaret-kirmizi: #E05A52; }",
+    ".cubuk .c-logo { display: inline-flex; align-items: center; gap: 12px; flex: none; text-decoration: none; color: var(--murekkep); }",
+    ".cubuk .c-logo .c-isaret { display: block; flex: none; width: 40px; height: 40px; }",
+    ".cubuk .c-logo .c-isaret .c-ik { fill: var(--murekkep); }",
+    ".cubuk .c-logo .c-isaret .c-iv { fill: var(--c-isaret-kirmizi); }",
+    ".cubuk .c-logo .c-ad { display: block; font-family: var(--serif); font-weight: 600; font-size: 26px; line-height: 40px; color: var(--murekkep); white-space: nowrap; }",
     ".cubuk .c-not { font-size: var(--yz-kucuk); color: var(--murekkep-2); white-space: nowrap; flex: none; line-height: var(--sa-kucuk); }",
     ".cubuk .c-sayfalar { margin-left: auto; }",
     ".cubuk .c-sayfalar ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 12px; }",
@@ -85,16 +90,20 @@
     "  .cubuk { min-height: 64px; }",
     "  .cubuk-ic { min-height: 64px; }",
     "  .c-cubuklu { scroll-padding-top: 72px; }",
-    "  .cubuk .c-logo img { height: 40px; }",
-    "  .cubuk .c-logo .c-acik, :root[data-theme=\"dark\"] .cubuk .c-logo .c-koyu { display: none; }",
-    "  .cubuk .c-logo .c-isaret { display: block; }",
-    "  :root[data-theme=\"dark\"] .cubuk .c-logo .c-isaret { display: none; }",
-    "  :root[data-theme=\"dark\"] .cubuk .c-logo .c-isaret-koyu { display: block; }",
+    "  .cubuk .c-logo .c-isaret { width: 32px; height: 32px; }",
+    "  .cubuk .c-logo .c-ad { display: none; }",
     "  .cubuk .c-araclar { gap: 8px; }",
     "  .cubuk .c-dil a, .cubuk .c-tema, .cubuk .c-menu { padding: 4px 8px; }",
     "  .cubuk .c-araclar { margin-left: 0; }",
     "}",
-    "@media print { .cubuk, .beta-serit { display: none; } }",
+    "@media print {",
+    "  .beta-serit, .cubuk .c-sayfalar, .cubuk .c-menu, .cubuk .c-araclar, .cubuk .c-not { display: none !important; }",
+    "  .cubuk { position: static; min-height: 0; background: none; -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: none; }",
+    "  .cubuk-ic { min-height: 0; padding: 0 0 16px; }",
+    "  .cubuk .c-logo { --murekkep: #13213A; --c-isaret-kirmizi: #A4262C; }",
+    "  .cubuk .c-logo .c-isaret { width: 40px; height: 40px; }",
+    "  .cubuk .c-logo .c-ad { display: block; }",
+    "}",
   ].join("\n");
   var stil = document.createElement("style");
   stil.id = "cubuk-stil";
@@ -120,7 +129,20 @@
   var SAYFA_GRUBU = { metodoloji: "hakkinda", index: "hikaye" };
   var ILETISIM = "iletisim@vetoatlas.com";
 
-  function varlik(ad) { return (window.__VARLIK && window.__VARLIK[ad]) || ad; }
+  // İşaret: kaynaklar/kimlik/isaret-kucuk.svg geometrisi (viewBox 128; kare 18.56, köşe 3.16), [x, y, açı, dönme merkezi x, y].
+  // On dört kare mürekkep, sonuncusu kırmızı; renkler CSS'ten (koyu kâğıtta değişir). Satır içi çizildiği için görüntü
+  // yeniden örneklenmez; geometricPrecision kenarları kesirli ölçekte de düzgün yumuşatır.
+  var KARELER = [
+    [54.72, 21.44, 0, 64, 30.72], [69.82, 24.65, 24, 79.1, 33.93], [82.31, 33.72, 48, 91.59, 43], [90.02, 47.09, 72, 99.3, 56.37],
+    [91.64, 62.44, 96, 100.92, 71.72], [86.87, 77.12, 120, 96.15, 86.4], [76.54, 88.59, 144, 85.82, 97.87], [62.44, 94.87, 168, 71.72, 104.15],
+    [47, 94.87, 192, 56.28, 104.15], [32.9, 88.59, 216, 42.18, 97.87], [22.57, 77.12, 240, 31.85, 86.4], [17.8, 62.44, 264, 27.08, 71.72],
+    [19.42, 47.09, 288, 28.7, 56.37], [27.13, 33.72, 312, 36.41, 43], [34.94, 14.13, 336, 44.22, 23.41],
+  ];
+  function isaretSvg() {
+    var kare = function (k) { return '<rect x="' + k[0] + '" y="' + k[1] + '" width="18.56" height="18.56" rx="3.16" transform="rotate(' + k[2] + " " + k[3] + " " + k[4] + ')"/>'; };
+    return '<svg class="c-isaret" viewBox="0 0 128 128" width="40" height="40" shape-rendering="geometricPrecision" aria-hidden="true" focusable="false">' +
+      '<g class="c-ik">' + KARELER.slice(0, 14).map(kare).join("") + '</g><g class="c-iv">' + kare(KARELER[14]) + "</g></svg>";
+  }
   function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
   function gecerliDil() {
     var d = window.__DIL || (new URL(location.href)).searchParams.get("lang");
@@ -136,11 +158,6 @@
     if (d === "tr") u.searchParams.delete("lang"); else u.searchParams.set("lang", d);
     var q = u.searchParams.toString();
     return (u.pathname.split("/").pop() || "hikaye.html") + (q ? "?" + q : "") + u.hash;
-  }
-  function gorsel(sinif, ad, en, boy, alt) {
-    var i = document.createElement("img");
-    i.className = sinif; i.src = varlik(ad); i.width = en; i.height = boy; i.alt = alt;
-    return i;
   }
 
   function kur(secenek) {
@@ -165,7 +182,8 @@
     }
     yer.innerHTML =
       '<div class="cubuk-ic">' +
-        '<a class="c-logo" href="hikaye.html' + ek + '" data-sayfa="hikaye" aria-label="' + esc(Y.ana) + '"></a>' +
+        '<a class="c-logo" href="hikaye.html' + ek + '" data-sayfa="hikaye" aria-label="' + esc(Y.ana) + '">' +
+          isaretSvg() + '<span class="c-ad">' + esc(Y.logo) + "</span></a>" +
         (tek ? '<span class="c-not" title="' + esc(Y.notUzun) + '">' + esc(Y.not) + "</span>" : "") +
         '<button type="button" class="c-menu" aria-expanded="false" aria-controls="cubuk-sayfalar">' + esc(Y.menu) + "</button>" +
         '<nav class="c-sayfalar" id="cubuk-sayfalar" aria-label="' + esc(Y.sayfalar) + '"><ul>' +
@@ -180,12 +198,6 @@
           '<button type="button" class="c-tema" aria-pressed="' + (tema === "koyu") + '" aria-label="' + esc(Y.temaUzun) + '" title="' + esc(Y.temaUzun) + '">' + esc(Y.tema) + "</button>" +
         "</span>" +
       "</div>";
-    var logo = yer.querySelector(".c-logo");
-    // Çubukta slogansız logo (logo-cubuk-b); sloganlı tam logo sayfalarda kullanılmaz (KILAVUZ bölüm 3)
-    logo.appendChild(gorsel("c-acik", "logo-cubuk-b.svg", 197, 52, Y.logo));
-    logo.appendChild(gorsel("c-koyu", "logo-cubuk-b-koyu.svg", 197, 52, Y.logo));
-    logo.appendChild(gorsel("c-isaret", "isaret-kucuk.svg", 40, 40, Y.logo));
-    logo.appendChild(gorsel("c-isaret-koyu", "isaret-kucuk-koyu.svg", 40, 40, Y.logo));
 
     var menu = yer.querySelector(".c-menu");
     function menuKapat() { yer.classList.remove("c-menu-acik"); menu.setAttribute("aria-expanded", "false"); }

@@ -21,12 +21,20 @@ YASLAMA = re.compile(r"text-align(?:-last)?\s*:\s*justify|text-justify\s*:|hyphe
 TEMEL = (WEB / "temel.css").read_text(encoding="utf-8")
 
 
+# Üst çubuktaki logo adı kimlik öğesidir (eskiden logo görselinin içindeki yazıydı): dört yazı boyutunun dışında, 26 px,
+# satırı işaretle aynı 40 px (KILAVUZ bölüm 2 ve 3). İstisna yalnızca bu kurala tanınır; kural birebir aranır.
+LOGO_ADI = ('".cubuk .c-logo .c-ad { display: block; font-family: var(--serif); font-weight: 600; font-size: 26px; '
+            'line-height: 40px; color: var(--murekkep); white-space: nowrap; }",')
+
+
 def stil_kaynaklari():
     for ad in SAYFALAR:
         s = (WEB / f"{ad}.html").read_text(encoding="utf-8")
         yield f"{ad}.html", "\n".join(re.findall(r"<style>(.*?)</style>", s, re.S))
     c = (WEB / "cubuk.js").read_text(encoding="utf-8")
-    yield "cubuk.js", c[c.index("var CSS = ["):c.index("].join(")]
+    c = c[c.index("var CSS = ["):c.index("].join(")]
+    assert c.count(LOGO_ADI) == 1, "logo adı kuralı değişti (KILAVUZ bölüm 3)"
+    yield "cubuk.js", c.replace(LOGO_ADI, "")
     yield "temel.css", TEMEL
     m = (KOK / "veto_atlasi/metodoloji.py").read_text(encoding="utf-8")
     yield "metodoloji.py", "\n".join(re.findall(r"<style>(.*?)</style>", m, re.S))
