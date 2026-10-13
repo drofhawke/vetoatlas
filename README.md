@@ -47,7 +47,7 @@ veto_atlasi/konu.py            Konu sınıflandırması ve Türkçe başlıklar
 scripts/01_veto_listesini_cek.py   İndir + arşivle + ayrıştır
 scripts/02_dogrula.py          Şema, mükerrer ve sayım kontrolleri
 scripts/03_mutabakat.py        Referans kaynakla mutabakat + oy dağılımı
-web/index.html                 Giriş: hikâyeye yönlendirir
+web/index.html                 Giriş: hikâyeye yönlendirir (yedek: yerel açılış; sunucuda kökü web/_redirects yönlendirir)
 web/hikaye.html                Yedi adımlı anlatı (sayılar veri setinden canlı)
 web/vetolar.html               Atlas: grafik, filtreler ve kayıtlar (tek dosya, kütüphanesiz)
 web/hakkinda.html              Hakkında: yöntemin sade özeti, bilinen sınırlar, açık veri
@@ -79,6 +79,7 @@ web/vizyon.html                Söz ve Kayıt: alıntılar ve veri setinden hesa
 web/reform.html                Reform modelleri: dört Güvenlik Konseyi reform modeli aynı dört ölçütle
 web/fonts/                     Gömülü yazı tipleri ve OFL lisansları (üçüncü taraf istek yok)
 web/404.html                   Bulunamayan adres sayfası (iki dilli, arama motorlarına kapalı)
+web/_redirects                 Sunucu yönlendirmesi: / -> /hikaye (302, sorgu korunur; Workers statik varlıkları)
 wrangler.jsonc                 Cloudflare yayını: web/ statik varlık olarak, bulunamayan adreste web/404.html
 ```
 

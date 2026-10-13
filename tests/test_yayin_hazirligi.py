@@ -133,3 +133,14 @@ def test_cloudflare_yapilandirmasi_ve_404_sayfasi():
     for ad in ("hikaye", "vetolar", "hakkinda"):
         assert f'href="{ad}.html"' in s and f'href="{ad}.html?lang=en"' in s, ad
     assert "--zemin: #FBF8F1" in bas and ':root[data-theme="dark"]' in bas and "prefers-color-scheme" not in s
+
+
+def test_kok_adres_sunucuda_hikayeye_yonlenir():
+    """web/_redirects (Workers statik varlıkları): kök adres 302 ile /hikaye'ye gider; gelen sorgu (?lang=en) korunur
+    (wrangler 4.150.0 dev ile denetlendi: /?lang=en -> 302 /hikaye?lang=en). Kurallar eşleşen dosyadan (index.html) önce
+    uygulanır. web/index.html yedek kalır: yerel açılışta ve sunucusuz kopyada sorguyu koruyarak hikâyeye gider."""
+    kurallar = [l for l in (WEB / "_redirects").read_text(encoding="utf-8").splitlines() if l.strip() and not l.startswith("#")]
+    assert kurallar == ["/ /hikaye 302"]
+    i = (WEB / "index.html").read_text(encoding="utf-8")
+    assert '<meta http-equiv="refresh" content="0; url=hikaye.html">' in i
+    assert 'location.replace("hikaye.html" + q + location.hash)' in i
