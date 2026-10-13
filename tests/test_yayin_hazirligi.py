@@ -1,5 +1,5 @@
 """
-Yayın hazırlığı: yayın adresi (vetoatlas.com) etiketleri, beta şeridi, Hakkında'daki yayımlayan, iletişim ve atıf
+Yayın hazırlığı: yayın adresi (vetoatlas.com) etiketleri, beta şeridi, Hakkında'daki iletişim ve lisans satırı (yayımlayan ve atıf
 kutusu (DOI), lisans ve atıf dosyaları, kart alt bilgileri. Sitede yer tutucu kalmaz.
 """
 import re
@@ -39,26 +39,21 @@ def test_beta_seridi():
     assert '"@media print { .cubuk, .beta-serit { display: none; } }",' in c
 
 
-def test_hakkinda_yayimlayan_iletisim_atif():
+def test_hakkinda_iletisim_ve_lisans_satiri():
+    """13 Ekim kararı (kullanıcı): Hakkında'dan Açık veri, Bu çalışmaya atıf ve Yayımlayan kaldırıldı (iki dil); İletişim'in
+    altında tek satır: lisans ve veri setinin Zenodo arşivi."""
     h = (WEB / "hakkinda.html").read_text(encoding="utf-8")
-    orcid = f'ORCID <a href="https://orcid.org/{ORCID}">{ORCID}</a>'
+    for kimlik in ("acik-veri", "atif", "yayimlayan", "en-acik-veri", "en-atif", "en-yayimlayan"):
+        assert f'id="{kimlik}"' not in h, kimlik
+    for eski in ('data-yer="indir"', 'class="atif"', 'class="lisans"', "orcid.org", "Nuh Mehmet", "Yayımlayan", "Published by"):
+        assert eski not in h, eski
     posta = '<a href="mailto:iletisim@vetoatlas.com">iletisim@vetoatlas.com</a>'
-    assert f"<p>Yayımlayan: Nuh Mehmet Yıldız, bağımsız araştırmacı · {orcid}</p>" in h
-    assert f"<p>Published by Nuh Mehmet Yıldız, independent researcher · {orcid}</p>" in h
     assert f"<p>İletişim: {posta}. Hata bildirimleri" in h and f"<p>Contact: {posta}. Error reports" in h
-    assert '<h2 id="atif">Bu çalışmaya atıf</h2>' in h and '<h2 id="en-atif">Cite this work</h2>' in h
-    assert "Yıldız, Nuh Mehmet (2026). <i>Veto Atlası</i> (sürüm 1.0.0)." in h
-    assert 'Yıldız, Nuh Mehmet (2026). <i lang="tr">Veto Atlası</i> (version 1.0.0).' in h
-    assert h.count(f'<a href="{ADRES}">{ADRES}</a> · DOI: <a href="https://doi.org/{DOI}">{DOI}</a></p></div>') == 2
-    assert "[DOI]" not in h
-    # Kutuların içinde paragraf ve liste alt boşluğu yok (üst ve alt iç boşluk eşit)
-    assert ".kutu .atif, .kutu .indir { margin: 0; }" in h
-    assert "yer-tutucu" not in h
-    # Lisans cümlesi atıf kutusunun altında; LICENSE-DATA'nın sitedeki kopyasına bağlanır
-    assert ('<p class="lisans">Atlasın kodu MIT lisansıyla, derlemesi CC BY 4.0 lisansıyla yayımlanır; üçüncü taraf içerikler\n'
-            '    kendi lisans ve koşullarına tabidir. Ayrıntılar: <a href="LICENSE-DATA.txt">LICENSE-DATA</a>.</p>') in h
-    assert ('<p class="lisans">The atlas code is released under the MIT licence and the compilation under CC BY 4.0; third-party\n'
-            '    content remains subject to its own licences and terms. Details: <a href="LICENSE-DATA.txt">LICENSE-DATA</a>.</p>') in h
+    doi = f'<a href="https://doi.org/{DOI}">{DOI}</a>'
+    ld = '<a href="LICENSE-DATA.txt">LICENSE-DATA</a>'
+    assert f"<p>Lisans: kod MIT, veri derlemesi CC BY 4.0 (ayrıntılar: {ld}) · Veri setinin arşivi: Zenodo, DOI {doi}</p>" in h
+    assert f"<p>Licence: code MIT, data compilation CC BY 4.0 (details: {ld}) · Dataset archive: Zenodo, DOI {doi}</p>" in h
+    assert "[DOI]" not in h and "yer-tutucu" not in h
 
 
 def test_lisans_ve_atif_dosyalari():

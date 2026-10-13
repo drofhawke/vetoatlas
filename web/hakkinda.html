@@ -51,14 +51,8 @@ ul { padding-left: 24px; }
 li + li { margin-top: 4px; }
 .giris { font-family: var(--serif); font-size: var(--yz-govde); line-height: var(--sa-govde); }
 .kutu { background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 6px; padding: 16px 16px; }
-.indir { list-style: none; padding: 0; margin: 0; }
-.indir li { padding: 12px 0; border-top: 1px solid var(--cizgi); max-width: none; }
-.indir li:first-child { border-top: none; }
 code { word-break: break-all; }
-.indir code { font-size: var(--yz-kucuk); color: var(--murekkep-2); line-height: var(--sa-kucuk); }
-.kutu .atif, .kutu .indir { margin: 0; }
-.kutu + .lisans { margin-top: 12px; }
-a[href^="https://orcid.org/"] { white-space: nowrap; }
+.kutu > ul { margin: 0; }
 .ikincil { color: var(--murekkep-2); font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
 @media (max-width: 760px) { body { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); } .kap { padding: 0 16px 48px; } h1 { margin-top: 32px; } }
 
@@ -149,22 +143,9 @@ a[href^="https://orcid.org/"] { white-space: nowrap; }
         farklıdır.</li>
     </ul>
 
-    <h2 id="acik-veri">Açık veri</h2>
-    <p>Veri seti aşağıdaki dosyalarla indirilebilir. Dosyalar her veri sürümünde yeniden üretilir; SHA-256 değeri,
-    indirdiğiniz dosyanın buradaki sürümle aynı olduğunu doğrulamanızı sağlar.</p>
-    <div class="kutu"><ul class="indir" data-yer="indir"></ul></div>
-
-    <h2 id="atif">Bu çalışmaya atıf</h2>
-    <div class="kutu"><p class="atif">Yıldız, Nuh Mehmet (2026). <i>Veto Atlası</i> (sürüm 1.0.0).
-    <a href="https://vetoatlas.com">https://vetoatlas.com</a> · DOI: <a href="https://doi.org/10.5281/zenodo.23326362">10.5281/zenodo.23326362</a></p></div>
-    <p class="lisans">Atlasın kodu MIT lisansıyla, derlemesi CC BY 4.0 lisansıyla yayımlanır; üçüncü taraf içerikler
-    kendi lisans ve koşullarına tabidir. Ayrıntılar: <a href="LICENSE-DATA.txt">LICENSE-DATA</a>.</p>
-
-    <h2 id="yayimlayan">Yayımlayan</h2>
-    <p>Yayımlayan: Nuh Mehmet Yıldız, bağımsız araştırmacı · ORCID <a href="https://orcid.org/0000-0002-0921-1256">0000-0002-0921-1256</a></p>
-
     <h2 id="iletisim">İletişim</h2>
     <p>İletişim: <a href="mailto:iletisim@vetoatlas.com">iletisim@vetoatlas.com</a>. Hata bildirimleri kabul edilir ve düzeltmeler değişiklik günlüğüne işlenir.</p>
+    <p>Lisans: kod MIT, veri derlemesi CC BY 4.0 (ayrıntılar: <a href="LICENSE-DATA.txt">LICENSE-DATA</a>) · Veri setinin arşivi: Zenodo, DOI <a href="https://doi.org/10.5281/zenodo.23326362">10.5281/zenodo.23326362</a></p>
     </div>
   </main>
 
@@ -249,22 +230,9 @@ a[href^="https://orcid.org/"] { white-space: nowrap; }
         summaries of the Office of the President of the General Assembly.</li>
     </ul>
 
-    <h2 id="en-acik-veri">Open data</h2>
-    <p>The dataset can be downloaded in the files below. The files are regenerated with every data version; the SHA-256
-    value lets you check that the file you downloaded is the same as the version listed here.</p>
-    <div class="kutu"><ul class="indir" data-yer="indir"></ul></div>
-
-    <h2 id="en-atif">Cite this work</h2>
-    <div class="kutu"><p class="atif">Yıldız, Nuh Mehmet (2026). <i lang="tr">Veto Atlası</i> (version 1.0.0).
-    <a href="https://vetoatlas.com">https://vetoatlas.com</a> · DOI: <a href="https://doi.org/10.5281/zenodo.23326362">10.5281/zenodo.23326362</a></p></div>
-    <p class="lisans">The atlas code is released under the MIT licence and the compilation under CC BY 4.0; third-party
-    content remains subject to its own licences and terms. Details: <a href="LICENSE-DATA.txt">LICENSE-DATA</a>.</p>
-
-    <h2 id="en-yayimlayan">Publisher</h2>
-    <p>Published by Nuh Mehmet Yıldız, independent researcher · ORCID <a href="https://orcid.org/0000-0002-0921-1256">0000-0002-0921-1256</a></p>
-
     <h2 id="en-iletisim">Contact</h2>
     <p>Contact: <a href="mailto:iletisim@vetoatlas.com">iletisim@vetoatlas.com</a>. Error reports are welcome, and corrections are entered in the change log.</p>
+    <p>Licence: code MIT, data compilation CC BY 4.0 (details: <a href="LICENSE-DATA.txt">LICENSE-DATA</a>) · Dataset archive: Zenodo, DOI <a href="https://doi.org/10.5281/zenodo.23326362">10.5281/zenodo.23326362</a></p>
     </div>
   </main>
 </div>
@@ -285,7 +253,6 @@ a[href^="https://orcid.org/"] { white-space: nowrap; }
       dogrulanan: ({ n }) => `<b>${n}</b> kaydın tarihi, oy dağılımı ya da ret oyu veren üyesi toplantı kaydından doğrulandı.`,
       dogrulanamayan: ({ n }) => `<b>${n}</b> kaydın oylama günü toplantı kaydına erişilemediği için doğrulanamadı.`,
       hatalar: ({ dhl, sc }) => `Kaynaklarda toplantı kaydıyla doğrulanan hata sayısı: DHL listesinde <b>${dhl}</b>, referans tabloda <b>${sc}</b>. Bu hatalar kaynak sahiplerine iletilmek üzere ayrı bir bildirimde toplandı.`,
-      veriSurumu: "veri sürümü",
     },
     en: {
       sayfaBasligi: "About · Veto Atlas", sayfaAciklamasi: "Sources, counting and date rules, verification method, known limitations and open data of the Veto Atlas.",
@@ -293,7 +260,6 @@ a[href^="https://orcid.org/"] { white-space: nowrap; }
       dogrulanan: ({ n }) => `For <b>${n}</b> records, the date, the vote breakdown or the member casting the negative vote was verified from the meeting record.`,
       dogrulanamayan: ({ n }) => `For <b>${n}</b> record${n === "1" ? "" : "s"}, the voting day could not be verified because the meeting record could not be accessed.`,
       hatalar: ({ dhl, sc }) => `Errors in the sources confirmed from meeting records: <b>${dhl}</b> in the DHL list, <b>${sc}</b> in the reference table. These errors have been collected in a separate report to be sent to the source owners.`,
-      veriSurumu: "data version",
     },
   };
   const t = (a, p) => { const v = SOZLUK[DIL][a]; return typeof v === "function" ? v(p || {}) : v; };
@@ -326,10 +292,6 @@ a[href^="https://orcid.org/"] { white-space: nowrap; }
     <li>${t("dogrulanan", { n: sayi(ist.toplanti_kaydindan_dogrulanan) })}</li>
     ${ist.dogrulanamayan ? `<li>${t("dogrulanamayan", { n: sayi(ist.dogrulanamayan) })}</li>` : ""}
     <li>${t("hatalar", { dhl: sayi(h.dhl), sc: sayi(h.scprocedure) })}</li></ul>`;
-  yer('[data-yer="indir"]').innerHTML = (m.indirmeler || []).map((f) => `<li>
-    <a href="${esc(f.dosya)}" download>${esc(f.dosya.split("/").pop())}</a>
-    <span class="ikincil">· ${sayi(Math.round(f.bayt / 1024))} KB · ${t("veriSurumu")} ${esc(m.veri_surumu)}</span><br>
-    <code>SHA-256 ${esc(f.sha256)}</code></li>`).join("");
 })();
 </script>
 </body>

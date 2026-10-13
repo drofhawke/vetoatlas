@@ -90,7 +90,8 @@ def test_vetolar_grafik_aciklamasi_tek_cumle():
 
 def test_vetolar_alt_bilgi_yalnizca_veri_tarihi():
     """ADIM 45 (ADIM 41'deki "Kaynak ve indirme ayrıntıları" kutusunun yerine): alt bilgide yalnızca veri tarihi; kaynak
-    dosyası, SHA-256 ve indirme listesi "Nasıl yaptık?"ta (Hakkında "Açık veri", Metodoloji)."""
+    dosyası ve SHA-256 "Nasıl yaptık?"ta (Hakkında, Metodoloji). Hakkında'daki indirme listesi 13 Ekim'de kaldırıldı (kullanıcı
+    kararı); veri setinin arşivi Zenodo'da, İletişim'in altındaki satırda."""
     s = oku("vetolar.html")
     kod = s[s.index("  // ---------- Alt bilgi ----------"):]
     kod = kod[:kod.index("guncelle();")]
@@ -100,9 +101,10 @@ def test_vetolar_alt_bilgi_yalnizca_veri_tarihi():
         assert eski not in s, eski
     assert '"alt.veriTarihi": ({ tarih }) => `Veri tarihi: ${tarih}.`,' in s and '"alt.veriTarihi": ({ tarih }) => `Data as of ${tarih}.`,' in s
     assert '<time datetime="${esc(m.veri_surumu)}">${tarihUzun(m.veri_surumu)}</time>' in kod
-    # İndirmeler SHA-256 değerleriyle Hakkında'da (iki dil)
+    # Hakkında'da indirme listesi yok; veri setinin arşivi Zenodo (DOI bağlantısı iki dilde)
     h = oku("hakkinda.html")
-    assert h.count('<ul class="indir" data-yer="indir"></ul>') == 2 and "<code>SHA-256 ${esc(f.sha256)}</code>" in h
+    assert 'data-yer="indir"' not in h and "m.indirmeler" not in h
+    assert h.count('href="https://doi.org/10.5281/zenodo.23326362"') == 2
 
 
 ICERIK_SAYFALARI = ["hikaye", "vetolar", "vizyon", "reform", "simulasyon", "temsil"]
@@ -365,9 +367,9 @@ def metin_sayfasi(sayfa, dil):
 
 HAKKINDA_BOLUMLERI = {
     "tr": ["Kaynaklar", "Nasıl sayıyoruz", "Tarih kuralı", "Konular ve Türkçe başlıklar", "Genel Kurul tartışmaları",
-           "Nedensellik dili", "Düzeltme ve doğrulama", "Bilinen sınırlar", "Açık veri", "Bu çalışmaya atıf", "Yayımlayan", "İletişim"],
+           "Nedensellik dili", "Düzeltme ve doğrulama", "Bilinen sınırlar", "İletişim"],
     "en": ["Sources", "How we count", "Date rule", "Topics and agenda items", "General Assembly debates",
-           "Language of causation", "Corrections and verification", "Known limitations", "Open data", "Cite this work", "Publisher", "Contact"],
+           "Language of causation", "Corrections and verification", "Known limitations", "Contact"],
 }
 
 
@@ -427,7 +429,7 @@ def test_bu_sayfada_dizini_node_ile(tmp_path):
     cikti = json.loads(r.stdout)
     assert cikti == beklenen
     hakkinda_tr, _, metodoloji_tr, metodoloji_en = cikti
-    assert hakkinda_tr.count("<li>") == 12 and "<ul>" not in hakkinda_tr[4:]  # Hakkında: on iki bölüm, alt bölüm yok
+    assert hakkinda_tr.count("<li>") == 9 and "<ul>" not in hakkinda_tr[4:]  # Hakkında: dokuz bölüm, alt bölüm yok
     assert '<li><a href="#bolum-2">2. Sayım kuralları</a><ul><li><a href="#bolum-2-1">2.1. Erken dönem kayıtları (1946–1953)</a></li>' in metodoloji_tr
     assert '<li><a href="#bolum-2-10">2.10. &quot;Ya veto olmasaydı?&quot; sayfası</a></li></ul></li><li><a href="#bolum-3">' in metodoloji_tr
     assert '<li><a href="#en-bolum-5">5. The vetoing party&#39;s reasons</a></li>' in metodoloji_en
