@@ -114,3 +114,22 @@ def test_dar_ekran_tasmalari():
     assert ".filtre { flex: 1 1 100%; min-width: 0; }" in v and ".alan select { max-width: 100%; }" in v
     assert ".alan { display: flex; flex-direction: column; gap: 4px; min-width: 0;" in v
     assert ".metin-duzen .metin p, .metin-duzen .metin li { overflow-wrap: break-word; }" in (WEB / "temel.css").read_text(encoding="utf-8")
+
+
+def test_cloudflare_yapilandirmasi_ve_404_sayfasi():
+    """wrangler.jsonc: web/ statik varlık olarak yayımlanır, bulunamayan adreste web/404.html döner. 404 sayfası her derinlikte
+    (ör. /a/b) aynı görünür (<base href="/">, yerel varlıklar), sitenin paletini ve çubuğunu kullanır, iki dillidir ve
+    arama motorlarına kapalıdır; canonical ve hreflang taşımaz."""
+    import json
+    w = json.loads((KOK / "wrangler.jsonc").read_text(encoding="utf-8"))
+    assert w == {"name": "vetoatlas", "compatibility_date": "2026-10-01",
+                 "assets": {"directory": "./web", "not_found_handling": "404-page"}}
+    s = (WEB / "404.html").read_text(encoding="utf-8")
+    bas = s[:s.index("</head>")]
+    assert '<base href="/">' in bas and bas.index('<base href="/">') < bas.index('<link rel="icon"')
+    assert '<meta name="robots" content="noindex">' in bas and 'rel="canonical"' not in bas and 'rel="alternate"' not in bas
+    assert '<body data-sayfa="404">' in s and '<header id="cubuk" class="cubuk"></header>' in s and '<script src="cubuk.js"></script>' in bas
+    assert "<h1>Sayfa bulunamadı</h1>" in s and "<h1>Page not found</h1>" in s and 'data-dil="en" hidden' in s
+    for ad in ("hikaye", "vetolar", "hakkinda"):
+        assert f'href="{ad}.html"' in s and f'href="{ad}.html?lang=en"' in s, ad
+    assert "--zemin: #FBF8F1" in bas and ':root[data-theme="dark"]' in bas and "prefers-color-scheme" not in s

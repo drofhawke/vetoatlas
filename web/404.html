@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Bulunamayan her adreste (ör. /a/b) aynı sayfa döner (wrangler.jsonc): göreli adresler kökten çözülür.
+     Yerel dosya olarak açıldığında stil yüklenmez; sayfa yalnızca sunucuda kullanılır. -->
+<base href="/">
+<title>Sayfa bulunamadı · Veto Atlası</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#FBF8F1">
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="temel.css">
+<script src="cubuk.js"></script>
+<style>
+:root {
+  --zemin: #FBF8F1; --yuzey: #FFFFFF; --murekkep: #13213A; --murekkep-2: #5A6578; --cizgi: #E1DBCF; --vurgu: #A4262C;
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans: "Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+:root[data-theme="dark"] {--zemin: #1C1A17; --yuzey: #272420; --murekkep: #EDE8E0; --murekkep-2: #ABA496; --cizgi: #3B3731; --vurgu: #E05A52; }
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--zemin); color: var(--murekkep); font-family: var(--sans); font-size: var(--yz-govde); line-height: var(--sa-govde); }
+.kap { max-width: 1180px; margin: 0 auto; padding: 0 24px 64px; }
+a { color: inherit; text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--murekkep); outline-offset: 2px; }
+h1 { font-family: var(--serif); font-weight: 600; font-size: var(--yz-baslik); line-height: var(--sa-baslik); margin: 48px 0 12px; }
+p, li { max-width: var(--olcu); }
+.giris { font-family: var(--serif); font-size: var(--yz-govde); line-height: var(--sa-govde); }
+.yollar { list-style: none; padding: 0; margin: 24px 0 0; max-width: var(--olcu); }
+.yollar li { padding: 12px 0; border-top: 1px solid var(--cizgi); }
+.yollar li:last-child { border-bottom: 1px solid var(--cizgi); }
+.yollar a { font-weight: 600; }
+.ikincil { color: var(--murekkep-2); }
+@media (max-width: 760px) { body { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); } .kap { padding: 0 16px 48px; } h1 { margin-top: 32px; } }
+</style>
+</head>
+<body data-sayfa="404">
+<header id="cubuk" class="cubuk"></header>
+<div class="kap">
+
+  <main class="icerik" lang="tr" data-dil="tr">
+    <h1>Sayfa bulunamadı</h1>
+    <p class="giris">Aradığınız adres bu sitede yok. Bağlantı eksik ya da eski olabilir.</p>
+    <ul class="yollar">
+      <li><a href="hikaye.html">Hikâye</a> <span class="ikincil">· atlasın giriş sayfası</span></li>
+      <li><a href="vetolar.html">Vetolar</a> <span class="ikincil">· 1946'dan bugüne bütün kayıtlar</span></li>
+      <li><a href="hakkinda.html">Nasıl yaptık?</a> <span class="ikincil">· kaynaklar, yöntem ve açık veri</span></li>
+    </ul>
+  </main>
+
+  <main class="icerik" lang="en" data-dil="en" hidden>
+    <h1>Page not found</h1>
+    <p class="giris">The address you requested does not exist on this site. The link may be incomplete or out of date.</p>
+    <ul class="yollar">
+      <li><a href="hikaye.html?lang=en">Story</a> <span class="ikincil">· the opening page of the atlas</span></li>
+      <li><a href="vetolar.html?lang=en">Vetoes</a> <span class="ikincil">· every record from 1946 to the present</span></li>
+      <li><a href="hakkinda.html?lang=en">How we did it</a> <span class="ikincil">· sources, method and open data</span></li>
+    </ul>
+  </main>
+
+</div>
+<script>
+(function () {
+  "use strict";
+  // Dil adres çubuğunda (?lang=en) tutulur; çubuktaki dil düğmesi aynı adresi öbür dilde açar.
+  const DIL = new URLSearchParams(location.search).get("lang") === "en" ? "en" : "tr";
+  document.documentElement.lang = DIL;
+  document.title = DIL === "tr" ? "Sayfa bulunamadı · Veto Atlası" : "Page not found · Veto Atlas";
+  document.querySelectorAll("main[data-dil]").forEach((e) => { e.hidden = e.getAttribute("data-dil") !== DIL; });
+})();
+</script>
+</body>
+</html>

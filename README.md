@@ -78,6 +78,8 @@ kaynaklar/alintilar.csv        Alıntı bankası; doğrulaması kaynaklar/alinti
 web/vizyon.html                Söz ve Kayıt: alıntılar ve veri setinden hesaplanan karşılıkları
 web/reform.html                Reform modelleri: dört Güvenlik Konseyi reform modeli aynı dört ölçütle
 web/fonts/                     Gömülü yazı tipleri ve OFL lisansları (üçüncü taraf istek yok)
+web/404.html                   Bulunamayan adres sayfası (iki dilli, arama motorlarına kapalı)
+wrangler.jsonc                 Cloudflare yayını: web/ statik varlık olarak, bulunamayan adreste web/404.html
 ```
 
 ## Lisans ve atıf
