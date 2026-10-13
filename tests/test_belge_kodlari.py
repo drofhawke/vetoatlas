@@ -162,6 +162,18 @@ def test_hata_bildiriminde_yer_tutucu_kalmadi():
         assert not re.search(r"\[[^\]]*\](?!\()", ileti), ileti  # bağlantılar ([S/PV.456](…)) hariç
 
 
+def test_scprocedure_iletisi_yayindan_sonra_atif_bildirir():
+    # Veri yayımlandıktan sonra yazılan ileti izin istemez; Tablo 4'ten alınan oy sayılarının atfını ve kaldırma teklifini bildirir
+    bildirim = (KOK / "kaynaklar/hata_bildirimi.md").read_text(encoding="utf-8")
+    ileti = " ".join(bildirim[bildirim.index("## 2."):bildirim.index("## 3.")].split())
+    assert ("The Veto Atlas dataset has now been published at https://vetoatlas.com (DOI: 10.5281/zenodo.23326362). "
+            "Overall vote counts for a number of records were taken from Table 4 and are attributed to it; where we could, "
+            "we verified them against the meeting records, and the corrections listed above come from that process. "
+            "The table itself is not redistributed. If you would prefer a different form of attribution, or would like us "
+            "to remove any material derived from Table 4, please let us know and we will do so promptly.") in ileti
+    assert "permission" not in ileti and "we would like to publish it" not in ileti
+
+
 def test_aciklama_kutusundaki_belge_kodlari():
     s = (KOK / "web/vetolar.html").read_text(encoding="utf-8")
     kodlar = re.findall(r'BELGE\("([^"]+)"', s)

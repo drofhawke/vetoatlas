@@ -93,11 +93,12 @@ may of course have misread something.
 | 4 | 224 | 8 July 2015, 11-1-4 (total 16) | **10-1-4.** | [S/PV.7481](https://undocs.org/S/PV.7481) (no paragraph numbers), PDF p. 7: in favour 10; against: Russian Federation; abstaining: Angola, China, Nigeria, Venezuela. |
 | 5 | 243 | 13 Dec. 2021, 13-2-1 (total 16) | **12-2-1.** | [S/PV.8926](https://undocs.org/S/PV.8926) (no paragraph numbers), PDF p. 5: in favour 12; against: India, Russian Federation; abstaining: China. |
 
-We would also like to ask for your permission on one point. From Table 4 we have derived a
-machine-readable file (date, vetoing member, overall vote), corrected where the meeting records
-differ, and we would like to publish it with the dataset, with attribution to Table 4 and to
-*The Procedure of the UN Security Council*. If you would prefer that we did not, we would publish
-only the fields that we have verified from the meeting records ourselves.
+The Veto Atlas dataset has now been published at https://vetoatlas.com
+(DOI: 10.5281/zenodo.23326362). Overall vote counts for a number of records were taken from Table 4
+and are attributed to it; where we could, we verified them against the meeting records, and the
+corrections listed above come from that process. The table itself is not redistributed. If you would
+prefer a different form of attribution, or would like us to remove any material derived from
+Table 4, please let us know and we will do so promptly.
 
 The dataset is available at https://vetoatlas.com (DOI: 10.5281/zenodo.23326362). Table 4 has been very helpful to us, and we would be
 glad to share the full reconciliation file if that would be useful.
