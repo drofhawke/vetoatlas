@@ -1,10 +1,12 @@
 """
-Arama motorları için robots.txt, sitemap.xml ve Hakkında'daki veri seti tanımı (schema.org Dataset, JSON-LD).
+Arama motorları için robots.txt, sitemap.xml, Hakkında'daki veri seti tanımı (schema.org Dataset, JSON-LD) ve sunucu
+başlıkları (web/_headers: .txt ve açık veri CSV'leri UTF-8 olarak).
 
-sitemap.xml sayfaların kendi canonical ve hreflang bağlantılarıyla aynı adresleri taşır (İngilizce görünümde canonical
-?lang=en olduğu için iki dil de listelenir). JSON-LD'nin değerleri CITATION.cff, veri.js ve Vetolar'ın açıklamasıyla
-tutarlıdır: biri değişirse bu testler kalır.
+sitemap.xml (scripts/12_site_haritasi.py) sayfaların kendi canonical ve hreflang bağlantılarıyla aynı adresleri ve açık veri
+dosyalarını taşır (İngilizce görünümde canonical ?lang=en olduğu için iki dil de listelenir). JSON-LD'nin değerleri
+CITATION.cff, veri.js ve Vetolar'ın açıklamasıyla tutarlıdır: biri değişirse bu testler kalır.
 """
+import datetime
 import json
 import re
 import xml.etree.ElementTree as ET
@@ -17,15 +19,21 @@ NS = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9", "x": "http://www.w3.or
 
 
 def test_robots_txt():
+    # Paylaşım kartlarının kaynak sayfaları ve tek dosya (sitenin kopyası) taranmaz; önek kuralı .html'li ve uzantısız
+    # adresi birlikte kapsar. Sitemap satırı en sonda.
     assert (WEB / "robots.txt").read_text(encoding="utf-8") == (
-        "User-agent: *\nAllow: /\n\nSitemap: https://vetoatlas.com/sitemap.xml\n")
+        "User-agent: *\nAllow: /\nDisallow: /kartlar/\nDisallow: /veto-atlasi-tek-dosya\n\n"
+        "Sitemap: https://vetoatlas.com/sitemap.xml\n")
 
 
 def test_sitemap_sayfalarin_canonical_ve_hreflang_baglantilariyla_ayni():
     kok = ET.parse(WEB / "sitemap.xml").getroot()
-    adresler = {}
+    adresler, tarihler = {}, {}
     for url in kok.findall("s:url", NS):
-        adresler[url.find("s:loc", NS).text] = sorted((a.get("hreflang"), a.get("href")) for a in url.findall("x:link", NS))
+        loc = url.find("s:loc", NS).text
+        tarihler[loc] = url.find("s:lastmod", NS).text
+        if "/veri/" not in loc:
+            adresler[loc] = sorted((a.get("hreflang"), a.get("href")) for a in url.findall("x:link", NS))
     beklenen = {}
     for s in cevrimdisi.SAYFALAR:
         h = (WEB / f"{s}.html").read_text(encoding="utf-8")
@@ -36,6 +44,13 @@ def test_sitemap_sayfalarin_canonical_ve_hreflang_baglantilariyla_ayni():
         for dil in ("tr", "en"):
             beklenen[dict(alt)[dil]] = alt
     assert adresler == beklenen and len(adresler) == 16
+    # Açık veri dosyaları da listede; lastmod her adreste geçerli bir tarih, bugünden ileri değil, iki dil aynı tarihte
+    veri = {f"https://vetoatlas.com/veri/{p.name}" for p in (WEB / "veri").iterdir() if p.suffix in (".csv", ".json")}
+    assert set(tarihler) == set(beklenen) | veri and len(veri) == 3
+    for loc, tarih in tarihler.items():
+        assert datetime.date.fromisoformat(tarih) <= datetime.date.today(), loc
+    for s in cevrimdisi.SAYFALAR:
+        assert tarihler[f"https://vetoatlas.com/{s}"] == tarihler[f"https://vetoatlas.com/{s}?lang=en"], s
     # Arama dizinine girmemesi gerekenler sitemap'te yok
     metin = (WEB / "sitemap.xml").read_text(encoding="utf-8")
     for ad in ("404", "kartlar", "tek-dosya", "index"):
@@ -79,3 +94,22 @@ def test_jsonld_yalnizca_hakkinda_sayfasinda():
     for s in cevrimdisi.SAYFALAR:
         h = (WEB / f"{s}.html").read_text(encoding="utf-8")
         assert h.count("application/ld+json") == (1 if s == "hakkinda" else 0), s
+
+
+def test_icerik_sayfalarinda_noindex_yok_404_gercek_404():
+    """İçerik sayfaları dizine açık; yalnızca 404 sayfası noindex. Cloudflare Workers statik varlıklarında
+    not_found_handling "404-page": olmayan adres 404.html'i 404 durum koduyla döner (canlıda curl ile denetlendi)."""
+    for s in cevrimdisi.SAYFALAR:
+        assert "noindex" not in (WEB / f"{s}.html").read_text(encoding="utf-8"), s
+    assert '<meta name="robots" content="noindex">' in (WEB / "404.html").read_text(encoding="utf-8")
+    w = (KOK / "wrangler.jsonc").read_text(encoding="utf-8")
+    assert '"directory": "./web"' in w and '"not_found_handling": "404-page"' in w
+
+
+def test_headers_metin_ve_csv_utf8():
+    """Sunucu .txt (LICENSE-DATA, robots, yazı tipi lisansları) ve açık veri CSV'lerini charset=utf-8 ile gönderir; yoksa
+    tarayıcı Türkçe karakterleri bozuk gösteriyordu (14 Ekim)."""
+    assert (WEB / "_headers").read_text(encoding="utf-8") == (
+        "/*.txt\n  Content-Type: text/plain; charset=utf-8\n/veri/*.csv\n  Content-Type: text/csv; charset=utf-8\n")
+    assert {p.name for p in WEB.rglob("*.txt")} >= {"LICENSE-DATA.txt", "robots.txt", "OFL-source-sans-3.txt"}
+    assert {p.name for p in (WEB / "veri").glob("*.csv")} == {"vetolar.csv", "genel_kurul_tartismalari.csv"}

@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /kartlar/
+Disallow: /veto-atlasi-tek-dosya
 
 Sitemap: https://vetoatlas.com/sitemap.xml

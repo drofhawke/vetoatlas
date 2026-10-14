@@ -70,6 +70,7 @@ scripts/09_temsil.py             Temsil endeksi: BM bölgesel grupları, P5 ve �
 scripts/10_tek_dosya.py          Tek dosyalık inceleme sürümü: sekiz sayfa yedi sekmede, veri ve yazı tipleri gömülü
                                  (web/veto-atlasi-tek-dosya.html; 04 de üretir)
 scripts/11_cevrimdisi.py         İnternetsiz çalışma: web/cevrimdisi.js (service worker; 04 de üretir)
+scripts/12_site_haritasi.py      Site haritası: web/sitemap.xml (sayfalar TR/EN ve açık veri; lastmod git kaydından)
 schema/veto_kaydi.schema.json  Her kaydın uyması gereken yapı
 tests/                         Birim testleri ve veri seti değişmezleri
 data/raw | processed | review  Ham kaynak, işlenmiş veri, elle kontrol listesi
@@ -81,6 +82,8 @@ web/reform.html                Reform modelleri: dört Güvenlik Konseyi reform 
 web/fonts/                     Gömülü yazı tipleri ve OFL lisansları (üçüncü taraf istek yok)
 web/404.html                   Bulunamayan adres sayfası (iki dilli, arama motorlarına kapalı)
 web/_redirects                 Sunucu yönlendirmesi: / -> /hikaye (302, sorgu korunur; Workers statik varlıkları)
+web/_headers                   Sunucu başlıkları: .txt ve açık veri CSV'leri charset=utf-8
+web/robots.txt, sitemap.xml    Arama motorları: kartlar ve tek dosya taranmaz; site haritası (12 üretir)
 web/cevrimdisi.js              İnternetsiz çalışma (service worker; elle düzenlenmez, 11 ve 04 üretir)
 wrangler.jsonc                 Cloudflare yayını: web/ statik varlık olarak, bulunamayan adreste web/404.html
 ```
