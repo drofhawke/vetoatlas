@@ -127,8 +127,9 @@ geçmez. Tarayıcı taraması (12 Ekim 2026) iki dilde 390, 900, 960, 1280 ve 25
 boşluk), ortalanmış; başlığın üstünde, taslaktaki üst yazının yerinde, atlasın çıkış noktası kaynaklı bir alıntı olarak
 durur: başlık boyutunda (40/48, dar ekranda 32/40) Source Serif 4 600 alıntı, altında küçük boyutta ve ikincil renkte
 künye (Cumhurbaşkanı Recep Tayyip Erdoğan · tarih · etkinlik · sayfa); alıntı ile başlık arası 48 px (dar ekranda 32 px).
-Türkçede 2019 hitabından “Dünya 5’ten Büyüktür.”; 2019 kitapçığında İngilizce metin olmadığı için İngilizcede 2023
-hitabının İngilizce metninden “The world is bigger than five.” Alıntı, alıntı bankasındaki metnin içinden birebir alınır.
+İki dilde de 2019 hitabından: Türkçede Türkçe kitapçıktaki “Dünya 5’ten Büyüktür.”, İngilizcede İngilizce kitapçıktaki
+"The world is bigger than five!" (kaynakta italik ve tırnaksız; tırnak eklenmez). Alıntı, alıntı bankasındaki metnin içinden
+birebir alınır.
 Başlık ve büyük sayılar gösterge boyutunda; Türkçe başlık 960 px ve üstünde tek satırdır ve gerekirse sütunun sağına taşar
 (96 px'te 776 px, sütun içi 712 px), İngilizce başlık iki satırdır; büyük sayının alt yazısı küçük boyutta, ikincil renkte ve italiktir ve sayının ne olduğunu
 söyler; adım numarası başlık boyutunda, soru başlığı gövde boyutunda (600); solda sabit ilerleme rayı (760 px altında
@@ -155,11 +156,19 @@ metnin kaynağıyla ("President Recep Tayyip Erdoğan · Address to the 74th Ses
 2019 · p. 6"). İngilizce metin BM toplantı kaydından geliyorsa sayfadan önce belge simgesi yazılır ("… · 24 September
 2019 · A/74/PV.3, p. 22"). Kitap alıntısında İngilizce baskı, bölümü ve sayfasıyla yazılır ("President Recep Tayyip
 Erdoğan · A Fairer World is Possible · Introduction · p. 31"); iki sayfaya yayılan alıntıda "pp. 184–185". Resmî
-İngilizcesi olmayan alıntıda künye Türkçe kaynağı gösterir: bölüm adı İngilizceye aktarılır (Introduction; Chapter 2: …
-(Reform of the United Nations)), Türkçe kalan parçalar (kitap adı, bölüm başlığı) `lang="tr"` ile işaretlenir ve alıntının
-altında "Unofficial translation by Veto Atlas" etiketli çeviri durur. "s.", "p." ve "pp." numarasından ayrılmaz. Paylaşım kartlarında ad alıntının altında,
+İngilizcesi olmayan alıntıda künye Türkçe kaynağı gösterir; kitap adı ve bölüm İngilizce baskıdaki gibi yazılır
+(A Fairer World is Possible · Introduction; Part II: A United Nations Reform) ve alıntının altında "Unofficial translation
+by Veto Atlas" etiketli çeviri durur. "s.", "p." ve "pp." numarasından ayrılmaz. Paylaşım kartlarında ad alıntının altında,
 kalan kısım alt bilgide aynı sıra ve ayraçla durur. Simülasyondaki "Kitapta: …" etiketi ve Reform modellerindeki
 "Dayanak" satırı künye değildir.
+
+**Kitabın adı (14 Ekim 2026, kullanıcı kararı).** Türkçe sayfalarda “Daha Adil Bir Dünya Mümkün”, bölümler "Giriş" ve
+"2. Bölüm". İngilizce sayfalarda kitap İngilizce baskının adıyla anılır: “A Fairer World is Possible”. Her sayfada ilk
+geçişte Türkçe özgün adı parantez içinde ve `lang="tr"` ile verilir. Meta açıklamada `lang` yazılamadığı için orada yalnız
+parantez kullanılır. Bölümler İngilizce sayfalarda her yerde "Introduction" ve "Part II"dir (İngilizce baskıda "Part II:
+A United Nations Reform"). Söz ve Kayıt'taki model bölümünün künyesi İngilizcede: "Recep Tayyip Erdoğan, *A Fairer World is
+Possible: A Proposed Model for a United Nations Reform*, Turkuvaz Kitap, 2021; Turkish original: *Daha Adil Bir Dünya
+Mümkün*". Alt başlık künye sayfasından (PDF s. 4) alındı.
 
 **Dil işareti.** İngilizce sayfalardaki Türkçe ifadeler (alıntılar, bölüm adları, belge ve başlık adları) `lang="tr"`
 taşır; Metodoloji'nin Markdown kaynağında `[metin]{lang=tr}` yazılır.

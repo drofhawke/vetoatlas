@@ -280,7 +280,7 @@ the page `web/metodoloji.html` is generated from both each time `04_web_verisi.p
 ### 2.7. Quotation bank and the Word and Record page
 
 `kaynaklar/alintilar.csv` holds quotations from President Recep Tayyip Erdoğan's addresses to the UN
-General Assembly in 2019 and 2022-2026 and from the book "Daha Adil Bir Dünya Mümkün". The sources
+General Assembly in 2019 and 2022-2026 and from the book *A Fairer World is Possible* ([*Daha Adil Bir Dünya Mümkün*]{lang=tr}). The sources
 are not in the repository; their bibliographic details and SHA-256 values are in
 `kaynaklar/KAYNAKLAR.md`. Quotations are cut from the PDF text layer, and each is searched for word
 for word, with whitespace normalised, on the page given. For the addresses, the printed page and
@@ -334,7 +334,7 @@ together; rights of reply excluded).
 The Reform models page (`web/reform.html`) sets four models for Security Council reform side by side against
 the same four criteria: total membership, new permanent members, who holds the veto, and the relationship with
 the General Assembly. The models are the Ezulwini Consensus (Ext/EX.CL/2 (VII); A/59/L.67), the G4
-(A/59/L.64), Uniting for Consensus (A/59/L.68) and the book "Daha Adil Bir Dünya Mümkün"; they are given in
+(A/59/L.64), Uniting for Consensus (A/59/L.68) and the book *A Fairer World is Possible*; they are given in
 the date order of the documents. The comparison is taken from the primary documents
 (`kaynaklar/reform_modelleri.csv`): each cell summarises the document's own provision, and the paragraph
 relied on is given under it. Every phrase quoted from the book is found word for word in a verified quotation

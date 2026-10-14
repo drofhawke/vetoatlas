@@ -16,7 +16,8 @@ metinleri; paylaşım kartları ve önizleme görseli.
 Aşağıdakiler bu lisansın dışındadır; her biri kendi lisans ve koşullarına tabidir:
 
 1. Alıntılar. Cumhurbaşkanı Recep Tayyip Erdoğan'ın BM Genel Kurulu konuşmalarından alıntılar ve "Daha Adil Bir
-   Dünya Mümkün" (Turkuvaz Kitap, 2021) kitabından alıntılar. Atlasta künyeleriyle, değiştirilmeden yer alırlar.
+   Dünya Mümkün" kitabından (Turkuvaz Kitap, 2021) ve kitabın İngilizce baskısından ("A Fairer World is Possible",
+   Turkuvaz Kitap, 2021) alıntılar. Atlasta künyeleriyle, değiştirilmeden yer alırlar.
 2. Nüfus verisi. BM Ekonomik ve Sosyal İşler Dairesi Nüfus Bölümü, World Population Prospects 2024 (WPP 2024);
    UN DESA'nın koşulları, CC BY 3.0 IGO.
 3. Oy dağılımları. Sievers ve Daws, The Procedure of the UN Security Council, Tablo 4'ten alınan oy dağılımları;
@@ -42,7 +43,8 @@ texts and page texts; the share cards and the preview image.
 The following are outside this licence; each remains subject to its own licence and terms:
 
 1. Quotations. Quotations from President Recep Tayyip Erdoğan's speeches to the UN General Assembly and from the
-   book "Daha Adil Bir Dünya Mümkün" (Turkuvaz Kitap, 2021). They appear in the atlas unaltered, with their
+   book "A Fairer World is Possible" (Turkuvaz Kitap, 2021; Turkish original: "Daha Adil Bir Dünya Mümkün",
+   Turkuvaz Kitap, 2021), in its English and Turkish editions. They appear in the atlas unaltered, with their
    citations.
 2. Population data. UN Department of Economic and Social Affairs, Population Division, World Population Prospects
    2024 (WPP 2024); UN DESA's terms, CC BY 3.0 IGO.

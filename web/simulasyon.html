@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ya veto olmasaydı? · Veto Atlası</title>
-<meta name="description" content="Gerçek bir veto kaydının oyları iki sistemde sayılır: BM Şartı 27/3 ve “Daha Adil Bir Dünya Mümkün” modeli. / The votes of a real veto record counted under two systems: Article 27 (3) of the UN Charter and the model in “Daha Adil Bir Dünya Mümkün”.">
+<meta name="description" content="Gerçek bir veto kaydının oyları iki sistemde sayılır: BM Şartı 27/3 ve “Daha Adil Bir Dünya Mümkün” modeli. / The votes of a real veto record counted under two systems: Article 27 (3) of the UN Charter and the model in “A Fairer World is Possible” (“Daha Adil Bir Dünya Mümkün”).">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Veto Atlası / Veto Atlas">
 <meta property="og:title" content="Ya veto olmasaydı? · Veto Atlası / What if there were no veto? · Veto Atlas">
-<meta property="og:description" content="Gerçek bir veto kaydının oyları iki sistemde sayılır: BM Şartı 27/3 ve “Daha Adil Bir Dünya Mümkün” modeli. / The votes of a real veto record counted under two systems: Article 27 (3) of the UN Charter and the model in “Daha Adil Bir Dünya Mümkün”.">
+<meta property="og:description" content="Gerçek bir veto kaydının oyları iki sistemde sayılır: BM Şartı 27/3 ve “Daha Adil Bir Dünya Mümkün” modeli. / The votes of a real veto record counted under two systems: Article 27 (3) of the UN Charter and the model in “A Fairer World is Possible” (“Daha Adil Bir Dünya Mümkün”).">
 <meta property="og:image" content="https://vetoatlas.com/onizleme.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -248,7 +248,7 @@ td.sayi, th.sayi { text-align: right; font-variant-numeric: tabular-nums; white-
       <div class="paneller">
         <article class="panel kutu" id="panel-oneri" aria-labelledby="h-oneri">
           <h2 id="h-oneri" data-t="p.oneri"></h2>
-          <p class="kural" data-t="p.oneriKural"></p>
+          <p class="kural" data-t-html="p.oneriKural"></p>
           <div class="sayac-kutu"><p class="sayac" id="sayac-oneri"></p><div class="sayim" id="sayim-oneri" aria-live="polite"></div><p class="yeni-not" id="yeni-not" hidden></p></div>
           <div class="ayrinti">
             <details class="ayarlar" id="ayarlar"><summary data-t="ayar.baslik"></summary><div class="parametre" id="parametre"></div></details>
@@ -387,7 +387,7 @@ td.sayi, th.sayi { text-align: right; font-variant-numeric: tabular-nums; white-
     },
     en: {
       sayfaBasligi: "What if there were no veto? · Veto Atlas",
-      sayfaAciklamasi: "The votes of a real veto record counted under two systems: Article 27 (3) of the UN Charter and the model in “Daha Adil Bir Dünya Mümkün”.",
+      sayfaAciklamasi: "The votes of a real veto record counted under two systems: Article 27 (3) of the UN Charter and the model in “A Fairer World is Possible” (“Daha Adil Bir Dünya Mümkün”).",
       baslik: "What if there were no veto?",
       giris: "Choose a real veto record; its recorded votes are counted in two panels at the same time, under the book’s model and under Article 27 (3) of the UN Charter.",
       "yontem.baslik": "How is it calculated?",
@@ -404,7 +404,7 @@ td.sayi, th.sayi { text-align: right; font-variant-numeric: tabular-nums; white-
       ornekNotu: ({ boy, lehte }) => `In this example, ${lehte} of the ${boy} members voted yes.`,
       "h.paneller": "2 · Count the votes, 3 · Compare",
       ulkeSec: "Choose the vetoing country:", ulkeTek: "Vetoing country:",
-      "p.oneri": "Proposed system", "p.oneriKural": "The model in “Daha Adil Bir Dünya Mümkün” (September 2021): there is no veto, every member’s vote counts with equal weight, and the chosen threshold decides the outcome.", "p.unsurBaslik": "What does the book say?",
+      "p.oneri": "Proposed system", "p.oneriKural": 'The model in “A Fairer World is Possible” (<span lang="tr">“Daha Adil Bir Dünya Mümkün”</span>, September 2021): there is no veto, every member’s vote counts with equal weight, and the chosen threshold decides the outcome.', "p.unsurBaslik": "What does the book say?",
       "p.mevcut": "Current system", "p.mevcutKural": "UN Charter, Article 27 (3): decisions on non-procedural matters are made by an affirmative vote of nine members including the concurring votes of the permanent members.", "p.parametreYok": "No parameters: the rule is fixed in the Charter.",
       "p.mevcutAyrinti": "The rule of seven votes in the eleven-member Council applied until 31 August 1965, when the Charter amendment entered into force; as no veto was cast between that date and the end of 1965, the dataset treats the period before 1966 as the eleven-member Council.",
       "u.veto": "No veto", "u.daimi": "No permanent membership", "u.hesap": "The Council is accountable to the General Assembly", "u.secim": "Members come from the General Assembly",
@@ -470,6 +470,8 @@ td.sayi, th.sayi { text-align: right; font-variant-numeric: tabular-nums; white-
   metaYaz('meta[property="og:locale"]', DIL === "tr" ? "tr_TR" : "en_GB");
   metaYaz('meta[property="og:locale:alternate"]', DIL === "tr" ? "en_GB" : "tr_TR");
   document.querySelectorAll("[data-t]").forEach((e) => { e.textContent = t(e.dataset.t); });
+  // İçinde dil işareti (lang="tr") olan metinler: sayfanın kendi sözlüğünden, HTML olarak
+  document.querySelectorAll("[data-t-html]").forEach((e) => { e.innerHTML = t(e.dataset.tHtml); });
   $("#adimlar").setAttribute("aria-label", t("adim.etiket"));
   $("#onceki").textContent = t("onceki"); $("#sonraki").textContent = t("sonraki");
   $("#sinir-liste").innerHTML = ["s.1", "s.2", "s.3", "s.4"].map((k) => `<li>${t(k)}</li>`).join("");
@@ -536,10 +538,11 @@ td.sayi, th.sayi { text-align: right; font-variant-numeric: tabular-nums; white-
 
   // ---------- Kitabın belirttiği unsurlar (alıntı bankasından, bölüm başlığıyla) ----------
   const alinti = (id) => (V.alintilar || []).find((a) => a.id === id);
-  // İngilizcede resmî İngilizce baskıdan, bölüm ve sayfasıyla; resmî İngilizcesi olmayan alıntıda Türkçe özgün metin, Türkçe bölüm
-  // başlığı ve altında işaretli gayriresmî çeviri (METODOLOJI 2.7)
+  // İngilizcede resmî İngilizce baskıdan, bölüm ve sayfasıyla; resmî İngilizcesi olmayan alıntıda Türkçe özgün metin, bölüm
+  // İngilizce baskıdaki adıyla ve altında işaretli gayriresmî çeviri (METODOLOJI 2.7)
   const kunye = (a) => `${t("kitapta")}: ${DIL === "tr" ? esc(a.bolum) : a.metin_en
-    ? `${esc(a.bolum_en)}, ${a.basili_sayfa_en.includes("–") ? "pp." : "p."}\u00a0${esc(a.basili_sayfa_en)}` : `<span lang="tr">${esc(a.bolum)}</span>`}`;
+    ? `${esc(a.bolum_en)}, ${a.basili_sayfa_en.includes("–") ? "pp." : "p."}\u00a0${esc(a.basili_sayfa_en)}`
+    : esc({ "Giriş": "Introduction", "2. Bölüm: Birleşmiş Milletler Reformu": "Part II: A United Nations Reform" }[a.bolum] || a.bolum)}`;
   const kitapMetni = (a) => (DIL === "tr" ? `<span lang="tr">“${esc(a.metin_tr)}”</span>`
     : a.metin_en ? `<span lang="en">“${esc(a.metin_en)}”</span>`
     : `<span lang="tr">“${esc(a.metin_tr)}”</span><br><span class="kunye">${t("ceviriNotu")}:</span> ${esc(a.ceviri_en)}`);

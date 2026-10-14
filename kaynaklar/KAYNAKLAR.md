@@ -159,8 +159,9 @@ bölümlerin numaralı 206 sayfasının tamamında sayfa başlığındaki numara
 yok. Kitap PDF'i basılı baskının sayfa numaralarını içermez; kitap alıntılarının Türkçesinde sayfa numarası
 yazılmaz, atıf bölüm başlığıyla yapılır. 2019 İngilizce kitapçığında da basılı sayfa = PDF sayfası − 2
 (numaralı 15 sayfanın, basılı s. 5–19, hepsinde tutuyor). İngilizce kitapta basılı sayfa = PDF
-sayfası − 2: numaralı 163 sayfanın 162'sinde sayfa altındaki numarayla doğrulandı; tek istisna PDF s. 155'te
-OCR'ın "153"ü "133" okuması. A/74/PV.3'te sayfa numarası PDF sayfasıdır ("22/60").
+sayfası − 2. Sayfa numarası metin katmanında 164 sayfada okunuyor; 162'sinde fark tutuyor. İki istisna OCR'ın yanlış
+okumasıdır, ikisi de görüntüden okundu: PDF s. 139'da basılı "137" "iL37", PDF s. 155'te basılı "153" "133" olarak
+okunuyor. A/74/PV.3'te sayfa numarası PDF sayfasıdır ("22/60").
 
 **İngilizce metinler.** Resmî İngilizce metin şu sırayla aranır: kaynağın resmî İngilizce sürümü
 (2022–2026 derlemesinin İngilizce bölümü, 2019 İngilizce kitapçığı, kitabın İngilizce baskısı); orada
@@ -168,8 +169,11 @@ yoksa BM'nin İngilizce toplantı kaydı. Alıntı 2019-2'nin İngilizcesi 2019 
 (kitapçık konuşmanın hazırlanmış metnidir; Türkçe kitapçık kürsüde söyleneni verir); İngilizcesi
 A/74/PV.3'ten alındı (s. 22; kayıtta "spoke in Turkish; English interpretation provided by the
 delegation"). Kitap alıntılarının İngilizcesi İngilizce baskıdan, basılı sayfa numarası ve İngilizce bölüm
-başlığıyla (Introduction; Part II: A United Nations Reform) alındı. Kitap-7 iki sayfaya yayılır (s. 184–185):
-iki sayfanın gövdesi, sayfa başlığı ve sayfa numarası satırı çıkarılarak birleştirilip aranır. Resmî
+başlığıyla (Introduction; Part II: A United Nations Reform) alındı. Kitap-7 iki sayfaya yayılır (s. 184–185).
+Alıntının başı birinci sayfanın gövdesinin tam sonunda, devamı ikinci sayfanın gövdesinin tam başında aranır. Gövde,
+sayfa başlığı ve sayfa numarası çıkarılmış metindir. pdftotext'in iki uygulaması sayfa kenarını farklı verir: xpdf
+(Git Bash ile gelir) hecelenmiş sözcüğü ve numarayı ayrı satırlarda verir, Poppler (PowerShell'de varsayılan) numarayı
+sözcüğe yapıştırır ("Secu184"). Bu yüzden doğrulama ikisiyle de sınandı. Resmî
 İngilizcesi bulunamayan alıntıda Türkçe özgün metin kalır ve altına "Unofficial translation by Veto Atlas"
 etiketli çeviri eklenir (`ceviri_en`); şu an böyle bir alıntı yok.
 

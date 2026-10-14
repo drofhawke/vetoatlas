@@ -200,7 +200,7 @@ footer { border-top: 1px solid var(--cizgi); margin: 32px 0 48px; padding-top: 1
       sayfaBasligi: "Story · Veto Atlas",
       sayfaAciklamasi: "The veto in seven steps: who stopped what, how many times, in the Security Council.",
       baslik: "The veto in seven steps",
-      bolum: ({ b }) => ({ "Giriş": "Introduction", "2. Bölüm: Birleşmiş Milletler Reformu": 'Chapter 2: <span lang="tr">Birleşmiş Milletler Reformu</span> (Reform of the United Nations)' }[b] || `<span lang="tr">${b}</span>`), ceviriNotu: "Unofficial translation by Veto Atlas",
+      bolum: ({ b }) => ({ "Giriş": "Introduction", "2. Bölüm: Birleşmiş Milletler Reformu": "Part II: A United Nations Reform" }[b] || `<span lang="tr">${b}</span>`), ceviriNotu: "Unofficial translation by Veto Atlas",
       giris1: "Who stopped what in the Security Council, and how many times? In seven steps, from the records.",
       asagi: "Scroll to continue", ray: "Steps",
       kunyeKim: "President Recep Tayyip Erdoğan", sayfaKisa: "p.",
@@ -350,7 +350,8 @@ footer { border-top: 1px solid var(--cizgi); margin: 32px 0 48px; padding-top: 1
   // Künye, bütün sayfalarda ve kartlarda aynı sıra ve ayraçla (KILAVUZ bölüm 2, "Künye"): Cumhurbaşkanı Recep Tayyip Erdoğan
   // · etkinlik · tarih · s. N; kitapta … · Daha Adil Bir Dünya Mümkün · bölüm. İngilizcede resmî İngilizce metnin kaynağı:
   // kitapta İngilizce baskı (… · A Fairer World is Possible · bölüm · p. N), BM kaydında belge simgesi (A/74/PV.3, p. N).
-  // Resmî İngilizcesi olmayan alıntıda künye Türkçe kaynağı gösterir; Türkçe parçalar lang="tr". HTML döndürür.
+  // Resmî İngilizcesi olmayan alıntıda künye Türkçe kaynağı gösterir (İngilizcede kitap adı ve bölüm İngilizce baskıdaki gibi).
+  // HTML döndürür.
   const KITAP = "Daha Adil Bir Dünya Mümkün", KITAP_EN = "A Fairer World is Possible";
   const kunye = (a) => {
     const kim = esc(t("kunyeKim"));
@@ -358,7 +359,7 @@ footer { border-top: 1px solid var(--cizgi); margin: 32px 0 48px; padding-top: 1
     const s = ingilizce ? a.basili_sayfa_en : a.basili_sayfa;
     const sayfa = `${ingilizce && a.belge_en ? `${esc(a.belge_en)}, ` : ""}${ingilizce && s.includes("–") ? "pp." : esc(t("sayfaKisa"))}\u00a0${esc(s)}`;
     if (a.bolum) return ingilizce ? `${kim} · ${KITAP_EN} · ${esc(a.bolum_en)} · ${sayfa}`
-      : `${kim} · ${DIL === "tr" ? KITAP : `<span lang="tr">${KITAP}</span>`} · ${t("bolum", { b: esc(a.bolum) })}`;
+      : `${kim} · ${DIL === "tr" ? KITAP : KITAP_EN} · ${t("bolum", { b: esc(a.bolum) })}`;
     return `${kim} · ${esc(etkinlikAdi(a))} · ${esc(tarihUzun(a.tarih))} · ${sayfa}`;
   };
   // Giriş alıntısı: atlasın çıkış noktası, alıntı bankasındaki metnin içinden birebir (KILAVUZ bölüm 2, "Hikâye"; METODOLOJI 2.7).

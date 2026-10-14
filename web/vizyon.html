@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Söz ve Kayıt · Veto Atlası</title>
-<meta name="description" content="BM Genel Kurulu hitaplarından ve “Daha Adil Bir Dünya Mümkün” kitabından alıntılar, veto veri setinden hesaplanan karşılıklarıyla. / Quotations from addresses to the UN General Assembly and the book “Daha Adil Bir Dünya Mümkün”, with the corresponding figures computed from the veto dataset.">
+<meta name="description" content="BM Genel Kurulu hitaplarından ve “Daha Adil Bir Dünya Mümkün” kitabından alıntılar, veto veri setinden hesaplanan karşılıklarıyla. / Quotations from addresses to the UN General Assembly and the book “A Fairer World is Possible” (“Daha Adil Bir Dünya Mümkün”), with the corresponding figures computed from the veto dataset.">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Veto Atlası / Veto Atlas">
 <meta property="og:title" content="Söz ve Kayıt · Veto Atlası / Word and Record · Veto Atlas">
-<meta property="og:description" content="BM Genel Kurulu hitaplarından ve “Daha Adil Bir Dünya Mümkün” kitabından alıntılar, veto veri setinden hesaplanan karşılıklarıyla. / Quotations from addresses to the UN General Assembly and the book “Daha Adil Bir Dünya Mümkün”, with the corresponding figures computed from the veto dataset.">
+<meta property="og:description" content="BM Genel Kurulu hitaplarından ve “Daha Adil Bir Dünya Mümkün” kitabından alıntılar, veto veri setinden hesaplanan karşılıklarıyla. / Quotations from addresses to the UN General Assembly and the book “A Fairer World is Possible” (“Daha Adil Bir Dünya Mümkün”), with the corresponding figures computed from the veto dataset.">
 <meta property="og:image" content="https://vetoatlas.com/onizleme.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -165,7 +165,7 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
 <div class="kap">
   <header class="giris">
     <h1 data-t="baslik"></h1>
-    <p data-t="giris1"></p>
+    <p data-t-html="giris1"></p>
     <details class="yontem"><summary data-t="okuma"></summary><p data-t="giris2"></p></details>
     <nav class="icindekiler" aria-labelledby="icindekiler-baslik">
       <b id="icindekiler-baslik" data-t="icindekiler"></b>
@@ -219,7 +219,7 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
 
     <section aria-labelledby="h-model">
       <h2 id="h-model" data-t="h.model"></h2>
-      <p class="model-kunye">Recep Tayyip Erdoğan, <i lang="tr">Daha Adil Bir Dünya Mümkün: Birleşmiş Milletler Reformu İçin Bir Model Önerisi</i>, Turkuvaz Kitap, 2021.</p>
+      <p class="model-kunye" data-t-html="model.kunye"></p>
       <p class="aciklama" data-t="model.aciklama"></p>
       <div role="table" aria-labelledby="h-model">
         <div class="sutun-basliklari model-sutunlari" role="row"><span role="columnheader" data-t="sutun.unsur"></span><span role="columnheader" data-t="sutun.kitaptan"></span></div>
@@ -273,6 +273,7 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
       sayfa: ({ s }) => `s.\u00a0${s}`, bolum: ({ b }) => b,
       kunyeKim: "Cumhurbaşkanı Recep Tayyip Erdoğan",
       etkinlik: ({ oturum }) => `BM ${oturum}. Genel Kurulu hitabı`, etkinlik74: "BM 74. Genel Kurulu konuşması",
+      "model.kunye": 'Recep Tayyip Erdoğan, <i lang="tr">Daha Adil Bir Dünya Mümkün: Birleşmiş Milletler Reformu İçin Bir Model Önerisi</i>, Turkuvaz Kitap, 2021.',
       ceviriNotu: "",
       "sutun.soz": "Söz", "sutun.kayit": "Kayıt", "sutun.unsur": "Unsur", "sutun.kitaptan": "Kitaptan",
       "k.toplam": ({ n, oy, tarih }) => `${tarih} itibarıyla ${n} öneri veto ile düştü; ${oy} ret oyu kullanıldı.`,
@@ -314,9 +315,9 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
     },
     en: {
       sayfaBasligi: "Word and Record · Veto Atlas",
-      sayfaAciklamasi: "Quotations from addresses to the UN General Assembly and the book “Daha Adil Bir Dünya Mümkün”, with the corresponding figures computed from the veto dataset.",
+      sayfaAciklamasi: "Quotations from addresses to the UN General Assembly and the book “A Fairer World is Possible” (“Daha Adil Bir Dünya Mümkün”), with the corresponding figures computed from the veto dataset.",
       baslik: "Word and Record",
-      giris1: "This page sets quotations from President Recep Tayyip Erdoğan’s addresses to the United Nations General Assembly and from the book “Daha Adil Bir Dünya Mümkün” (literally “A Fairer World Is Possible”) side by side with the corresponding figures computed from the atlas dataset.",
+      giris1: 'This page sets quotations from President Recep Tayyip Erdoğan’s addresses to the United Nations General Assembly and from the book “A Fairer World is Possible” (<span lang="tr">“Daha Adil Bir Dünya Mümkün”</span>) side by side with the corresponding figures computed from the atlas dataset.',
       okuma: "How to read this page", icindekiler: "Contents",
       giris2: "For the addresses the printed page number is given; for the book, the chapter title. No causal link between a quotation and a figure is claimed.",
       "sim.satir": "To count the votes of a real veto record under two systems:", "sim.bag": "What if there were no veto? →",
@@ -337,10 +338,11 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
       "galeri.coklu": ({ n }) => `${n} proposals`, "galeri.tumu": ({ n }) => `Show all (${n} cards)`,
       "model.aciklama": "The book proposes a four-part reform model for the Security Council: representation, the number of members, the veto and permanent membership, and the Council’s relationship with the General Assembly. Each element appears below in the book’s own words; the two options the book offers for the number of members are given in the book’s order.",
       "cizelge.aciklama": "Publication of the book, adoption of A/RES/76/262 and the vetoes debated in the General Assembly since then, in date order.",
-      sayfa: ({ s }) => `${s.includes("–") ? "pp." : "p."}\u00a0${s}`, bolum: ({ b }) => ({ "Giriş": "Introduction", "2. Bölüm: Birleşmiş Milletler Reformu": 'Chapter 2: <span lang="tr">Birleşmiş Milletler Reformu</span> (Reform of the United Nations)' }[b] || `<span lang="tr">${b}</span>`),
+      sayfa: ({ s }) => `${s.includes("–") ? "pp." : "p."}\u00a0${s}`, bolum: ({ b }) => ({ "Giriş": "Introduction", "2. Bölüm: Birleşmiş Milletler Reformu": "Part II: A United Nations Reform" }[b] || `<span lang="tr">${b}</span>`),
       kunyeKim: "President Recep Tayyip Erdoğan",
       etkinlik: ({ oturum }) => `Address to the ${oturum}${{ 1: "st", 2: "nd", 3: "rd" }[oturum % 10] && Math.floor(oturum / 10) % 10 !== 1 ? { 1: "st", 2: "nd", 3: "rd" }[oturum % 10] : "th"} Session of the UN General Assembly`,
       etkinlik74: "Address to the 74th Session of the UN General Assembly",
+      "model.kunye": 'Recep Tayyip Erdoğan, <i>A Fairer World is Possible: A Proposed Model for a United Nations Reform</i>, Turkuvaz Kitap, 2021; Turkish original: <i lang="tr">Daha Adil Bir Dünya Mümkün</i>.',
       ceviriNotu: "Unofficial translation by Veto Atlas",
       "sutun.soz": "Word", "sutun.kayit": "Record", "sutun.unsur": "Element", "sutun.kitaptan": "From the book",
       "k.toplam": ({ n, oy, tarih }) => `As of ${tarih}, ${n} proposals had failed because of a veto; ${oy} negative votes had been cast.`,
@@ -371,9 +373,9 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
       "k.bak": "Details below",
       "m.temsil": "Representation", "m.temsilOzet": "The Introduction proposes that the Council be restructured so as to represent continents, faiths, origins and cultures fairly.",
       "m.sayi": "Number of members: two options", "m.sayiOzet": "The Introduction contains two options: 20 permanent members instead of 5, and, as an alternative, the election by the General Assembly of the 20 countries to sit on the Council.",
-      "m.veto": "Veto and permanent membership", "m.vetoOzet": "The book makes the removal of the veto and of the current understanding of permanent membership a precondition of reform. Chapter 2 proposes that Council members come from the General Assembly, with fixed terms and on a rotating basis.",
-      "m.gk": "General Assembly and Security Council", "m.gkOzet": "Chapter 2 proposes that the General Assembly be the legislator and the Council the executive, and that the Council be accountable to the General Assembly.",
-      "c.kitap": "“Daha Adil Bir Dünya Mümkün” published (Turkuvaz Kitap, first edition).",
+      "m.veto": "Veto and permanent membership", "m.vetoOzet": "The book makes the removal of the veto and of the current understanding of permanent membership a precondition of reform. Part II proposes that Council members come from the General Assembly, with fixed terms and on a rotating basis.",
+      "m.gk": "General Assembly and Security Council", "m.gkOzet": "Part II proposes that the General Assembly be the legislator and the Council the executive, and that the Council be accountable to the General Assembly.",
+      "c.kitap": "“A Fairer World is Possible” published (Turkuvaz Kitap, first edition).",
       "c.762": "The General Assembly adopted A/RES/76/262 without a vote (A/76/PV.69, p. 8). Türkiye was among the original sponsors of the draft (A/76/L.52); in its statement after the adoption, the representative of Türkiye said that Türkiye had been in the core group (A/76/PV.69, p. 20).",
       "c.veto": ({ gundem, uyeler }) => `Veto: ${gundem} (${uyeler}).`,
       "c.gk": ({ tur, tarihler }) => `General Assembly: ${tur}, ${tarihler}.`,
@@ -392,6 +394,8 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
   metaYaz('meta[property="og:locale"]', DIL === "tr" ? "tr_TR" : "en_GB");
   metaYaz('meta[property="og:locale:alternate"]', DIL === "tr" ? "en_GB" : "tr_TR");
   document.querySelectorAll("[data-t]").forEach((e) => { e.textContent = t(e.dataset.t); });
+  // İçinde dil işareti (lang="tr") olan metinler: sayfanın kendi sözlüğünden, HTML olarak
+  document.querySelectorAll("[data-t-html]").forEach((e) => { e.innerHTML = t(e.dataset.tHtml); });
   $("#sim-satir").innerHTML = `${t("sim.satir")} <a href="simulasyon.html${ek}">${t("sim.bag")}</a>`;
 
   const V = window.VETO_VERISI;
@@ -445,13 +449,13 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
   // Künye, bütün sayfalarda ve kartlarda aynı sıra ve ayraçla (KILAVUZ bölüm 2, "Künye"): Cumhurbaşkanı Recep Tayyip Erdoğan
   // · etkinlik · tarih · s. N; kitapta … · Daha Adil Bir Dünya Mümkün · bölüm. İngilizcede resmî İngilizce metnin kaynağı:
   // kitapta İngilizce baskı (… · A Fairer World is Possible · bölüm · p. N), BM kaydında belge simgesi (A/74/PV.3, p. N).
-  // Resmî İngilizcesi olmayan alıntıda künye Türkçe kaynağı gösterir; Türkçe parçalar lang="tr".
+  // Resmî İngilizcesi olmayan alıntıda künye Türkçe kaynağı gösterir (İngilizcede kitap adı ve bölüm İngilizce baskıdaki gibi).
   const KITAP = "Daha Adil Bir Dünya Mümkün", KITAP_EN = "A Fairer World is Possible";
   const kunye = (a) => {
     const kim = esc(t("kunyeKim"));
     const en = DIL === "en" && a.metin_en;
     if (a.bolum) return en ? `${kim} · ${KITAP_EN} · ${esc(a.bolum_en)} · ${t("sayfa", { s: a.basili_sayfa_en })}`
-      : `${kim} · ${DIL === "tr" ? KITAP : `<span lang="tr">${KITAP}</span>`} · ${t("bolum", { b: esc(a.bolum) })}`;
+      : `${kim} · ${DIL === "tr" ? KITAP : KITAP_EN} · ${t("bolum", { b: esc(a.bolum) })}`;
     const oturum = (a.etkinlik.match(/(\d+)\./) || [])[1];
     const etk = DIL === "tr" ? a.etkinlik : (oturum === "74" ? t("etkinlik74") : t("etkinlik", { oturum }));
     const s = en ? a.basili_sayfa_en : a.basili_sayfa;

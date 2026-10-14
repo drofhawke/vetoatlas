@@ -203,7 +203,11 @@ def test_kitaptaki_model_basligi_ve_girisi():
     assert '<li><a href="#h-model" data-t="h.model"></a></li>' in v
     kunye = ("Recep Tayyip Erdoğan, <i lang=\"tr\">Daha Adil Bir Dünya Mümkün: Birleşmiş Milletler Reformu İçin Bir Model Önerisi</i>, "
              "Turkuvaz Kitap, 2021.")
-    assert f'<h2 id="h-model" data-t="h.model"></h2>\n      <p class="model-kunye">{kunye}</p>\n' in v
+    # Künye dile göre: Türkçede Türkçe baskı, İngilizcede İngilizce baskı ve Türkçe özgün adı (KILAVUZ, "Kitabın adı")
+    assert '<h2 id="h-model" data-t="h.model"></h2>\n      <p class="model-kunye" data-t-html="model.kunye"></p>\n' in v
+    assert f'"model.kunye": \'{kunye}\',' in v
+    assert ('"model.kunye": \'Recep Tayyip Erdoğan, <i>A Fairer World is Possible: A Proposed Model for a United Nations Reform</i>, '
+            'Turkuvaz Kitap, 2021; Turkish original: <i lang="tr">Daha Adil Bir Dünya Mümkün</i>.\',') in v
     assert ".model-kunye { margin: 0 0 var(--b3); font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); color: var(--murekkep-2);" in v
     kaynaklar = (KOK / "kaynaklar/KAYNAKLAR.md").read_text(encoding="utf-8")
     assert ("Recep Tayyip Erdoğan, *Daha Adil Bir Dünya Mümkün: Birleşmiş Milletler Reformu İçin Bir Model Önerisi*, Turkuvaz Kitap, "
@@ -276,8 +280,8 @@ def test_kunye_tek_bicim():
     h, v = oku("hikaye.html"), oku("vizyon.html")
     for s in (h, v):
         assert 'const KITAP = "Daha Adil Bir Dünya Mümkün", KITAP_EN = "A Fairer World is Possible";' in s
-        assert ': `${kim} · ${DIL === "tr" ? KITAP : `<span lang="tr">${KITAP}</span>`} · ${t("bolum", { b: esc(a.bolum) })}`;' in s
-        assert """'Chapter 2: <span lang="tr">Birleşmiş Milletler Reformu</span> (Reform of the United Nations)'""" in s
+        assert ': `${kim} · ${DIL === "tr" ? KITAP : KITAP_EN} · ${t("bolum", { b: esc(a.bolum) })}`;' in s
+        assert '"2. Bölüm: Birleşmiş Milletler Reformu": "Part II: A United Nations Reform"' in s and "Chapter 2" not in s
     assert 'kunyeKim: "Cumhurbaşkanı Recep Tayyip Erdoğan", sayfaKisa: "s.",' in h and 'kunyeKim: "President Recep Tayyip Erdoğan", sayfaKisa: "p.",' in h
     assert 'if (a.bolum) return ingilizce ? `${kim} · ${KITAP_EN} · ${esc(a.bolum_en)} · ${sayfa}`' in h
     assert 'if (a.bolum) return en ? `${kim} · ${KITAP_EN} · ${esc(a.bolum_en)} · ${t("sayfa", { s: a.basili_sayfa_en })}`' in v
@@ -316,7 +320,8 @@ def test_denetim_sonrasi_duzeltmeler():
     assert h.count('<span data-yer="konu-sayisi"></span>') == 2 and "15 konudan" not in h and "one of 15 topics" not in h
     assert "yer('[data-yer=\"konu-sayisi\"]').textContent = sayi((m.konular || []).length);" in h
     # lang="tr" işaretleri
-    assert ': `<span lang="tr">${esc(a.bolum)}</span>`}`;' in oku("simulasyon.html")  # resmî İngilizcesi olmayan kitap alıntısında
+    # Resmî İngilizcesi olmayan kitap alıntısında bölüm İngilizce baskıdaki adıyla
+    assert ': esc({ "Giriş": "Introduction", "2. Bölüm: Birleşmiş Milletler Reformu": "Part II: A United Nations Reform" }[a.bolum] || a.bolum)}`;' in oku("simulasyon.html")
     md = oku("metodoloji.html")
     assert '<span lang="tr">“Dünya 5’ten Büyüktür.”</span>' in md and '<span lang="tr">DHL listesinin kapsamı</span>' in md
     # Temsil: tek cümle + Metodoloji 2.9 bağlantısı (iki dilde doğru adres)
@@ -478,3 +483,47 @@ def test_vetolar_kapali_oturum_etiketi_kaynaga_uygun():
     for k in K:
         if k["kapali"]:
             assert any("kaynak tarafından atfedilmiş" in n["tr"] for n in k["notlar"]), k["id"]
+
+
+def test_kitabin_adi_ingilizce_sayfalarda():
+    """Kullanıcı kararı (14 Ekim 2026; KILAVUZ "Kitabın adı"): İngilizce sayfalarda kitap “A Fairer World is Possible” adıyla
+    anılır; her sayfada ilk geçişte Türkçe özgün adı parantez içinde ve lang="tr" ile (meta açıklamada yalnız parantez).
+    Bölüm İngilizcede "Part II", Türkçede "2. Bölüm". "literally" açıklaması yok."""
+    import re
+    ilk = '“A Fairer World is Possible” (<span lang="tr">“Daha Adil Bir Dünya Mümkün”</span>'
+    meta = "“A Fairer World is Possible” (“Daha Adil Bir Dünya Mümkün”)"
+    for ad, ilk_anahtar in (("vizyon.html", "giris1"), ("simulasyon.html", '"p.oneriKural"'),
+                            ("reform.html", '"modelIlk.Daha Adil Bir Dünya Mümkün"')):
+        s = oku(ad)
+        en = s[s.index("    en: {"):]
+        en = en[:en.index("\n    },")]
+        tr = s[s.index("    tr: {"):s.index("    en: {")]
+        assert "Chapter 2" not in s and "literally" not in s, ad
+        assert re.search(re.escape(ilk_anahtar) + r": '[^']*" + re.escape(ilk), en), ad
+        # İngilizce sözlükte Türkçe ad yalnızca ilk geçişte (lang="tr"), meta açıklamada (parantez) ve künyede geçer
+        for m in re.finditer("Daha Adil Bir Dünya Mümkün", en):
+            if en[m.end():m.end() + 2] == '":':  # sözlük anahtarı (ör. "model.Daha Adil Bir Dünya Mümkün"), metin değil
+                continue
+            cevre = en[max(0, m.start() - 160):m.end() + 10]
+            assert ('lang="tr"' in cevre) or (meta in cevre) or ("Turkish original" in cevre), (ad, cevre)
+        if ad == "vizyon.html":
+            assert tr.count("2. Bölüm") == 2 and "Part II" not in tr  # Türkçe sayfada "2. Bölüm" kalır
+        # Meta etiketleri sözlükteki açıklamayla aynı (ikisinde de Türkçe ad parantez içinde)
+        assert s.count(meta) == 3, ad
+    r = oku("reform.html")
+    assert 's.replace(/2\\. Bölüm/g, "Part II")' in r
+    assert "const modelAdi = (m, ilk) => (ilk && SOZLUK[DIL][\"modelIlk.\" + m]) || esc(t(\"model.\" + m));" in r
+    for ad in ("vizyon.html", "simulasyon.html"):
+        assert 'document.querySelectorAll("[data-t-html]").forEach((e) => { e.innerHTML = t(e.dataset.tHtml); });' in oku(ad)
+    import csv
+    with open(KOK / "kaynaklar/reform_modelleri.csv", encoding="utf-8", newline="") as f:
+        satirlar = list(csv.DictReader(f))
+    assert not any("Chapter" in x["en"] for x in satirlar) and any("Part II:" in x["en"] for x in satirlar)
+    md = (KOK / "METODOLOJI_EN.md").read_text(encoding="utf-8")
+    assert md.count("Daha Adil Bir Dünya Mümkün") == 1
+    assert "from the book *A Fairer World is Possible* ([*Daha Adil Bir Dünya Mümkün*]{lang=tr})." in md
+    assert '<span lang="tr"><em>Daha Adil Bir Dünya Mümkün</em></span>' in oku("metodoloji.html")
+    for lisans in (KOK / "LICENSE-DATA", WEB / "LICENSE-DATA.txt"):
+        t = " ".join(lisans.read_text(encoding="utf-8").split())
+        assert 'kitabın İngilizce baskısından ("A Fairer World is Possible", Turkuvaz Kitap, 2021)' in t
+        assert 'book "A Fairer World is Possible" (Turkuvaz Kitap, 2021; Turkish original: "Daha Adil Bir Dünya Mümkün"' in t

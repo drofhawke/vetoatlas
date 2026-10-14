@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Reform modelleri · Veto Atlası</title>
-<meta name="description" content="Güvenlik Konseyi reformu için dört model aynı dört ölçütle: Ezulwini Uzlaşısı, G4, Uzlaşı için Birlik ve “Daha Adil Bir Dünya Mümkün”. / Four models for Security Council reform against the same four criteria: the Ezulwini Consensus, the G4, Uniting for Consensus and “Daha Adil Bir Dünya Mümkün”.">
+<meta name="description" content="Güvenlik Konseyi reformu için dört model aynı dört ölçütle: Ezulwini Uzlaşısı, G4, Uzlaşı için Birlik ve “Daha Adil Bir Dünya Mümkün”. / Four models for Security Council reform against the same four criteria: the Ezulwini Consensus, the G4, Uniting for Consensus and “A Fairer World is Possible” (“Daha Adil Bir Dünya Mümkün”).">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Veto Atlası / Veto Atlas">
 <meta property="og:title" content="Reform modelleri · Veto Atlası / Reform models · Veto Atlas">
-<meta property="og:description" content="Güvenlik Konseyi reformu için dört model aynı dört ölçütle: Ezulwini Uzlaşısı, G4, Uzlaşı için Birlik ve “Daha Adil Bir Dünya Mümkün”. / Four models for Security Council reform against the same four criteria: the Ezulwini Consensus, the G4, Uniting for Consensus and “Daha Adil Bir Dünya Mümkün”.">
+<meta property="og:description" content="Güvenlik Konseyi reformu için dört model aynı dört ölçütle: Ezulwini Uzlaşısı, G4, Uzlaşı için Birlik ve “Daha Adil Bir Dünya Mümkün”. / Four models for Security Council reform against the same four criteria: the Ezulwini Consensus, the G4, Uniting for Consensus and “A Fairer World is Possible” (“Daha Adil Bir Dünya Mümkün”).">
 <meta property="og:image" content="https://vetoatlas.com/onizleme.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -119,7 +119,7 @@ table.reform { border-collapse: collapse; width: 100%; table-layout: fixed; font
     },
     en: {
       sayfaBasligi: "Reform models · Veto Atlas",
-      sayfaAciklamasi: "Four models for Security Council reform against the same four criteria: the Ezulwini Consensus, the G4, Uniting for Consensus and “Daha Adil Bir Dünya Mümkün”.",
+      sayfaAciklamasi: "Four models for Security Council reform against the same four criteria: the Ezulwini Consensus, the G4, Uniting for Consensus and “A Fairer World is Possible” (“Daha Adil Bir Dünya Mümkün”).",
       baslik: "Reform models",
       giris: "Four models for Security Council reform against the same criteria, in the date order of the documents.",
       okuma: "How to read this table",
@@ -127,7 +127,9 @@ table.reform { border-collapse: collapse; width: 100%; table-layout: fixed; font
       olcut: "Criterion",
       "olcut.toplam": "Total membership", "olcut.yeni_daimi": "New permanent members?", "olcut.veto": "Who holds the veto", "olcut.genel_kurul": "Relationship with the General Assembly",
       "model.Ezulwini Uzlaşısı": "Ezulwini Consensus (African Union, March 2005)", "model.G4": "G4 (A/59/L.64, July 2005)",
-      "model.Uzlaşı için Birlik": "Uniting for Consensus (A/59/L.68, July 2005)", "model.Daha Adil Bir Dünya Mümkün": "“Daha Adil Bir Dünya Mümkün” (September 2021)",
+      "model.Uzlaşı için Birlik": "Uniting for Consensus (A/59/L.68, July 2005)", "model.Daha Adil Bir Dünya Mümkün": "“A Fairer World is Possible” (September 2021)",
+      // Sayfada ilk geçiş (geniş ekranda tablo başlığı, dar ekranda ilk ölçüt): Türkçe özgün ad parantez içinde, lang="tr"
+      "modelIlk.Daha Adil Bir Dünya Mümkün": '“A Fairer World is Possible” (<span lang="tr">“Daha Adil Bir Dünya Mümkün”</span>, September 2021)',
       dayanak: "Basis",
     },
   };
@@ -147,20 +149,22 @@ table.reform { border-collapse: collapse; width: 100%; table-layout: fixed; font
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const R = V.reformModelleri || [];
   // Dayanak etiketlerinin İngilizcesi (belge kodları ve paragraf numaraları değişmez)
-  const dayanakEn = (s) => s.replace(/2\. Bölüm/g, "Chapter 2").replace(/Giriş/g, "Introduction").replace(/par\./g, "para.")
+  const dayanakEn = (s) => s.replace(/2\. Bölüm/g, "Part II").replace(/Giriş/g, "Introduction").replace(/par\./g, "para.")
     .replace(/dipnot/g, "footnote").replace(/ ve /g, " and ").replace(/kitap \(Eylül 2021\)/, "book (September 2021)");
   const MODELLER = ["Ezulwini Uzlaşısı", "G4", "Uzlaşı için Birlik", "Daha Adil Bir Dünya Mümkün"].filter((m) => R.some((r) => r.model === m));
   const OLCUTLER = ["toplam", "yeni_daimi", "veto", "genel_kurul"];
+  // Model adı; ilk geçişte sözlükte HTML biçimi varsa o (İngilizcede kitabın Türkçe özgün adı lang="tr" ile)
+  const modelAdi = (m, ilk) => (ilk && SOZLUK[DIL]["modelIlk." + m]) || esc(t("model." + m));
   const hucre = (m, o) => {
     const r = R.find((x) => x.model === m && x.olcut === o);
     return `${esc(DIL === "en" ? r.en : r.tr)}<small>${t("dayanak")}: ${esc(DIL === "en" ? dayanakEn(r.belge) : r.belge)}, ${esc(DIL === "en" ? dayanakEn(r.dayanak) : r.dayanak)}</small>`;
   };
   // Geniş ekranda tablo; dar ekranda aynı hücreler ölçüt ölçüt alt alta (CSS hangisinin görüneceğini seçer)
   $("#reform").innerHTML = `<colgroup><col class="olcut">${MODELLER.map(() => "<col>").join("")}</colgroup>
-    <thead><tr><th scope="col">${t("olcut")}</th>${MODELLER.map((m) => `<th scope="col">${esc(t("model." + m))}</th>`).join("")}</tr></thead>
+    <thead><tr><th scope="col">${t("olcut")}</th>${MODELLER.map((m) => `<th scope="col">${modelAdi(m, true)}</th>`).join("")}</tr></thead>
     <tbody>${OLCUTLER.map((o) => `<tr><th scope="row">${t("olcut." + o)}</th>${MODELLER.map((m) => `<td>${hucre(m, o)}</td>`).join("")}</tr>`).join("")}</tbody>`;
-  $("#olcutler").innerHTML = OLCUTLER.map((o) => `<section aria-labelledby="olcut-${o}"><h2 id="olcut-${o}">${t("olcut." + o)}</h2>
-    <dl>${MODELLER.map((m) => `<dt>${esc(t("model." + m))}</dt><dd>${hucre(m, o)}</dd>`).join("")}</dl></section>`).join("");
+  $("#olcutler").innerHTML = OLCUTLER.map((o, i) => `<section aria-labelledby="olcut-${o}"><h2 id="olcut-${o}">${t("olcut." + o)}</h2>
+    <dl>${MODELLER.map((m) => `<dt>${modelAdi(m, i === 0)}</dt><dd>${hucre(m, o)}</dd>`).join("")}</dl></section>`).join("");
 })();
 </script>
 </body>

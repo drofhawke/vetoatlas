@@ -126,7 +126,8 @@ def pdf_sayfalari(yol: Path) -> list[str]:
     if not shutil.which("pdftotext"):
         raise FileNotFoundError("pdftotext kurulu değil")
     cikti = subprocess.run(["pdftotext", "-enc", "UTF-8", str(yol), "-"], capture_output=True, check=True).stdout
-    return [""] + cikti.decode("utf-8").split("\f")
+    # Windows'ta Poppler satırları CRLF ile verir; normalize boşlukları zaten indirger, burada satırlar tek biçime getirilir
+    return [""] + cikti.decode("utf-8").replace("\r\n", "\n").split("\f")
 
 
 def kaynak_sayfalari(ad: str, yol: Path) -> list[str]:
@@ -142,23 +143,26 @@ def kaynak_sayfalari(ad: str, yol: Path) -> list[str]:
     return sayfalar
 
 
-def _govde(sayfa: str) -> str:
-    """Sayfanın gövdesi: baştaki büyük harfli sayfa başlığı ve sondaki sayfa numarası satırı çıkarılır."""
+def _sayfa_govdesi(sayfa: str, basili: int) -> str:
+    """Sayfanın normalize edilmiş gövdesi: baştaki sayfa başlığı (küçük harf içermeyen satırlar) ve sondaki sayfa numarası
+    çıkarılır. pdftotext'in iki uygulaması sayfa kenarlarını farklı verir: xpdf hecelenmiş sözcüğü ("Secu-") ve sayfa
+    numarasını ayrı satırlarda, Poppler numarayı sözcüğe yapıştırarak ("Secu184") ve başlığı sözcük sözcük bölerek verir."""
     satirlar = sayfa.split("\n")
-    dolu = [i for i, x in enumerate(satirlar) if x.strip()]
-    if dolu and re.fullmatch(r"\d{1,4}", satirlar[dolu[-1]].strip()):
-        del satirlar[dolu[-1]]
-    if dolu and not re.search(r"[a-zçğıöşü]", satirlar[dolu[0]]):
-        del satirlar[dolu[0]]
-    return "\n".join(satirlar).strip("\n")
+    while satirlar and not re.search(r"[a-zçğıöşü]", satirlar[0]):
+        satirlar.pop(0)
+    return re.sub(rf"-?\s*{basili}$", "", normalize("\n".join(satirlar)))
 
 
-def sayfa_metni(sayfalar: list[str], aralik: str) -> str:
-    """Tek sayfa ya da iki sayfaya yayılan alıntı için birleştirilmiş gövde (satır sonu hecelemesi normalize'da birleşir)."""
+def iki_sayfada_mi(alinti: str, sayfalar: list[str], aralik: str, fark: int) -> bool:
+    """İki sayfaya yayılan alıntı: alıntının başı birinci sayfanın gövdesinin tam sonunda, devamı ikinci sayfanın gövdesinin
+    tam başında geçer (sayfa geçişi bir sözcüğün içinde de olabilir: "Secu-"/"rity"). Atlama işareti desteklenmez."""
     bas, son = sayfa_araligi(aralik)
-    if bas == son:
-        return sayfalar[bas]
-    return "\n".join(_govde(sayfalar[i]) for i in range(bas, son + 1))
+    q, p1, p2 = normalize(alinti), _sayfa_govdesi(sayfalar[bas], bas - fark), _sayfa_govdesi(sayfalar[son], son - fark)
+    for k in range(1, len(q)):
+        sol, sag = q[:k].rstrip(), q[k:].lstrip()
+        if sol and sag and p1.endswith(sol) and p2.startswith(sag):
+            return True
+    return False
 
 
 # Kitabın bölümleri: metin katmanında bölümün ilk sayfasının başladığı ifade -> bölüm başlığı
@@ -251,10 +255,12 @@ def kaynakta_dogrula_en(a: dict, sayfalar: list[str]) -> list[str]:
     """İngilizce kaynak (kaynak_en) yerelde: metin_en'in belirtilen sayfada (ya da iki sayfada) birebir geçtiğini ve
     kitapta bölüm başlığının tuttuğunu denetler."""
     h = []
-    if not sayfada_mi(a["metin_en"], sayfa_metni(sayfalar, a["pdf_sayfa_en"])):
+    bas, son = sayfa_araligi(a["pdf_sayfa_en"])
+    if not (sayfada_mi(a["metin_en"], sayfalar[bas]) if bas == son
+            else iki_sayfada_mi(a["metin_en"], sayfalar, a["pdf_sayfa_en"], SAYFA_FARKI[a["kaynak_en"]])):
         h.append(f"metin_en {a['kaynak_en']} PDF s. {a['pdf_sayfa_en']} metninde birebir yok")
     if a["bolum_en"]:
-        bolum = kitap_bolumu(sayfalar, sayfa_araligi(a["pdf_sayfa_en"])[0], KITAP_BOLUMLERI_EN)
+        bolum = kitap_bolumu(sayfalar, bas, KITAP_BOLUMLERI_EN)
         if bolum != a["bolum_en"]:
             h.append(f"İngilizce bölüm başlığı tutmuyor: metinde '{bolum}'")
     return h

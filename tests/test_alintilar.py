@@ -124,22 +124,42 @@ def test_iki_sayfaya_yayilan_alinti(kaynak_sayfalari):
     a = next(x for x in ALINTILAR if x["id"] == "kitap-7")
     assert a["pdf_sayfa_en"] == "186–187"
     assert not A.sayfada_mi(a["metin_en"], kitap[186]) and not A.sayfada_mi(a["metin_en"], kitap[187])
-    assert A.sayfada_mi(a["metin_en"], A.sayfa_metni(kitap, "186–187"))
+    assert A.iki_sayfada_mi(a["metin_en"], kitap, "186–187", 2)
+    assert not A.iki_sayfada_mi(a["metin_en"].replace("ought to", "should"), kitap, "186–187", 2)
+    assert not A.iki_sayfada_mi(a["metin_en"], kitap, "186–187", 1)  # sayfa numarası yanlışsa gövde kenarı tutmaz
     with pytest.raises(ValueError):
         A.sayfa_araligi("186–188")
 
 
+@pytest.mark.parametrize("arac", ["xpdf", "poppler"])
+def test_iki_sayfa_pdftotext_uygulamasindan_bagimsiz(arac):
+    """Kaynak dosya gerektirmez. pdftotext'in iki uygulaması sayfa kenarını farklı verir: xpdf "Secu-" ve ayrı satırda "184";
+    Poppler (PowerShell'de varsayılan) numarayı hecelenmiş sözcüğe yapıştırır ("Secu184") ve başlığı sözcük sözcük böler."""
+    ilk = {"xpdf": "THE RELATIONSHIP\nSuch a system would neither treat all nations the same nor\nput in place irreversible privileges. The members of the Secu-\n\n184\n\n",
+           "poppler": "THE RELATIONSHIP\n\nSuch a system would neither treat all nations the same nor\n\nput in place irreversible privileges. The members of the Secu184\n\n"}[arac]
+    ikinci = {"xpdf": "A UNITED NATIONS REFORM\nrity Council must emerge out of the General Assembly. Their\nmembership terms ought to be limited.\n\n185\n",
+              "poppler": "A\n\nUNITED\n\nNATIONS\n\nREFORM\n\nrity Council must emerge out of the General Assembly. Their\n\nmembership terms ought to be limited.\n\n185\n\n"}[arac]
+    sayfalar = [""] * 186 + [ilk, ikinci]
+    q = "The members of the Security Council must emerge out of the General Assembly. Their membership terms ought to be limited."
+    assert A.iki_sayfada_mi(q, sayfalar, "186–187", 2)
+    assert not A.iki_sayfada_mi(q.replace("Security", "Securities"), sayfalar, "186–187", 2)
+    assert not A.iki_sayfada_mi("The members of the Secu", sayfalar, "186–187", 2)  # ikinci sayfadan parça yoksa iki sayfalık değil
+
+
 def test_ingilizce_kitapta_basili_sayfa_pdf_sayfasindan_iki_eksik(kaynak_sayfalari):
+    """Sayfa metninin sonundaki sayı (iki pdftotext uygulamasında da): 162 ya da 160 sayfada basılı = PDF - 2 (Poppler iki
+    sayfada numarayı sona koymuyor). Farklı çıkan beş sayfanın hepsi açıklanmıştır."""
     kitap = kaynak_sayfalari("A_Fairer_World_is_Possible_EN.pdf")
-    tutan, tutmayan = 0, []
+    tutan, farkli = 0, {}
     for i in range(1, len(kitap)):
-        satirlar = [x.strip() for x in kitap[i].splitlines() if x.strip()]
-        if satirlar and re.fullmatch(r"\d{1,3}", satirlar[-1]):
-            if int(satirlar[-1]) == i - 2:
-                tutan += 1
-            else:
-                tutmayan.append((i, satirlar[-1]))
-    assert tutan == 162 and tutmayan == [(155, "133")]  # PDF s. 155: OCR "153"ü "133" okuyor
+        m = re.search(r"(\d{1,3})$", A.normalize(kitap[i]))
+        if m and int(m[1]) == i - 2:
+            tutan += 1
+        elif m:
+            farkli[i] = m[1]
+    assert tutan >= 160
+    assert farkli == {6: "199", 9: "021", 12: "194",  # sayfa numarası değil: archive.org adresi, önsözdeki "2021", içindekiler
+                      139: "37", 155: "133"}  # OCR: basılı "137" -> "iL37", basılı "153" -> "133" (görüntüden okundu)
 
 
 def test_2019_ingilizce_kitapcik_ve_pv(kaynak_sayfalari):
