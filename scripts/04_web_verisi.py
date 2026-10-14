@@ -33,7 +33,7 @@ sys.path.insert(0, str(KOK))
 
 from veto_atlasi.genel_kurul import genel_kurul_ekle, raporlari_oku, tartismalari_oku  # noqa: E402
 from veto_atlasi.kaynak import kaynak_dogrula  # noqa: E402
-from veto_atlasi import alinti, cevrimdisi, metodoloji, tek_dosya  # noqa: E402
+from veto_atlasi import alinti, cevrimdisi, excel, metodoloji, tek_dosya  # noqa: E402
 from veto_atlasi.konu import (  # noqa: E402
     KONULAR, SINIFLANDIRILMADI, duzeltmeleri_oku, konu_dagilimi, siniflandir, sozluk_oku,
 )
@@ -297,7 +297,8 @@ def acik_veri_yaz(kayitlar: list[dict], meta: dict) -> list[dict]:
                      "sema": "schema/veto_kaydi.schema.json"},
             "kayitlar": [acik_kayit(k) for k in sorted(kayitlar, key=lambda k: (k["tarih"], k["id"]))],
         }, ensure_ascii=False, indent=1).encode("utf-8"),
-        "genel_kurul_tartismalari.csv": (KOK / "kaynaklar/genel_kurul_tartismalari.csv").read_bytes(),
+        # Kaynak BOM'suz; açık veri kopyası vetolar.csv gibi BOM'lu (Excel Türkçe karakterleri doğru açsın)
+        "genel_kurul_tartismalari.csv": "\ufeff".encode("utf-8") + (KOK / "kaynaklar/genel_kurul_tartismalari.csv").read_bytes(),
     }
     tampon = io.StringIO()
     w = csv.DictWriter(tampon, fieldnames=CSV_ALANLARI, lineterminator="\n")
@@ -305,8 +306,11 @@ def acik_veri_yaz(kayitlar: list[dict], meta: dict) -> list[dict]:
     for k in sorted(kayitlar, key=lambda k: (k["tarih"], k["id"])):
         w.writerow(csv_satiri(k))
     icerik["vetolar.csv"] = ("\ufeff" + tampon.getvalue()).encode("utf-8")  # BOM: Excel Türkçe karakterleri doğru açsın
+    # Excel kopyaları: Türkçe ayarlı Excel çift tıklamada CSV'yi ";" ile böler, sütunlar ayrılmaz (veto_atlasi/excel.py)
+    for ad in ("vetolar", "genel_kurul_tartismalari"):
+        icerik[f"{ad}.xlsx"] = excel.xlsx(excel.csv_satirlari(icerik[f"{ad}.csv"]), ad)
     dosyalar = []
-    for ad in ("vetolar.csv", "vetolar.json", "genel_kurul_tartismalari.csv"):
+    for ad in ("vetolar.csv", "vetolar.xlsx", "vetolar.json", "genel_kurul_tartismalari.csv", "genel_kurul_tartismalari.xlsx"):
         (ACIK_VERI / ad).write_bytes(icerik[ad])
         dosyalar.append({"dosya": f"veri/{ad}", "bayt": len(icerik[ad]), "sha256": hashlib.sha256(icerik[ad]).hexdigest()})
     return dosyalar

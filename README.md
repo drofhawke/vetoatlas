@@ -51,7 +51,7 @@ web/index.html                 Giriş: hikâyeye yönlendirir (yedek: yerel aç�
 web/hikaye.html                Yedi adımlı anlatı (sayılar veri setinden canlı)
 web/vetolar.html               Atlas: grafik, filtreler ve kayıtlar (tek dosya, kütüphanesiz)
 web/hakkinda.html              Hakkında: yöntemin sade özeti, bilinen sınırlar, iletişim, lisans ve Zenodo arşivi
-web/veri/                      İndirilebilir veri (vetolar.csv/json, genel_kurul_tartismalari.csv); 04 üretir
+web/veri/                      İndirilebilir veri (vetolar.csv/xlsx/json, genel_kurul_tartismalari.csv/xlsx); 04 üretir
 scripts/04_web_verisi.py       Konu, Genel Kurul tartışmaları + mutabık veriden web/veri.js üretir
 scripts/05_bekleyen_kayitlar.py  Resmî tutanağı bekleyen GK toplantılarını belge sisteminde arar (veriyi değiştirmez)
 scripts/06_onizleme_gorseli.py   web/veri.js'ten paylaşım önizleme görseli (Open Graph) üretir

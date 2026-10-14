@@ -45,8 +45,8 @@ def test_sitemap_sayfalarin_canonical_ve_hreflang_baglantilariyla_ayni():
             beklenen[dict(alt)[dil]] = alt
     assert adresler == beklenen and len(adresler) == 16
     # Açık veri dosyaları da listede; lastmod her adreste geçerli bir tarih, bugünden ileri değil, iki dil aynı tarihte
-    veri = {f"https://vetoatlas.com/veri/{p.name}" for p in (WEB / "veri").iterdir() if p.suffix in (".csv", ".json")}
-    assert set(tarihler) == set(beklenen) | veri and len(veri) == 3
+    veri = {f"https://vetoatlas.com/veri/{p.name}" for p in (WEB / "veri").iterdir() if p.suffix in (".csv", ".json", ".xlsx")}
+    assert set(tarihler) == set(beklenen) | veri and len(veri) == 5
     for loc, tarih in tarihler.items():
         assert datetime.date.fromisoformat(tarih) <= datetime.date.today(), loc
     for s in cevrimdisi.SAYFALAR:
@@ -87,7 +87,8 @@ def test_dataset_jsonld_atif_dosyasi_ve_veriyle_tutarli():
     for x in d["distribution"]:
         yol = WEB / x["contentUrl"].removeprefix("https://vetoatlas.com/")
         assert yol.is_file() and x["@type"] == "DataDownload"
-        assert x["encodingFormat"] == {".csv": "text/csv", ".json": "application/json"}[yol.suffix]
+        assert x["encodingFormat"] == {".csv": "text/csv", ".json": "application/json",
+                                       ".xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}[yol.suffix]
 
 
 def test_jsonld_yalnizca_hakkinda_sayfasinda():

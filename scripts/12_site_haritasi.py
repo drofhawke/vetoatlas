@@ -4,8 +4,8 @@ Adım 12: Arama motorları için site haritası.
     python scripts/12_site_haritasi.py   # web/sitemap.xml
 
 Sekiz sayfanın Türkçe ve İngilizce adresleri (sayfanın kendi hreflang bağlantılarıyla: tr, en, x-default) ve açık veri
-dosyaları (web/veri/). lastmod, git kaydından: sayfa için sayfanın ve yüklediği yerel dosyaların (betikler, stiller, veri),
-veri dosyası için dosyanın kendisinin son değiştiği commit'in tarihi; işlenmemiş değişiklik varsa bugün. Sayfalar ya da
+dosyaları (web/veri/: CSV, XLSX, JSON). lastmod, git kaydından: sayfa için sayfanın ve yüklediği yerel dosyaların (betikler,
+stiller, veri), veri dosyası için dosyanın kendisinin son değiştiği commit'in tarihi; işlenmemiş değişiklik varsa bugün. Sayfalar ya da
 veri değiştiğinde yayından önce yeniden çalıştırılır (04 çalıştırmaz: lastmod deponun geçmişine bağlıdır).
 tests/test_arama_motoru.py adresleri sayfalarla karşılaştırır.
 """
@@ -58,7 +58,7 @@ def uret() -> str:
             satirlar += [f'    <xhtml:link rel="alternate" hreflang="{d}" href="{a}"/>' for d, a in alt]
             satirlar.append("  </url>")
     for yol in sorted((WEB / "veri").iterdir()):
-        if yol.suffix in (".csv", ".json"):
+        if yol.suffix in (".csv", ".json", ".xlsx"):
             satirlar += ["  <url>", f"    <loc>{SITE}/veri/{yol.name}</loc>", f"    <lastmod>{son_degisiklik([yol])}</lastmod>",
                          "  </url>"]
     satirlar.append("</urlset>")

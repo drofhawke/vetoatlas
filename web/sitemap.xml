@@ -114,7 +114,11 @@
   </url>
   <url>
     <loc>https://vetoatlas.com/veri/genel_kurul_tartismalari.csv</loc>
-    <lastmod>2026-10-10</lastmod>
+    <lastmod>2026-10-14</lastmod>
+  </url>
+  <url>
+    <loc>https://vetoatlas.com/veri/genel_kurul_tartismalari.xlsx</loc>
+    <lastmod>2026-10-14</lastmod>
   </url>
   <url>
     <loc>https://vetoatlas.com/veri/vetolar.csv</loc>
@@ -123,5 +127,9 @@
   <url>
     <loc>https://vetoatlas.com/veri/vetolar.json</loc>
     <lastmod>2026-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://vetoatlas.com/veri/vetolar.xlsx</loc>
+    <lastmod>2026-10-14</lastmod>
   </url>
 </urlset>

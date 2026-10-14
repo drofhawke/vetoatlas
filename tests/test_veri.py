@@ -141,7 +141,9 @@ def test_acik_veri_dosyalari_ve_ozetleri():
     s = (KOK / "web/veri.js").read_text(encoding="utf-8")
     meta = json.loads(s[s.index("{"):s.rstrip().rindex(";")])["meta"]
     adlar = sorted(f["dosya"] for f in meta["indirmeler"])
-    assert adlar == ["veri/genel_kurul_tartismalari.csv", "veri/vetolar.csv", "veri/vetolar.json"]
+    # XLSX kopyaları: Türkçe ayarlı Excel çift tıklamada CSV sütunlarını bölmüyordu (tests/test_excel.py)
+    assert adlar == ["veri/genel_kurul_tartismalari.csv", "veri/genel_kurul_tartismalari.xlsx", "veri/vetolar.csv",
+                     "veri/vetolar.json", "veri/vetolar.xlsx"]
     for f in meta["indirmeler"]:
         icerik = (KOK / "web" / f["dosya"]).read_bytes()
         assert hashlib.sha256(icerik).hexdigest() == f["sha256"] and len(icerik) == f["bayt"]
