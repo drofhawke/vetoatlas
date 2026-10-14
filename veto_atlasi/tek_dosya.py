@@ -123,7 +123,9 @@ def varliklar_hazirla(web: Path) -> dict[str, str]:
     """Logo, çubuk işareti ve sekme simgeleri (logo paketi v2): dosya adı -> data: adresi (SVG, PNG ve ICO base64)."""
     v = {}
     for ad in ("logo-cubuk-b.svg", "logo-cubuk-b-koyu.svg", "isaret.svg", "isaret-koyu.svg", "favicon.svg"):
-        v[ad] = "data:image/svg+xml;base64," + base64.b64encode((web / ad).read_bytes()).decode()
+        # SVG metindir: satır sonu git'teki gibi LF sayılır, CRLF'li bir Windows çalışma ağacı da aynı dosyayı üretir
+        svg = (web / ad).read_bytes().replace(b"\r\n", b"\n")
+        v[ad] = "data:image/svg+xml;base64," + base64.b64encode(svg).decode()
     v["favicon.ico"] = "data:image/x-icon;base64," + base64.b64encode((web / "favicon.ico").read_bytes()).decode()
     v["apple-touch-icon.png"] = "data:image/png;base64," + base64.b64encode((web / "apple-touch-icon.png").read_bytes()).decode()
     return v

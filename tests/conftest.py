@@ -57,3 +57,27 @@ def calisma_metni():
         return _METIN_ONBELLEK[(ad, ham)]
 
     return oku
+
+
+_SAYFA_ONBELLEK: dict[str, list[str]] = {}
+
+
+@pytest.fixture
+def kaynak_sayfalari():
+    """
+    kaynak_sayfalari("A_74_PV.3.pdf") -> alıntı doğrulamasının kullandığı sayfalar ([0] boş; OCR düzeltmeleri uygulanmış).
+    Çalışma metinlerinde ve yerel belgelerde (KAYNAKLAR.md) arar; dosya yoksa, özeti tutmuyorsa ya da pdftotext yoksa testi atlar.
+    """
+    from veto_atlasi import alinti as A
+
+    def oku(ad: str) -> list[str]:
+        tablo = A.kaynak_tablosu(KOK)
+        if ad not in tablo:
+            raise KeyError(f"{ad} KAYNAKLAR.md tablolarında yok")
+        if ad not in _SAYFA_ONBELLEK:
+            if ad not in A.yerel_kaynaklar(KOK, {ad}):
+                pytest.skip(f"kaynak yerelde yok, özeti farklı ya da pdftotext kurulu değil: {ad}")
+            _SAYFA_ONBELLEK[ad] = A.kaynak_sayfalari(ad, tablo[ad][0])
+        return _SAYFA_ONBELLEK[ad]
+
+    return oku

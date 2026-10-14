@@ -31,7 +31,7 @@ def test_yedi_adim_ve_baglantilar():
     assert '"2025-1"' in BETIK and "Veriyi keşfet" in BETIK and "Explore the data" in BETIK
     # Her adımın altında alıntı bankasından söz: 1→2019-1, 2→2023-1, 3→2024-1, 4→2026-1, 5→2023-2, 6→2022-1, 7→kitap-4
     assert 'const SOZLER = ["2019-1", "2023-1", "2024-1", "2026-1", "2023-2", "2022-1", "kitap-4"];' in BETIK
-    assert "Sunuş" not in SAYFA and "Foreword" not in SAYFA and 'EPIGRAF = { tr: ["2019-1", "“Dünya 5’ten Büyüktür.”"], en: ["2023-3", "“The world is bigger than five.”"] }[DIL];' in BETIK
+    assert "Sunuş" not in SAYFA and "Foreword" not in SAYFA and 'EPIGRAF = { tr: ["2019-1", "“Dünya 5’ten Büyüktür.”"], en: ["2019-1", "The world is bigger than five!"] }[DIL];' in BETIK
     assert not re.search(r"müttefik|korumak için|adalet|haks[ıi]z", SAYFA, re.I)
     assert "prefers-reduced-motion" in SAYFA and "IntersectionObserver" in BETIK
 
@@ -318,16 +318,16 @@ def test_baslik_tek_satir():
 
 
 def test_giris_alintisi_bankadan():
-    """Öneri C: başlığın üstünde atlasın çıkış noktası kaynaklı bir alıntı olarak (taslaktaki üst yazının yerinde). Türkçede
-    2019 hitabından “Dünya 5’ten Büyüktür.”; 2019 kitapçığında İngilizce yok, İngilizcede 2023 hitabının İngilizce metninden
-    “The world is bigger than five.” (bankada 2023-3). Gösterilen metin bankadaki doğrulanmış metnin içinde birebir geçer;
-    künye bankanın tarih, etkinlik ve sayfa alanlarından. 2023-3 Söz ve Kayıt'ta ve Vetolar grafiğinde gösterilmez."""
+    """Öneri C: başlığın üstünde atlasın çıkış noktası kaynaklı bir alıntı olarak (taslaktaki üst yazının yerinde). İki dilde de
+    2019 hitabından (2019-1): Türkçede Türkçe kitapçıktaki “Dünya 5’ten Büyüktür.”, İngilizcede İngilizce kitapçıktaki
+    "The world is bigger than five!" (kaynakta tırnaksız). Gösterilen metin bankadaki doğrulanmış metnin içinde birebir geçer;
+    künye bankanın tarih, etkinlik ve sayfa alanlarından. Eskiden İngilizce giriş alıntısı olan 2023-3 bankada durur; Söz ve
+    Kayıt'ta ve Vetolar grafiğinde gösterilmez."""
     banka = {a["id"]: a for a in A.oku(KOK / "kaynaklar/alintilar.csv")}
-    assert "“Dünya 5’ten Büyüktür.”" in banka["2019-1"]["metin_tr"] and not banka["2019-1"]["metin_en"]
-    y = banka["2023-3"]
-    assert "“The world is bigger than five.”" in y["metin_en"]
-    assert (y["tarih"], y["etkinlik"], y["kaynak"], y["basili_sayfa_en"], y["pdf_sayfa_en"], y["iliskili_veri"]) == (
-        "2023-09-19", "BM 78. Genel Kurulu hitabı", "BM2026-2022-web.pdf", "177", "178", "giris")
+    x = banka["2019-1"]
+    assert "“Dünya 5’ten Büyüktür.”" in x["metin_tr"] and x["metin_en"].endswith("I say again: The world is bigger than five!")
+    assert (x["kaynak_en"], x["basili_sayfa_en"], x["basili_sayfa"]) == ("Birlesmis_Milletler_EN_2019.pdf", "6", "6")
+    assert banka["2023-3"]["iliskili_veri"] == "giris" and '"2023-3"' not in BETIK
     ids = list(banka)
     assert ids.index("2023-1") < ids.index("2023-3")  # Vetolar'daki hitap işareti 2023 için 2023-1'e bağlanır
     s = SAYFA
@@ -340,8 +340,8 @@ def test_giris_alintisi_bankadan():
     for ad, kalip in (("vizyon.html", 'a.iliskili_veri !== "model" && a.iliskili_veri !== "giris")'),
                       ("vetolar.html", 'a.iliskili_veri !== "model" && a.iliskili_veri !== "giris" && ')):
         assert kalip in (KOK / "web" / ad).read_text(encoding="utf-8"), ad
-    for md, cumle in (("METODOLOJI.md", "(alıntı bankasında 2023-3; Söz ve Kayıt'ta gösterilmez)"),
-                      ("METODOLOJI_EN.md", "(2023-3 in the quotation bank; not shown on the Word and Record page)")):
+    for md, cumle in (("METODOLOJI.md", 'İngilizcede İngilizce kitapçıktaki "The world is bigger than five!" cümlesi.'),
+                      ("METODOLOJI_EN.md", 'in English, "The world is bigger than five!" from the English booklet.')):
         assert cumle in " ".join((KOK / md).read_text(encoding="utf-8").split()), md
 
 

@@ -83,6 +83,7 @@ indirme kaydından (Windows Zone.Identifier) ya da indiren komuttan alındı.
 | `WPP2024_GEN_F01_DEMOGRAPHIC_INDICATORS_COMPACT.xlsx` | BM Dünya Nüfus Beklentileri 2024 (WPP 2024), demografik göstergeler, kompakt dosya (POP/DB/WPP/Rev.2024/GEN/F01/Rev.1); sayfalar "Estimates" (1950–2023), "Medium variant", "NOTES". Lisans CC BY 3.0 IGO; atıf (dosyadaki metin): "United Nations, Department of Economic and Social Affairs, Population Division (2024). World Population Prospects 2024, Online Edition." Kullanılan sütun: "Total Population, as of 1 January (thousands)", yıllar 1963 ve 2023. Erişim 10 Ekim 2026. | https://population.un.org/wpp/assets/Excel%20Files/1_Indicator%20(Standard)/EXCEL_FILES/1_General/WPP2024_GEN_F01_DEMOGRAPHIC_INDICATORS_COMPACT.xlsx | – | 26142942 | `98e34d9b65b53858cd08a57a566e45050b08093ad85ba5714fe6fbd78055ae6d` |
 | `Scale_of_Assessments_for_RB_1946-2027.xlsx` | Katkılar Komitesi, "United Nations Scale of assessments for the Regular budget 1946-2027" (Excel); 2025–2027 sütunu A/RES/79/249 (24 Aralık 2024) ölçeğidir, toplam 100. Erişim 10 Ekim 2026. A/RES/79/249 PDF'inden pdftotext ile okuma sütun kaydırdığı için (ör. Türkiye 0,018 görünür, doğru değer 0,685) Excel esas alındı. | https://www.un.org/en/ga/contributions/Scale%20of%20Assessments%20for%20RB%201946-2027.xlsx | – | 78130 | `737d0d78b0225ad10c3f42328799fe28842634ac0d697eba5e023cb2e1edbbd8` |
 | `02_country_ranking_95_february_2026.pdf` | BM Barış Gücü, "Uniformed Personnel Contributing Countries by Ranking: Experts on Mission, Formed Police Units, Individual Police, Staff Officer, and Troops, As of: 28/02/2026" (aylık rapor 95); 119 ülke, genel toplam 47 298. Sayfa https://peacekeeping.un.org/en/troop-and-police-contributors (dosya adresi sayfa betiğinden). Erişim 10 Ekim 2026. | https://peacekeeping.un.org/sites/default/files/2026-03/02_country_ranking_95_february_2026.pdf | 4 | 189126 | `f5896fe44e71a204fa4e37f05de482c898e158d523e3dc4d7e6c0146d0cc9e3a` |
+| `A_74_PV.3.pdf` | Genel Kurul, 74. oturum, 3. genel kurul toplantısının kaydı, 24 Eylül 2019 (A/74/PV.3), İngilizce, Resmî Kayıtlar. Cumhurbaşkanı Erdoğan'ın konuşması s. 19–24; kayıttaki not: "spoke in Turkish; English interpretation provided by the delegation". Metin katmanı dijitaldir (taranmamış). Sayfa numarası = PDF sayfası ("22/60"). Dayanak olduğu kayıt: alıntı 2019-2'nin İngilizcesi (2019 İngilizce kitapçığında bu pasaj yok). Betikle indirildi (14 Ekim 2026, 08:14 UTC). | https://documents.un.org/api/symbol/access?s=A/74/PV.3&l=en&t=pdf | 60 | 969653 | `6be031612fdcc26dc8f49904bf83cb7ee8841b53bbb6bfeeba635c72d13836ce` |
 | `A_RES_1991_XVIII.pdf` | Genel Kurul kararı 1991 (XVIII) A ve B, 17 Aralık 1963: Güvenlik Konseyi ve Ekonomik ve Sosyal Konsey'de adil temsil; A par. 3: on seçilmiş üyenin dağılımı (Afrika ve Asya 5, Doğu Avrupa 1, Latin Amerika 2, Batı Avrupa ve diğerleri 2). Taranmış, OCR metin katmanı. | https://documents.un.org/api/symbol/access?s=A/RES/1991(XVIII)&l=en&t=pdf | 2 | 158586 | `245d9b915f14104fed7109f5f7b5a1eff3654e186cdde35ab6a95418e97a0aef` |
 
 **DHL listesinin kapsamı.** DHL veto listesi, 1946–2004 verisini A/58/47 Annex III'ten aldığını
@@ -139,21 +140,44 @@ Alıntı bankası ve model sayfası için kullanılan metinler `kaynaklar/calism
 yalnızca yerelde tutulur (`.gitignore`). Depoda künyeleri, indirme adresleri ve SHA-256 değerleri
 durur; aynı dosyayı indiren herkes özetle karşılaştırarak aynı metni kullandığını doğrulayabilir.
 Alıntı testleri bu dosyalar yerelde varsa çalışır, yoksa atlanır (`tests/conftest.py`).
-İndirme adresleri dosyaların indirme kaydından (Windows Zone.Identifier) alındı; adreslere
-otomatik istek atılmadı.
+İndirme adresleri dosyaların indirme kaydından (Windows Zone.Identifier) alındı. İlk üç dosyanın
+adreslerine otomatik istek atılmadı. 2019 İngilizce kitapçığının adresinden 14 Ekim 2026'da dosya
+yeniden indirildi; aynı özeti veriyor.
 
 | Dosya | Künye | İndirme adresi | Bayt | SHA-256 |
 |---|---|---|---|---|
 | `Birlesmis_milletler_konuşması2019.pdf` | Türkiye Cumhuriyeti Cumhurbaşkanı Recep Tayyip Erdoğan, *Birleşmiş Milletler 74. Genel Kurulu Konuşması*, 24 Eylül 2019, New York. Cumhurbaşkanlığı İletişim Başkanlığı yayını, 36 sayfa. | https://yayinlar.iletisim.gov.tr/uploads/Birlesmis_milletler_konu%C5%9Fmas%C4%B1.pdf (yayın sayfası: https://yayinlar.iletisim.gov.tr/detay/cumhurbaskani-recep-tayyip-erdoganin-birlesmis-milletler-74-genel-kurulu-konusmasi) | 984189 | `7560e5dae69d5794beb9b365ecde136688b5c894239c4dac30c163b5025f21f8` |
 | `BM2026-2022-web.pdf` | *Cumhurbaşkanı Recep Tayyip Erdoğan'ın BM Genel Kurulu Hitapları (2022-2026)* / *President Recep Tayyip Erdoğan's Addresses at the UN General Assembly (2022–2026)*, Türkçe, İngilizce ve Arapça. Cumhurbaşkanlığı İletişim Başkanlığı Yayınları, 1. baskı, Eylül 2026, ISBN 978-625-8937-23-7, 292 sayfa. | https://yayinlar.iletisim.gov.tr/uploads/BM2026-2022-web.pdf (yayın sayfası: https://yayinlar.iletisim.gov.tr/detay/cumhurbaskanimiz-recep-tayyip-erdoganin-bm-genel-kurulu-hitaplari) | 78253223 | `95a411fc27a712d09a4e67037ad87e5c93117813b9468907b7752ad42df732ed` |
 | `DahaAdilBirDünyaMümkün.pdf` | Recep Tayyip Erdoğan, *Daha Adil Bir Dünya Mümkün: Birleşmiş Milletler Reformu İçin Bir Model Önerisi*, Turkuvaz Kitap, 1. baskı, Eylül 2021, ISBN 978-625-7548-08-3, 132 sayfa. Hakları Turkuvaz Medya Grubu'na aittir. | Resmî indirme adresi yok; yerel kopya bir paylaşım sitesinden (pdfkitapoku.org, Yandex Disk) indirildi. PDF basılı baskının sayfa numaralarını içermez: alıntılara sayfa numarası yazılmaz, atıf yalnızca bölüm başlığıyla yapılır. | 1375541 | `8cc02a625387f855980f2c960e53fffb9a9ec2a9c0a0ac7e7f9856046c9aac9e` |
+| `Birlesmis_Milletler_EN_2019.pdf` | President of the Republic of Turkey Recep Tayyip Erdoğan's *Address to the 74th Session of the United Nations General Assembly*, 24 September 2019, New York. Cumhurbaşkanlığı İletişim Başkanlığı yayını; Türkçe kitapçıkla aynı yayın sayfasındaki İngilizce sürüm, 24 sayfa. Konuşmanın hazırlanmış metnidir: kürsüde eklenen bazı cümleler (ör. alıntı 2019-2) bu kitapçıkta yoktur. Erişim 14 Ekim 2026. | https://yayinlar.iletisim.gov.tr/uploads/Birles%CC%A7mis%CC%A7_Milletler_EN.pdf (yayın sayfası: https://yayinlar.iletisim.gov.tr/detay/cumhurbaskani-recep-tayyip-erdoganin-birlesmis-milletler-74-genel-kurulu-konusmasi) | 953956 | `3da12fb7d63c00fca759a2a33c0016e39e2590262593bc9c63882f76047a174c` |
+| `A_Fairer_World_is_Possible_EN.pdf` | Recep Tayyip Erdoğan, *A Fairer World is Possible: A Proposed Model for a United Nations Reform*, çeviren Doğan Eşkinat, Turkuvaz Kitap, 1. baskı (First Printing), Eylül 2021, ISBN 978-625-7548-19-9. Hakları Turkuvaz Haberleşme ve Yayıncılık A.Ş.'ye aittir. *Daha Adil Bir Dünya Mümkün*'ün İngilizce baskısı. Künye, PDF s. 4'teki künye sayfasının görüntüsünden okundu. | Resmî indirme adresi yok; yerel kopya basılı baskının Internet Archive taramasıdır (https://archive.org/details/isbn_9786257548199, 2022) ve bir paylaşım sitesinden indirildi (https://dokumen.pub/download/a-fairer-world-is-possible-a-proposed-model-for-a-united-nations-reform-1nbsped-9786257548199.html). Taranmıştır, metin katmanı OCR'dır: alıntılar sayfa görüntüleriyle karşılaştırıldı (aşağıda "OCR düzeltmesi"). 220 PDF sayfası; basılı sayfa = PDF sayfası − 2. | 8789570 | `a6e6f0ef6feb74ac947a7d46b666a6be6c26c035ccf39f010ec81d1524bdcb53` |
 
 **Sayfa numaraları.** Alıntı bankasında (`kaynaklar/alintilar.csv`) basılı sayfa ve PDF sayfası
 birlikte tutulur. 2019 kitapçığında basılı sayfa = PDF sayfası − 2 (kapak ve iç kapak
 numarasız). 2022–2026 derlemesinde basılı sayfa = PDF sayfası − 1. Bu fark, Türkçe ve İngilizce
 bölümlerin numaralı 206 sayfasının tamamında sayfa başlığındaki numarayla doğrulandı; istisna
-yok. Kitap PDF'i basılı baskının sayfa numaralarını içermez; kitap alıntılarında sayfa numarası
-yazılmaz, atıf bölüm başlığıyla yapılır.
+yok. Kitap PDF'i basılı baskının sayfa numaralarını içermez; kitap alıntılarının Türkçesinde sayfa numarası
+yazılmaz, atıf bölüm başlığıyla yapılır. 2019 İngilizce kitapçığında da basılı sayfa = PDF sayfası − 2
+(numaralı 15 sayfanın, basılı s. 5–19, hepsinde tutuyor). İngilizce kitapta basılı sayfa = PDF
+sayfası − 2: numaralı 163 sayfanın 162'sinde sayfa altındaki numarayla doğrulandı; tek istisna PDF s. 155'te
+OCR'ın "153"ü "133" okuması. A/74/PV.3'te sayfa numarası PDF sayfasıdır ("22/60").
+
+**İngilizce metinler.** Resmî İngilizce metin şu sırayla aranır: kaynağın resmî İngilizce sürümü
+(2022–2026 derlemesinin İngilizce bölümü, 2019 İngilizce kitapçığı, kitabın İngilizce baskısı); orada
+yoksa BM'nin İngilizce toplantı kaydı. Alıntı 2019-2'nin İngilizcesi 2019 İngilizce kitapçığında yok
+(kitapçık konuşmanın hazırlanmış metnidir; Türkçe kitapçık kürsüde söyleneni verir); İngilizcesi
+A/74/PV.3'ten alındı (s. 22; kayıtta "spoke in Turkish; English interpretation provided by the
+delegation"). Kitap alıntılarının İngilizcesi İngilizce baskıdan, basılı sayfa numarası ve İngilizce bölüm
+başlığıyla (Introduction; Part II: A United Nations Reform) alındı. Kitap-7 iki sayfaya yayılır (s. 184–185):
+iki sayfanın gövdesi, sayfa başlığı ve sayfa numarası satırı çıkarılarak birleştirilip aranır. Resmî
+İngilizcesi bulunamayan alıntıda Türkçe özgün metin kalır ve altına "Unofficial translation by Veto Atlas"
+etiketli çeviri eklenir (`ceviri_en`); şu an böyle bir alıntı yok.
+
+**OCR düzeltmesi.** İngilizce kitabın metin katmanı OCR'dır. Alıntıların geçtiği yedi sayfa
+(PDF s. 33, 34, 139, 140, 182, 186, 187) sayfa görüntüsüyle karşılaştırıldı. Tek fark PDF s. 34'te (basılı 32):
+basılı sayfadaki boşluklu kısa tireyi (–) OCR uzun tire (—) okuyor. Doğrulama bu yeri görüntüdeki gibi düzeltip
+arar (`veto_atlasi/alinti.py`, `OCR_DUZELTMELERI`). Düzeltme sayfada tam bir kez geçmezse doğrulama durur.
+Bunun dışında metin katmanına dokunulmaz.
 
 **Dizgi sorunu.** Derlemenin 2025 Türkçe bölümünün son sayfasında (PDF s. 50, basılı 49) metin
 katmanında konuşmanın son satırlarına önsözün metni karışıyor. Sayfa görüntüsünde yalnızca
@@ -162,9 +186,11 @@ görüntüsüyle karşılaştırıldı (`tests/test_alintilar.py`).
 
 **Alıntı doğrulaması.** Her alıntı, kaynağın metin katmanında belirtilen sayfada kelimesi
 kelimesine geçmelidir (boşluk, satır sonu ve satır sonu hecelemesi normalize edilir).
-Doğrulama sonucu `kaynaklar/alintilar_dogrulama.csv` dosyasına alıntı metinlerinin ve kaynağın
-SHA-256 özetleriyle yazılır. Kaynaklar yerelde yoksa 04 betiği alıntıları bu kayda göre kabul
-eder; kayıtta olmayan ya da metni değişmiş alıntı sisteme giremez.
+Türkçe metin Türkçe kaynakta, İngilizce metin İngilizce kaynakta ayrı ayrı aranır.
+Doğrulama sonucu `kaynaklar/alintilar_dogrulama.csv` dosyasına alıntı metinlerinin ve kaynakların
+SHA-256 özetleriyle yazılır. Kaynak yerelde yoksa 04 betiği o kaynaktan gelen metni bu kayda göre kabul
+eder; kayıtta olmayan ya da metni değişmiş alıntı sisteme giremez. BM belgesi olan kaynak (A/74/PV.3)
+"Yerel belgeler" tablosundadır ve `scripts/07_belgeleri_indir.py` ile indirilir.
 
 ## Güvenlik Konseyi reform modelleri (vizyon sayfası karşılaştırma tablosu)
 

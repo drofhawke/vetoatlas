@@ -273,7 +273,7 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
       sayfa: ({ s }) => `s.\u00a0${s}`, bolum: ({ b }) => b,
       kunyeKim: "Cumhurbaşkanı Recep Tayyip Erdoğan",
       etkinlik: ({ oturum }) => `BM ${oturum}. Genel Kurulu hitabı`, etkinlik74: "BM 74. Genel Kurulu konuşması",
-      dilNotu: "",
+      ceviriNotu: "",
       "sutun.soz": "Söz", "sutun.kayit": "Kayıt", "sutun.unsur": "Unsur", "sutun.kitaptan": "Kitaptan",
       "k.toplam": ({ n, oy, tarih }) => `${tarih} itibarıyla ${n} öneri veto ile düştü; ${oy} ret oyu kullanıldı.`,
       "k.toplamOnce": ({ n, oy, tarih }) => `Bu konuşmanın yapıldığı ${tarih} gününe kadar: ${n} öneri, ${oy} ret oyu.`,
@@ -337,11 +337,11 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
       "galeri.coklu": ({ n }) => `${n} proposals`, "galeri.tumu": ({ n }) => `Show all (${n} cards)`,
       "model.aciklama": "The book proposes a four-part reform model for the Security Council: representation, the number of members, the veto and permanent membership, and the Council’s relationship with the General Assembly. Each element appears below in the book’s own words; the two options the book offers for the number of members are given in the book’s order.",
       "cizelge.aciklama": "Publication of the book, adoption of A/RES/76/262 and the vetoes debated in the General Assembly since then, in date order.",
-      sayfa: ({ s }) => `p.\u00a0${s}`, bolum: ({ b }) => ({ "Giriş": "Introduction", "2. Bölüm: Birleşmiş Milletler Reformu": 'Chapter 2: <span lang="tr">Birleşmiş Milletler Reformu</span> (Reform of the United Nations)' }[b] || `<span lang="tr">${b}</span>`),
+      sayfa: ({ s }) => `${s.includes("–") ? "pp." : "p."}\u00a0${s}`, bolum: ({ b }) => ({ "Giriş": "Introduction", "2. Bölüm: Birleşmiş Milletler Reformu": 'Chapter 2: <span lang="tr">Birleşmiş Milletler Reformu</span> (Reform of the United Nations)' }[b] || `<span lang="tr">${b}</span>`),
       kunyeKim: "President Recep Tayyip Erdoğan",
       etkinlik: ({ oturum }) => `Address to the ${oturum}${{ 1: "st", 2: "nd", 3: "rd" }[oturum % 10] && Math.floor(oturum / 10) % 10 !== 1 ? { 1: "st", 2: "nd", 3: "rd" }[oturum % 10] : "th"} Session of the UN General Assembly`,
       etkinlik74: "Address to the 74th Session of the UN General Assembly",
-      dilNotu: "Turkish original; the source has no English text.",
+      ceviriNotu: "Unofficial translation by Veto Atlas",
       "sutun.soz": "Word", "sutun.kayit": "Record", "sutun.unsur": "Element", "sutun.kitaptan": "From the book",
       "k.toplam": ({ n, oy, tarih }) => `As of ${tarih}, ${n} proposals had failed because of a veto; ${oy} negative votes had been cast.`,
       "k.toplamOnce": ({ n, oy, tarih }) => `Up to the day of this address, ${tarih}: ${n} proposals, ${oy} negative votes.`,
@@ -443,19 +443,25 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
   const konusmalar = alintilar.filter((a) => a.iliskili_veri !== "model" && a.iliskili_veri !== "giris");
   const kitap = alintilar.filter((a) => a.iliskili_veri === "model");
   // Künye, bütün sayfalarda ve kartlarda aynı sıra ve ayraçla (KILAVUZ bölüm 2, "Künye"): Cumhurbaşkanı Recep Tayyip Erdoğan
-  // · etkinlik · tarih · s. N; kitapta … · Daha Adil Bir Dünya Mümkün · bölüm. İngilizcede Türkçe parçalar lang="tr".
-  const KITAP = "Daha Adil Bir Dünya Mümkün";
+  // · etkinlik · tarih · s. N; kitapta … · Daha Adil Bir Dünya Mümkün · bölüm. İngilizcede resmî İngilizce metnin kaynağı:
+  // kitapta İngilizce baskı (… · A Fairer World is Possible · bölüm · p. N), BM kaydında belge simgesi (A/74/PV.3, p. N).
+  // Resmî İngilizcesi olmayan alıntıda künye Türkçe kaynağı gösterir; Türkçe parçalar lang="tr".
+  const KITAP = "Daha Adil Bir Dünya Mümkün", KITAP_EN = "A Fairer World is Possible";
   const kunye = (a) => {
     const kim = esc(t("kunyeKim"));
-    if (a.bolum) return `${kim} · ${DIL === "tr" ? KITAP : `<span lang="tr">${KITAP}</span>`} · ${t("bolum", { b: esc(a.bolum) })}`;
+    const en = DIL === "en" && a.metin_en;
+    if (a.bolum) return en ? `${kim} · ${KITAP_EN} · ${esc(a.bolum_en)} · ${t("sayfa", { s: a.basili_sayfa_en })}`
+      : `${kim} · ${DIL === "tr" ? KITAP : `<span lang="tr">${KITAP}</span>`} · ${t("bolum", { b: esc(a.bolum) })}`;
     const oturum = (a.etkinlik.match(/(\d+)\./) || [])[1];
     const etk = DIL === "tr" ? a.etkinlik : (oturum === "74" ? t("etkinlik74") : t("etkinlik", { oturum }));
-    const s = DIL === "en" && a.metin_en ? a.basili_sayfa_en : a.basili_sayfa;
-    return `${kim} · ${esc(etk)} · ${tarihUzun(a.tarih)} · ${t("sayfa", { s })}`;
+    const s = en ? a.basili_sayfa_en : a.basili_sayfa;
+    return `${kim} · ${esc(etk)} · ${tarihUzun(a.tarih)} · ${en && a.belge_en ? `${esc(a.belge_en)}, ` : ""}${t("sayfa", { s })}`;
   };
-  const alintiMetni = (a) => (DIL === "en" && a.metin_en
-    ? `<blockquote lang="en">${esc(a.metin_en)}</blockquote>`
-    : `<blockquote lang="tr">${esc(a.metin_tr)}</blockquote>${DIL === "en" ? `<span class="dil-notu">${t("dilNotu")}</span>` : ""}`);
+  // İngilizcede resmî İngilizce metin; resmî İngilizcesi olmayan alıntıda Türkçe özgün metin ve altında işaretli gayriresmî
+  // çeviri (METODOLOJI 2.7)
+  const alintiMetni = (a) => (DIL === "tr" ? `<blockquote lang="tr">${esc(a.metin_tr)}</blockquote>`
+    : a.metin_en ? `<blockquote lang="en">${esc(a.metin_en)}</blockquote>`
+    : `<blockquote lang="tr">${esc(a.metin_tr)}</blockquote><p class="ceviri"><span class="dil-notu">${t("ceviriNotu")}:</span> ${esc(a.ceviri_en)}</p>`);
   // Yüzde işareti Türkçede sayının önünde (%18,3), İngilizcede arkasında (18.3%)
   const yuzde1 = (p) => { const s = (100 * p).toLocaleString(DIL === "tr" ? "tr-TR" : "en-GB", { minimumFractionDigits: 1, maximumFractionDigits: 1 }); return DIL === "tr" ? "%" + s : s + "%"; };
   const grupOzeti = () => {
@@ -610,7 +616,7 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
 
   // ---------- Model ----------
   const kitapAlinti = (id) => { const a = kitap.find((x) => x.id === id); return a
-    ? `<blockquote lang="tr">${esc(a.metin_tr)}</blockquote><p class="kunye">${kunye(a)}${DIL === "en" ? ` · ${t("dilNotu")}` : ""}</p>` : ""; };
+    ? `${alintiMetni(a)}<p class="kunye">${kunye(a)}</p>` : ""; };
   const MADDELER = [["m.temsil", "m.temsilOzet", ["kitap-1"]], ["m.sayi", "m.sayiOzet", ["kitap-2", "kitap-3"]],
     ["m.veto", "m.vetoOzet", ["kitap-4", "kitap-7"]], ["m.gk", "m.gkOzet", ["kitap-5", "kitap-6"]]];
   $("#model").innerHTML = MADDELER.map(([b, o, ids]) => `<div class="kutu" role="row"><div class="model-ozet" role="cell"><h3>${t(b)}</h3><p>${t(o)}</p></div><div class="model-alinti" role="cell">${ids.map(kitapAlinti).join("")}</div></div>`).join("");

@@ -270,11 +270,11 @@
    "tur": "alinti",
    "buyuk": {
     "tr": "Bu kürsüden yıllardır insanlığın kaderinin sınırlı sayıdaki ülkenin ihtiyarına bırakılamayacağını söylüyorum. Burada sizlerin huzurunda tekrar ediyorum; “Dünya 5’ten Büyüktür.”",
-    "en": "Bu kürsüden yıllardır insanlığın kaderinin sınırlı sayıdaki ülkenin ihtiyarına bırakılamayacağını söylüyorum. Burada sizlerin huzurunda tekrar ediyorum; “Dünya 5’ten Büyüktür.”"
+    "en": "I have been saying for years that we cannot afford to place humanity’s fate into the hands of a small group of nations. Today, in your presence, I say again: The world is bigger than five!"
    },
    "metin": {
     "tr": "Cumhurbaşkanı Recep Tayyip Erdoğan",
-    "en": "President Recep Tayyip Erdoğan (Turkish original; the source has no English text)"
+    "en": "President Recep Tayyip Erdoğan"
    },
    "kaynak": {
     "tr": "BM 74. Genel Kurulu konuşması · 24 Eylül 2019 · s. 6",
@@ -625,7 +625,7 @@
    "boyut": "1200x630",
    "html": "kart-08-alinti-2019-en-1200x630.html",
    "png": "kart-08-alinti-2019-en-1200x630.png",
-   "png_sha256": "b620e964c8f09d67c85187f13594536410689b947647576480aa2f99a9e8d844"
+   "png_sha256": "4b1e5c2f588526c1592dff385c74ff280a9eff1551160c4c650136ef97dbb62e"
   },
   {
    "kart": "kart-08-alinti-2019",
@@ -633,7 +633,7 @@
    "boyut": "1080x1080",
    "html": "kart-08-alinti-2019-en-1080x1080.html",
    "png": "kart-08-alinti-2019-en-1080x1080.png",
-   "png_sha256": "9410ee8864a66b9185e783abad9be011bf7acce45ae695ece61fd7429eac8200"
+   "png_sha256": "fa7047112336abfff0a86e11849be6ece48f2eadafd0add24439a2e07b0943ce"
   }
  ]
 }

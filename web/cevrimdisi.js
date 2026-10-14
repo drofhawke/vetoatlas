@@ -4,7 +4,7 @@
  * sunulur. Yalnızca site içi GET isteklerine karışır.
  */
 "use strict";
-const SURUM = "veto-atlasi-51e36da9b7cf4158";
+const SURUM = "veto-atlasi-9f0799382c17bdc4";
 const SAYFALAR = ["/hikaye", "/vetolar", "/vizyon", "/reform", "/simulasyon", "/temsil", "/hakkinda", "/metodoloji"];
 const DOSYALAR = ["/apple-touch-icon.png", "/cubuk.js", "/favicon.ico", "/favicon.svg", "/fonts/fonts.css", "/fonts/source-sans-3-latin-400-italic.woff2", "/fonts/source-sans-3-latin-400-normal.woff2", "/fonts/source-sans-3-latin-500-normal.woff2", "/fonts/source-sans-3-latin-600-normal.woff2", "/fonts/source-sans-3-latin-ext-400-italic.woff2", "/fonts/source-sans-3-latin-ext-400-normal.woff2", "/fonts/source-sans-3-latin-ext-500-normal.woff2", "/fonts/source-sans-3-latin-ext-600-normal.woff2", "/fonts/source-serif-4-latin-400-normal.woff2", "/fonts/source-serif-4-latin-600-normal.woff2", "/fonts/source-serif-4-latin-ext-400-normal.woff2", "/fonts/source-serif-4-latin-ext-600-normal.woff2", "/icon-192.png", "/icon-512.png", "/icon-maskable-192.png", "/icon-maskable-512.png", "/isaret-koyu.svg", "/isaret.svg", "/logo-cubuk-b-koyu.svg", "/logo-cubuk-b.svg", "/metin.js", "/site.webmanifest", "/suzgec.js", "/temel.css", "/temsil_veri.js", "/veri.js"];
 

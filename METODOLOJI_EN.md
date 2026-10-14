@@ -284,16 +284,34 @@ General Assembly in 2019 and 2022-2026 and from the book "Daha Adil Bir Dünya M
 are not in the repository; their bibliographic details and SHA-256 values are in
 `kaynaklar/KAYNAKLAR.md`. Quotations are cut from the PDF text layer, and each is searched for word
 for word, with whitespace normalised, on the page given. For the addresses, the printed page and
-the PDF page are both kept; the English text is taken from the English section of the
-compilation, not translated. Because the book PDF carries no printed page numbers, no page number
-is given for book quotations; they are attributed by chapter title. If a quotation cannot be
-verified, `04_web_verisi.py` stops. When a quotation is shortened with an ellipsis (…), each part
-separated by the ellipsis is searched for separately and word for word in the source; the parts must
-come in the source's order and from the same passage. The quotation bank keeps the full text; the
-shortened form is used only in the story (the opening quotation and step 7). The story's opening quotation is the
-sentence [“Dünya 5’ten Büyüktür.”]{lang=tr} from the 2019 address in Turkish; since the 2019 booklet has no English text, the
-English version uses “The world is bigger than five.” from the English text of the 2023 address (2023-3 in the
-quotation bank; not shown on the Word and Record page).
+the PDF page are both kept. Because the Turkish PDF of the book carries no printed page numbers, no
+page number is given for the Turkish text of book quotations; they are attributed by chapter title. If a
+quotation cannot be verified, `04_web_verisi.py` stops. When a quotation is shortened with an ellipsis (…),
+each part separated by the ellipsis is searched for separately and word for word in the source; the parts
+must come in the source's order and from the same passage. The quotation bank keeps the full text; the
+shortened form is used only in the story (the opening quotation and step 7). The story's opening quotation
+comes from the 2019 address: in Turkish, the sentence [“Dünya 5’ten Büyüktür.”]{lang=tr} from the Turkish
+booklet; in English, "The world is bigger than five!" from the English booklet.
+
+The English pages use the official English text of each quotation; the atlas does not translate quotations.
+The official English text follows the same rule as the Turkish text: it is searched for word for word on the
+page given in its own source, `04_web_verisi.py` stops if it cannot be verified, and the tests
+(`tests/test_alintilar.py`) check every English text whose source is available locally against that source.
+The sources are:
+- 2022–2026 addresses: the English section of the compilation.
+- 2019 address: the English booklet of the Directorate of Communications. The booklet is the prepared text of
+  the speech. For the passage added at the rostrum that is not in the booklet (2019-2), the English is taken
+  from the UN's English meeting record (A/74/PV.3). The speech was delivered in Turkish; the English in the
+  record is the interpretation provided by the delegation.
+- The book: the English edition, *A Fairer World is Possible* (Turkuvaz Kitap, 2021), with printed page
+  numbers and English chapter titles. The PDF of the English edition is a scan with an OCR text layer, so the
+  pages holding the quotations were compared with the page images. The single place where the OCR differs
+  from the image (an en dash on p. 32) is corrected to match the image before the search
+  (`kaynaklar/KAYNAKLAR.md`).
+
+Where no official English text can be found, the English page keeps the Turkish original and adds below it a
+translation labelled "Unofficial translation by Veto Atlas". Such a translation is not verified against a
+source. At present every quotation has an official English text.
 
 The Word and Record page (`web/vizyon.html`) places next to each quotation a corresponding figure computed from the dataset.
 Figures are computed when the page loads; no causal link is drawn between a quotation and a

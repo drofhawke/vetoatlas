@@ -99,6 +99,19 @@ def test_tek_dosya_surumu_guncel_ve_kendine_yeter():
         assert ad in s
 
 
+def test_tek_dosya_satir_sonundan_bagimsiz(tmp_path):
+    """CRLF'li bir Windows çalışma ağacı (core.autocrlf=true) da açık depodaki (LF) ile aynı tek dosyayı üretir."""
+    import shutil
+    from veto_atlasi import tek_dosya
+    shutil.copytree(WEB, tmp_path / "web", ignore=shutil.ignore_patterns("kartlar", "veri"))
+    for p in (tmp_path / "web").rglob("*"):
+        if p.is_file() and p.suffix in {".html", ".js", ".css", ".svg"}:
+            v = p.read_bytes().replace(b"\r\n", b"\n")
+            p.write_bytes(v.replace(b"\n", b"\r\n"))
+    yeni = tek_dosya.uret(tmp_path)
+    assert yeni.read_text(encoding="utf-8") == (WEB / tek_dosya.CIKTI).read_text(encoding="utf-8")
+
+
 def test_stil_ve_veri_dosyalari_dis_adres_istemez():
     for css in WEB.rglob("*.css"):
         dis = [u for u in css_adresleri(css.read_text(encoding="utf-8")) if dis_adres_mi(u)]

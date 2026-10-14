@@ -383,7 +383,7 @@ td.sayi, th.sayi { text-align: right; font-variant-numeric: tabular-nums; white-
       "t.not": ({ n, kapali, oysuz, a, b, c }) => `Oy dağılımı kayıtlı ${n} kayıt sayıldı. Kapalı oturum vetoları (${kapali}) ve oy dağılımı olmayan kayıtlar (${oysuz}) ayrı sütunlarda. 11 üyeli Konsey (1965’e kadar) için eşikler 7, 8 ve 6; 15 üyeli Konsey için 9, 10 ve 8. Mevcut sistemde kayıtlı sonuç her kayıtta “düştü”dür. 20 üyeli Konsey satırlarında seçili eşiğin oranı korunur (${a}, ${b} ve ${c}); hesap yalnızca kayıtlı oylara dayanır, kayıtta olmayan 5 (1966 öncesinde 9) üyenin oyu tahmin edilmez. Bu satırlarda “Yeni üyelerin oyuna bağlı”, kayıtlı evet oylarının eşiğe ulaşmadığı ama bu üyelerin oyuyla ulaşılabilecek kayıtlardır; “Düşerdi”, bu üyelerin hepsi evet dese de eşiğe ulaşılamayan kayıtlardır.`,
       "e.cogunluk": "mevcut çoğunluk kuralı (9/15; 7/11)", "e.ucteiki": "üçte iki (10/15; 8/11)", "e.salt": "salt çoğunluk (8/15; 6/11)",
       "e20.cogunluk": ({ e }) => `mevcut çoğunluk kuralının oranı (${e}/20)`, "e20.ucteiki": ({ e }) => `üçte iki (${e}/20)`, "e20.salt": ({ e }) => `salt çoğunluk (${e}/20)`,
-      dilNotu: "",
+      ceviriNotu: "",
     },
     en: {
       sayfaBasligi: "What if there were no veto? · Veto Atlas",
@@ -456,7 +456,7 @@ td.sayi, th.sayi { text-align: right; font-variant-numeric: tabular-nums; white-
       "t.not": ({ n, kapali, oysuz, a, b, c }) => `${n} records with a recorded vote breakdown were counted. Vetoes in private meetings (${kapali}) and records without a vote breakdown (${oysuz}) are in separate columns. Thresholds for the 11-member Council (until 1965): 7, 8 and 6; for the 15-member Council: 9, 10 and 8. Under the current system the recorded outcome is “not adopted” for every record. In the 20-member Council rows the ratio of the selected threshold is kept (${a}, ${b} and ${c}); the computation relies only on the recorded votes, and the votes of the 5 (before 1966, 9) members not on record are not guessed. In these rows, “depends on the new members’ votes” covers records whose recorded yes votes fall short of the threshold but could reach it with these members’ votes; “would not have been adopted” covers records that would not reach it even if all of them voted yes.`,
       "e.cogunluk": "current majority rule (9/15; 7/11)", "e.ucteiki": "two thirds (10/15; 8/11)", "e.salt": "simple majority (8/15; 6/11)",
       "e20.cogunluk": ({ e }) => `ratio of the current majority rule (${e}/20)`, "e20.ucteiki": ({ e }) => `two thirds (${e}/20)`, "e20.salt": ({ e }) => `simple majority (${e}/20)`,
-      dilNotu: "Turkish original; the source has no English text.",
+      ceviriNotu: "Unofficial translation by Veto Atlas",
     },
   };
   const t = (a, p) => { const v = SOZLUK[DIL][a] ?? SOZLUK.tr[a]; return typeof v === "function" ? v(p || {}) : v; };
@@ -536,10 +536,16 @@ td.sayi, th.sayi { text-align: right; font-variant-numeric: tabular-nums; white-
 
   // ---------- Kitabın belirttiği unsurlar (alıntı bankasından, bölüm başlığıyla) ----------
   const alinti = (id) => (V.alintilar || []).find((a) => a.id === id);
-  const kunye = (a) => `${t("kitapta")}: ${DIL === "en" ? `<span lang="tr">${esc(a.bolum)}</span>` : esc(a.bolum)}`;
+  // İngilizcede resmî İngilizce baskıdan, bölüm ve sayfasıyla; resmî İngilizcesi olmayan alıntıda Türkçe özgün metin, Türkçe bölüm
+  // başlığı ve altında işaretli gayriresmî çeviri (METODOLOJI 2.7)
+  const kunye = (a) => `${t("kitapta")}: ${DIL === "tr" ? esc(a.bolum) : a.metin_en
+    ? `${esc(a.bolum_en)}, ${a.basili_sayfa_en.includes("–") ? "pp." : "p."}\u00a0${esc(a.basili_sayfa_en)}` : `<span lang="tr">${esc(a.bolum)}</span>`}`;
+  const kitapMetni = (a) => (DIL === "tr" ? `<span lang="tr">“${esc(a.metin_tr)}”</span>`
+    : a.metin_en ? `<span lang="en">“${esc(a.metin_en)}”</span>`
+    : `<span lang="tr">“${esc(a.metin_tr)}”</span><br><span class="kunye">${t("ceviriNotu")}:</span> ${esc(a.ceviri_en)}`);
   const UNSUR = [["u.veto", "kitap-4"], ["u.daimi", "kitap-7"], ["u.hesap", "kitap-6"], ["u.secim", "kitap-3"]];
   $("#unsurlar").innerHTML = UNSUR.map(([ad, id]) => { const a = alinti(id); return a
-    ? `<li><b>${t(ad)}</b> <span class="etiket kaynakli">${kunye(a)}</span><br><span lang="tr">“${esc(a.metin_tr)}”</span>${DIL === "en" ? ` <span class="kunye">(${t("dilNotu")})</span>` : ""}</li>`
+    ? `<li><b>${t(ad)}</b> <span class="etiket kaynakli">${kunye(a)}</span><br>${kitapMetni(a)}</li>`
     : ""; }).join("");
 
   // ---------- Ayarlar: kitabın belirtmediği karar eşiği ve üye sayısı (atlasın varsayımı), varsayılan olarak kapalı kutuda ----------

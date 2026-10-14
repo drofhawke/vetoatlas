@@ -345,7 +345,7 @@ footer p { max-width: var(--olcu); margin: 0 0 8px; }
       "lejant.kapali": "Kapalı oturum vetosu",
       "lejant.hitap": "Cumhurbaşkanı Erdoğan’ın Genel Kurul hitabı", "lejant.isaretler": "Grafikteki işaretler",
       "hitap.etkinlik": ({ e }) => e,
-      "hitap.kaynak": ({ s }) => `s. ${s}`,
+      "hitap.kaynak": ({ s }) => `s. ${s}`, "hitap.ceviri": "",
       "hitap.aria": ({ tarih, metin }) => `Genel Kurul hitabı, ${tarih}: “${metin}” Söz ve Kayıt sayfasında aç.`,
       "donem.cin": "Çin koltuğu ÇHC'ye geçti",
       "donem.rusya": "SSCB'nin yerini Rusya aldı",
@@ -425,7 +425,7 @@ footer p { max-width: var(--olcu); margin: 0 0 8px; }
       "lejant.kapali": "Private-meeting veto",
       "lejant.hitap": "President Erdoğan’s address to the General Assembly", "lejant.isaretler": "Chart symbols",
       "hitap.etkinlik": ({ oturum }) => `Address to the ${oturum}${["11", "12", "13"].includes(String(oturum).slice(-2)) ? "th" : ({ 1: "st", 2: "nd", 3: "rd" }[oturum % 10] || "th")} Session of the UN General Assembly`,
-      "hitap.kaynak": ({ s }) => `p. ${s}`,
+      "hitap.kaynak": ({ s }) => `p. ${s}`, "hitap.ceviri": "Unofficial translation by Veto Atlas",
       "hitap.aria": ({ tarih, metin }) => `General Assembly address, ${tarih}: “${metin}” Open on the Word and Record page.`,
       "donem.cin": "China's seat passes to the PRC",
       "donem.rusya": "Russia succeeds the USSR",
@@ -641,7 +641,10 @@ footer p { max-width: var(--olcu); margin: 0 0 8px; }
     const etk = DIL === "tr" ? a.etkinlik : t("hitap.etkinlik", { oturum });
     const enVar = DIL === "en" && a.metin_en;
     const s = enVar ? a.basili_sayfa_en : a.basili_sayfa;
-    return `<strong>${tarihUzun(a.tarih)}</strong>${esc(etk)}, ${t("hitap.kaynak", { s })}<span class="alinti" lang="${enVar ? "en" : "tr"}">“${esc(enVar ? a.metin_en : a.metin_tr)}”</span>`;
+    // İngilizce metin BM kaydından geliyorsa belge simgesi sayfadan önce; resmî İngilizcesi olmayan alıntıda işaretli çeviri
+    const belge = enVar && a.belge_en ? `${esc(a.belge_en)}, ` : "";
+    const ceviri = DIL === "en" && !a.metin_en ? `<span class="alinti">${t("hitap.ceviri")}: ${esc(a.ceviri_en)}</span>` : "";
+    return `<strong>${tarihUzun(a.tarih)}</strong>${esc(etk)}, ${belge}${t("hitap.kaynak", { s })}<span class="alinti" lang="${enVar ? "en" : "tr"}">“${esc(enVar ? a.metin_en : a.metin_tr)}”</span>${ceviri}`;
   };
 
   const ipucu = $("#ipucu"), serit = $("#serit");

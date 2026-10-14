@@ -268,22 +268,29 @@ def test_kunye_tek_bicim():
     """Denetim sonrası: alıntı künyesi Hikâye'de, Söz ve Kayıt'ta ve paylaşım kartlarında aynı sıra ve ayraçla.
     Hitap: Cumhurbaşkanı Recep Tayyip Erdoğan · BM 74. Genel Kurulu konuşması · 24 Eylül 2019 · s. 6
     Kitap: Cumhurbaşkanı Recep Tayyip Erdoğan · Daha Adil Bir Dünya Mümkün · Giriş
-    İngilizcede aynı yapı (President … · Address to the 74th Session of the UN General Assembly · 24 September 2019 · p. 6);
-    Türkçe parçalar (kitap adı, bölüm adı) lang="tr". Sayfa kısaltması numarasından ayrılmaz. Kartlarda ad alıntının altında,
-    kalan kısım alt bilgide aynı sıra ve ayraçla (kart düzeni iki satırdır)."""
+    İngilizcede aynı yapı, resmî İngilizce metnin kaynağıyla (President … · Address to the 74th Session of the UN General
+    Assembly · 24 September 2019 · p. 6; BM kaydında "A/74/PV.3, p. 22"; kitapta "A Fairer World is Possible · Introduction ·
+    p. 31", iki sayfada "pp."). Resmî İngilizcesi olmayan alıntıda Türkçe parçalar (kitap adı, bölüm adı) lang="tr". Sayfa
+    kısaltması numarasından ayrılmaz. Kartlarda ad alıntının altında, kalan kısım alt bilgide aynı sıra ve ayraçla (kart
+    düzeni iki satırdır)."""
     h, v = oku("hikaye.html"), oku("vizyon.html")
     for s in (h, v):
-        assert 'const KITAP = "Daha Adil Bir Dünya Mümkün";' in s
-        assert 'if (a.bolum) return `${kim} · ${DIL === "tr" ? KITAP : `<span lang="tr">${KITAP}</span>`} · ${t("bolum", { b: esc(a.bolum) })}`;' in s
+        assert 'const KITAP = "Daha Adil Bir Dünya Mümkün", KITAP_EN = "A Fairer World is Possible";' in s
+        assert ': `${kim} · ${DIL === "tr" ? KITAP : `<span lang="tr">${KITAP}</span>`} · ${t("bolum", { b: esc(a.bolum) })}`;' in s
         assert """'Chapter 2: <span lang="tr">Birleşmiş Milletler Reformu</span> (Reform of the United Nations)'""" in s
     assert 'kunyeKim: "Cumhurbaşkanı Recep Tayyip Erdoğan", sayfaKisa: "s.",' in h and 'kunyeKim: "President Recep Tayyip Erdoğan", sayfaKisa: "p.",' in h
-    assert ('return `${kim} · ${esc(etkinlikAdi(a))} · ${esc(tarihUzun(a.tarih))} · ${esc(t("sayfaKisa"))}\\u00a0'
-            '${esc(ingilizce ? a.basili_sayfa_en : a.basili_sayfa)}`;') in h
+    assert 'if (a.bolum) return ingilizce ? `${kim} · ${KITAP_EN} · ${esc(a.bolum_en)} · ${sayfa}`' in h
+    assert 'if (a.bolum) return en ? `${kim} · ${KITAP_EN} · ${esc(a.bolum_en)} · ${t("sayfa", { s: a.basili_sayfa_en })}`' in v
+    assert ('const sayfa = `${ingilizce && a.belge_en ? `${esc(a.belge_en)}, ` : ""}${ingilizce && s.includes("–") ? "pp." : '
+            'esc(t("sayfaKisa"))}\\u00a0${esc(s)}`;') in h
+    assert "return `${kim} · ${esc(etkinlikAdi(a))} · ${esc(tarihUzun(a.tarih))} · ${sayfa}`;" in h
     assert 'konusmaci: "' not in h and 't("konusmaci")' not in h and "epigrafKunye" not in h
     assert '<p class="kaynak">${kunye(a)}' in h and '<p class="kunye">${kunye(a)} · <a href=' in h
     assert 'kunyeKim: "Cumhurbaşkanı Recep Tayyip Erdoğan",' in v and 'kunyeKim: "President Recep Tayyip Erdoğan",' in v
-    assert "return `${kim} · ${esc(etk)} · ${tarihUzun(a.tarih)} · ${t(\"sayfa\", { s })}`;" in v
-    assert "sayfa: ({ s }) => `s.\\u00a0${s}`" in v and "sayfa: ({ s }) => `p.\\u00a0${s}`" in v and "kitapEtkinlik" not in v
+    assert ("return `${kim} · ${esc(etk)} · ${tarihUzun(a.tarih)} · ${en && a.belge_en ? `${esc(a.belge_en)}, ` : \"\"}"
+            "${t(\"sayfa\", { s })}`;") in v
+    assert "sayfa: ({ s }) => `s.\\u00a0${s}`" in v and 'sayfa: ({ s }) => `${s.includes("–") ? "pp." : "p."}\\u00a0${s}`' in v
+    assert "kitapEtkinlik" not in v
     # Kartlar: ad alıntının altında; alt bilgi etkinlik · tarih · sayfa
     import json
     m = json.loads((WEB / "kartlar/kartlar.json").read_text(encoding="utf-8"))
@@ -309,7 +316,7 @@ def test_denetim_sonrasi_duzeltmeler():
     assert h.count('<span data-yer="konu-sayisi"></span>') == 2 and "15 konudan" not in h and "one of 15 topics" not in h
     assert "yer('[data-yer=\"konu-sayisi\"]').textContent = sayi((m.konular || []).length);" in h
     # lang="tr" işaretleri
-    assert 'const kunye = (a) => `${t("kitapta")}: ${DIL === "en" ? `<span lang="tr">${esc(a.bolum)}</span>` : esc(a.bolum)}`;' in oku("simulasyon.html")
+    assert ': `<span lang="tr">${esc(a.bolum)}</span>`}`;' in oku("simulasyon.html")  # resmî İngilizcesi olmayan kitap alıntısında
     md = oku("metodoloji.html")
     assert '<span lang="tr">“Dünya 5’ten Büyüktür.”</span>' in md and '<span lang="tr">DHL listesinin kapsamı</span>' in md
     # Temsil: tek cümle + Metodoloji 2.9 bağlantısı (iki dilde doğru adres)

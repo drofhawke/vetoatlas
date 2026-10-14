@@ -150,10 +150,14 @@ işaret arasında boşluk yoktur. Sayfalarda, kartlarda ve testlerde aynıdır; 
 
 **Künye.** Alıntı künyesi Hikâye'de, Söz ve Kayıt'ta ve paylaşım kartlarında aynı sıra ve ayraçladır:
 "Cumhurbaşkanı Recep Tayyip Erdoğan · BM 74. Genel Kurulu konuşması · 24 Eylül 2019 · s. 6"; kitap alıntısında
-"Cumhurbaşkanı Recep Tayyip Erdoğan · Daha Adil Bir Dünya Mümkün · Giriş". İngilizcede aynı yapı ("President Recep
-Tayyip Erdoğan · Address to the 74th Session of the UN General Assembly · 24 September 2019 · p. 6"); bölüm adı
-İngilizceye aktarılır (Introduction; Chapter 2: … (Reform of the United Nations)), Türkçe kalan parçalar (kitap adı, bölüm
-başlığı) `lang="tr"` ile işaretlenir. "s." ve "p." numarasından ayrılmaz. Paylaşım kartlarında ad alıntının altında,
+"Cumhurbaşkanı Recep Tayyip Erdoğan · Daha Adil Bir Dünya Mümkün · Giriş". İngilizcede aynı yapı, resmî İngilizce
+metnin kaynağıyla ("President Recep Tayyip Erdoğan · Address to the 74th Session of the UN General Assembly · 24 September
+2019 · p. 6"). İngilizce metin BM toplantı kaydından geliyorsa sayfadan önce belge simgesi yazılır ("… · 24 September
+2019 · A/74/PV.3, p. 22"). Kitap alıntısında İngilizce baskı, bölümü ve sayfasıyla yazılır ("President Recep Tayyip
+Erdoğan · A Fairer World is Possible · Introduction · p. 31"); iki sayfaya yayılan alıntıda "pp. 184–185". Resmî
+İngilizcesi olmayan alıntıda künye Türkçe kaynağı gösterir: bölüm adı İngilizceye aktarılır (Introduction; Chapter 2: …
+(Reform of the United Nations)), Türkçe kalan parçalar (kitap adı, bölüm başlığı) `lang="tr"` ile işaretlenir ve alıntının
+altında "Unofficial translation by Veto Atlas" etiketli çeviri durur. "s.", "p." ve "pp." numarasından ayrılmaz. Paylaşım kartlarında ad alıntının altında,
 kalan kısım alt bilgide aynı sıra ve ayraçla durur. Simülasyondaki "Kitapta: …" etiketi ve Reform modellerindeki
 "Dayanak" satırı künye değildir.
 

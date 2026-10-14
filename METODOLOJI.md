@@ -262,15 +262,30 @@ BM'deki özgün hâliyle verilir. Bu belgenin İngilizcesi `METODOLOJI_EN.md` do
 hitaplarından ve "Daha Adil Bir Dünya Mümkün" kitabından alıntıları tutar. Kaynaklar depoda değildir;
 künyeleri ve SHA-256 değerleri `kaynaklar/KAYNAKLAR.md` dosyasındadır. Alıntılar PDF metin
 katmanından kesilir ve her biri, boşluklar normalize edilerek, belirtilen sayfada kelimesi
-kelimesine aranır. Hitaplarda basılı sayfa ve PDF sayfası birlikte tutulur; İngilizce metin
-derlemenin İngilizce bölümünden alınır, çevrilmez. Kitap PDF'i basılı sayfa numarası taşımadığı
-için kitap alıntılarında sayfa numarası yazılmaz, atıf bölüm başlığıyla yapılır. Doğrulanamayan
-alıntıda `04_web_verisi.py` durur. Bir alıntı atlama işaretiyle (…) kısaltıldığında, işaretin ayırdığı her
-parça kaynakta ayrı ayrı ve kelimesi kelimesine aranır; parçalar kaynaktaki sırasıyla ve aynı pasajdan
-gelmelidir. Alıntı bankasında tam metin kalır; kısaltılmış biçim yalnızca hikâyede kullanılır (giriş alıntısı ve
-7. adım). Hikâyenin giriş alıntısı Türkçede 2019 hitabındaki “Dünya 5’ten Büyüktür.” cümlesidir; 2019 kitapçığında
-İngilizce metin olmadığı için İngilizcede 2023 hitabının İngilizce metnindeki “The world is bigger than five.”
-kullanılır (alıntı bankasında 2023-3; Söz ve Kayıt'ta gösterilmez).
+kelimesine aranır. Hitaplarda basılı sayfa ve PDF sayfası birlikte tutulur. Kitabın Türkçe PDF'i basılı
+sayfa numarası taşımadığı için kitap alıntılarının Türkçesinde sayfa numarası yazılmaz, atıf bölüm başlığıyla
+yapılır. Doğrulanamayan alıntıda `04_web_verisi.py` durur. Bir alıntı atlama işaretiyle (…) kısaltıldığında,
+işaretin ayırdığı her parça kaynakta ayrı ayrı ve kelimesi kelimesine aranır; parçalar kaynaktaki sırasıyla ve
+aynı pasajdan gelmelidir. Alıntı bankasında tam metin kalır; kısaltılmış biçim yalnızca hikâyede kullanılır
+(giriş alıntısı ve 7. adım). Hikâyenin giriş alıntısı 2019 hitabındandır: Türkçede Türkçe kitapçıktaki
+“Dünya 5’ten Büyüktür.”, İngilizcede İngilizce kitapçıktaki "The world is bigger than five!" cümlesi.
+
+İngilizce sayfalarda alıntının resmî İngilizce metni kullanılır; atlas alıntı çevirmez. Resmî İngilizce metin
+Türkçe metinle aynı kurala bağlıdır: kendi kaynağında, belirtilen sayfada kelimesi kelimesine aranır,
+doğrulanamazsa `04_web_verisi.py` durur ve testler (`tests/test_alintilar.py`) kaynağı yerelde olan her
+İngilizce metni kaynağına karşı denetler. Kaynaklar şunlardır:
+- 2022–2026 hitapları: derlemenin İngilizce bölümü.
+- 2019 hitabı: İletişim Başkanlığı'nın İngilizce kitapçığı. Kitapçık konuşmanın hazırlanmış metnidir. Kürsüde
+  eklenen ve kitapçıkta bulunmayan pasajın (2019-2) İngilizcesi BM'nin İngilizce toplantı kaydından
+  (A/74/PV.3) alınır. Konuşma Türkçe yapıldı; kayıttaki İngilizce, delegasyonun verdiği tercümedir.
+- Kitap: İngilizce baskı *A Fairer World is Possible* (Turkuvaz Kitap, 2021), basılı sayfa numarası ve
+  İngilizce bölüm başlığıyla. İngilizce baskının PDF'i bir taramadır ve metin katmanı OCR'dır. Bu yüzden
+  alıntıların geçtiği sayfalar sayfa görüntüsüyle karşılaştırıldı. OCR'ın görüntüden farklı okuduğu tek yer
+  (s. 32'de kısa tire) görüntüdeki gibi düzeltilerek aranır (`kaynaklar/KAYNAKLAR.md`).
+
+Resmî İngilizcesi bulunamayan alıntıda İngilizce sayfada Türkçe özgün metin kalır ve altına "Unofficial
+translation by Veto Atlas" etiketli bir çeviri eklenir. Bu çeviri bir kaynağa karşı doğrulanmaz. Bugün bütün
+alıntıların resmî İngilizcesi var.
 
 Söz ve Kayıt sayfası (`web/vizyon.html`) her alıntının yanına veri setinden hesaplanan bir karşılık koyar. Sayılar sayfa
 açılırken hesaplanır; alıntı ile sayı arasında neden-sonuç ilişkisi kurulmaz. "Ekim 2023 sonrası

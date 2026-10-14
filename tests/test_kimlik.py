@@ -146,7 +146,10 @@ def test_logo_ikon_ve_bildirim():
     assert "data:image/x-icon;base64," in tek and "data:image/svg+xml;base64," in tek and "__VARLIK__" in tek
     import base64
     for ad, tur in (("favicon.ico", "image/x-icon"), ("favicon.svg", "image/svg+xml"), ("apple-touch-icon.png", "image/png")):
-        assert f"data:{tur};base64," + base64.b64encode((WEB / ad).read_bytes()).decode() in tek, ad  # tek dosyada aynı simge
+        veri = (WEB / ad).read_bytes()
+        if ad.endswith(".svg"):
+            veri = veri.replace(b"\r\n", b"\n")  # SVG'de satır sonu git'teki gibi LF (CRLF'li Windows çalışma ağacı)
+        assert f"data:{tur};base64," + base64.b64encode(veri).decode() in tek, ad  # tek dosyada aynı simge
     assert "logo-yatay-a" not in tek and "isaret-kucuk" not in tek  # kullanılmayan logo ve işaret gömülmez
     assert (KOK / "kaynaklar/kimlik/KILAVUZ.md").exists()
 

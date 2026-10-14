@@ -121,8 +121,10 @@ def hitap_kunyesi(a: dict, dil: str) -> str:
     if dil == "tr":
         return f"{a['etkinlik']} · {tarih_uzun(a['tarih'], 'tr')} · s. {a['basili_sayfa']}"
     son = {"1": "st", "2": "nd", "3": "rd"}.get(oturum[-1], "th") if oturum[-2:] not in ("11", "12", "13") else "th"
-    sayfa = a["basili_sayfa_en"] or a["basili_sayfa"]
-    return f"Address to the {oturum}{son} Session of the UN General Assembly · {tarih_uzun(a['tarih'], 'en')} · p. {sayfa}"
+    # Resmî İngilizce metnin sayfası; BM kaydından geliyorsa belge simgesiyle (A/74/PV.3, p. 22). Resmî İngilizcesi olmayan
+    # alıntıda Türkçe kaynağın sayfası.
+    sayfa = f"{a['belge_en']}, p. {a['basili_sayfa_en']}" if a["belge_en"] else f"p. {a['basili_sayfa_en'] or a['basili_sayfa']}"
+    return f"Address to the {oturum}{son} Session of the UN General Assembly · {tarih_uzun(a['tarih'], 'en')} · {sayfa}"
 
 
 def kartlar(V: dict, S: dict) -> list[dict]:
@@ -172,8 +174,8 @@ def kartlar(V: dict, S: dict) -> list[dict]:
          "metin": {"tr": "Cumhurbaşkanı Recep Tayyip Erdoğan", "en": "President Recep Tayyip Erdoğan"},
          "kaynak": {"tr": hitap_kunyesi(k2025, "tr"), "en": hitap_kunyesi(k2025, "en")}},
         {"id": "kart-08-alinti-2019", "tur": "alinti",
-         "buyuk": {"tr": k2019["metin_tr"], "en": k2019["metin_tr"]},
-         "metin": {"tr": "Cumhurbaşkanı Recep Tayyip Erdoğan", "en": "President Recep Tayyip Erdoğan (Turkish original; the source has no English text)"},
+         "buyuk": {"tr": k2019["metin_tr"], "en": k2019["metin_en"] or k2019["metin_tr"]},
+         "metin": {"tr": "Cumhurbaşkanı Recep Tayyip Erdoğan", "en": "President Recep Tayyip Erdoğan"},
          "kaynak": {"tr": hitap_kunyesi(k2019, "tr"), "en": hitap_kunyesi(k2019, "en")}},
     ]
 

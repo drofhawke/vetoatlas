@@ -26,10 +26,35 @@ def kayit():
 def test_bicim_kurallari():
     for a in ALINTILAR:
         assert A.bicim_hatalari(a) == [], a["id"]
-    # Kitap alıntılarında sayfa numarası hiçbir alanda yok, İngilizcesi boş
+    # Kitap alıntılarının Türkçesinde sayfa numarası yok (bölüm başlığıyla); İngilizcesi İngilizce baskıdan, sayfa ve bölümüyle
     for a in KITAP:
-        assert not any(a[k] for k in ("basili_sayfa", "pdf_sayfa", "basili_sayfa_en", "pdf_sayfa_en", "metin_en"))
+        assert not a["basili_sayfa"] and not a["pdf_sayfa"]
         assert a["bolum"] in {ad for _, ad in A.KITAP_BOLUMLERI}
+        assert a["kaynak_en"] == "A_Fairer_World_is_Possible_EN.pdf" and a["basili_sayfa_en"] and a["metin_en"]
+        assert a["bolum_en"] in {ad for _, ad in A.KITAP_BOLUMLERI_EN}
+
+
+def test_her_alintinin_resmi_ingilizcesi_var():
+    """Bütün alıntıların resmî İngilizcesi bulundu: gayriresmî çeviri (ceviri_en) şu an hiçbir alıntıda yok. 2019 hitabı:
+    2019-1 İngilizce kitapçıktan, 2019-2 BM toplantı kaydından (kitapçıkta yok; KAYNAKLAR.md "İngilizce metinler")."""
+    assert all(a["metin_en"] and not a["ceviri_en"] for a in ALINTILAR)
+    kaynak_en = {a["id"]: (a["kaynak_en"], a["belge_en"], a["basili_sayfa_en"]) for a in ALINTILAR}
+    assert kaynak_en["2019-1"] == ("Birlesmis_Milletler_EN_2019.pdf", "", "6")
+    assert kaynak_en["2019-2"] == ("A_74_PV.3.pdf", "A/74/PV.3", "22")
+    assert kaynak_en["kitap-7"] == ("A_Fairer_World_is_Possible_EN.pdf", "", "184–185")
+
+
+def test_resmi_ingilizce_ya_da_isaretli_ceviri_kurali():
+    """Resmî İngilizcesi bulunamayan alıntı: metin_en ve İngilizce kaynak alanları boş, ceviri_en dolu. İkisi birden ya da
+    hiçbiri olmaz."""
+    a = next(x for x in ALINTILAR if x["id"] == "2019-2")
+    ceviri = dict(a, metin_en="", kaynak_en="", belge_en="", basili_sayfa_en="", pdf_sayfa_en="", ceviri_en="Translation.")
+    assert A.bicim_hatalari(ceviri) == []
+    assert A.bicim_hatalari(dict(a, ceviri_en="Translation."))  # ikisi birden
+    assert A.bicim_hatalari(dict(ceviri, ceviri_en=""))  # hiçbiri
+    assert A.bicim_hatalari(dict(ceviri, pdf_sayfa_en="22"))  # çeviride İngilizce kaynak alanı olmaz
+    assert A.bicim_hatalari(dict(a, belge_en=""))  # BM kaydından gelen İngilizcede belge simgesi zorunlu
+    assert A.bicim_hatalari(dict(a, basili_sayfa_en="21"))  # PV'de sayfa = PDF sayfası
 
 
 def test_her_alinti_dogrulama_kaydiyla_ayni():
@@ -54,6 +79,95 @@ def test_konusma_alintisi_sayfada_birebir(a, calisma_metni):
 def test_kitap_alintisi_metinde_birebir_ve_bolumu_dogru(a, calisma_metni):
     sayfalar = [""] + calisma_metni(a["kaynak"], ham=True).split("\f")
     assert A.kaynakta_dogrula(a, sayfalar) == []
+
+
+INGILIZCE = [a for a in ALINTILAR if a["metin_en"]]
+
+
+@pytest.mark.parametrize("a", INGILIZCE, ids=[a["id"] for a in INGILIZCE])
+def test_ingilizce_alinti_kaynakta_birebir(a, kaynak_sayfalari):
+    """Resmî İngilizce metin, kendi kaynağının (kaynak_en) belirtilen sayfasında kelimesi kelimesine geçer; kitapta İngilizce
+    bölüm başlığı da tutar."""
+    assert A.kaynakta_dogrula_en(a, kaynak_sayfalari(a["kaynak_en"])) == []
+
+
+def test_ingilizce_metinde_degisiklik_reddedilir(kaynak_sayfalari):
+    banka = {a["id"]: a for a in ALINTILAR}
+    pv = kaynak_sayfalari("A_74_PV.3.pdf")
+    a = banka["2019-2"]
+    assert A.kaynakta_dogrula_en(dict(a, metin_en=a["metin_en"].replace("enforced", "enforce")), pv)
+    assert A.kaynakta_dogrula_en(dict(a, pdf_sayfa_en="21", basili_sayfa_en="21"), pv)
+    kitap = kaynak_sayfalari("A_Fairer_World_is_Possible_EN.pdf")
+    a = banka["kitap-4"]
+    # Basılı sayfadaki kısa tire (–); metin katmanındaki OCR uzun tiresi (—) kabul edilmez
+    assert "members – one" in a["metin_en"]
+    assert A.kaynakta_dogrula_en(dict(a, metin_en=a["metin_en"].replace("–", "—")), kitap)
+    assert A.kaynakta_dogrula_en(dict(a, bolum_en="Part II: A United Nations Reform"), kitap)
+    a = banka["kitap-6"]
+    assert A.kaynakta_dogrula_en(dict(a, bolum_en="Introduction"), kitap)
+
+
+def test_ocr_duzeltmesi_tam_bir_kez_ve_yalnizca_orada(kaynak_sayfalari):
+    """İngilizce kitabın metin katmanı OCR: tek düzeltme PDF s. 34'te (basılı 32), sayfa görüntüsündeki kısa tire."""
+    from conftest import CALISMA
+    assert A.OCR_DUZELTMELERI == {("A_Fairer_World_is_Possible_EN.pdf", 34): [("permanent members — one", "permanent members – one")]}
+    duzeltilmis = kaynak_sayfalari("A_Fairer_World_is_Possible_EN.pdf")
+    ham = A.pdf_sayfalari(CALISMA / "A_Fairer_World_is_Possible_EN.pdf")
+    farkli = [i for i in range(len(ham)) if ham[i] != duzeltilmis[i]]
+    assert farkli == [34]
+    assert ham[34].count("permanent members — one") == 1 and ham[34].replace("—", "–") == duzeltilmis[34].replace("—", "–")
+
+
+def test_iki_sayfaya_yayilan_alinti(kaynak_sayfalari):
+    """kitap-7 basılı s. 184–185'e yayılır ("Secu-/rity"): iki sayfanın hiçbirinde tek başına yok, birleşik gövdede var."""
+    kitap = kaynak_sayfalari("A_Fairer_World_is_Possible_EN.pdf")
+    a = next(x for x in ALINTILAR if x["id"] == "kitap-7")
+    assert a["pdf_sayfa_en"] == "186–187"
+    assert not A.sayfada_mi(a["metin_en"], kitap[186]) and not A.sayfada_mi(a["metin_en"], kitap[187])
+    assert A.sayfada_mi(a["metin_en"], A.sayfa_metni(kitap, "186–187"))
+    with pytest.raises(ValueError):
+        A.sayfa_araligi("186–188")
+
+
+def test_ingilizce_kitapta_basili_sayfa_pdf_sayfasindan_iki_eksik(kaynak_sayfalari):
+    kitap = kaynak_sayfalari("A_Fairer_World_is_Possible_EN.pdf")
+    tutan, tutmayan = 0, []
+    for i in range(1, len(kitap)):
+        satirlar = [x.strip() for x in kitap[i].splitlines() if x.strip()]
+        if satirlar and re.fullmatch(r"\d{1,3}", satirlar[-1]):
+            if int(satirlar[-1]) == i - 2:
+                tutan += 1
+            else:
+                tutmayan.append((i, satirlar[-1]))
+    assert tutan == 162 and tutmayan == [(155, "133")]  # PDF s. 155: OCR "153"ü "133" okuyor
+
+
+def test_2019_ingilizce_kitapcik_ve_pv(kaynak_sayfalari):
+    """2019-1 İngilizce kitapçıkta, Türkçe kitapçıkla aynı basılı sayfada (s. 6). 2019-2 kitapçıkta yok (hazırlanmış metin);
+    İngilizcesi A/74/PV.3'ten. Kayıttaki konuşma Türkçe yapıldı ve İngilizcesi delegasyonun verdiği tercümedir."""
+    kitapcik = A.normalize(" ".join(kaynak_sayfalari("Birlesmis_Milletler_EN_2019.pdf")))
+    assert "Today, in your presence, I say again: The world is bigger than five!" in kitapcik
+    assert "resolutions being activated" not in kitapcik and "what purpose does the United Nations serve" not in kitapcik
+    pv = kaynak_sayfalari("A_74_PV.3.pdf")
+    assert "President Erdoğan (spoke in Turkish; English interpretation provided by the delegation):" in A.normalize(pv[19])
+    assert "22/60" in pv[22]
+
+
+def test_karma_dogrulama_kaynak_olmadan_kayitla(tmp_path):
+    """Kaynakların hiçbiri yerelde değilken (açık depo) her iki dil kayıtla karşılaştırılır; İngilizce metni değişen alıntı
+    reddedilir ve kayıt yazılmaz."""
+    import shutil
+    (tmp_path / "kaynaklar").mkdir()
+    for ad in ("alintilar.csv", "alintilar_dogrulama.csv", "KAYNAKLAR.md"):
+        shutil.copy(KOK / "kaynaklar" / ad, tmp_path / "kaynaklar" / ad)
+    alintilar, hatalar, yontem = A.dogrula(tmp_path)
+    assert hatalar == [] and yontem == "doğrulama kaydından"
+    kayit_once = (tmp_path / "kaynaklar/alintilar_dogrulama.csv").read_bytes()
+    yol = tmp_path / "kaynaklar/alintilar.csv"
+    yol.write_text(yol.read_text(encoding="utf-8").replace("what purpose does", "what purpose do"), encoding="utf-8")
+    _, hatalar, _ = A.dogrula(tmp_path)
+    assert hatalar == ["2019-2: İngilizce metin doğrulama kaydındakinden farklı ya da kaydı yok (A_74_PV.3.pdf yerelde değil)"]
+    assert (tmp_path / "kaynaklar/alintilar_dogrulama.csv").read_bytes() == kayit_once
 
 
 def test_atlama_isaretiyle_ayrilan_parcalar_ayri_ayri_aranir():

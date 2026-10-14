@@ -7,9 +7,10 @@ import pytest
 from conftest import CALISMA, KOK, calisma_metinleri_tablosu
 
 
-def test_tablo_uc_metni_iceriyor():
+def test_tablo_bes_metni_iceriyor():
     assert set(calisma_metinleri_tablosu()) == {
-        "Birlesmis_milletler_konuşması2019.pdf", "BM2026-2022-web.pdf", "DahaAdilBirDünyaMümkün.pdf"}
+        "Birlesmis_milletler_konuşması2019.pdf", "BM2026-2022-web.pdf", "DahaAdilBirDünyaMümkün.pdf",
+        "Birlesmis_Milletler_EN_2019.pdf", "A_Fairer_World_is_Possible_EN.pdf"}
 
 
 def test_calisma_metinleri_depoda_izlenmiyor():

@@ -114,13 +114,14 @@ Aşağıdaki sayılar 10 Ekim 2026 tarihli veri setine (son kayıt 17 Eylül 202
 - **Metin (TR):** "Bu kürsüden yıllardır insanlığın kaderinin sınırlı sayıdaki ülkenin ihtiyarına
   bırakılamayacağını söylüyorum. Burada sizlerin huzurunda tekrar ediyorum; "Dünya 5'ten
   Büyüktür.""
-- **Metin (EN):** Kitapçığın İngilizcesi yok; İngilizce kartta Türkçe metin, "Turkish original"
-  notuyla.
-- **Kaynak:** BM 74. Genel Kurulu konuşması, 24 Eylül 2019; kitapçık s. 6.
+- **Metin (EN):** "I have been saying for years that we cannot afford to place humanity's fate into
+  the hands of a small group of nations. Today, in your presence, I say again: The world is bigger than
+  five!" (İletişim Başkanlığı'nın İngilizce kitapçığı, s. 6).
+- **Kaynak:** BM 74. Genel Kurulu konuşması, 24 Eylül 2019; Türkçe ve İngilizce kitapçık s. 6.
   `kaynaklar/alintilar.csv` 2019-1.
 - **Paylaşım cümlesi (TR):** 24 Eylül 2019 Genel Kurul konuşmasından, s. 6.
 - **Paylaşım cümlesi (EN):** From the address to the 74th Session of the General Assembly, 24
-  September 2019, p. 6 (Turkish original).
+  September 2019, p. 6.
 
 ## kart-09-asya-pasifik — %57,8
 - **Kart metni:** Asya-Pasifik Grubu'nun 54 üyesi BM üyeleri nüfusunun %57,8'ini oluşturuyor; Güvenlik
