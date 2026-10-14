@@ -63,6 +63,52 @@ code { word-break: break-all; }
 
 .ham-kaynak, .ham-kaynak a, code { overflow-wrap: anywhere; }
 </style>
+<!-- Veri seti tanımı (schema.org Dataset): değerler CITATION.cff, veri.js ve Vetolar'ın açıklamasından; tests/test_arama_motoru.py tutarlılığı denetler -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "Veto Atlası",
+  "alternateName": "Veto Atlas",
+  "description": "1946'dan bu yana BM Güvenlik Konseyi'nde kullanılan vetolar: kaynakları, oy dağılımları ve Genel Kurul tartışmalarıyla, indirilebilir veri olarak. / Vetoes cast in the UN Security Council since 1946, with their sources, vote breakdowns and General Assembly debates, as downloadable data.",
+  "url": "https://vetoatlas.com/hakkinda",
+  "identifier": "https://doi.org/10.5281/zenodo.23326362",
+  "sameAs": "https://zenodo.org/records/23326362",
+  "version": "1.0.0",
+  "datePublished": "2026-10-12",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "isAccessibleForFree": true,
+  "inLanguage": [
+    "tr",
+    "en"
+  ],
+  "temporalCoverage": "1946-02-16/2026-10-10",
+  "keywords": [
+    "BM Güvenlik Konseyi",
+    "veto",
+    "United Nations Security Council",
+    "Birleşmiş Milletler",
+    "United Nations"
+  ],
+  "distribution": [
+    {
+      "@type": "DataDownload",
+      "encodingFormat": "text/csv",
+      "contentUrl": "https://vetoatlas.com/veri/vetolar.csv"
+    },
+    {
+      "@type": "DataDownload",
+      "encodingFormat": "application/json",
+      "contentUrl": "https://vetoatlas.com/veri/vetolar.json"
+    },
+    {
+      "@type": "DataDownload",
+      "encodingFormat": "text/csv",
+      "contentUrl": "https://vetoatlas.com/veri/genel_kurul_tartismalari.csv"
+    }
+  ]
+}
+</script>
 </head>
 <body data-sayfa="hakkinda">
 <header id="cubuk" class="cubuk"></header>

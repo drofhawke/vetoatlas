@@ -338,8 +338,9 @@ the General Assembly. The models are the Ezulwini Consensus (Ext/EX.CL/2 (VII); 
 the date order of the documents. The comparison is taken from the primary documents
 (`kaynaklar/reform_modelleri.csv`): each cell summarises the document's own provision, and the paragraph
 relied on is given under it. Every phrase quoted from the book is found word for word in a verified quotation
-in the quotation bank (tested); as the book has no page numbers, the basis is the chapter title. The page
-makes no evaluative statement about the models.
+in the quotation bank (tested). Because the Turkish PDF of the book carries no page numbers, Turkish quotations are
+cited by chapter title and those taken from the English edition by page number; the basis given in the table is the
+chapter title. The page makes no evaluative statement about the models.
 
 ### 2.9. Representation index
 

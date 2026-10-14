@@ -310,7 +310,8 @@ Ezulwini Uzlaşısı (Ext/EX.CL/2 (VII); A/59/L.67), G4 (A/59/L.64), Uzlaşı i�
 "Daha Adil Bir Dünya Mümkün" kitabıdır; belgelerin tarih sırasıyla verilir. Karşılaştırma birincil
 belgelerden aktarılır (`kaynaklar/reform_modelleri.csv`): her hücre belgenin kendi hükmünü özetler ve
 altında dayanak paragrafı yazılır. Kitaptan tırnak içinde verilen her ifade, alıntı bankasındaki
-doğrulanmış bir alıntıda birebir geçer (test); kitapta sayfa numarası olmadığı için dayanak bölüm
+doğrulanmış bir alıntıda birebir geçer (test). Kitabın Türkçe PDF'inde sayfa numarası olmadığı için Türkçe
+alıntılar bölüm başlığıyla, İngilizce baskıdan alınanlar sayfa numarasıyla künyelenir; tablodaki dayanak bölüm
 başlığıdır. Sayfa modeller hakkında değerlendirme cümlesi kurmaz.
 
 ### 2.9. Temsil endeksi
