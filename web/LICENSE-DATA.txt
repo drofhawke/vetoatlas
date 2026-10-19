@@ -28,6 +28,14 @@ Aşağıdakiler bu lisansın dışındadır; her biri kendi lisans ve koşullar�
    bağlantıyla atıf yapar.
 6. Test kesiti. tests/fixtures/veto_ornek.html, DHL veto listesi sayfasından alınmış 13 satırlık bir test kesitidir;
    yalnızca ayrıştırıcının testleri için kullanılır ve DHL sayfasının koşullarına tabidir.
+7. Harita sınırları. Natural Earth 1:50m Cultural Vectors 5.1.2 (web/harita_veri.js); kamu malı
+   (https://www.naturalearthdata.com/about/terms-of-use/).
+8. Ülke ve alan adları. Ülkelerin Türkçe ve İngilizce kısa adları Unicode CLDR verisinden türetilmiş ve düzeltilmiştir;
+   Unicode Lisansı v3 (https://www.unicode.org/license.txt). BM üyesi olmayan alanların adları BM'nin (WPP 2024, M49) ve
+   T.C. Dışişleri Bakanlığı'nın kullandığı adlardır.
+9. Kuzey Kıbrıs Türk Cumhuriyeti nüfusu. KKTC İstatistik Kurumu, Nüfus Projeksiyonları 2019–2023 (11 Kasım 2024);
+   kaynağın koşulları.
+10. İslam İşbirliği Teşkilatı üye listesi (https://www.oic-oci.org/en/members); kaynağın koşulları.
 
 ENGLISH
 
@@ -56,3 +64,11 @@ The following are outside this licence; each remains subject to its own licence 
    document symbol and link.
 6. Test excerpt. tests/fixtures/veto_ornek.html is a 13-row test excerpt taken from the DHL veto list page; it is used
    only for the parser tests and is subject to the terms of the DHL page.
+7. Map borders. Natural Earth 1:50m Cultural Vectors 5.1.2 (web/harita_veri.js); public domain
+   (https://www.naturalearthdata.com/about/terms-of-use/).
+8. Names of countries and areas. The short Turkish and English country names are derived from Unicode CLDR data and
+   corrected; Unicode License v3 (https://www.unicode.org/license.txt). The names of areas that are not UN Member States
+   are those used by the UN (WPP 2024, M49) and by the Ministry of Foreign Affairs of Türkiye.
+9. Population of the Turkish Republic of Northern Cyprus. TRNC Statistical Institute, Population Projections 2019–2023
+   (11 November 2024); the source's terms.
+10. Organisation of Islamic Cooperation member list (https://www.oic-oci.org/en/members); the source's terms.

@@ -527,3 +527,18 @@ def test_kitabin_adi_ingilizce_sayfalarda():
         t = " ".join(lisans.read_text(encoding="utf-8").split())
         assert 'kitabın İngilizce baskısından ("A Fairer World is Possible", Turkuvaz Kitap, 2021)' in t
         assert 'book "A Fairer World is Possible" (Turkuvaz Kitap, 2021; Turkish original: "Daha Adil Bir Dünya Mümkün"' in t
+
+
+def test_zaman_cizelgesi_tarih_ve_serit():
+    """Söz ve Kayıt, zaman çizelgesi (KILAVUZ): tarih gövde boyutunda; zaman şeridi klavyeyle tek durak, seçilen olay görünür
+    alanın ortasına kayar; hareket azaltma tercihinde kaydırma anlık ve geçiş yok; şeritte kırmızı yalnızca veto noktası."""
+    v = (KOK / "web/vizyon.html").read_text(encoding="utf-8")
+    assert ".cizelge time { display: block; font-size: var(--yz-govde); font-weight: 600; color: var(--murekkep);" in v
+    for parca in ('<div class="zaman-ic" id="zaman-ic" role="group">', 'zamanIc.setAttribute("aria-label", t("serit.etiket"));',
+                  'aria-controls="${o.id}"', "{ ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: n - 1 }[e.key]",
+                  'anlik = hemen || azHareket();', 'behavior: anlik ? "auto" : "smooth"', "olaySec(+b.dataset.i, { odak: e.detail === 0 })",
+                  "if (odak) li.focus({ preventScroll: true });", '<a class="olay-bag" href="#${o.id}">', 'addEventListener("hashchange", adresteki);',
+                  "@media (prefers-reduced-motion: reduce) { .cizelge li, .cizelge li::before, .ipucu { transition: none; } }"):
+        assert parca in v, parca
+    serit = v[v.index("/* Zaman şeridi"):v.index("@media (prefers-reduced-motion: reduce) { .cizelge li")]
+    assert re.findall(r"^([^{\n]+?) \{[^}]*var\(--vurgu\)", serit, re.M) == [".zaman-olay::before", ".zaman-lejant span::before"]

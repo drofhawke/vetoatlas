@@ -120,6 +120,7 @@ kullanım koşulu belirtmez. Veri setine (vetolar) hiçbir şey eklenmez; çıkt
 | Girdi | Kaynak | Adres | Erişim | Lisans / koşul | Ham kopya (SHA-256) |
 |---|---|---|---|---|---|
 | `nufus_wpp2024.csv` | WPP 2024, 1 Ocak nüfusu (bin), 1963 ve 2023, 237 ülke/alan, ISO3 ile | yukarıdaki Excel | 2026-10-10 | CC BY 3.0 IGO; atıf: "United Nations, Department of Economic and Social Affairs, Population Division (2024). World Population Prospects 2024, Online Edition." | `98e34d9b…` (Excel) |
+| `kktc_nufus.csv` | Kuzey Kıbrıs Türk Cumhuriyeti nüfusu, 2022 yıl sonu projeksiyonu (462.747); Kıbrıs'ın WPP nüfusundan çıkarılır (WPP'nin Kıbrıs verisi adanın tamamını kapsar). KKTC İstatistik Kurumu, "Kamuoyu Bilgilendirme: Nüfus Projeksiyonları", 11 Kasım 2024 (2019–2022 serisi bu yayında düzeltildi) | https://istatistik.gov.ct.tr/Portals/39/Proj_yayin_11_Kasim_2024_1.pdf | 2026-10-19 | kaynağın koşulları | `kaynaklar/.belgeler/kktc/Proj_yayin_11_Kasim_2024_1.pdf` (216084 bayt) `60a359b7aa17459300a780b80fe7463ef686a94283d240d79fd05f2a25a55f97` |
 | `uye_devletler.csv` | BM üye devletleri ve kabul tarihleri (193) | https://www.un.org/en/about-us/member-states | 2026-10-10 | BM kullanım koşulları | `uye_devletler_2026-10-10.html` `ee2f0f2faa59256bc6651778eb9f940a1a24d6d0aed9624697473e17fca52163` |
 | `bolgesel_gruplar.csv` | DGACM, Regional groups of Member States (Afrika 54, Asya-Pasifik 55, Doğu Avrupa 23, GRULAC 33, WEOG 29; Türkiye iki listede) | https://www.un.org/dgacm/en/content/regional-groups | 2026-10-10 | BM kullanım koşulları | `bolgesel_gruplar_2026-10-10.html` `b431e7cf508847e60d8ccce954f9c936c681947a964144256447dc7ac49408c4` |
 | `iit_uyeleri.csv` | İslam İşbirliği Teşkilatı üye devletleri (57, üyelik yılıyla); sayfa JavaScript'le dolduğu için tarayıcıda işlenmiş kopya | https://www.oic-oci.org/en/members | 2026-10-10 | belirtilmemiş | `iit_uyeler_2026-10-10.html` `66a7d8f69922a756114ff3e4a96bae3c4181e1bb4d53b00eac4c2bc6298f9e1a` |
@@ -132,6 +133,30 @@ Seçilmiş koltuk dağılımının dayanağı A/RES/1991 (XVIII) A par. 3 (yukar
 31 Ağustos 1965'te yürürlüğe girdi (BM Şart değişiklikleri sayfası: https://www.un.org/en/node/125739).
 Bütçe ölçeği PDF'ini (A/RES/79/249) pdftotext ile okumak sütunları kaydırdığından Excel esas alındı.
 Barış gücü sayfası yalnızca PDF sunar; dosya adı her ay değişir, adres sayfa betiğinden alınır.
+
+### Temsil haritası (`scripts/13_harita.py`, `web/harita_veri.js`)
+
+Sınırlar Natural Earth 1:50m Cultural Vectors 5.1.2'den (kamu malı; https://www.naturalearthdata.com/about/terms-of-use/).
+Dosyalar depoya girmez; `python scripts/13_harita.py --indir` aşağıdaki adreslerden `kaynaklar/.belgeler/natural_earth/`
+altına indirir ve özetlerini doğrular. Natural Earth'ün varsayılan çizimi fiilî durumdur; tartışmalı alanların ataması
+`kaynaklar/temsil/harita_kurallari.csv`'de gerekçesiyle. Ülke adları `kaynaklar/temsil/ulke_adlari.csv`'de: Unicode CLDR 48
+(Node.js 24, ICU 78.3) Türkçe ve İngilizce bölge adları, site adlandırmasına göre düzeltilmiş (ör. ABD, Rusya Federasyonu,
+Kongo Demokratik Cumhuriyeti; İngilizcede "&" yerine "and"). BM üyesi olmayan alanların adları
+`kaynaklar/temsil/uye_olmayan_alanlar.csv`'de: BM'nin kullandığı ad (WPP 2024 dosyasındaki ad, yoksa aşağıdaki M49
+sayfasındaki ad); Türkiye'nin tanıdığı devletler (Kuzey Kıbrıs Türk Cumhuriyeti, Kosova, Filistin, Vatikan) T.C. Dışişleri
+Bakanlığı'nın temsilcilik listesindeki adla. Tanıma dayanağı Bakanlığın kendi kaynakları: Lefkoşa, Priştine ve Vatikan
+büyükelçilikleri, Kudüs Başkonsolosluğu; Filistin sayfasında "Filistin Devleti'ni ilk gün tanıyan ülkeler arasında", Vatikan
+sayfasında "11 Nisan 1960 tarihinde diplomatik ilişkiler kurulmuştur". Erişim 19 Ekim 2026.
+
+| Dosya | İndirme adresi | Bayt | SHA-256 |
+|---|---|---|---|
+| `ne_50m_admin_0_countries.geojson` | https://raw.githubusercontent.com/nvkelso/natural-earth-vector/v5.1.2/geojson/ne_50m_admin_0_countries.geojson | 3083490 | `3e458fc036ad0a66411f2c1e6cac49c5d7bfb81cb1123bc513b22511a2b7fdeb` |
+| `m49_overview_2026-10-19.html` (`kaynaklar/.belgeler/m49/`) | https://unstats.un.org/unsd/methodology/m49/overview/ (BM İstatistik Bölümü, ülke ve alan kodları; WPP'de bulunmayan üye olmayan alanların BM adları) | 1721575 | `b9048114f6e7f2abda83bf03d4263c9d7cd1bd7230e3d0461025ee7839a7a1fb` |
+| `temsilcilikler.tr_2026-10-19.js` (`kaynaklar/.belgeler/disisleri/`) | https://www.mfa.gov.tr/site_media/assets/content/temsilcilikler/temsilcilikler.tr.js (T.C. Dışişleri Bakanlığı, temsilcilik listesi, Türkçe adlar) | 86330 | `b3896d8e62fc7b96f325f690bfe3e3c7ceb7f4e4c8989aaa2c9152cee79a448b` |
+| `temsilcilikler.en_2026-10-19.js` (`kaynaklar/.belgeler/disisleri/`) | https://www.mfa.gov.tr/site_media/assets/content/temsilcilikler/temsilcilikler.en.js (aynı liste, İngilizce adlar) | 86682 | `1706b8091d941be0fb32d15bf9c5b573277ef3b830c06af2c4bcc6cfdb236b5e` |
+| `turkiye-filistin-siyasi-iliskileri_2026-10-19.html` (`kaynaklar/.belgeler/disisleri/`) | https://www.mfa.gov.tr/turkiye-filistin-siyasi-iliskileri.tr.mfa | 31871 | `e51a2a2c6f695f809f4bc1a9d80e0f5213c82c6b7a29371e246750ffd71a7427` |
+| `turkiye-vatikan-siyasi-iliskileri_2026-10-19.html` (`kaynaklar/.belgeler/disisleri/`) | https://www.mfa.gov.tr/turkiye-vatikan-siyasi-iliskileri.tr.mfa | 30265 | `817a46af44951a677865e08087d3aa13cfe371f0723336bfa13fdc62d101f076` |
+| `ne_50m_admin_0_breakaway_disputed_areas.geojson` | https://raw.githubusercontent.com/nvkelso/natural-earth-vector/v5.1.2/geojson/ne_50m_admin_0_breakaway_disputed_areas.geojson | 147141 | `e91f0f9518b24355ceec6668f4df874d6f39db7d0bc9ec22d9b14429bfb6be01` |
 
 
 ## Çalışma metinleri (depoya girmez)

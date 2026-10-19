@@ -186,7 +186,7 @@ KARTLAR = {
     "reform": {"olcutler kutu": "olcu", "tablo-kap kutu": "genis"},
     "simulasyon": {"kutu": "genis", "panel kutu": "izgara", "sonuc-blok kutu": "iki", "serit kutu": "genis",
                    "sinirlar kutu": "olcu", "tablo-kap kutu": "genis"},
-    "temsil": {"kutu grup": "izgara", "kutu": "genis"},
+    "temsil": {"kutu grup": "izgara", "kutu": "genis", "kutu ulke-karti": "genis"},  # ülke kartı: çok sütunlu bilgi ızgarası
     "hakkinda": {"kutu": "metin"},
     "metodoloji": {},
 }

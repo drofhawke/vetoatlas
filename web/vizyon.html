@@ -120,10 +120,38 @@ tfoot td, tfoot th { font-weight: 600; }
 .model-alinti .kunye { margin: 8px 0 0; }
 .model-alinti .kunye + blockquote { margin-top: 24px; }
 .cizelge { list-style: none; margin: 0; padding: 0 0 0 16px; border-left: 2px solid var(--cizgi); }
-.cizelge li { position: relative; padding: 0 0 16px 16px; }
-.cizelge li::before { content: ""; position: absolute; left: -24px; top: 8px; width: 12px; height: 12px; border-radius: 50%; background: var(--yuzey); border: 2px solid var(--murekkep-2); }
-.cizelge time { display: block; font-size: var(--yz-kucuk); color: var(--murekkep-2); font-variant-numeric: tabular-nums; line-height: var(--sa-kucuk); }
+.cizelge li { position: relative; max-width: calc(var(--olcu) + 32px); padding: 8px 16px; margin: 0 0 8px; border-radius: 6px; transition: background-color .2s, box-shadow .2s; }
+.cizelge li::before { content: ""; position: absolute; left: -24px; top: 14px; width: 12px; height: 12px; border-radius: 50%; background: var(--yuzey); border: 2px solid var(--murekkep-2); transition: background-color .2s, border-color .2s; }
+.cizelge time { display: block; font-size: var(--yz-govde); font-weight: 600; color: var(--murekkep); font-variant-numeric: tabular-nums; line-height: var(--sa-govde); }
 .cizelge p { margin: 4px 0 0; max-width: var(--olcu); }
+.cizelge time a { text-decoration: none; }  /* tarih olayın kalıcı bağlantısı */
+.cizelge time a:hover { text-decoration: underline; }
+/* Ekranın ortasındaki (ya da şeritte seçilen) olay: yüzey zemini ve dolu nokta; yazı boyutu değişmez */
+.cizelge li.etkin { background: var(--yuzey); box-shadow: 0 0 0 1px var(--cizgi); }
+.cizelge li.etkin::before { background: var(--murekkep); border-color: var(--murekkep); }
+.cizelge li:focus { outline: none; }
+.cizelge li:focus-visible { outline: 2px solid var(--murekkep); outline-offset: 2px; }
+/* Zaman şeridi: olaylar zaman ölçeğinde (veto kırmızı nokta, kitap ve karar halka). Bir olay seçilince listede ekranın ortasına
+   gelir. Geniş ekranda şerit liste boyunca üst çubuğun altında kalır; dar ekranda listenin üstünde durur. */
+.zaman { position: relative; margin: 0 -24px 8px; padding: 0 24px; background: var(--zemin); z-index: 3; }
+.zaman-ic { position: relative; }
+.zaman-eksen { position: absolute; left: 0; right: 0; bottom: 24px; border-top: 1px solid var(--cizgi); }
+.zaman-yil { position: absolute; bottom: 0; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); color: var(--murekkep-2); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.zaman-yil::before { content: ""; position: absolute; left: 0; bottom: 24px; height: 8px; border-left: 1px solid var(--cizgi); }
+.zaman-olay { position: absolute; width: 24px; height: 24px; margin: 0 0 0 -12px; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer; }
+.zaman-olay::before { content: ""; position: absolute; left: 7px; top: 7px; width: 10px; height: 10px; box-sizing: border-box; border-radius: 50%; background: var(--vurgu); }
+.zaman-olay.diger::before { background: var(--zemin); border: 2px solid var(--murekkep); }
+.zaman-olay:hover, .zaman-olay.etkin { box-shadow: inset 0 0 0 2px var(--murekkep); }
+.zaman-lejant { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 0 0 16px; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); color: var(--murekkep-2); }
+.zaman-lejant span::before { content: ""; display: inline-block; width: 10px; height: 10px; box-sizing: border-box; border-radius: 50%; margin-right: 8px; background: var(--vurgu); }
+.zaman-lejant .diger::before { background: var(--zemin); border: 2px solid var(--murekkep); }
+.ipucu { position: absolute; pointer-events: none; background: var(--murekkep); color: var(--zemin); font-size: var(--yz-kucuk); line-height: var(--sa-kucuk);
+  padding: 8px 12px; border-radius: 4px; width: max-content; max-width: 300px; z-index: 5; opacity: 0; transition: opacity .1s; }
+.ipucu.acik { opacity: 1; }
+.ipucu strong { display: block; font-weight: 600; }
+@media (max-width: 760px) { .zaman { margin: 0 -16px 8px; padding: 0 16px; } }
+@media (min-width: 761px) { .zaman { position: sticky; top: var(--ust, 0px); border-bottom: 1px solid var(--cizgi); } }
+@media (prefers-reduced-motion: reduce) { .cizelge li, .cizelge li::before, .ipucu { transition: none; } }
 .cizelge .gk { font-size: var(--yz-kucuk); color: var(--murekkep-2); line-height: var(--sa-kucuk); }
 @media (max-width: 760px) {
   body { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
@@ -230,6 +258,8 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
     <section aria-labelledby="h-cizelge">
       <h2 id="h-cizelge" data-t="h.cizelge"></h2>
       <p class="aciklama" data-t="cizelge.aciklama"></p>
+      <div class="zaman" id="zaman"><div class="zaman-ic" id="zaman-ic" role="group"></div>
+        <p class="zaman-lejant" aria-hidden="true"><span data-t="serit.veto"></span><span class="diger" data-t="serit.diger"></span></p></div>
       <ol class="cizelge" id="cizelge"></ol>
     </section>
   </main>
@@ -311,6 +341,9 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
       "c.veto": ({ gundem, uyeler }) => `Veto: ${gundem} (${uyeler}).`,
       "c.gk": ({ tur, tarihler }) => `Genel Kurul: ${tur}, ${tarihler}.`,
       "c.vg": "veto girişimi tartışması", "c.oo": ({ oturum }) => `olağanüstü özel oturum (${oturum})`,
+      "c.kitapKisa": "Kitap yayımlandı", "c.762Kisa": "A/RES/76/262 kabul edildi",
+      "serit.etiket": "Olaylar zaman ölçeğinde. Bir olayı seçince listede ekranın ortasına gelir.",
+      "serit.veto": "Veto (Genel Kurul'da görüşüldü)", "serit.diger": "Kitap ve karar",
       ve: " ve ",
     },
     en: {
@@ -380,6 +413,9 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
       "c.veto": ({ gundem, uyeler }) => `Veto: ${gundem} (${uyeler}).`,
       "c.gk": ({ tur, tarihler }) => `General Assembly: ${tur}, ${tarihler}.`,
       "c.vg": "veto initiative debate", "c.oo": ({ oturum }) => `emergency special session (${oturum})`,
+      "c.kitapKisa": "Book published", "c.762Kisa": "A/RES/76/262 adopted",
+      "serit.etiket": "Events on a time scale. Selecting an event brings it to the middle of the screen in the list.",
+      "serit.veto": "Veto (debated in the General Assembly)", "serit.diger": "Book and resolution",
       ve: " and ",
     },
   };
@@ -627,14 +663,123 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
 
   // ---------- Zaman çizelgesi ----------
   const kitapTarih = (kitap[0] || {}).tarih || "2021-09";
-  const olaylar = [{ tarih: kitapTarih, html: `<p>${t("c.kitap")}</p>` }, { tarih: GK_BAS, html: `<p>${t("c.762")}</p>` }];
+  const olaylar = [{ tarih: kitapTarih, tur: "diger", kisa: t("c.kitapKisa"), html: `<p>${t("c.kitap")}</p>` },
+    { tarih: GK_BAS, tur: "diger", kisa: t("c.762Kisa"), html: `<p>${t("c.762")}</p>` }];
   kayitlar.filter((k) => k.tarih >= GK_BAS && k.gk && k.gk.durum === "yapildi").forEach((k) => {
     const gk = k.gk.tartismalar.map((x) => t("c.gk", { tur: x.tur === "veto_girisimi" ? t("c.vg") : t("c.oo", { oturum: x.oturum }),
       tarihler: x.tarihler.map(tarihUzun).join(t("ve")) })).join(" ");
-    olaylar.push({ tarih: k.tarih, html: `<p>${t("c.veto", { gundem: esc(baslik(k)), uyeler: k.uyeler.map(uyeAd).join(", ") })}</p><p class="gk">${gk}</p>` });
+    const uyeler = k.uyeler.map(uyeAd).join(", ");
+    olaylar.push({ tarih: k.tarih, tur: "veto", kisa: t("c.veto", { gundem: baslik(k), uyeler }),
+      html: `<p>${t("c.veto", { gundem: esc(baslik(k)), uyeler })}</p><p class="gk">${gk}</p>` });
   });
-  $("#cizelge").innerHTML = olaylar.sort((a, b) => a.tarih.localeCompare(b.tarih))
-    .map((o) => `<li><time datetime="${o.tarih}">${tarihUzun(o.tarih)}</time>${o.html}</li>`).join("");
+  olaylar.sort((a, b) => a.tarih.localeCompare(b.tarih));
+  const ayni = {};
+  olaylar.forEach((o) => { ayni[o.tarih] = (ayni[o.tarih] || 0) + 1; o.id = `olay-${o.tarih}${ayni[o.tarih] > 1 ? "-" + ayni[o.tarih] : ""}`; });
+  $("#cizelge").innerHTML = olaylar.map((o) => `<li id="${o.id}" tabindex="-1"><time datetime="${o.tarih}"><a class="olay-bag" href="#${o.id}">${tarihUzun(o.tarih)}</a></time>${o.html}</li>`).join("");
+
+  // Zaman şeridi: x ekseni zaman (kitabın yayım ayından veri tarihine); aynı yere düşen olaylar üst üste (en az 24 px aralık,
+  // dokunma hedefi). Klavyede tek sekme durağı, oklarla olaydan olaya. Seçilen olay listede ekranın ortasına gelir; kaydırırken
+  // ekranın ortasındaki olay hem listede hem şeritte işaretlenir.
+  const zaman = $("#zaman"), zamanIc = $("#zaman-ic"), maddeler = [...document.querySelectorAll("#cizelge li")];
+  zamanIc.setAttribute("aria-label", t("serit.etiket"));
+  const gun = (x) => Date.UTC(+x.slice(0, 4), +x.slice(5, 7) - 1, +(x.slice(8, 10) || 1));
+  const bas = gun(kitapTarih.slice(0, 7) + "-01");
+  const son = Math.max(gun(olaylar[olaylar.length - 1].tarih), gun((V.meta.mutabakat_zamani || sonTarih).slice(0, 10)));
+  const azHareket = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let etkin = -1, isaretler = [];
+  const ipucu = document.createElement("div");
+  ipucu.className = "ipucu"; ipucu.setAttribute("aria-hidden", "true");
+  const seritCiz = () => {
+    const W = zamanIc.clientWidth, KENAR = 12, ARALIK = 24;
+    const x = (g) => KENAR + (g - bas) / (son - bas) * (W - 2 * KENAR);
+    const seviye = [];
+    const yer = olaylar.map((o) => { const px = x(gun(o.tarih)); let s = seviye.findIndex((sx) => px - sx >= ARALIK);
+      if (s < 0) { s = seviye.length; seviye.push(px); } else seviye[s] = px; return { px, s }; });
+    zamanIc.style.height = `${32 + seviye.length * 24}px`;
+    const yillar = [];
+    for (let y = new Date(bas).getUTCFullYear() + 1; gun(`${y}-01-01`) <= son; y++) yillar.push(y);
+    zamanIc.innerHTML = '<div class="zaman-eksen"></div>'
+      + yillar.map((y) => `<span class="zaman-yil" style="left:${x(gun(`${y}-01-01`)).toFixed(1)}px">${y}</span>`).join("")
+      + olaylar.map((o, i) => `<button type="button" class="zaman-olay ${o.tur}${i === etkin ? " etkin" : ""}" data-i="${i}" tabindex="${i === Math.max(etkin, 0) ? 0 : -1}"
+          style="left:${yer[i].px.toFixed(1)}px;bottom:${28 + yer[i].s * 24}px" aria-label="${esc(tarihUzun(o.tarih) + ": " + o.kisa)}" aria-controls="${o.id}"></button>`).join("");
+    zamanIc.appendChild(ipucu);
+    isaretler = [...zamanIc.querySelectorAll(".zaman-olay")];
+  };
+  const etkinYap = (i) => {
+    if (i === etkin) return;
+    if (etkin >= 0) { maddeler[etkin].classList.remove("etkin"); isaretler[etkin].classList.remove("etkin"); }
+    etkin = i;
+    if (i >= 0) { maddeler[i].classList.add("etkin"); isaretler[i].classList.add("etkin"); }
+    isaretler.forEach((b, j) => b.setAttribute("tabindex", j === Math.max(i, 0) ? "0" : "-1"));
+  };
+  const ipucuGoster = (b) => {
+    const o = olaylar[+b.dataset.i];
+    ipucu.innerHTML = `<strong>${tarihUzun(o.tarih)}</strong>${esc(o.kisa)}`;
+    ipucu.classList.add("acik");
+    const W = zamanIc.clientWidth, w = ipucu.offsetWidth, cx = parseFloat(b.style.left);
+    ipucu.style.left = `${Math.min(Math.max(0, cx - w / 2), W - w)}px`;
+    ipucu.style.top = `${zamanIc.offsetHeight + 4}px`;  // eksenin altında: şerit üstte dururken ipucu çubuğun arkasında kalmaz
+  };
+  const ipucuGizle = () => ipucu.classList.remove("acik");
+  zamanIc.addEventListener("pointerover", (e) => { const b = e.target.closest(".zaman-olay"); if (b) ipucuGoster(b); });
+  zamanIc.addEventListener("pointerleave", () => { if (!zamanIc.contains(document.activeElement)) ipucuGizle(); });
+  zamanIc.addEventListener("focusin", (e) => { const b = e.target.closest(".zaman-olay"); if (b) ipucuGoster(b); });
+  zamanIc.addEventListener("focusout", ipucuGizle);
+  // Olay seçimi (şerit, tarih bağlantısı, adres): olay görünür alanın ortasına kayar ve adres #olay-… olur (paylaşılabilir;
+  // tek dosyada adres değişmez)
+  function olaySec(i, { odak = false, hemen = false } = {}) {
+    const li = maddeler[i], anlik = hemen || azHareket();
+    etkinYap(i);
+    kilit = performance.now() + (anlik ? 100 : 1200);
+    // Şeridin altında kalan görünür alanın ortası (geniş ekranda şerit üstte durur)
+    const ust = yapiskan() ? (cubuk ? cubuk.offsetHeight : 0) + zaman.offsetHeight : 0, r = li.getBoundingClientRect();
+    scrollTo({ top: scrollY + r.top - ust - Math.max(0, (innerHeight - ust - r.height) / 2), behavior: anlik ? "auto" : "smooth" });
+    if (odak) li.focus({ preventScroll: true });  // klavyeyle seçildiyse odak olaya geçer
+    try { if (location.protocol !== "about:") history.replaceState(null, "", "#" + olaylar[i].id); } catch (_) { /* yok */ }
+  }
+  zamanIc.addEventListener("click", (e) => { const b = e.target.closest(".zaman-olay"); if (b) olaySec(+b.dataset.i, { odak: e.detail === 0 }); });
+  $("#cizelge").addEventListener("click", (e) => {
+    const a = e.target.closest("a.olay-bag"); if (!a) return;
+    e.preventDefault();
+    olaySec(maddeler.indexOf(a.closest("li")), { odak: e.detail === 0 });
+  });
+  zamanIc.addEventListener("keydown", (e) => {
+    const b = e.target.closest(".zaman-olay"); if (!b) return;
+    const i = +b.dataset.i, n = isaretler.length;
+    const j = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: n - 1 }[e.key];
+    if (j === undefined) return;
+    e.preventDefault();
+    const k = Math.min(Math.max(j, 0), n - 1);
+    isaretler.forEach((x, m) => x.setAttribute("tabindex", m === k ? "0" : "-1"));
+    isaretler[k].focus();
+  });
+  // Geniş ekranda şerit üst çubuğun hemen altında durur (çubuğun yüksekliği ölçülür)
+  const cubuk = document.getElementById("cubuk");
+  const yapiskan = () => getComputedStyle(zaman).position === "sticky";
+  const ustBosluk = () => zaman.style.setProperty("--ust", `${cubuk ? cubuk.offsetHeight : 0}px`);
+  seritCiz(); ustBosluk();
+  if (cubuk) new ResizeObserver(ustBosluk).observe(cubuk);
+  let sonGenislik = zamanIc.clientWidth;
+  new ResizeObserver(() => { if (zamanIc.clientWidth !== sonGenislik) { sonGenislik = zamanIc.clientWidth; seritCiz(); } }).observe(zamanIc);
+  // Kaydırırken görünür alanın ortasındaki olay etkin olur; liste ortadan çıkınca vurgu kalkar.
+  // Şeritten seçilen olay, kaydırma bitene kadar etkin kalır (sayfanın sonundaki olaylar ortaya gelemeyebilir).
+  let kilit = 0, bekliyor = false;
+  const ortadaki = () => {
+    bekliyor = false;
+    if (performance.now() < kilit) return;
+    const ust = yapiskan() ? Math.max(0, zaman.getBoundingClientRect().bottom) : 0;
+    const orta = (ust + innerHeight) / 2, r = $("#cizelge").getBoundingClientRect();
+    if (orta < r.top || orta > r.bottom) return etkinYap(-1);
+    let i = 0;
+    maddeler.forEach((m, j) => { if (m.getBoundingClientRect().top <= orta) i = j; });
+    etkinYap(i);
+  };
+  addEventListener("scroll", () => { if (!bekliyor) { bekliyor = true; requestAnimationFrame(ortadaki); } }, { passive: true });
+  ortadaki();
+  // Adresteki olay (#olay-…): açılışta ve adres değişince ortaya gelir
+  const adresteki = () => { const i = olaylar.findIndex((o) => "#" + o.id === location.hash); if (i >= 0) olaySec(i, { hemen: true }); };
+  document.fonts.ready.then(() => requestAnimationFrame(adresteki));
+  addEventListener("hashchange", adresteki);
 
 })();
 </script>

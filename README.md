@@ -59,7 +59,7 @@ veto_atlasi/genel_kurul.py     Genel Kurul tartışmaları (A/RES/76/262) ve Kon
 kaynaklar/                     Referans tablo, gerekçeli düzeltmeler, kaynak notları,
                                gündem sözlüğü (gundem_sozlugu.csv), konu düzeltmeleri,
                                genel_kurul_tartismalari.csv, ozel_raporlar.csv
-kaynaklar/.belgeler/           Yerel belgeler (toplantı kaydı PDF'leri); depoya girmez, künye ve SHA-256
+kaynaklar/.belgeler/           Yerel belgeler (toplantı kaydı PDF'leri; harita, ad ve KKTC nüfusu kaynakları); depoya girmez, künye ve SHA-256
                                KAYNAKLAR.md'de, indirme: scripts/07_belgeleri_indir.py
 scripts/07_belgeleri_indir.py  Yerel belgeleri KAYNAKLAR.md tablosundan indirir, özetini doğrular
 scripts/08_paylasim_kartlari.py  Veri setinden ve alıntı bankasından iki dilli paylaşım kartları (web/kartlar/,
@@ -71,6 +71,9 @@ scripts/10_tek_dosya.py          Tek dosyalık inceleme sürümü: sekiz sayfa y
                                  (web/veto-atlasi-tek-dosya.html; 04 de üretir)
 scripts/11_cevrimdisi.py         İnternetsiz çalışma: web/cevrimdisi.js (service worker; 04 de üretir)
 scripts/12_site_haritasi.py      Site haritası: web/sitemap.xml (sayfalar TR/EN ve açık veri; lastmod git kaydından)
+scripts/13_harita.py             Temsil haritası: Natural Earth 5.1.2 sınırlarından web/harita_veri.js (Equal Earth; kurallar
+                                 kaynaklar/temsil/harita_kurallari.csv, adlar ulke_adlari.csv ve uye_olmayan_alanlar.csv;
+                                 --indir Natural Earth dosyalarını indirir)
 schema/veto_kaydi.schema.json  Her kaydın uyması gereken yapı
 tests/                         Birim testleri ve veri seti değişmezleri
 data/raw | processed | review  Ham kaynak, işlenmiş veri, elle kontrol listesi

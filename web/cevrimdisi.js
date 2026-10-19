@@ -4,9 +4,9 @@
  * sunulur. Yalnızca site içi GET isteklerine karışır.
  */
 "use strict";
-const SURUM = "veto-atlasi-4470770e57a2298a";
+const SURUM = "veto-atlasi-85cbebf0c2f8816d";
 const SAYFALAR = ["/hikaye", "/vetolar", "/vizyon", "/reform", "/simulasyon", "/temsil", "/hakkinda", "/metodoloji"];
-const DOSYALAR = ["/apple-touch-icon.png", "/cubuk.js", "/favicon.ico", "/favicon.svg", "/fonts/fonts.css", "/fonts/source-sans-3-latin-400-italic.woff2", "/fonts/source-sans-3-latin-400-normal.woff2", "/fonts/source-sans-3-latin-500-normal.woff2", "/fonts/source-sans-3-latin-600-normal.woff2", "/fonts/source-sans-3-latin-ext-400-italic.woff2", "/fonts/source-sans-3-latin-ext-400-normal.woff2", "/fonts/source-sans-3-latin-ext-500-normal.woff2", "/fonts/source-sans-3-latin-ext-600-normal.woff2", "/fonts/source-serif-4-latin-400-normal.woff2", "/fonts/source-serif-4-latin-600-normal.woff2", "/fonts/source-serif-4-latin-ext-400-normal.woff2", "/fonts/source-serif-4-latin-ext-600-normal.woff2", "/icon-192.png", "/icon-512.png", "/icon-maskable-192.png", "/icon-maskable-512.png", "/isaret-koyu.svg", "/isaret.svg", "/logo-cubuk-b-koyu.svg", "/logo-cubuk-b.svg", "/metin.js", "/site.webmanifest", "/suzgec.js", "/temel.css", "/temsil_veri.js", "/veri.js"];
+const DOSYALAR = ["/apple-touch-icon.png", "/cubuk.js", "/favicon.ico", "/favicon.svg", "/fonts/fonts.css", "/fonts/source-sans-3-latin-400-italic.woff2", "/fonts/source-sans-3-latin-400-normal.woff2", "/fonts/source-sans-3-latin-500-normal.woff2", "/fonts/source-sans-3-latin-600-normal.woff2", "/fonts/source-sans-3-latin-ext-400-italic.woff2", "/fonts/source-sans-3-latin-ext-400-normal.woff2", "/fonts/source-sans-3-latin-ext-500-normal.woff2", "/fonts/source-sans-3-latin-ext-600-normal.woff2", "/fonts/source-serif-4-latin-400-normal.woff2", "/fonts/source-serif-4-latin-600-normal.woff2", "/fonts/source-serif-4-latin-ext-400-normal.woff2", "/fonts/source-serif-4-latin-ext-600-normal.woff2", "/harita_veri.js", "/icon-192.png", "/icon-512.png", "/icon-maskable-192.png", "/icon-maskable-512.png", "/isaret-koyu.svg", "/isaret.svg", "/logo-cubuk-b-koyu.svg", "/logo-cubuk-b.svg", "/metin.js", "/site.webmanifest", "/suzgec.js", "/temel.css", "/temsil_veri.js", "/veri.js"];
 
 self.addEventListener("install", (olay) => {
   olay.waitUntil((async () => {

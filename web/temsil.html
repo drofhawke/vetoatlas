@@ -32,12 +32,14 @@
 :root {
   --zemin: #FBF8F1; --yuzey: #FFFFFF; --murekkep: #13213A; --murekkep-2: #5A6578; --cizgi: #E1DBCF; --vurgu: #A4262C;
   --g-nufus: #9AA3B2; --g-uye: #2F7A6E; --g-butce: #A8782A; --g-personel: #5E4E9A; --g-daimi: #13213A; --g-secilmis: #5A6578; --bos: #EDE7DA;
+  --h-grup: #9AA3B2;
   --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
   --sans: "Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
 }
 :root[data-theme="dark"] {
   --zemin: #1C1A17; --yuzey: #272420; --murekkep: #EDE8E0; --murekkep-2: #ABA496; --cizgi: #3B3731; --vurgu: #E05A52;
   --g-nufus: #8B94A3; --g-uye: #5FB09C; --g-butce: #D8A84A; --g-personel: #9B86D6; --g-daimi: #EDE8E0; --g-secilmis: #ABA496; --bos: #2E2A24;
+  --h-grup: #5F6673;  /* koyu temada seçilmiş koltuktan (#ABA496) ayrışsın diye --g-nufus'tan koyu */
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
@@ -73,7 +75,76 @@ th { font-weight: 600; color: var(--murekkep-2); font-size: var(--yz-kucuk); lin
 td.s, th.s { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .not-liste { font-size: var(--yz-kucuk); color: var(--murekkep-2); padding-left: 24px; line-height: var(--sa-kucuk); }
 .not-liste li { margin: 4px 0; }
-@media (prefers-reduced-motion: reduce) { .cubuklar .cb span { transition: none; } }
+/* Harita: seçilen grubun üyeleri (orta ton) ve Konsey koltukları (daimî mürekkep, seçilmiş ikincil; koltuk çubuğuyla aynı);
+   öteki üyeler açık ton, BM üyesi olmayan alanlar boş (yalnızca çizgi). Açıklık sırası iki temada da adım adım (OKLab ΔE ≥ 20). */
+.secimler { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
+.secim-dugme, .arac-dugme { display: inline-flex; align-items: center; gap: 8px; font: 500 var(--yz-kucuk)/var(--sa-kucuk) var(--sans); color: var(--murekkep);
+  background: transparent; border: 1px solid var(--cizgi); border-radius: 999px; padding: 8px 16px; cursor: pointer; }
+.secim-dugme .sayi { color: var(--murekkep-2); font-variant-numeric: tabular-nums; }
+.secim-dugme[aria-pressed="true"], .arac-dugme[aria-pressed="true"] { background: var(--murekkep); color: var(--zemin); border-color: var(--murekkep); }
+.secim-dugme[aria-pressed="true"] .sayi { color: inherit; opacity: .75; }
+.harita { position: relative; margin: 0; }
+.harita svg { display: block; width: 100%; height: auto; touch-action: manipulation; }
+/* Yakınlaştırma: harita ve veri değişmez, yalnızca görünüm (viewBox) büyür. Düğmeler sol altta (açık okyanus); yakınken
+   harita sürüklenir ve sayfa yerine harita kayar (touch-action: none). */
+.harita svg.yakin { cursor: grab; touch-action: none; }
+.harita svg.suruk { cursor: grabbing; }
+.harita-yakin { position: absolute; left: 0; bottom: 0; display: flex; gap: 4px; }
+.yakin-dugme { min-width: 32px; height: 32px; padding: 0 8px; font: 600 var(--yz-kucuk)/var(--sa-kucuk) var(--sans); color: var(--murekkep);
+  background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 6px; cursor: pointer; }
+.yakin-dugme:disabled { color: var(--murekkep-2); opacity: .5; cursor: default; }
+/* Araçlar: ülke arama, nüfus balonları, bağlantı paylaşma */
+.harita-araclar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: 0 0 16px; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+.ulke-ara { display: inline-flex; align-items: center; gap: 8px; color: var(--murekkep-2); }
+.ulke-ara input { width: 224px; max-width: 100%; height: 40px; padding: 0 16px; font: 400 var(--yz-kucuk)/var(--sa-kucuk) var(--sans); color: var(--murekkep);
+  background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 999px; }
+.arac-durum { color: var(--murekkep-2); overflow-wrap: anywhere; }
+/* Ülke kartı: tıklanan ya da aranan ülke; seçili ülke haritada mürekkep çizgiyle */
+.ulke-karti { margin: 16px 0 0; }
+.ulke-karti-bas { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; }
+.ulke-karti-bas .yakin-dugme { margin-left: auto; }
+.ulke-karti h3 { margin: 0; }
+.ulke-karti-bas a { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+.ulke-bilgi { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr)); gap: 12px 24px; margin: 12px 0 0; }
+.ulke-bilgi dt { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); color: var(--murekkep-2); }
+.ulke-bilgi dd { margin: 0; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); font-variant-numeric: tabular-nums; }
+.ulke-not { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); color: var(--murekkep-2); margin: 12px 0 0; }
+.harita .secili { fill: none; stroke: var(--murekkep); stroke-width: 2px; pointer-events: none; transition: none; }
+.harita circle.secili-nokta { stroke: var(--murekkep); stroke-width: 2px; }
+/* Nüfus balonları: daire alanı nüfusla orantılı, ekranda sabit boyda (yakınlaşınca büyümez); kara parçaları nötr, renk dairede */
+.harita .balonlar { display: none; }
+.harita svg.balonlu .balonlar { display: inline; }
+.harita svg.balonlu path[data-k] { fill: var(--bos); }
+.harita svg.balonlu circle[data-tur="nokta"] { display: none; }
+.harita .balonlar circle.h-diger { fill: none; stroke: var(--murekkep-2); stroke-opacity: .6; }
+.harita-lejant.balonlu span::before { border-radius: 50%; }
+.harita-lejant.balonlu .bos-alan::before { border-radius: 2px; }  /* üye olmayan kara alanı, daire değil */
+.harita-lejant .balon-diger::before { background: transparent; border: 1px solid var(--murekkep-2); }
+.harita-lejant .balon-olcek::before { display: none; }
+.harita-lejant .balon-olcek svg { vertical-align: middle; margin: 0 4px; }
+.harita-lejant .balon-olcek circle { fill: none; stroke: var(--murekkep-2); }
+.harita path, .harita circle { fill: var(--bos); stroke: var(--zemin); stroke-width: .5px; vector-effect: non-scaling-stroke; transition: fill .4s ease; }
+.harita .uye-degil { fill: var(--zemin); stroke: var(--cizgi); }
+.harita [data-k] { cursor: pointer; }
+.harita .h-grup { fill: var(--h-grup); }
+.harita .h-secilmis { fill: var(--g-secilmis); }
+.harita .h-daimi { fill: var(--g-daimi); }
+.harita circle { stroke-width: 1px; }
+.harita .vurgu { fill: none; stroke: var(--murekkep); stroke-width: 1.5px; pointer-events: none; transition: none; }
+.harita-alt { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px 32px; align-items: start; margin: 16px 0 0; }
+.harita-ozet { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); margin: 0; max-width: var(--olcu); }
+.harita-ozet b { font-weight: 600; font-variant-numeric: tabular-nums; }
+.harita-ozet a { white-space: nowrap; }
+.harita-lejant { display: flex; flex-direction: column; gap: 4px; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); color: var(--murekkep-2); margin: 0; }
+.harita-lejant span::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 8px; vertical-align: -1px; background: var(--r); box-sizing: border-box; }
+.harita-lejant .bos-alan::before { background: var(--zemin); border: 1px solid var(--murekkep-2); }
+.harita-not { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); color: var(--murekkep-2); margin: 12px 0 0; }
+.ipucu { position: absolute; pointer-events: none; background: var(--murekkep); color: var(--zemin); font-size: var(--yz-kucuk); line-height: var(--sa-kucuk);
+  padding: 8px 12px; border-radius: 4px; width: max-content; max-width: 280px; z-index: 5; opacity: 0; transition: opacity .1s; }
+.ipucu.acik { opacity: 1; }
+.ipucu strong { display: block; font-weight: 600; }
+@media (max-width: 760px) { .harita-alt { grid-template-columns: minmax(0, 1fr); } .harita-lejant { flex-direction: row; flex-wrap: wrap; gap: 4px 16px; } }
+@media (prefers-reduced-motion: reduce) { .cubuklar .cb span, .harita path, .harita circle, .ipucu { transition: none; } }
 @media (max-width: 560px) { .kap { padding: 0 16px 48px; } .cubuklar { grid-template-columns: 96px 1fr 60px; } table { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); } th, td { padding: 8px 8px; } }
 
 
@@ -102,6 +173,24 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
   </header>
 
   <main>
+    <section aria-labelledby="h-harita">
+      <h2 id="h-harita" data-t="h.harita"></h2>
+      <p class="aciklama" data-t="harita.aciklama"></p>
+      <div class="secimler" id="harita-secim" role="group" aria-labelledby="h-harita"></div>
+      <div class="harita-araclar">
+        <label class="ulke-ara"><span data-t="ara.etiket"></span><input type="search" id="ulke-ara" list="ulke-listesi" autocomplete="off" spellcheck="false"></label>
+        <datalist id="ulke-listesi"></datalist>
+        <button type="button" class="arac-dugme" id="balon-dugme" aria-pressed="false" data-t="balon"></button>
+        <button type="button" class="arac-dugme" id="paylas-dugme" data-t="paylas"></button>
+        <span class="arac-durum" id="arac-durum" role="status"></span>
+      </div>
+      <figure class="harita" id="harita"></figure>
+      <div class="kutu ulke-karti" id="ulke-karti" hidden></div>
+      <div class="harita-alt"><p class="harita-ozet" id="harita-ozet" aria-live="polite"></p><p class="harita-lejant" id="harita-lejant"></p></div>
+      <p class="harita-not"><span data-t="harita.not"></span> <a id="harita-metodoloji" href="metodoloji.html#bolum-2-9" data-t="nufus.metodoloji"></a></p>
+      <details class="tablo-ac" id="harita-liste"><summary id="harita-liste-baslik"></summary><div class="kutu" style="overflow-x:auto"><table id="harita-tablo"></table></div></details>
+    </section>
+
     <section aria-labelledby="h-gruplar">
       <h2 id="h-gruplar" data-t="h.gruplar"></h2>
       <p class="aciklama" data-t="gruplar.aciklama"></p>
@@ -127,6 +216,7 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
 </div>
 
 <script src="temsil_veri.js"></script>
+<script src="harita_veri.js"></script>
 <script>
 (() => {
   const $ = (s, k = document) => k.querySelector(s);
@@ -157,6 +247,34 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
       "h.kumeler": "Beş daimî üye ve İslam İşbirliği Teşkilatı üyeleri",
       "kumeler.aciklama": "Aynı beş pay iki küme için: Güvenlik Konseyi'nin beş daimî üyesi ve İİT'nin BM üyesi olan 56 üyesi. 1963 nüfus payı ayrıca verilir.",
       nufus63: ({ p }) => `Nüfus payı 1963: ${p}`,
+      "h.harita": "BM üyeleri haritada",
+      "harita.aciklama": "Seçilen bölgesel grubun üyeleri ve Güvenlik Konseyi'ndeki koltukları (2026). Bir ülkenin üzerine gelin ya da dokunun; tıklayınca ya da adını arayınca ülkenin kartı açılır ve grubu seçilir. Aynı bilgi haritanın altındaki listede de var. Yakınlaştırmak için + düğmesine basın ya da haritaya çift tıklayın; yakınken harita sürüklenir.",
+      "y.grup": "Yakınlaştırma", "y.art": "Yakınlaştır", "y.azalt": "Uzaklaştır", "y.tum": "Tüm dünya",
+      "ara.etiket": "Ülke ara", "ara.ornek": "ör. Türkiye", "ara.yok": "Bulunamadı.", "ara.coklu": ({ n, adlar }) => `${n} sonuç: ${adlar}`,
+      balon: "Nüfus balonları", paylas: "Bağlantıyı paylaş", "paylas.kopyalandi": "Bağlantı kopyalandı.", "paylas.elle": ({ url }) => `Bağlantı: ${url}`,
+      "l.balon": "Daire alanı nüfusla orantılı (2023):", "l.milyar": "1 milyar", "l.yuzmilyon": "100 milyon",
+      "k.grup": "Bölgesel grup", "k.kabul": "BM üyeliğine kabul", "k.nufus": "Nüfus (2023)",
+      "k.nufusDeger": ({ n, p }) => `${n}; BM üyelerinin nüfusundaki payı ${p}`, "k.bin": ({ n }) => `${n} bin`, "k.kisi": ({ n }) => `${n} kişi`, "k.milyon": ({ n }) => `${n} milyon`,
+      "k.butce": "Olağan bütçe payı (2025–2027)", "k.personel": "Barış gücü üniformalı personeli (28 Şubat 2026)",
+      "k.personelDeger": ({ n, p }) => `${n}; toplamdaki payı ${p}`, "k.iit": "İİT üyeliği", "k.evet": "Üye", "k.hayir": "Üye değil",
+      "k.konsey": "Güvenlik Konseyi (2026)", "k.daimi": "Daimî üye", "k.secilmis": ({ y }) => `Seçilmiş üye, dönem sonu ${y}`, "k.degil": "Üye değil",
+      "k.kapat": "Kapat",
+      "a.degil": "BM üyesi değil", "a.gozlemci": "BM'de üye olmayan gözlemci devlet", "a.kyt": "BM üyesi değil; kendi kendini yönetmeyen toprak",
+      "a.kucuk": "Bu ölçekte haritada görünmeyecek kadar küçük.",
+      "b.parca": ({ u }) => `${u} toprağı; nüfusu BM istatistiklerinde ayrı sayılır`, "i.nufus2": ({ n }) => `Nüfus (2023): ${n}`,
+      "k.ayri": ({ liste }) => `BM istatistiklerinde ayrı sayılan, bu nüfusa dahil olmayan bölgeler: ${liste}.`,
+      "harita.not": "Harita BM üyeliğini gösterir; sınırların gösterimi bir egemenlik görüşü bildirmez. BM üyesi olmayan ülke ve alanlar boş çizilir; üzerlerine gelince adları görünür. Kırım Ukrayna'nın, Golan Suriye'nin parçası olarak gösterilir.",
+      konsey: "Güvenlik Konseyi",
+      "l.h.daimi": "Daimî üye", "l.h.secilmis": "Seçilmiş üye (2026)", "l.h.grup": ({ g }) => `${g} üyesi`, "l.h.diger": "Öteki BM üyeleri", "l.h.degil": "BM üyesi değil",
+      "o.konsey": ({ d, s }) => `Güvenlik Konseyi (2026): ${d} daimî ve ${s} seçilmiş üye.`,
+      "o.daimi": "Daimî", "o.secilmis": "Seçilmiş (dönem sonu)",
+      "o.grup": ({ g, n, nufus, uye }) => `${g}: ${n} üye; BM üyelerinin nüfusundaki payı ${nufus}, üye sayısındaki payı ${uye}.`,
+      "o.koltuk": ({ d, s }) => `Konseydeki koltukları: ${d} daimî, ${s} seçilmiş`,
+      "o.kart": "Grubun kartı ↓",
+      "i.daimi": "Güvenlik Konseyi: daimî üye", "i.secilmis": ({ y }) => `Güvenlik Konseyi: seçilmiş üye (dönem sonu ${y})`,
+      "harita.etiket": ({ s }) => `Dünya haritası: ${s}. Aynı bilgi haritanın altındaki listede.`,
+      "liste": ({ n }) => `Ülke listesini göster (${n})`,
+      "t.ulke": "Ülke", "t.konsey": "Güvenlik Konseyi", "t.secilmis": "Seçilmiş",
     },
     en: {
       sayfaBasligi: "Who is represented? · Veto Atlas",
@@ -181,6 +299,34 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
       "h.kumeler": "Five permanent members and members of the Organisation of Islamic Cooperation",
       "kumeler.aciklama": "The same five shares for two sets: the five permanent members of the Security Council and the 56 OIC members that are UN Member States. The 1963 population share is given as well.",
       nufus63: ({ p }) => `Population share 1963: ${p}`,
+      "h.harita": "UN Member States on the map",
+      "harita.aciklama": "The members of the selected regional group and their Security Council seats (2026). Hover over or tap a country; clicking it or searching for its name opens the country's card and selects its group. The same information is in the list below the map. To zoom in, press + or double-click the map; when zoomed in, drag to move it.",
+      "y.grup": "Zoom", "y.art": "Zoom in", "y.azalt": "Zoom out", "y.tum": "Whole world",
+      "ara.etiket": "Find a country", "ara.ornek": "e.g. Türkiye", "ara.yok": "Not found.", "ara.coklu": ({ n, adlar }) => `${n} matches: ${adlar}`,
+      balon: "Population circles", paylas: "Share link", "paylas.kopyalandi": "Link copied.", "paylas.elle": ({ url }) => `Link: ${url}`,
+      "l.balon": "Circle area proportional to population (2023):", "l.milyar": "1 billion", "l.yuzmilyon": "100 million",
+      "k.grup": "Regional group", "k.kabul": "Admission to the UN", "k.nufus": "Population (2023)",
+      "k.nufusDeger": ({ n, p }) => `${n}; ${p} of the population of UN Member States`, "k.bin": ({ n }) => `${n} thousand`, "k.kisi": ({ n }) => `${n} people`, "k.milyon": ({ n }) => `${n} million`,
+      "k.butce": "Regular budget share (2025–2027)", "k.personel": "Peacekeeping uniformed personnel (28 February 2026)",
+      "k.personelDeger": ({ n, p }) => `${n}; ${p} of the total`, "k.iit": "OIC membership", "k.evet": "Member", "k.hayir": "Not a member",
+      "k.konsey": "Security Council (2026)", "k.daimi": "Permanent member", "k.secilmis": ({ y }) => `Elected member, term ends ${y}`, "k.degil": "Not a member",
+      "k.kapat": "Close",
+      "a.degil": "Not a UN Member State", "a.gozlemci": "Non-member observer State at the UN", "a.kyt": "Not a UN Member State; a Non-Self-Governing Territory",
+      "a.kucuk": "Too small to be drawn at this scale.",
+      "b.parca": ({ u }) => `Part of ${u}; its population is counted separately in UN statistics`, "i.nufus2": ({ n }) => `Population (2023): ${n}`,
+      "k.ayri": ({ liste }) => `Areas counted separately in UN statistics and not included in this population: ${liste}.`,
+      "harita.not": "The map shows UN membership; the depiction of borders does not express a view on sovereignty. Countries and areas that are not UN Member States are drawn empty; hovering over them shows their names. Crimea is shown as part of Ukraine and the Golan as part of Syria.",
+      konsey: "Security Council",
+      "l.h.daimi": "Permanent member", "l.h.secilmis": "Elected member (2026)", "l.h.grup": ({ g }) => `Member of the ${g}`, "l.h.diger": "Other UN Member States", "l.h.degil": "Not a UN Member State",
+      "o.konsey": ({ d, s }) => `Security Council (2026): ${d} permanent and ${s} elected members.`,
+      "o.daimi": "Permanent", "o.secilmis": "Elected (term ends)",
+      "o.grup": ({ g, n, nufus, uye }) => `${g}: ${n} members; ${nufus} of the population of UN Member States, ${uye} of the membership.`,
+      "o.koltuk": ({ d, s }) => `Council seats: ${d} permanent, ${s} elected`,
+      "o.kart": "The group's card ↓",
+      "i.daimi": "Security Council: permanent member", "i.secilmis": ({ y }) => `Security Council: elected member (term ends ${y})`,
+      "harita.etiket": ({ s }) => `World map: ${s}. The same information is in the list below the map.`,
+      "liste": ({ n }) => `Show the list of countries (${n})`,
+      "t.ulke": "Country", "t.konsey": "Security Council", "t.secilmis": "Elected",
     },
   };
   const t = (a, p) => { const v = SOZLUK[DIL][a] ?? SOZLUK.tr[a]; return typeof v === "function" ? v(p || {}) : v; };
@@ -215,7 +361,7 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
     const satirlar = GOSTERGELER.map(([ad, alan, r]) => `<div class="et">${esc(t("b." + ad))}</div><div class="cb"><span style="width:${(100 * g.paylar[alan]).toFixed(2)}%;background:var(${r})"></span></div><div class="deger">${yuzde(g.paylar[alan])}</div>`).join("");
     const koltuk = `<div class="et">${esc(t("b.koltuk"))}</div><div class="cb"><span class="secilmis" style="width:${(100 * k.toplam_payi).toFixed(2)}%"></span><span class="daimi" style="width:${(100 * k.daimi_payi * 5 / 15).toFixed(2)}%"></span></div><div class="deger">${yuzde(k.toplam_payi)}</div>`;
     const oranlar = Object.entries(g.oranlar).map(([a, x]) => `${esc(t("o." + a))} <b>${oran(x)}</b>`).join(" · ");
-    return `<article class="kutu grup" aria-label="${esc(g.ad[DIL])}"><h3>${esc(g.ad[DIL])}</h3><p class="alt-bilgi">${esc(t("uyeSayisi", { n: g.uye_sayisi }))}${ek63 ? " · " + esc(t("nufus63", { p: yuzde(g.paylar.nufus_1963) })) : ""}</p>
+    return `<article class="kutu grup" id="grup-${esc(g.kod)}" aria-label="${esc(g.ad[DIL])}"><h3>${esc(g.ad[DIL])}</h3><p class="alt-bilgi">${esc(t("uyeSayisi", { n: g.uye_sayisi }))}${ek63 ? " · " + esc(t("nufus63", { p: yuzde(g.paylar.nufus_1963) })) : ""}</p>
       <div class="cubuklar">${satirlar}${koltuk}</div>
       <p class="koltuk-not">${esc(t("koltukNot", { d: k.daimi, s: k.secilmis, t: k.toplam }))}</p>
       <p class="oranlar">${esc(t("oranBaslik"))} ${oranlar}</p></article>`;
@@ -229,9 +375,391 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
     + V.gruplar.map((g) => satir(g.ad[DIL], g.uye_sayisi_1963, g.nufus_1963_bin, g.paylar.nufus_1963, g.uye_sayisi, g.nufus_2023_bin, g.paylar.nufus_2023)).join("")
     + V.kumeler.map((g) => satir(g.ad[DIL], g.uye_sayisi_1963, g.nufus_1963_bin, g.paylar.nufus_1963, g.uye_sayisi, g.nufus_2023_bin, g.paylar.nufus_2023)).join("")
     + `<tr><td><b>${esc(t("t.toplam"))}</b></td><td class="s">${V.meta.uye_sayisi_1963}</td><td class="s">${sayi(T.nufus_1963_bin)}</td><td class="s">${yuzde(1)}</td><td class="s">${V.meta.uye_sayisi}</td><td class="s">${sayi(T.nufus_2023_bin)}</td><td class="s">${yuzde(1)}</td><td class="s"></td></tr></tbody>`;
+  harita();
   const notlar63 = V.uyeler_1963.filter((x) => x.not).map((x) => `<li><b>${esc(x.uye_1963)}</b> (${esc(x.grup)}): ${esc(x.not[DIL])}</li>`);
   $("#nufus-notlar").innerHTML = notlar63.join("");
   $("#kume-notlar").innerHTML = V.kumeler.flatMap((k) => k.notlar.map((n) => `<li><b>${esc(k.ad[DIL])}:</b> ${esc(n[DIL])}</li>`)).join("");
+
+  // ---------- Harita ----------
+  // Seçim: Güvenlik Konseyi (varsayılan) ya da bir bölgesel grup. Konsey seçiliyken 15 üye koyu, öteki üyeler açık; grup
+  // seçiliyken grubun üyeleri orta ton, Konseydeki koltukları koyu. Ülkeye tıklamak grubunu seçer. Liste haritayla aynı seçimi
+  // gösterir (haritanın erişilebilir karşılığı).
+  function harita() {
+    const H = window.HARITA_VERISI;
+    if (!H) { $("#harita").closest("section").hidden = true; return; }
+    const UYE = new Map(V.uyeler.map((u) => [u.iso3, u]));
+    const AD = new Map(H.uyeler.map((u) => [u.k, u[DIL]]));
+    const GRUP = new Map(V.gruplar.map((g) => [g.kod, g]));
+    const sirala = (a, b) => AD.get(a).localeCompare(AD.get(b), YEREL);
+    let secim = "GK";
+    const [x, y, w, h] = H.kutu;
+    $("#harita").innerHTML = `<svg viewBox="${x} ${y} ${w} ${h}" role="img" id="harita-svg">
+      ${H.alanlar.filter((a) => a.d && !a.ust).map((a) => `<path class="uye-degil"${a.durum === "sessiz" ? "" : ` data-a="${a.k}"`} d="${a.d}"/>`).join("")}
+      ${H.uyeler.filter((u) => u.d).map((u) => `<path data-k="${u.k}" d="${u.d}"/>`).join("")}
+      ${H.bolgeler.filter((b) => b.d).map((b) => `<path data-k="${b.uye}" data-b="${b.k}" d="${b.d}"/>`).join("")}
+      ${H.katmanlar.map((k) => `<path data-k="${k.k}" d="${k.d}"/>`).join("")}
+      ${H.alanlar.filter((a) => a.d && a.ust).map((a) => `<path class="uye-degil"${a.durum === "sessiz" ? "" : ` data-a="${a.k}"`} d="${a.d}"/>`).join("")}
+      ${H.noktalar.map((n) => `<circle data-k="${n.k}" data-tur="nokta" cx="${n.x}" cy="${n.y}" r="3"/>`).join("")}
+      <g class="balonlar">${H.uyeler.slice().sort((a, b) => UYE.get(b.k).nufus_2023 - UYE.get(a.k).nufus_2023)
+        .map((u) => `<circle data-k="${u.k}" data-tur="balon" cx="${u.m[0]}" cy="${u.m[1]}" r="1"/>`).join("")}</g>
+      <path class="secili" id="harita-secili" d=""/>
+      <path class="vurgu" id="harita-vurgu" d=""/></svg><div class="ipucu" id="harita-ipucu" aria-hidden="true"></div>
+      <div class="harita-yakin" role="group" aria-label="${esc(t("y.grup"))}"><button type="button" class="yakin-dugme" data-yakin="art" aria-label="${esc(t("y.art"))}">+</button><button type="button" class="yakin-dugme" data-yakin="azalt" aria-label="${esc(t("y.azalt"))}">−</button><button type="button" class="yakin-dugme" data-yakin="tum">${esc(t("y.tum"))}</button></div>`;
+    const svg = $("#harita-svg"), ipucu = $("#harita-ipucu"), vurgu = $("#harita-vurgu");
+    const ogeler = [...svg.querySelectorAll("[data-k]")];
+    // Yakınlaştırma: harita ve veri değişmez, yalnızca görünüm (viewBox) büyür; en çok 8 kat. Düğmeler, çift tıklama (dokunmatikte
+    // çift dokunma), yakınken sürükleme ve iki parmak, Ctrl + kaydırma (dokunmatik yüzeyde iki parmak). Geçiş 0,3 s; hareket azaltma
+    // tercihinde anlık.
+    const TAM = { x, y, w, h }, EN_COK = 8;
+    let gor = { ...TAM }, kare = 0;
+    const azHareket = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const dugme = (k) => $(`.yakin-dugme[data-yakin="${k}"]`);
+    // Küçük devlet noktaları her ölçekte ekranda 3,5 px yarıçaplı
+    // Nüfus balonları da ekranda sabit boyda: en büyük nüfus (2023) 16–40 px yarıçap (haritanın genişliğine göre), alan nüfusla orantılı
+    const NUFUS_EN = Math.max(...V.uyeler.map((u) => u.nufus_2023));
+    const balonPx = (n) => Math.min(40, Math.max(16, svg.clientWidth * 0.035)) * Math.sqrt(n / NUFUS_EN);
+    const noktaBoyu = () => {
+      if (!svg.clientWidth) return;  // görünmezken (ör. gizli çerçeve) ölçü yok
+      const birim = gor.w / svg.clientWidth;  // ekran pikseli başına harita birimi
+      svg.querySelectorAll('circle[data-tur="nokta"]').forEach((c) => c.setAttribute("r", (3.5 * birim).toFixed(2)));
+      svg.querySelectorAll('circle[data-tur="balon"]').forEach((c) => c.setAttribute("r", (balonPx(UYE.get(c.dataset.k).nufus_2023) * birim).toFixed(2)));
+    };
+    new ResizeObserver(() => { noktaBoyu(); if (balon) lejantCiz(); }).observe(svg);
+    const genislik = (gw) => Math.min(TAM.w, Math.max(TAM.w / EN_COK, gw));
+    const sinirla = (v) => {
+      const gw = genislik(v.w), gh = gw * TAM.h / TAM.w;
+      return { w: gw, h: gh, x: Math.min(Math.max(v.x, TAM.x), TAM.x + TAM.w - gw), y: Math.min(Math.max(v.y, TAM.y), TAM.y + TAM.h - gh) };
+    };
+    const uygula = (v) => {
+      gor = v;
+      svg.setAttribute("viewBox", `${v.x.toFixed(2)} ${v.y.toFixed(2)} ${v.w.toFixed(2)} ${v.h.toFixed(2)}`);
+      const yakin = v.w < TAM.w - 0.01;
+      svg.classList.toggle("yakin", yakin);
+      dugme("art").disabled = v.w <= TAM.w / EN_COK + 0.01;
+      dugme("azalt").disabled = dugme("tum").disabled = !yakin;
+      noktaBoyu();
+    };
+    const git = (hedef, hemen) => {
+      hedef = sinirla(hedef);
+      cancelAnimationFrame(kare);
+      if (hemen || azHareket()) return uygula(hedef);
+      const bas = { ...gor }, t0 = performance.now();
+      const adim = (an) => {
+        const p = Math.min(1, (an - t0) / 300), e = 1 - (1 - p) ** 3;
+        uygula({ x: bas.x + (hedef.x - bas.x) * e, y: bas.y + (hedef.y - bas.y) * e, w: bas.w + (hedef.w - bas.w) * e, h: bas.h + (hedef.h - bas.h) * e });
+        if (p < 1) kare = requestAnimationFrame(adim);
+      };
+      kare = requestAnimationFrame(adim);
+    };
+    // Ekrandaki nokta -> harita birimi. Yakınlaşırken (mx, my) noktası ekranda yerinde kalır (iki parmak, Ctrl + kaydırma) ya da
+    // ortaya gelir (çift tıklama ve çift dokunma: tıklanan yer görünümün ortasında)
+    const haritada = (cx, cy) => { const r = svg.getBoundingClientRect(); return [gor.x + (cx - r.left) / r.width * gor.w, gor.y + (cy - r.top) / r.height * gor.h]; };
+    const yakinlas = (kat, mx = gor.x + gor.w / 2, my = gor.y + gor.h / 2, hemen = false, ortala = false) => {
+      const gw = genislik(gor.w / kat), gh = gw * TAM.h / TAM.w;
+      git(ortala ? { x: mx - gw / 2, y: my - gh / 2, w: gw, h: gh }
+        : { x: mx - (mx - gor.x) / gor.w * gw, y: my - (my - gor.y) / gor.h * gh, w: gw, h: gh }, hemen);
+    };
+    const durum = (u) => {
+      const koltuk = u.gk ? (u.gk.tur === "daimi" ? "h-daimi" : "h-secilmis") : "";
+      if (secim === "GK") return koltuk || "h-diger";
+      return u.grup === secim ? koltuk || "h-grup" : "h-diger";
+    };
+    const secimler = [["GK", t("konsey"), V.uyeler.filter((u) => u.gk).length], ...V.gruplar.map((g) => [g.kod, g.ad[DIL], g.uye_sayisi])];
+    $("#harita-secim").innerHTML = secimler.map(([k, ad, n]) => `<button type="button" class="secim-dugme" data-secim="${k}" aria-pressed="false">${esc(ad)} <span class="sayi">${n}</span></button>`).join("");
+    const kume = () => V.uyeler.filter((u) => (secim === "GK" ? u.gk : u.grup === secim)).map((u) => u.iso3).sort(sirala);
+    const ciz = () => {
+      ogeler.forEach((e) => e.setAttribute("class", durum(UYE.get(e.dataset.k)) + (e.dataset.k === ulke && e.dataset.tur === "nokta" ? " secili-nokta" : "")));
+      document.querySelectorAll("#harita-secim .secim-dugme").forEach((d) => d.setAttribute("aria-pressed", String(d.dataset.secim === secim)));
+      const uyeler = kume().map((k) => UYE.get(k));
+      const d = uyeler.filter((u) => u.gk && u.gk.tur === "daimi"), s = uyeler.filter((u) => u.gk && u.gk.tur === "secilmis");
+      const adlar = (L) => L.map((u) => esc(AD.get(u.iso3))).join(", ");
+      let ozet, etiket;
+      if (secim === "GK") {
+        ozet = `${esc(t("o.konsey", { d: d.length, s: s.length }))} ${esc(t("o.daimi"))}: ${adlar(d)}. ${esc(t("o.secilmis"))}: ${s.map((u) => `${esc(AD.get(u.iso3))} (${u.gk.donem_sonu})`).join(", ")}.`;
+        etiket = t("o.konsey", { d: d.length, s: s.length });
+      } else {
+        const g = GRUP.get(secim);
+        ozet = `${esc(t("o.grup", { g: g.ad[DIL], n: g.uye_sayisi, nufus: yuzde(g.paylar.nufus_2023), uye: yuzde(g.paylar.uye) }))} ${esc(t("o.koltuk", { d: d.length, s: s.length }))}${d.length + s.length ? ` (${adlar([...d, ...s])})` : ""}. <a href="#grup-${secim}">${esc(t("o.kart"))}</a>`;
+        etiket = t("o.grup", { g: g.ad[DIL], n: g.uye_sayisi, nufus: yuzde(g.paylar.nufus_2023), uye: yuzde(g.paylar.uye) });
+      }
+      $("#harita-ozet").innerHTML = ozet;
+      svg.setAttribute("aria-label", t("harita.etiket", { s: etiket }));
+      lejantCiz();
+      $("#harita-liste-baslik").textContent = t("liste", { n: uyeler.length });
+      $("#harita-tablo").innerHTML = `<thead><tr><th>${esc(t("t.ulke"))}</th><th>${esc(t("t.grup"))}</th><th class="s">${esc(t("t.nufus23"))}</th><th>${esc(t("t.konsey"))}</th></tr></thead><tbody>`
+        + uyeler.map((u) => `<tr><td>${esc(AD.get(u.iso3))}</td><td>${esc(GRUP.get(u.grup).ad[DIL])}</td><td class="s">${sayi(u.nufus_2023)}</td><td>${u.gk ? esc(u.gk.tur === "daimi" ? t("o.daimi") : `${t("t.secilmis")} (${u.gk.donem_sonu})`) : ""}</td></tr>`).join("")
+        + "</tbody>";
+      durumYaz();
+    };
+    function lejantCiz() {
+      const lejant = [["--g-daimi", t("l.h.daimi")], ["--g-secilmis", t("l.h.secilmis")]];
+      if (secim !== "GK") lejant.push(["--h-grup", t("l.h.grup", { g: GRUP.get(secim).ad[DIL] })]);
+      if (!balon) lejant.push(["--bos", t("l.h.diger")]);
+      const daire = (n) => { const r = balonPx(n); return `<svg width="${(2 * r + 2).toFixed(1)}" height="${(2 * r + 2).toFixed(1)}" aria-hidden="true"><circle cx="${(r + 1).toFixed(1)}" cy="${(r + 1).toFixed(1)}" r="${r.toFixed(1)}"/></svg>`; };
+      const el = $("#harita-lejant");
+      el.classList.toggle("balonlu", balon);
+      el.innerHTML = lejant.map(([r, ad]) => `<span style="--r:var(${r})">${esc(ad)}</span>`).join("")
+        + (balon ? `<span class="balon-diger">${esc(t("l.h.diger"))}</span>` : "")
+        + `<span class="bos-alan">${esc(t("l.h.degil"))}</span>`
+        + (balon ? `<span class="balon-olcek">${esc(t("l.balon"))} ${daire(1e6)}${esc(t("l.milyar"))} ${daire(1e5)}${esc(t("l.yuzmilyon"))}</span>` : "");
+    }
+    $("#harita-secim").addEventListener("click", (e) => { const d = e.target.closest(".secim-dugme"); if (d) { secim = d.dataset.secim; ciz(); } });
+    // BM üyesi olmayan alanlar: BM'nin kullandığı adla (Türkiye'nin tanıdığı devletler Dışişleri Bakanlığı'nın adıyla), altında durumu (üye değil, gözlemci
+    // devlet, kendi kendini yönetmeyen toprak). Bağlı olunan devlet ve anlaşmazlıklar yazılmaz; "sessiz" alanın adı gösterilmez.
+    const AL = new Map(H.alanlar.map((a) => [a.k, a]));
+    const alanAdi = (a) => a[DIL];
+    const alanDurumu = (a) => t({ uye_degil: "a.degil", gozlemci: "a.gozlemci", kyt: "a.kyt" }[a.durum]);
+    const alanYollari = (ad) => H.alanlar.filter((a) => a[DIL] === ad && a.d).map((a) => a.d).join("");  // Batı Sahra iki parça
+    const ipucuYaz = (html, ex, ey) => {
+      const b = $("#harita").getBoundingClientRect();
+      ipucu.innerHTML = html;
+      ipucu.classList.add("acik");
+      let px = ex - b.left + 14;
+      if (px + ipucu.offsetWidth > b.width) px = ex - b.left - ipucu.offsetWidth - 14;
+      ipucu.style.left = `${Math.max(0, px)}px`; ipucu.style.top = `${Math.max(0, ey - b.top + 14)}px`;
+    };
+    const ipucuGoster = (k, ex, ey) => {
+      const u = UYE.get(k);
+      const satirlar = [GRUP.get(u.grup).ad[DIL], t("i.nufus2", { n: nufusMetni(u.nufus_2023) })];
+      if (u.gk) satirlar.push(u.gk.tur === "daimi" ? t("i.daimi") : t("i.secilmis", { y: u.gk.donem_sonu }));
+      ipucuYaz(`<strong>${esc(AD.get(k))}</strong>${satirlar.map(esc).join("<br>")}`, ex, ey);
+      vurgu.setAttribute("d", ogeler.filter((e) => e.dataset.k === k && e.tagName === "path").map((e) => e.getAttribute("d")).join(""));
+    };
+    // Nüfus: her alan ve bölge BM istatistiklerindeki kendi sayısıyla (WPP 2024, 2023)
+    // 1 binin altı kişi, 10 binin altı bir ondalıklı bin (Vatikan 500 kişi, Falkland 3,5 bin)
+    const nufusMetni = (bin) => (bin < 1 ? t("k.kisi", { n: sayi(Math.round(bin * 1000)) }) : bin < 10 ? t("k.bin", { n: sayi(bin, 1) })
+      : bin < 1000 ? t("k.bin", { n: sayi(bin) }) : t("k.milyon", { n: sayi(bin / 1000, 1) }));
+    const nufusSatiri = (x) => (x.n ? "<br>" + esc(t("i.nufus2", { n: nufusMetni(x.n) })) : "");
+    const alanIpucu = (k, ex, ey) => {
+      const a = AL.get(k);
+      ipucuYaz(`<strong>${esc(alanAdi(a))}</strong>${esc(alanDurumu(a))}${nufusSatiri(a)}`, ex, ey);
+      vurgu.setAttribute("d", alanYollari(a[DIL]));
+    };
+    // Ayrı sayılan bölge (ör. Réunion, Hong Kong): üyenin toprağı, nüfusu üyeye eklenmez
+    const BL = new Map(H.bolgeler.map((b) => [b.k, b]));
+    const bolgeDurumu = (b) => t("b.parca", { u: AD.get(b.uye) });
+    const bolgeIpucu = (k, ex, ey) => {
+      const b = BL.get(k);
+      ipucuYaz(`<strong>${esc(b[DIL])}</strong>${esc(bolgeDurumu(b))}${nufusSatiri(b)}`, ex, ey);
+      vurgu.setAttribute("d", b.d);
+    };
+    const ipucuGizle = () => { ipucu.classList.remove("acik"); vurgu.setAttribute("d", ""); };
+    // Sürükleme ve iki parmak (yakınken); dokunmatikte çift dokunma
+    const dokunus = new Map();
+    let tutus = null, surukledi = false, sonDokunma = null, sonTur = "mouse", kartKaydir = 0;
+    svg.addEventListener("pointerdown", (e) => {
+      if (e.button !== 0) return;
+      sonTur = e.pointerType;
+      dokunus.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      surukledi = false;
+      if (dokunus.size === 2) {
+        const [a, b] = [...dokunus.values()];
+        tutus = { iki: true, d: Math.hypot(a.x - b.x, a.y - b.y), gor: { ...gor }, m: haritada((a.x + b.x) / 2, (a.y + b.y) / 2) };
+      } else tutus = dokunus.size === 1 && svg.classList.contains("yakin") ? { x: e.clientX, y: e.clientY, gor: { ...gor } } : null;
+    });
+    svg.addEventListener("pointermove", (e) => {
+      if (dokunus.has(e.pointerId)) dokunus.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (tutus && dokunus.has(e.pointerId)) {
+        const r = svg.getBoundingClientRect();
+        if (tutus.iki) {
+          if (dokunus.size < 2) return;
+          const [a, b] = [...dokunus.values()];
+          const gw = genislik(tutus.gor.w * tutus.d / Math.max(1, Math.hypot(a.x - b.x, a.y - b.y))), gh = gw * TAM.h / TAM.w;
+          const ox = ((a.x + b.x) / 2 - r.left) / r.width, oy = ((a.y + b.y) / 2 - r.top) / r.height;
+          surukledi = true; ipucuGizle();
+          return uygula(sinirla({ x: tutus.m[0] - ox * gw, y: tutus.m[1] - oy * gh, w: gw, h: gh }));
+        }
+        const dx = e.clientX - tutus.x, dy = e.clientY - tutus.y;
+        if (!surukledi && Math.hypot(dx, dy) < 4) return;
+        if (!surukledi) { surukledi = true; svg.setPointerCapture(e.pointerId); svg.classList.add("suruk"); ipucuGizle(); cancelAnimationFrame(kare); }
+        return uygula(sinirla({ ...tutus.gor, x: tutus.gor.x - dx / r.width * tutus.gor.w, y: tutus.gor.y - dy / r.height * tutus.gor.h }));
+      }
+      const o = e.target.closest("[data-k], [data-a]");
+      if (!o) ipucuGizle();
+      else if (o.dataset.b) bolgeIpucu(o.dataset.b, e.clientX, e.clientY);
+      else if (o.dataset.k) ipucuGoster(o.dataset.k, e.clientX, e.clientY);
+      else alanIpucu(o.dataset.a, e.clientX, e.clientY);
+    });
+    const birak = (e) => {
+      dokunus.delete(e.pointerId);
+      if (tutus && tutus.iki && dokunus.size < 2) tutus = null;
+      if (!dokunus.size) { tutus = null; svg.classList.remove("suruk"); }
+    };
+    svg.addEventListener("pointerup", (e) => {
+      if (e.pointerType !== "mouse" && !surukledi && dokunus.size === 1) {
+        const simdi = performance.now();
+        if (sonDokunma && simdi - sonDokunma.t < 300 && Math.hypot(e.clientX - sonDokunma.x, e.clientY - sonDokunma.y) < 24) {
+          ipucuGizle();
+          clearTimeout(kartKaydir);
+          yakinlas(2, ...haritada(e.clientX, e.clientY), false, true);
+          sonDokunma = null;
+          surukledi = true;  // ikinci dokunuşun tıklaması ipucu açmaz (küçük ekranda haritayı kapatırdı)
+        } else sonDokunma = { t: simdi, x: e.clientX, y: e.clientY };
+      }
+      birak(e);
+    });
+    svg.addEventListener("pointercancel", birak);
+    svg.addEventListener("pointerleave", () => { if (!surukledi) ipucuGizle(); });
+    svg.addEventListener("dblclick", (e) => { e.preventDefault(); if (sonTur === "mouse") { ipucuGizle(); yakinlas(2, ...haritada(e.clientX, e.clientY), false, true); } });
+    svg.addEventListener("wheel", (e) => {
+      if (!e.ctrlKey) return;  // sayfa kaydırması haritada da sayfayı kaydırır
+      e.preventDefault();
+      yakinlas(Math.exp(-e.deltaY * 0.01), ...haritada(e.clientX, e.clientY), true);
+    }, { passive: false });
+    $(".harita-yakin").addEventListener("click", (e) => {
+      const d = e.target.closest(".yakin-dugme");
+      if (!d || d.disabled) return;
+      if (d.dataset.yakin === "art") yakinlas(2);
+      else if (d.dataset.yakin === "azalt") yakinlas(0.5);
+      else git({ ...TAM });
+    });
+    svg.addEventListener("click", (e) => {
+      if (surukledi) return;  // sürüklemenin sonu tıklama sayılmaz
+      const al = e.target.closest("[data-a]");
+      if (al) { alanIpucu(al.dataset.a, e.clientX, e.clientY); return; }  // üye olmayan alan: yalnızca ipucu (kart yok)
+      const o = e.target.closest("[data-k]"); if (!o) return;
+      ulkeSec(o.dataset.k, { yakin: false });
+      // Dokunmatikte ipucu yerine kart: küçük ekranda ipucu haritayı kapatırdı
+      if (sonTur === "mouse") (o.dataset.b ? bolgeIpucu(o.dataset.b, e.clientX, e.clientY) : ipucuGoster(o.dataset.k, e.clientX, e.clientY));
+      else {
+        // Kart görünmüyorsa ona kaydırılır; ama çift dokunmanın ikinci dokunuşu gelebilir: önce 350 ms beklenir (sayfa kayarsa
+        // ikinci dokunuş başka ülkeye düşerdi), çift dokunma kaydırmayı iptal eder
+        ipucuGizle();
+        clearTimeout(kartKaydir);
+        kartKaydir = setTimeout(() => { const r = kart.getBoundingClientRect(); if (r.bottom > innerHeight) kart.scrollIntoView({ block: "nearest", behavior: azHareket() ? "auto" : "smooth" }); }, 350);
+      }
+    });
+
+    // Ülke kartı: grup, kabul tarihi, nüfus, bütçe ve barış gücü payı, İİT üyeliği, Konsey durumu; seçili ülke haritada çizgiyle
+    const kart = $("#ulke-karti"), secili = $("#harita-secili");
+    let ulke = null;
+    const tarihYaz = (x) => new Intl.DateTimeFormat(YEREL, { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(x + "T00:00:00Z"));
+    const payYaz = (p) => {
+      if (p >= 0.01) return yuzde(p);
+      const s = (100 * p).toLocaleString(YEREL, { maximumSignificantDigits: 2 });
+      return DIL === "tr" ? "%" + s : s + "%";
+    };
+    // Bütçe ölçeği resmî değeriyle, üç ondalık (A/RES/79/249)
+    const butceYaz = (x) => { const s = x.toLocaleString(YEREL, { minimumFractionDigits: 3, maximumFractionDigits: 3 }); return DIL === "tr" ? "%" + s : s + "%"; };
+    const kartCiz = (k) => {
+      const u = UYE.get(k), g = GRUP.get(u.grup);
+      const n = nufusMetni(u.nufus_2023);
+      const satir = (a, d) => `<div><dt>${esc(a)}</dt><dd>${esc(d)}</dd></div>`;
+      kart.innerHTML = `<div class="ulke-karti-bas"><h3>${esc(AD.get(k))}</h3><a href="#grup-${esc(u.grup)}">${esc(t("o.kart"))}</a>
+          <button type="button" class="yakin-dugme" id="kart-kapat">${esc(t("k.kapat"))}</button></div>
+        <dl class="ulke-bilgi">${[
+          satir(t("k.grup"), g.ad[DIL]), satir(t("k.kabul"), tarihYaz(u.kabul_tarihi)),
+          satir(t("k.nufus"), t("k.nufusDeger", { n, p: payYaz(u.nufus_2023 / T.nufus_2023_bin) })),
+          satir(t("k.butce"), butceYaz(u.butce_yuzde)),
+          satir(t("k.personel"), u.personel ? t("k.personelDeger", { n: sayi(u.personel), p: payYaz(u.personel / T.personel) }) : "0"),
+          satir(t("k.iit"), u.iit ? t("k.evet") : t("k.hayir")),
+          satir(t("k.konsey"), u.gk ? (u.gk.tur === "daimi" ? t("k.daimi") : t("k.secilmis", { y: u.gk.donem_sonu })) : t("k.degil")),
+        ].join("")}</dl>${u.not ? `<p class="ulke-not">${esc(u.not[DIL])}</p>` : ""}${(() => {
+          const B = H.bolgeler.filter((b) => b.uye === k);
+          return B.length ? `<p class="ulke-not">${esc(t("k.ayri", { liste: B.map((b) => `${b[DIL]} (${nufusMetni(b.n)})`).join(", ") }))}</p>` : "";
+        })()}`;
+      kart.hidden = false;
+      $("#kart-kapat").addEventListener("click", kartKapat);
+    };
+    const ulkeSec = (k, { yakin = true, hemen = false } = {}) => {
+      ulke = k;
+      secim = UYE.get(k).grup;
+      ciz();
+      secili.setAttribute("d", ogeler.filter((e) => e.dataset.k === k && e.tagName === "path").map((e) => e.getAttribute("d")).join(""));
+      kartCiz(k);
+      if (yakin) {
+        // Ana toprağın kutusu çevresiyle görünür (en çok 6 kat; büyük ülkelerde dünya)
+        const [x0, y0, x1, y1] = HU.get(k).b, gw = genislik(Math.max(3 * (x1 - x0), 3 * (y1 - y0) * TAM.w / TAM.h, TAM.w / 6)), gh = gw * TAM.h / TAM.w;
+        git({ x: (x0 + x1 - gw) / 2, y: (y0 + y1 - gh) / 2, w: gw, h: gh }, hemen);
+      }
+      durumYaz();
+    };
+    function kartKapat() { ulke = null; kart.hidden = true; secili.setAttribute("d", ""); ciz(); }
+
+    // Arama: büyük-küçük harf ve aksan duyarsız (Türkçe I/ı kuralıyla); tek eşleşme seçilir, birden çoksa adlar listelenir
+    const HU = new Map(H.uyeler.map((u) => [u.k, u]));
+    const sade = (x) => x.toLocaleLowerCase(YEREL).normalize("NFD").replace(/[̀-ͯ]/g, "").trim();
+    const adlar = [...AD.entries()].sort((a, b) => a[1].localeCompare(b[1], YEREL));
+    $("#ulke-ara").placeholder = t("ara.ornek");
+    $("#ulke-listesi").innerHTML = adlar.map(([, ad]) => `<option value="${esc(ad)}"></option>`).join("");
+    const durumGoster = (m) => { const d = $("#arac-durum"); d.textContent = m; clearTimeout(durumGoster.z); durumGoster.z = setTimeout(() => { d.textContent = ""; }, 6000); };
+    const ara = () => {
+      const q = sade($("#ulke-ara").value); if (!q) return;
+      const tam = adlar.filter(([k, ad]) => sade(ad) === q || k.toLowerCase() === q);
+      // Üye olmayan alanlar da aranır (tam ad ya da baş harfler); üyeyle tam eşleşme önce gelir
+      const alanAd = [...new Set([...H.alanlar.filter((a) => a.durum !== "sessiz"), ...H.bolgeler].map((a) => a[DIL]))], uyar = (ad) => sade(ad).startsWith(q) || sade(ad).includes(" " + q);
+      const tamA = tam.length ? [] : alanAd.filter((ad) => sade(ad) === q);
+      if (tamA.length === 1) return alanBul(tamA[0]);
+      const L = tam.length ? tam : adlar.filter(([, ad]) => uyar(ad)), LA = tam.length ? [] : alanAd.filter(uyar);
+      if (L.length === 1 && !LA.length) { ulkeSec(L[0][0]); durumGoster(""); return; }
+      if (!L.length && LA.length === 1) return alanBul(LA[0]);
+      const H2 = [...L.map(([, ad]) => ad), ...LA];
+      durumGoster(H2.length ? t("ara.coklu", { n: H2.length, adlar: H2.slice(0, 6).join(", ") + (H2.length > 6 ? "…" : "") }) : t("ara.yok"));
+    };
+    const alanBul = (ad) => {
+      const P = [...H.alanlar, ...H.bolgeler].filter((a) => a[DIL] === ad), a = P[0];
+      const x0 = Math.min(...P.map((p) => p.b[0])), y0 = Math.min(...P.map((p) => p.b[1])), x1 = Math.max(...P.map((p) => p.b[2])), y1 = Math.max(...P.map((p) => p.b[3]));
+      if (ulke) kartKapat();
+      secili.setAttribute("d", P.map((p) => p.d).join(""));
+      const gw = genislik(Math.max(3 * (x1 - x0), 3 * (y1 - y0) * TAM.w / TAM.h, TAM.w / 6)), gh = gw * TAM.h / TAM.w;
+      git({ x: (x0 + x1 - gw) / 2, y: (y0 + y1 - gh) / 2, w: gw, h: gh });
+      const ek = a.n ? ` ${t("i.nufus2", { n: nufusMetni(a.n) })}.` : "";
+      durumGoster(`${a[DIL]}: ${a.uye ? bolgeDurumu(a) : alanDurumu(a)}.${ek}${P.some((p) => p.d) ? "" : " " + t("a.kucuk")}`);
+    };
+    $("#ulke-ara").addEventListener("change", ara);
+    // Listeden seçim (datalist) hemen uygulanır; harf yazmak aramaz
+    $("#ulke-ara").addEventListener("input", (e) => { if (!e.inputType || e.inputType === "insertReplacementText") ara(); });
+    $("#ulke-ara").addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); ara(); } });
+
+    // Nüfus balonları (aç/kapa)
+    let balon = false;
+    const balonAyarla = (acik) => { balon = acik; svg.classList.toggle("balonlu", acik); $("#balon-dugme").setAttribute("aria-pressed", String(acik)); lejantCiz(); durumYaz(); };
+    $("#balon-dugme").addEventListener("click", () => balonAyarla(!balon));
+
+    // Görünüm adreste: #grup=EEG&ulke=TUR&balon=1&gorunum=x,y,kat (varsayılanlar yazılmaz); açılışta okunur. Tek dosyada
+    // (about:srcdoc) adres değişmez.
+    let yazZaman = 0;
+    const adresYaz = () => {
+      const q = [];
+      if (secim !== "GK") q.push(`grup=${secim}`);
+      if (ulke) q.push(`ulke=${ulke}`);
+      if (balon) q.push("balon=1");
+      if (gor.w < TAM.w - 0.01) q.push(`gorunum=${Math.round(gor.x + gor.w / 2)},${Math.round(gor.y + gor.h / 2)},${(TAM.w / gor.w).toFixed(1)}`);
+      if (!q.length && !location.hash.includes("=")) return;  // bölüm bağlantısı (#h-harita vb.) korunur
+      const adres = location.pathname + location.search + (q.length ? "#" + q.join("&") : "");
+      try { if (location.protocol !== "about:" && adres !== location.pathname + location.search + location.hash) history.replaceState(null, "", adres); } catch (_) { /* yok */ }
+    };
+    function durumYaz() { clearTimeout(yazZaman); yazZaman = setTimeout(adresYaz, 250); }
+    $("#paylas-dugme").addEventListener("click", async () => {
+      clearTimeout(yazZaman); adresYaz();
+      const url = location.href;
+      try {
+        if (navigator.share && matchMedia("(pointer: coarse)").matches) { await navigator.share({ title: document.title, url }); return; }
+        await navigator.clipboard.writeText(url);
+        durumGoster(t("paylas.kopyalandi"));
+      } catch (e) { if (!e || e.name !== "AbortError") durumGoster(t("paylas.elle", { url })); }
+    });
+    $("#harita-metodoloji").setAttribute("href", `metodoloji.html${ek}#${DIL === "tr" ? "" : "en-"}bolum-2-9`);
+    ciz(); uygula(gor);
+    // Adresteki görünümü uygular: açılışta ve sayfa açıkken adres değişince (paylaşılan bağlantı aynı sekmede açıldığında)
+    const adrestenOku = (kaydir) => {
+      if (!location.hash.includes("=")) return;
+      const adres = new URLSearchParams(location.hash.slice(1));
+      const g = adres.get("grup"), u = adres.get("ulke"), gv = (adres.get("gorunum") || "").split(",").map(Number);
+      secim = g === "GK" || GRUP.has(g) ? g : "GK";
+      if (ulke && !UYE.has(u)) { ulke = null; kart.hidden = true; secili.setAttribute("d", ""); }
+      ciz();
+      balonAyarla(adres.get("balon") === "1");
+      if (UYE.has(u)) ulkeSec(u, { yakin: gv.length !== 3, hemen: true });
+      if (gv.length === 3 && gv.every(Number.isFinite) && gv[2] >= 1) {
+        const gw = genislik(TAM.w / gv[2]), gh = gw * TAM.h / TAM.w;
+        git({ x: gv[0] - gw / 2, y: gv[1] - gh / 2, w: gw, h: gh }, true);
+      } else if (!UYE.has(u)) git({ ...TAM }, true);
+      if (kaydir) requestAnimationFrame(() => $("#h-harita").scrollIntoView());
+    };
+    adrestenOku(true);
+    addEventListener("hashchange", () => adrestenOku(true));
+  }
 })();
 </script>
 </body>

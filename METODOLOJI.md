@@ -325,7 +325,11 @@ eklenmez; bileşik puan ya da sıralama yoktur.
   WEOG'da sayılır ve notlanır. Coğrafi bölgeler (M49) kullanılmaz; koltuk dağılımı seçim birimine dayanır.
 - **Nüfus:** WPP 2024, 1 Ocak tahmini, bin kişi; yıllar 2023 (son tahmin yılı) ve 1963 (A/RES/1991 (XVIII)
   yılı). 1945 için WPP serisi yoktur; hesaplanmaz. 2023 payı 193 üyenin toplamı içindedir (BM üyesi
-  olmayan ülke ve alanlar, ör. Filistin, Tayvan, Kosova, Batı Sahra ve Porto Riko, paydaya girmez). 1963 payı, 1963 sonundaki 113 üyenin o tarihteki ülkeleriyle
+  olmayan ülke ve alanlar, ör. Filistin, Tayvan, Kosova, Batı Sahra ve Porto Riko, paydaya girmez). Kıbrıs: WPP'nin
+  verisi adanın tamamını kapsar ("Refers to the whole country"); Kuzey Kıbrıs Türk Cumhuriyeti'nin nüfusu (KKTC İstatistik
+  Kurumu, Nüfus Projeksiyonları 2019–2023, 11 Kasım 2024; 2022 yıl sonu projeksiyonu 462.747, WPP'nin 1 Ocak 2023 tahminiyle
+  aynı an) çıkarılır, KKTC BM üyesi olmadığı için paydaya girmez. Bu, verideki tek BM dışı nüfus kaynağıdır (kullanıcı
+  kararı, 19 Ekim 2026; `kaynaklar/temsil/kktc_nufus.csv`). 1963 değerleri değişmez. 1963 payı, 1963 sonundaki 113 üyenin o tarihteki ülkeleriyle
   hesaplanır: dağılan devletler ardıl ülkelerin serileri toplanarak (SSCB 13 cumhuriyet, Ukrayna ve Beyaz
   Rusya ayrı üye; Yugoslavya 7 seri; Çekoslovakya 2), 1963'te büyük olan devletler o tarihteki sınırlarıyla
   (Pakistan + Bangladeş, Malezya + Singapur, Etiyopya + Eritre, Sudan + Güney Sudan); Çin koltuğu Çin
@@ -351,6 +355,27 @@ eklenmez; bileşik puan ya da sıralama yoktur.
   Security Council, Current Members, main.un.org/securitycouncil/en/content/current-members; seçilmiş koltuk
   dağılımı: A/RES/1991 (XVIII), 17 Aralık 1963. Hepsine erişim 10 Ekim 2026; künyeler ve SHA-256 değerleri
   `kaynaklar/KAYNAKLAR.md` dosyasındadır.
+- **Harita:** sayfanın başındaki harita, seçilen bölgesel grubun üyelerini ve Güvenlik Konseyi'ndeki koltuklarını
+  (2026) gösterir; aynı bilgi haritanın altındaki ülke listesindedir. Sınırlar Natural Earth 1:50m 5.1.2'den (kamu
+  malı), Equal Earth izdüşümüyle; hesap `scripts/13_harita.py`. 193 üyenin her biri kendi ülkesiyle eşlenir; BM üyesi
+  olmayan ülke ve alanlar (Batı Sahra, Kuzey Kıbrıs Türk Cumhuriyeti, Tayvan, Kosova, Filistin ve bağımlı topraklar)
+  boş çizilir.
+  Natural Earth'ün varsayılan çizimi fiilî durumdur; tartışmalı alanlar `kaynaklar/temsil/harita_kurallari.csv`'deki
+  kurallarla çizilir: Kırım Ukrayna'nın (A/RES/68/262), Golan Suriye'nin (S/RES/497 (1981)) parçası olarak; Batı
+  Sahra'nın tamamı BM üyesi olmayan alan olarak (BM'nin kendi kendini yönetmeyen topraklar listesi); Somaliland
+  Somali'nin parçası olarak; Natural Earth'te ayrı alan olan Åland Finlandiya'nın; BM'nin ülke ve alan listesinde (M49)
+  ayrı alan olmayan Ashmore ve Cartier Adaları ile WPP 2024'te Avustralya'nın verisine dahil Christmas, Cocos (Keeling) ve
+  Norfolk adaları Avustralya'nın parçası olarak. Haritadaki nüfuslar BM istatistiklerindeki ayrı sayımları izler (WPP 2024
+  notları): Çin'in verisi Hong Kong ve Makao'yu, Fransa'nınki Fransız Guyanası, Guadeloupe, Martinique, Mayotte ve
+  Réunion'u, Hollanda'nınki Bonaire, Sint Eustatius ve Saba'yı kapsamaz. Bu bölgeler üyenin renginde ama kendi adı ve
+  nüfusuyla gösterilir, nüfusları üyeye eklenmez (`kaynaklar/temsil/ayri_sayilan_bolgeler.csv`). Kıbrıs'ın nüfusundan
+  KKTC'ninki çıkarılmıştır (yukarıdaki Nüfus maddesi); KKTC'nin ipucunda bu sayı görünür. BM üyesi olmayan
+  alanların üzerine gelince adı ve durumu (üye değil, gözlemci devlet, kendi kendini yönetmeyen toprak) gösterilir; adlar
+  BM'nin kullandığı biçimdedir (WPP 2024; WPP'de yoksa M49); Türkiye'nin tanıdığı devletler (Kuzey Kıbrıs Türk Cumhuriyeti,
+  Kosova, Filistin, Vatikan) T.C. Dışişleri Bakanlığı'nın kullandığı adla yazılır (Bakanlığın temsilcilik listesi). Bağlı olunan
+  devlet ve anlaşmazlıklar yazılmaz; iki üye arasında tartışmalı Siachen Buzulu adsızdır
+  (`kaynaklar/temsil/uye_olmayan_alanlar.csv`). Nüfus balonlarında dairenin alanı ülkenin 2023 nüfusuyla (WPP 2024) orantılıdır. Harita BM üyeliğini gösterir; sınırların ve adların gösterimi bir egemenlik görüşü
+  bildirmez.
 - **Dil:** sayfa payları verir; karşılaştırma ya da değerlendirme cümlesi kurmaz.
 
 ### 2.10. "Ya veto olmasaydı?" sayfası

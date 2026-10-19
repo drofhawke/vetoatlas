@@ -355,7 +355,11 @@ Nothing is added to the veto dataset; there is no composite score or ranking.
 - **Population:** WPP 2024, estimate as of 1 January, thousands; years 2023 (last estimate year) and 1963
   (the year of A/RES/1991 (XVIII)). There is no WPP series for 1945; it is not computed. The 2023 share is
   within the total of the 193 members (non-member countries and areas, e.g. Palestine, Taiwan, Kosovo, Western Sahara and Puerto Rico, are not in the
-  denominator). The
+  denominator). Cyprus: WPP's data cover the whole island ("Refers to the whole country"); the population of the Turkish
+  Republic of Northern Cyprus (TRNC Statistical Institute, Population Projections 2019–2023, 11 November 2024; end-2022
+  projection 462,747, the same moment as WPP's 1 January 2023 estimate) is subtracted, and as the TRNC is not a UN Member
+  State it is not in the denominator. This is the only non-UN population source in the data (user decision, 19 October
+  2026; `kaynaklar/temsil/kktc_nufus.csv`). The 1963 values are unchanged. The
   1963 share is computed with the 113 members at the end of 1963 and their countries of that time: states
   that dissolved as the sum of their successors' series (USSR 13 republics, Ukraine and Byelorussia separate
   members; Yugoslavia 7 series; Czechoslovakia 2), states that were larger in 1963 with their borders of
@@ -385,6 +389,27 @@ Nothing is added to the veto dataset; there is no composite score or ranking.
   UN Security Council, Current Members, main.un.org/securitycouncil/en/content/current-members; distribution of
   elected seats: A/RES/1991 (XVIII), 17 December 1963. All accessed 10 October 2026; references and SHA-256 values
   are in `kaynaklar/KAYNAKLAR.md`.
+- **Map:** the map at the top of the page shows the members of the selected regional group and their Security Council
+  seats (2026); the same information is in the list of countries below the map. Borders are from Natural Earth 1:50m
+  5.1.2 (public domain), in the Equal Earth projection; computed by `scripts/13_harita.py`. Each of the 193 members is
+  matched to its own country; countries and areas that are not UN Member States (Western Sahara, the Turkish Republic of
+  Northern Cyprus, Taiwan, Kosovo, Palestine and dependent territories) are drawn empty. Natural Earth's default depiction is de facto;
+  disputed areas are drawn by the rules in `kaynaklar/temsil/harita_kurallari.csv`: Crimea as part of Ukraine
+  (A/RES/68/262), the Golan as part of Syria (S/RES/497 (1981)); all of Western Sahara as an area that is not a UN
+  Member State (UN list of Non-Self-Governing Territories); Somaliland as part of Somalia; Åland, a separate area in Natural Earth, as part of Finland; the
+  Ashmore and Cartier Islands, not a separate area in the UN list of countries and areas (M49), and Christmas Island, the
+  Cocos (Keeling) Islands and Norfolk Island, included in Australia's data in WPP 2024, as part of Australia. Populations
+  on the map follow the separate counts of UN statistics (WPP 2024 notes): the data for China do not include Hong Kong and
+  Macao, those for France do not include French Guiana, Guadeloupe, Martinique, Mayotte and Réunion, and those for the
+  Netherlands do not include Bonaire, Sint Eustatius and Saba. These areas are shown in the Member State's colour but with
+  their own names and populations, which are not added to the Member State (`kaynaklar/temsil/ayri_sayilan_bolgeler.csv`).
+  The population of the TRNC has been subtracted from that of Cyprus (see Population above); the TRNC's tooltip shows it. Hovering over an area that is not a UN Member State shows its name and status (not
+  a Member State, observer State, Non-Self-Governing Territory); names are those used by the UN (WPP 2024; M49 where WPP
+  has none); States recognised by Türkiye (the Turkish Republic of Northern Cyprus, Kosovo, Palestine, Vatican City) are
+  named as the Ministry of Foreign Affairs of Türkiye names them (the Ministry's list of missions). The State an area belongs to and disputes
+  are not stated; the Siachen Glacier, disputed between two Members, has no name (`kaynaklar/temsil/uye_olmayan_alanlar.csv`). In the population circles, the area of each circle is proportional to the country's 2023
+  population (WPP 2024). The map shows UN
+  membership; the depiction of borders and names does not express a view on sovereignty.
 - **Language:** the page gives shares; it makes no comparative or evaluative statement.
 
 ### 2.10. The "What if there were no veto?" page

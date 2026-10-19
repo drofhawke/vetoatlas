@@ -1,6 +1,6 @@
 {
  "meta": {
-  "uretim": "2026-10-10",
+  "uretim": "2026-10-19",
   "erisim_tarihi": "2026-10-10",
   "uye_sayisi": 193,
   "uye_sayisi_1963": 113,
@@ -12,7 +12,7 @@
   "personel_tarihi": "2026-02-28",
   "gk_donemi": "2026",
   "toplamlar": {
-   "nufus_2023_bin": 8009868.794,
+   "nufus_2023_bin": 8009406.047,
    "nufus_1963_bin": 2956865.017,
    "dunya_nufus_2023_bin": 8056505.564,
    "dunya_nufus_1963_bin": 3156362.989,
@@ -29,14 +29,20 @@
    "WEOG": 2
   },
   "girdi_sha256": {
+   "ayri_sayilan_bolgeler.csv": "fa90e2798efd91397f4e41d87cf622c4f5f7ad5e0d46c2587c18b6dd83fc6aa1",
    "baris_gucu_2026-02.csv": "f262163fce71e0d48a50c9afee05a9316405c74e127b562c30e0de4b2d2cac10",
    "bolgesel_gruplar.csv": "7931c98a6f0619b1563a860d3979d2a840bcefafde801c8887b0b378c2dc3e15",
    "butce_olcegi_2025_2027.csv": "30fa3e187048387fac276411706430b6b4888c074a24495bce04143586a0e745",
    "gk_uyeleri_2026.csv": "30e2baa9643d6aa3483c38d8cd2b63253fdfe1feb6263ae813d413adba49f836",
+   "harita_kurallari.csv": "ee52c7c3ff23ddc7c7512bf1d676081007634f5794eb0653db8860a37ff2e69a",
    "iit_uyeleri.csv": "757d48448baeae15fd9225454d7cc8435aae45928fca77efda565129db4cbf9c",
+   "kktc_nufus.csv": "f050b0939674df83a39303b7bdac83ee4cf3e0149358ef3d521aaea6d3a4cc9a",
    "nufus_wpp2024.csv": "73169f486144b814d79408509e6539b9578da7cff0933382eeae3546032fec0f",
-   "uye_devletler.csv": "b5ea080236cf28bdff70c992eff3b4b6a852cd4d70c629c19e5749b5019cfdc4"
-  }
+   "ulke_adlari.csv": "37d55642140d08c80a22aa2554b595cd687a26ee8435b7a47ad45143f27fe2f4",
+   "uye_devletler.csv": "b5ea080236cf28bdff70c992eff3b4b6a852cd4d70c629c19e5749b5019cfdc4",
+   "uye_olmayan_alanlar.csv": "4a06a5a7b147680e5b86f5daf756d4d827bb9f3686edb2fdd567489849c11a03"
+  },
+  "kktc_nufus_bin": 462.747
  },
  "gruplar": [
   {
@@ -108,7 +114,7 @@
    "butce_yuzde": 1.088,
    "personel": 18489,
    "paylar": {
-    "nufus_2023": 0.182508,
+    "nufus_2023": 0.182518,
     "nufus_1963": 0.092111,
     "uye": 0.279793,
     "nufus_2023_dunya": 0.181451,
@@ -216,15 +222,15 @@
    ],
    "uye_sayisi": 54,
    "uye_sayisi_1963": 24,
-   "nufus_2023_bin": 4626184.495,
+   "nufus_2023_bin": 4625721.748,
    "nufus_1963_bin": 1625565.208,
    "butce_yuzde": 35.961,
    "personel": 22600,
    "paylar": {
-    "nufus_2023": 0.577561,
+    "nufus_2023": 0.577536,
     "nufus_1963": 0.54976,
     "uye": 0.279793,
-    "nufus_2023_dunya": 0.574217,
+    "nufus_2023_dunya": 0.57416,
     "nufus_1963_dunya": 0.515012,
     "butce": 0.35961,
     "personel": 0.477821
@@ -243,6 +249,10 @@
     "personel": 0.419
    },
    "notlar": [
+    {
+     "tr": "Nüfus 2023: WPP 2024'ün Kıbrıs verisi adanın tamamını kapsar; Kuzey Kıbrıs Türk Cumhuriyeti'nin nüfusu (KKTC İstatistik Kurumu, 2022 yıl sonu projeksiyonu: 462.747) çıkarıldı.",
+     "en": "Population 2023: WPP 2024 data for Cyprus refer to the whole island; the population of the Turkish Republic of Northern Cyprus (TRNC Statistical Institute, end-2022 projection: 462,747) has been subtracted."
+    },
     {
      "tr": "Çin 1963 (koltuk Çin Cumhuriyeti'nde): WPP 'China' + 'China, Taiwan Province of China'",
      "en": "China 1963 (seat held by the Republic of China): WPP 'China' + 'China, Taiwan Province of China'"
@@ -299,7 +309,7 @@
    "butce_yuzde": 4.66,
    "personel": 768,
    "paylar": {
-    "nufus_2023": 0.041346,
+    "nufus_2023": 0.041348,
     "nufus_1963": 0.109706,
     "uye": 0.119171,
     "nufus_2023_dunya": 0.041106,
@@ -383,7 +393,7 @@
    "butce_yuzde": 4.511,
    "personel": 1771,
    "paylar": {
-    "nufus_2023": 0.081355,
+    "nufus_2023": 0.081359,
     "nufus_1963": 0.07768,
     "uye": 0.170984,
     "nufus_2023_dunya": 0.080884,
@@ -450,7 +460,7 @@
    "butce_yuzde": 53.78,
    "personel": 3670,
    "paylar": {
-    "nufus_2023": 0.117231,
+    "nufus_2023": 0.117238,
     "nufus_1963": 0.170744,
     "uye": 0.150259,
     "nufus_2023_dunya": 0.116553,
@@ -508,7 +518,7 @@
    "butce_yuzde": 51.947,
    "personel": 2597,
    "paylar": {
-    "nufus_2023": 0.255589,
+    "nufus_2023": 0.255604,
     "nufus_1963": 0.387033,
     "uye": 0.025907,
     "nufus_2023_dunya": 0.25411,
@@ -607,7 +617,7 @@
    "butce_yuzde": 5.65,
    "personel": 16349,
    "paylar": {
-    "nufus_2023": 0.255198,
+    "nufus_2023": 0.255212,
     "nufus_1963": 0.159249,
     "uye": 0.290155,
     "nufus_2023_dunya": 0.25372,
@@ -1206,11 +1216,14 @@
    "grup": "ASP",
    "iit": false,
    "p5": false,
-   "nufus_2023": 1338.114,
+   "nufus_2023": 875.367,
    "butce_yuzde": 0.035,
    "personel": 2,
    "gk": null,
-   "not": null
+   "not": {
+    "tr": "Nüfus 2023: WPP 2024'ün Kıbrıs verisi adanın tamamını kapsar; Kuzey Kıbrıs Türk Cumhuriyeti'nin nüfusu (KKTC İstatistik Kurumu, 2022 yıl sonu projeksiyonu: 462.747) çıkarıldı.",
+    "en": "Population 2023: WPP 2024 data for Cyprus refer to the whole island; the population of the Turkish Republic of Northern Cyprus (TRNC Statistical Institute, end-2022 projection: 462,747) has been subtracted."
+   }
   },
   {
    "iso3": "CZE",

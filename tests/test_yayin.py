@@ -81,7 +81,7 @@ def test_tek_dosya_surumu_guncel_ve_kendine_yeter():
     import tempfile, shutil
     with tempfile.TemporaryDirectory() as d:
         kok = Path(d); (kok / "web").mkdir(); shutil.copytree(WEB / "fonts", kok / "web/fonts")
-        for ad in ("veri.js", "temsil_veri.js", "cubuk.js", "suzgec.js", "metin.js", "temel.css", "logo-cubuk-b.svg", "logo-cubuk-b-koyu.svg", "isaret.svg", "isaret-koyu.svg", "favicon.ico", "favicon.svg", "apple-touch-icon.png",
+        for ad in ("veri.js", "temsil_veri.js", "harita_veri.js", "cubuk.js", "suzgec.js", "metin.js", "temel.css", "logo-cubuk-b.svg", "logo-cubuk-b-koyu.svg", "isaret.svg", "isaret-koyu.svg", "favicon.ico", "favicon.svg", "apple-touch-icon.png",
                    *[x[0] for x in tek_dosya.SAYFALAR]):
             shutil.copy(WEB / ad, kok / "web" / ad)
         yeni = tek_dosya.uret(kok)

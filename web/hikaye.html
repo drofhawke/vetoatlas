@@ -32,14 +32,14 @@
 :root {
   --zemin: #FBF8F1; --yuzey: #FFFFFF; --murekkep: #13213A; --murekkep-2: #5A6578; --cizgi: #E1DBCF; --vurgu: #A4262C;
   --u-sscb: #7E2F3C; --u-rus: #C2666F; --u-usa: #24507F; --u-gbr: #2F7A6E; --u-fra: #A8782A; --u-chn: #5E4E9A;
-  --oy-lehte: #9AA3B2; --bos: #EDE7DA;
+  --oy-lehte: #9AA3B2; --bos: #EDE7DA; --m-afr: #9AA3B2;
   --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
   --sans: "Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
 }
 :root[data-theme="dark"] {
   --zemin: #1C1A17; --yuzey: #272420; --murekkep: #EDE8E0; --murekkep-2: #ABA496; --cizgi: #3B3731; --vurgu: #E05A52;
   --u-sscb: #C2576A; --u-rus: #E89AA5; --u-usa: #5B8DC4; --u-gbr: #5FB09C; --u-fra: #D8A84A; --u-chn: #9B86D6;
-  --oy-lehte: #8B94A3; --bos: #2E2A24;
+  --oy-lehte: #8B94A3; --bos: #2E2A24; --m-afr: #5F6673;  /* koyu temada --murekkep-2'den (#ABA496) ayrışsın diye koyu */
 }
 /* Ölçü, boşluk ve tipografi: kaynaklar/kimlik/hikaye-taslak.html (yazı tipleri web/fonts/ altındaki woff2) */
 * { box-sizing: border-box; }
@@ -100,6 +100,26 @@ a { color: inherit; text-underline-offset: 3px; }
 .koltuk.daimi { background: var(--murekkep); }
 .koltuk.daimi::after { content: ""; display: block; width: 12px; height: 12px; margin: 8px; border-radius: 2px; background: var(--vurgu); }  /* veto yetkisi: kırmızı kare */
 .koltuk.gorusuldu { background: var(--murekkep); }
+/* Konsey (1. adım): on beş koltuk tek sırada, daimî koltukta üyenin kısa kodu (simülasyondaki kodlar); veto karesi sol üstte.
+   Dar ekranda beşerli üç sıra: ilk sıra daimî üyeler. Kodların açılımı diyagramın altında. */
+.koltuklar.konsey { gap: 8px; }
+.konsey .koltuk.daimi { position: relative; display: flex; align-items: flex-end; padding: 0 0 0 8px; color: var(--zemin); font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); font-weight: 600; }
+.konsey .koltuk.daimi::after { position: absolute; top: 8px; left: 8px; width: 8px; height: 8px; margin: 0; }
+.koltuk-kodlari { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); color: var(--murekkep-2); margin: 12px 0 0; }
+.koltuk-kodlari b { color: var(--murekkep); font-weight: 600; }
+.koltuk-kodlari span { white-space: nowrap; }
+/* 5. adımın küçük haritası (Temsil haritasıyla aynı çizim): Asya-Pasifik ikincil mürekkep, Afrika orta ton, öteki üyeler açık,
+   BM üyesi olmayan alanlar boş. Harita verisi adım yaklaşınca yüklenir. */
+.mini-harita { margin: 24px 0 0; }
+.mini-harita svg { display: block; width: 100%; height: auto; }
+.mini-harita path { fill: var(--bos); stroke: var(--zemin); stroke-width: .5px; vector-effect: non-scaling-stroke; }
+.mini-harita .uye-degil { fill: var(--zemin); stroke: var(--cizgi); }
+.mini-harita .m-asp { fill: var(--murekkep-2); }
+.mini-harita .m-afr { fill: var(--m-afr); }
+.mini-lejant { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 8px 0 0; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); color: var(--murekkep-2); }
+.mini-lejant span::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 8px; vertical-align: -1px; }
+.mini-lejant .m-asp::before { background: var(--murekkep-2); }
+.mini-lejant .m-afr::before { background: var(--m-afr); }
 .noktalar { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
 .nokta { width: 36px; height: 36px; border-radius: 50%; background: var(--oy-lehte); }
 .nokta.ret { background: var(--vurgu); }
@@ -129,6 +149,8 @@ footer { border-top: 1px solid var(--cizgi); margin: 32px 0 48px; padding-top: 1
   .adim { padding-top: 64px; }
   .adim-no { font-size: var(--yz-baslik); line-height: var(--sa-baslik); }
   .koltuk { width: 32px; height: 32px; }
+  .koltuklar.konsey { display: grid; grid-template-columns: repeat(5, 40px); gap: 12px; }
+  .konsey .koltuk { width: 40px; height: 40px; }
   .nokta { width: 28px; height: 28px; }
   .epigraf { margin-bottom: var(--b8); }
 }
@@ -195,6 +217,8 @@ footer { border-top: 1px solid var(--cizgi); margin: 32px 0 48px; padding-top: 1
       sayfa: { vetolar: "Vetolar", vizyon: "Söz ve Kayıt", reform: "Reform modelleri", simulasyon: "Ya veto olmasaydı?", temsil: "Kim temsil ediliyor?", hakkinda: "Hakkında", metodoloji: "Metodoloji" },
       uye: { SSCB: "Sovyetler Birliği", RUS: "Rusya Federasyonu", USA: "ABD", GBR: "Birleşik Krallık", FRA: "Fransa", CHN: "Çin" },
       sscbRus: "Sovyetler Birliği ve Rusya",
+      konsey: ({ n, daimi }) => `${n} koltuk; daimî üyeler: ${daimi}`,
+      "5.harita": ({ asp, afr }) => `Dünya haritası: ${asp} ve ${afr} üyeleri`,
     },
     en: {
       sayfaBasligi: "Story · Veto Atlas",
@@ -228,6 +252,8 @@ footer { border-top: 1px solid var(--cizgi); margin: 32px 0 48px; padding-top: 1
       sayfa: { vetolar: "Vetoes", vizyon: "Word and Record", reform: "Reform models", simulasyon: "What if there were no veto?", temsil: "Who is represented?", hakkinda: "About", metodoloji: "Methodology" },
       uye: { SSCB: "Soviet Union", RUS: "Russian Federation", USA: "United States", GBR: "United Kingdom", FRA: "France", CHN: "China" },
       sscbRus: "Soviet Union and Russia",
+      konsey: ({ n, daimi }) => `${n} seats; permanent members: ${daimi}`,
+      "5.harita": ({ asp, afr }) => `World map: members of the ${asp} and the ${afr}`,
     },
   };
   const t = (a, p) => { const v = SOZLUK[DIL][a] ?? SOZLUK.tr[a]; return typeof v === "function" ? v(p || {}) : v; };
@@ -320,7 +346,12 @@ footer { border-top: 1px solid var(--cizgi); margin: 32px 0 48px; padding-top: 1
   const tek11 = tek.filter((k) => boyut(k) === ESKI_BOYUT).length;
 
   // Görseller taslaktaki stilde: koltuk diyagramı, kare ızgara, nokta dizisi, üye çubukları, pay çubukları
-  const koltuklar = () => `<div class="koltuklar" role="img" aria-label="${koltukSayisi} / ${daimiSayisi}">${Array.from({ length: koltukSayisi }, (_, i) => `<div class="koltuk${i < daimiSayisi ? " daimi" : ""}"></div>`).join("")}</div>`;
+  // Daimî üyeler Şart'ın 23. maddesindeki sırayla; kısa kodlar simülasyondakilerle aynı. Üye listesi veriden (P5 kümesi).
+  const SART_SIRASI = ["CHN", "FRA", "RUS", "GBR", "USA"], KOD = { CHN: "CN", FRA: "FR", RUS: "RU", GBR: "UK", USA: "US" };
+  const p5 = new Set((T.kumeler.find((k) => k.kod === "P5") || { uyeler: [] }).uyeler);
+  const daimiler = SART_SIRASI.filter((u) => p5.has(u));
+  const koltuklar = () => `<div class="koltuklar konsey" role="img" aria-label="${esc(t("konsey", { n: koltukSayisi, daimi: daimiler.map((u) => t("uye")[u]).join(", ") }))}">${Array.from({ length: koltukSayisi }, (_, i) => i < daimiler.length ? `<div class="koltuk daimi">${KOD[daimiler[i]]}</div>` : '<div class="koltuk"></div>').join("")}</div>
+    <p class="koltuk-kodlari">${daimiler.map((u) => `<span><b>${KOD[u]}</b> ${esc(t("uye")[u])}</span>`).join(" · ")}</p>`;
   const kareler = () => `<div class="kareler" role="img" aria-label="${retToplam} + ${kapali.length}">${acik.flatMap((k) => k.uyeler.map(() => "<i></i>")).concat(kapali.map(() => '<i class="bos"></i>')).join("")}</div>`;
   const noktalar = () => `<div class="noktalar" role="img" aria-label="${esc(t("4.sonuc"))}">${Array.from({ length: 15 }, (_, i) => `<div class="nokta${i === 14 ? " ret" : ""}"></div>`).join("")}<span class="sonuc" aria-hidden="true">${esc(t("4.sonuc"))}</span></div>`;
   const cubuk = (et, deger, oran, sinif) => `<div><div class="et">${esc(et)} · <b>${esc(deger)}</b></div><div class="cb"><span${sinif ? ` class="${sinif}"` : ""} style="width:${(100 * oran).toFixed(1)}%"></span></div></div>`;
@@ -384,7 +415,7 @@ footer { border-top: 1px solid var(--cizgi); margin: 32px 0 48px; padding-top: 1
     { sayi: K.length, etiket: t("2.etiket", { yil: ilkYil }), metin: t("2.metin", { sure: sonYil - ilkYil }), gorsel: kareler(), bag: "vetolar.html" },
     { sayi: `${sayi(kullananKoltuk)} / ${sayi(daimiSayisi)}`, etiket: t("3.etiket"), metin: t("3.metin", { daimi: daimiSayisi }), gorsel: uyeCubuklari(), bag: "vizyon.html#h-konu" },
     { sayi: tek.length, etiket: t("4.etiket"), metin: t("4.metin", { n11: tek11, yil: BUYUME.slice(0, 4), boy: ESKI_BOYUT }), gorsel: noktalar(), bag: "vizyon.html#h-galeri" },
-    { sayi: yuzdeIsaret(ASP.paylar.nufus_2023), etiket: t("5.etiket"), metin: t("5.metin", { yil: DAGILIM_YILI, koltuk: koltukSayisi, asp: ASP.koltuk.toplam, afr: AFR.uye_sayisi }), gorsel: payCubuklari(), bag: "temsil.html" },
+    { sayi: yuzdeIsaret(ASP.paylar.nufus_2023), etiket: t("5.etiket"), metin: t("5.metin", { yil: DAGILIM_YILI, koltuk: koltukSayisi, asp: ASP.koltuk.toplam, afr: AFR.uye_sayisi }), gorsel: payCubuklari() + '<div class="mini-harita" id="mini-harita"></div>', bag: "temsil.html" },
     { sayi: `${sayi(gorusulen.length)} / ${sayi(G.length)}`, etiket: t("6.etiket", { yil: +GK_BAS.slice(0, 4) }), metin: t("6.metin", { ay: AY[+GK_BAS.slice(5, 7) - 1], yil: +GK_BAS.slice(0, 4), v: vgTartismalar.length, s: vgSozAlinan.length }), gorsel: gkKareleri(), bag: "vizyon.html#h-cizelge" },
     { sayi: vetosuz.length, etiket: t("7.etiket", { t: sayi(K.length) }), metin: t("7.metin", { dis: K.length - vetosuz.length }), gorsel: vetosuzCubuk(), bag: "simulasyon.html", bagMetni: t("7.bag") },
   ];
@@ -442,6 +473,29 @@ footer { border-top: 1px solid var(--cizgi); margin: 32px 0 48px; padding-top: 1
   addEventListener("scroll", ortadaki, { passive: true });
   addEventListener("resize", ortadaki);
   ortadaki();
+
+  // 5. adımın küçük haritası. Harita verisi (web/harita_veri.js, ~116 KB) Hikâye açılırken değil, adım yaklaşınca yüklenir; tek
+  // dosyada üst belgedeki veri kullanılır. Yüklenemezse (internetsiz ve kayıtsız) harita çizilmez, adımın geri kalanı aynıdır.
+  const miniCiz = () => {
+    const H = window.HARITA_VERISI || (window.parent !== window && window.parent.HARITA_VERISI), yer = $("#mini-harita");
+    if (!H || !yer || yer.firstChild) return;
+    const grup = new Map(T.uyeler.map((u) => [u.iso3, u.grup])), sinif = (k) => ({ ASP: "m-asp", AFR: "m-afr" }[grup.get(k)] || "");
+    const [x, y, w, h] = H.kutu;
+    yer.innerHTML = `<svg viewBox="${x} ${y} ${w} ${h}" role="img" aria-label="${esc(t("5.harita", { asp: ASP.ad[DIL], afr: AFR.ad[DIL] }))}">
+      ${H.alanlar.filter((a) => a.d && !a.ust).map((a) => `<path class="uye-degil" d="${a.d}"/>`).join("")}${H.uyeler.filter((u) => u.d).map((u) => `<path class="${sinif(u.k)}" d="${u.d}"/>`).join("")}
+      ${H.bolgeler.filter((b) => b.d).map((b) => `<path class="${sinif(b.uye)}" d="${b.d}"/>`).join("")}${H.katmanlar.map((k) => `<path class="${sinif(k.k)}" d="${k.d}"/>`).join("")}${H.alanlar.filter((a) => a.d && a.ust).map((a) => `<path class="uye-degil" d="${a.d}"/>`).join("")}</svg>
+      <p class="mini-lejant" aria-hidden="true"><span class="m-asp">${esc(ASP.ad[DIL])}</span><span class="m-afr">${esc(AFR.ad[DIL])}</span></p>`;
+  };
+  const miniYukle = () => {
+    if (window.HARITA_VERISI || (window.parent !== window && window.parent.HARITA_VERISI)) return miniCiz();
+    const b = document.createElement("script");
+    b.src = "harita_veri.js"; b.onload = miniCiz;
+    document.head.appendChild(b);
+  };
+  if ("IntersectionObserver" in window) {
+    const mio = new IntersectionObserver((g) => { if (g.some((x) => x.isIntersecting)) { mio.disconnect(); miniYukle(); } }, { rootMargin: "800px 0px" });
+    mio.observe($("#adim-5"));
+  } else miniYukle();
 
   // Kaydırdıkça beliren adımlar (en fazla 300 ms); bir kez görünen adım bir daha solmaz (sınıf hiç kaldırılmaz).
   // Eşik 0: adımın ilk pikseli görününce belirir. Hızlı kaydırmada gözlemcinin kaçırdığı adımlar da görünür sayılır:

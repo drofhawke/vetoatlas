@@ -4,7 +4,7 @@ simülasyon, temsil endeksi, hakkında, metodoloji) yedi sekmede tek bir HTML do
 hakkında ve metodoloji "Nasıl yaptık?" sekmesinde alt alta.
 
 Yapı: üstte sitenin ortak çubuğu (web/cubuk.js; sekme geçişi, TR/EN ve tema oradan); her sayfa kendi
-`<iframe srcdoc>` içinde çalışır (sayfaların kimlikleri ve betikleri birbirine karışmaz), sayfa çerçevelerinde çubuk çizilmez. Veri (veri.js, temsil_veri.js) ana belgeye bir kez gömülür, sayfalar `parent` üzerinden
+`<iframe srcdoc>` içinde çalışır (sayfaların kimlikleri ve betikleri birbirine karışmaz), sayfa çerçevelerinde çubuk çizilmez. Veri (veri.js, temsil_veri.js, harita_veri.js) ana belgeye bir kez gömülür, sayfalar `parent` üzerinden
 okur. Yazı tipleri (woff2) base64 olarak bir kez gömülür; sayfa şablonlarındaki data: adreslerine açılışta yerleştirilir.
 Sayfalar arası bağlantılar sekme geçişine dönüşür; üst çubuktaki TR/EN ve tema seçimi bütün sekmelere uygulanır. Metin sayfalarının "Bu sayfada" dizini (web/metin.js) gömülür; alt alta dizilen sekmede kaydırma konumu çerçevelere bildirilir, dizin bağımsız sayfadaki gibi yerinde durur. Dış istek yoktur. Önizleme görseli ve paylaşım kartları dosyada yer almaz (web/kartlar/).
 """
@@ -100,6 +100,7 @@ def sayfa_hazirla(html: str, fonts_css: str, cubuk_js: str, suzgec_js: str = "",
         s = s.replace('<script src="metin.js"></script>', "<script>\n" + metin_js + "\n</script>")
     s = s.replace('<script src="veri.js"></script>', "<script>window.VETO_VERISI = parent.VETO_VERISI;</script>")
     s = s.replace('<script src="temsil_veri.js"></script>', "<script>window.TEMSIL_VERISI = parent.TEMSIL_VERISI;</script>")
+    s = s.replace('<script src="harita_veri.js"></script>', "<script>window.HARITA_VERISI = parent.HARITA_VERISI;</script>")
     assert '<script src=' not in s and 'href="favicon' not in s, "gömülmemiş kaynak"
     n = s.count('new URLSearchParams(location.search).get("lang")')
     assert n == 1, n
@@ -152,7 +153,8 @@ def uret(kok: Path) -> Path:
         sayfalar[dosya.split(".")[0]] = sayfa_hazirla(ham, fonts_css, cubuk_js, suzgec_js, temel_css, metin_js)
     veri = (web / "veri.js").read_text(encoding="utf-8")
     temsil = (web / "temsil_veri.js").read_text(encoding="utf-8")
-    for ek in (veri, temsil, fonts_css, (web / "fonts/fonts.css").read_text(encoding="utf-8")):
+    harita = (web / "harita_veri.js").read_text(encoding="utf-8")
+    for ek in (veri, temsil, harita, fonts_css, (web / "fonts/fonts.css").read_text(encoding="utf-8")):
         girdi_ozeti.update(ek.encode("utf-8"))
     for ad in list(fontlar.values()) + list(varliklar.values()):
         girdi_ozeti.update(ad.encode())
@@ -200,6 +202,7 @@ body {{ display: flex; flex-direction: column; }}
 <div id="alan"></div>
 <script>{veri}</script>
 <script>{temsil}</script>
+<script>{harita}</script>
 <script>
 (() => {{
   const SEKMELER = {j(sekmeler)};

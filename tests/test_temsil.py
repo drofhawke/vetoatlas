@@ -52,13 +52,14 @@ def test_turkiye_ve_abd_kurali():
 
 def test_p5_nufus_payi_elle_hesaplanan_degerle_tutuyor():
     # WPP 2024, 1 Ocak 2023 tahmini (bin): Çin 1 424 260,946; Fransa 66 381,485; Birleşik Krallık 68 442,882;
-    # Rusya Federasyonu 145 675,420; ABD 342 475,098. 193 üyenin toplamı 8 009 868,794.
+    # Rusya Federasyonu 145 675,420; ABD 342 475,098. 193 üyenin toplamı 8 009 406,047 (WPP toplamı 8 009 868,794'ten Kıbrıs'taki
+    # KKTC nüfusu 462,747 çıkarılmış; test_kktc_nufusu_kibristan_ayri).
     p5 = 1424260.946 + 66381.485 + 68442.882 + 145675.420 + 342475.098
-    assert abs(p5 / 8009868.794 - K["P5"]["paylar"]["nufus_2023"]) < 1e-6
+    assert abs(p5 / 8009406.047 - K["P5"]["paylar"]["nufus_2023"]) < 1e-6
     assert round(K["P5"]["paylar"]["nufus_2023"], 3) == 0.256
     nufus = {r["iso3"]: float(r["nufus_2023_bin"]) for r in oku("nufus_wpp2024.csv")}
     assert abs(sum(nufus[k] for k in ("CHN", "FRA", "GBR", "RUS", "USA")) - p5) < 1e-3
-    assert abs(sum(u["nufus_2023"] for u in V["uyeler"]) - 8009868.794) < 1e-3
+    assert abs(sum(u["nufus_2023"] for u in V["uyeler"]) - (8009868.794 - 462.747)) < 1e-3
 
 
 def test_1963_uyeleri_ve_ardil_devletler():
@@ -116,3 +117,29 @@ def test_sayfa_ve_baglantilar():
     assert '["temsil", "Kim temsil ediliyor?", "Who is represented?"],' in (KOK / "web/cubuk.js").read_text(encoding="utf-8")
     for md in ("METODOLOJI.md", "METODOLOJI_EN.md"):
         assert "09_temsil" in (KOK / md).read_text(encoding="utf-8"), md
+
+
+def test_kktc_nufusu_kibristan_ayri():
+    """Kullanıcı kararı (19 Ekim 2026): WPP 2024'ün Kıbrıs verisi adanın tamamını kapsar ("Refers to the whole country"); KKTC
+    İstatistik Kurumu'nun 2022 yıl sonu projeksiyonu (WPP'nin 1 Ocak 2023 tahminiyle aynı an) Kıbrıs'tan çıkarılır. KKTC BM üyesi
+    olmadığı için paydaya girmez; 1963 değişmez. Verideki tek BM dışı nüfus kaynağı."""
+    import hashlib
+    wpp = {r["iso3"]: r for r in csv.DictReader(open(GIRDI / "nufus_wpp2024.csv", encoding="utf-8")) if r["iso3"]}
+    k = list(csv.DictReader(open(GIRDI / "kktc_nufus.csv", encoding="utf-8")))
+    assert len(k) == 1 and k[0]["kaynak"] == "KKTC İstatistik Kurumu" and k[0]["referans"] == "2022 yıl sonu" and k[0]["nufus_bin"] == "462.747"
+    kibris = next(u for u in V["uyeler"] if u["iso3"] == "CYP")
+    assert kibris["nufus_2023"] == round(float(wpp["CYP"]["nufus_2023_bin"]) - 462.747, 3) == 875.367
+    assert "462.747" in kibris["not"]["tr"] and "462,747" in kibris["not"]["en"] and V["meta"]["kktc_nufus_bin"] == 462.747
+    assert abs(V["meta"]["toplamlar"]["nufus_2023_bin"] - sum(u["nufus_2023"] for u in V["uyeler"])) < 1e-6
+    assert next(u for u in V["uyeler_1963"] if u["iso3"] == "CYP")["nufus_1963"] == float(wpp["CYP"]["nufus_1963_bin"])
+    pdf = KOK / "kaynaklar/.belgeler/kktc" / k[0]["dosya"]
+    if pdf.exists():
+        assert hashlib.sha256(pdf.read_bytes()).hexdigest() == k[0]["sha256"]
+    for md, s in (("METODOLOJI.md", "Bu, verideki tek BM dışı nüfus kaynağıdır"), ("METODOLOJI_EN.md", "This is the only non-UN population source in the data")):
+        assert s in (KOK / md).read_text(encoding="utf-8"), md
+    for lisans in (KOK / "LICENSE-DATA", KOK / "web/LICENSE-DATA.txt"):
+        t = lisans.read_text(encoding="utf-8")
+        for s in ("9. Kuzey Kıbrıs Türk Cumhuriyeti nüfusu. KKTC İstatistik Kurumu", "7. Harita sınırları. Natural Earth",
+                  "8. Ülke ve alan adları.", "Unicode Lisansı v3", "10. İslam İşbirliği Teşkilatı üye listesi", "7. Map borders. Natural Earth",
+                  "9. Population of the Turkish Republic of Northern Cyprus."):
+            assert s in t, (lisans.name, s)

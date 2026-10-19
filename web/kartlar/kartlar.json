@@ -51,7 +51,7 @@
   "temsil": {
    "ASP": {
     "uye": 54,
-    "nufus": 0.577561,
+    "nufus": 0.577536,
     "butce": 0.35961,
     "personel": 0.477821,
     "koltuk": 0.2,
@@ -61,7 +61,7 @@
    },
    "AFR": {
     "uye": 54,
-    "nufus": 0.182508,
+    "nufus": 0.182518,
     "butce": 0.01088,
     "personel": 0.390904,
     "koltuk": 0.2,
@@ -71,7 +71,7 @@
    },
    "P5": {
     "uye": 5,
-    "nufus": 0.255589,
+    "nufus": 0.255604,
     "butce": 0.51947,
     "personel": 0.054907,
     "koltuk": 0.333333,
@@ -171,7 +171,7 @@
    "id": "kart-09-asya-pasifik",
    "tur": "temsil",
    "gorsel": {
-    "nufus": 0.577561,
+    "nufus": 0.577536,
     "koltuk": 0.2,
     "daimi": 1,
     "secilmis": 2
@@ -193,7 +193,7 @@
    "id": "kart-10-afrika",
    "tur": "temsil",
    "gorsel": {
-    "nufus": 0.182508,
+    "nufus": 0.182518,
     "koltuk": 0.2,
     "daimi": 0,
     "secilmis": 3
@@ -215,7 +215,7 @@
    "id": "kart-11-p5",
    "tur": "temsil",
    "gorsel": {
-    "nufus": 0.255589,
+    "nufus": 0.255604,
     "koltuk": 0.333333,
     "daimi": 5,
     "secilmis": 0

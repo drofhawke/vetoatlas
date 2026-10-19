@@ -321,6 +321,21 @@ def hesapla() -> dict:
                   "butce_yuzde": olcek[k], "personel": pk.get(k, 0),
                   "gk": {"tur": gk[k]["tur"], "donem_sonu": gk[k]["donem_sonu"] or None} if k in gk else None,
                   "not": {"tr": grup[k]["not"], "en": grup[k]["not_en"]} if grup[k]["not"] else None})
+    # KKTC (kullanıcı kararı, 19 Ekim 2026): WPP 2024'ün Kıbrıs verisi adanın tamamını kapsar (not 11: "Refers to the whole
+    # country"). KKTC İstatistik Kurumu'nun 2022 yıl sonu projeksiyonu (WPP'nin 1 Ocak 2023 tahminiyle aynı an) Kıbrıs'tan
+    # çıkarılır; KKTC BM üyesi olmadığı için paydaya girmez. Verideki tek BM dışı nüfus kaynağı (kaynaklar/temsil/kktc_nufus.csv).
+    # 1963 değerleri değişmez (KKTC 1983'te ilan edildi).
+    kktc = oku("kktc_nufus.csv")
+    assert len(kktc) == 1
+    kktc_bin = float(kktc[0]["nufus_bin"])
+    kibris = next(x for x in U if x["iso3"] == "CYP")
+    assert kibris["not"] is None
+    kibris["nufus_2023"] = round(kibris["nufus_2023"] - kktc_bin, 3)
+    kisi = round(kktc_bin * 1000)
+    kibris["not"] = {"tr": f"Nüfus 2023: WPP 2024'ün Kıbrıs verisi adanın tamamını kapsar; Kuzey Kıbrıs Türk Cumhuriyeti'nin nüfusu "
+                           f"(KKTC İstatistik Kurumu, 2022 yıl sonu projeksiyonu: {f'{kisi:,}'.replace(',', '.')}) çıkarıldı.",
+                     "en": f"Population 2023: WPP 2024 data for Cyprus refer to the whole island; the population of the Turkish Republic "
+                           f"of Northern Cyprus (TRNC Statistical Institute, end-2022 projection: {kisi:,}) has been subtracted."}
     toplam_nufus = sum(x["nufus_2023"] for x in U)
     toplam_butce = sum(x["butce_yuzde"] for x in U)
     toplam_pk = sum(x["personel"] for x in U)
@@ -389,6 +404,7 @@ def hesapla() -> dict:
                           "personel": toplam_pk, "koltuk": 15, "daimi": 5},
             "secilmis_koltuk_dagilimi": SECILMIS_KOLTUK,
             "girdi_sha256": {ad: sha(GIRDI / ad) for ad in sorted(p.name for p in GIRDI.glob("*.csv"))},
+            "kktc_nufus_bin": kktc_bin,
         },
         "gruplar": gruplar, "kumeler": kumeler,
         "uyeler": U,

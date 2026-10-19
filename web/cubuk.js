@@ -205,6 +205,10 @@
       });
     });
     yer.querySelectorAll("a[data-dil]").forEach(function (a) {
+      // Sayfa adresi sonradan değişebilir (#… ile paylaşılan görünüm): yeni sekmede açma ve kopyalama için bağlantı tazelenir
+      var tazele = function () { if (!tek) a.setAttribute("href", dilAdresi(a.getAttribute("data-dil"))); };
+      a.addEventListener("pointerenter", tazele);
+      a.addEventListener("focus", tazele);
       a.addEventListener("click", function (e) {
         e.preventDefault();
         var d = a.getAttribute("data-dil");

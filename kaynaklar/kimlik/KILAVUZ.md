@@ -30,7 +30,8 @@ alınmaz (`prefers-color-scheme` kullanılmaz). Koyu kâğıt yalnızca üst çu
 `tests/test_kimlik.py` varsayılanın kâğıt olduğunu denetler.
 
 **Kırmızı kuralı.** `--vurgu` yalnızca ret oyunu ve vetoyu gösterir: birim grafikteki ret kareleri,
-galerideki ve kartlardaki "bir hayır" noktası, hikâyedeki beş daimî koltuğun içindeki küçük kare (koltuk mürekkep), simülasyonda
+galerideki ve kartlardaki "bir hayır" noktası, hikâyedeki beş daimî koltuğun içindeki küçük kare (koltuk mürekkep), Söz ve
+Kayıt'ın zaman şeridindeki veto noktaları (kitap ve karar mürekkep halka), simülasyonda
 ret oyu ve mevcut sistemde vetoyla düşen sonuç ("Düştü"), logodaki kırmızı kare. Bağlantı, düğme, odak halkası, etiket, sekme çizgisi, alıntı çizgisi,
 seçilmiş koltuk ve hitap işaretleri mürekkep ya da ikincil renktedir. Yeni bir kırmızı kullanım
 eklenmeden önce bu kurala göre gerekçelendirilir.
@@ -137,6 +138,42 @@ gizli). Metindeki sayılar, yazıyla yazılanlar ve ekleri dâhil (on beş, yirm
 hesaplanır; nitel ifadeler (tamamı, yarısından fazlası, neredeyse tamamı) verinin değerleriyle testte sınanır. Adımlar kaydırınca en fazla 300 ms'de belirir ve bir kez görünen adım bir daha
 solmaz; gözlem eşiği 0'dır, hızlı kaydırmada üzerinden geçilen adımlar da görünür sayılır. Hareket azaltma
 tercihinde animasyon yoktur.
+1. adımın koltuk diyagramı: on beş koltuk tek sırada (8 px ara; 760 px altında beşerli üç sıra, ilk sıra daimî üyeler).
+Daimî koltuk mürekkep, içinde sol üstte 8 px kırmızı kare (veto yetkisi) ve altında üyenin kısa kodu (CN, FR, RU, UK, US;
+Şart'ın 23. maddesindeki sıra, kodlar simülasyondakilerle aynı; küçük boyut, 600, zemin renginde); kodların açılımı
+diyagramın altında küçük boyutta. Bayrak kullanılmaz: beş bayrağın beşinde de kırmızı vardır (kırmızı kuralı).
+
+**Söz ve Kayıt, zaman çizelgesi.** Tarih gövde boyutunda (600, mürekkep); kaydırırken görünür alanın ortasındaki olay yüzey
+zemini ve dolu noktayla işaretlenir (yazı boyutu değişmez). Listenin üstündeki zaman şeridi olayları zaman ölçeğinde gösterir
+(veto kırmızı nokta, kitap ve karar mürekkep halka; aynı yere düşenler üst üste, en az 24 px aralık); şeritte seçilen olay
+görünür alanın ortasına kayar ve odak olaya geçer (klavyede tek sekme durağı, oklar, Home ve End). Geniş ekranda şerit üst
+çubuğun altında sabit kalır. Her olayın tarihi kalıcı bağlantısıdır (`#olay-YYYY-AA-GG`); adresteki olay açılışta
+ortaya gelir. Hareket azaltma tercihinde kaydırma anlıktır, geçiş yoktur.
+
+**Kim temsil ediliyor?, harita.** Tablolardan önce. Renk dört adımlı bir açıklık sırasıdır, kategorik renk değildir: öteki
+üyeler `--bos`, seçilen grubun üyeleri `--h-grup` (`#9AA3B2`; koyu kâğıtta `#5F6673`, seçilmiş koltuktan ayrışsın diye),
+seçilmiş koltuk `--murekkep-2`, daimî koltuk `--murekkep` (koltuk çubuğuyla aynı); komşu adımlar arasında OKLab ΔE ≥ 20
+(`tests/test_harita.py`). BM üyesi olmayan alanlar boş (zemin rengi, çizgi). Kırmızı ve yeşil yoktur. Grup değişince renkler
+0,4 s'de geçer; ülke listesi haritanın erişilebilir karşılığıdır. Yakınlaştırma harita ve veriyi değiştirmez, yalnızca görünümü
+(viewBox) büyütür: en çok 8 kat; sol altta +, − ve "Tüm dünya" düğmeleri (32 px); çift tıklama ve çift dokunma tıklanan yeri
+ortaya getirip iki kat büyütür; yakınken sürükleme ve iki parmak; Ctrl + kaydırma (dokunmatik yüzeyde iki parmak). Düz kaydırma
+sayfayı kaydırır. Geçiş 0,3 s, hareket azaltma tercihinde anlık; küçük devlet noktaları her ölçekte ekranda 3,5 px.
+Ülke arama (tarayıcının öneri listesiyle; büyük-küçük harf ve aksan duyarsız) ve ülke kartı: tıklanan ya da aranan ülkenin
+grubu, BM'ye kabul tarihi, nüfusu ve payı, bütçe payı (resmî üç ondalık), barış gücü personeli, İİT üyeliği ve Konsey durumu;
+aranan ülkeye yakınlaşılır, seçili ülke 2 px mürekkep çizgiyle; dokunmatikte ipucu yerine kart açılır. Nüfus balonları
+(aç/kapa): daire alanı 2023 nüfusuyla orantılı, ekranda sabit boyda (en büyüğü 16–40 px yarıçap); balonlu görünümde kara
+nötr, renk dairededir. BM üyesi olmayan alanlar boş kalır ama adlıdır: ipucunda
+BM'nin kullandığı adı (Türkiye'nin tanıdığı devletler Dışişleri Bakanlığı'nın kullandığı adla: Kuzey Kıbrıs Türk
+Cumhuriyeti, Kosova, Filistin, Vatikan), altında durumu; bağlı olunan devlet ve anlaşmazlıklar
+yazılmaz (kullanıcı kararı, 19 Ekim 2026); arama bu alanları da bulur. BM istatistiklerinin ayrı saydığı bölgeler (Hong
+Kong, Makao, Fransa'nın deniz aşırı bölgeleri, Karayip Hollandası) üyenin renginde, ipucunda kendi adı ve nüfusuyla
+("Réunion · Fransa toprağı; nüfusu BM istatistiklerinde ayrı sayılır"); üyenin kartında ayrıca listelenir (kullanıcı kararı:
+"nüfus sayımları ayrı ayrı, özgün isimleriyle"). Görünüm adreste saklanır (`#grup=…&ulke=…&balon=1&gorunum=x,y,kat`; varsayılanlar yazılmaz) ve
+"Bağlantıyı paylaş" ile paylaşılır (dokunmatikte paylaşım menüsü, öbürlerinde panoya kopyalama).
+
+**Hikâye, 5. adımın küçük haritası.** Temsil haritasıyla aynı çizim: Asya-Pasifik `--murekkep-2`, Afrika `--m-afr` (`#9AA3B2`;
+koyu kâğıtta `#5F6673`), öteki üyeler `--bos`, üye olmayanlar boş; altında iki grubun adı. Harita verisi adım yaklaşınca
+yüklenir; ilk sayfa hafif kalır.
 
 **Düğmeler.** İki tür vardır; tanım `web/temel.css`'tedir (`.dugme`, `.dugme.ikincil`, `.dugme.kucuk`) ve bütün sayfalarda
 aynıdır (Hikâye'de "Veriyi keşfet", simülasyonda "Sayımı yeniden başlat" ve "Rastgele kayıt"). Birincil: dolu mürekkep zemin

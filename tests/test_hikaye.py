@@ -408,3 +408,18 @@ def test_ucuncu_adim_donemleri_veriyle_tutarli():
     assert "Soğuk Savaş'ın ilk yıllarında Sovyetler Birliği, 1970'lerden sonra ABD, son on beş yılda Rusya ve Çin öne çıkar." in BETIK
     assert ("the Soviet Union stands out in the early years of the Cold War, the United States from the 1970s onwards, and Russia and "
             "China in the last fifteen years.") in BETIK
+
+
+def test_birinci_adim_koltuk_kodlari():
+    """Daimî koltukta üyenin kısa kodu (Şart'ın 23. maddesindeki sıra; kodlar simülasyondakilerle aynı), veto karesi sol üstte,
+    kodların açılımı diyagramın altında; üye listesi veriden (P5 kümesi). KILAVUZ "Hikâye", 1. adımın koltuk diyagramı."""
+    h = (KOK / "web/hikaye.html").read_text(encoding="utf-8")
+    s = (KOK / "web/simulasyon.html").read_text(encoding="utf-8")
+    assert 'const SART_SIRASI = ["CHN", "FRA", "RUS", "GBR", "USA"], KOD = { CHN: "CN", FRA: "FR", RUS: "RU", GBR: "UK", USA: "US" };' in h
+    kisa = dict(re.findall(r'(\w+): "(\w\w)"', re.search(r"const kisa = \{([^}]*)\}", s)[1]))
+    kod = dict(re.findall(r'(\w+): "(\w\w)"', re.search(r"KOD = \{([^}]*)\}", h)[1]))
+    assert kod and all(kisa[u] == k for u, k in kod.items())
+    assert 'const p5 = new Set((T.kumeler.find((k) => k.kod === "P5")' in h
+    assert ".konsey .koltuk.daimi::after { position: absolute; top: 8px; left: 8px; width: 8px; height: 8px; margin: 0; }" in h
+    assert '<p class="koltuk-kodlari">' in h and "konsey: ({ n, daimi }) =>" in h
+    assert ".koltuklar.konsey { display: grid; grid-template-columns: repeat(5, 40px); gap: 12px; }" in h  # dar ekranda beşerli
