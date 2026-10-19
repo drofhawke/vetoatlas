@@ -87,7 +87,9 @@ def test_kaynak_dosyalar_sabit_ozetli_ve_cikti_yeniden_uretilir(tmp_path, monkey
         pytest.skip(f"Natural Earth dosyası yerelde yok: {eksik} (python scripts/13_harita.py --indir)")
     monkeypatch.setattr(m, "WEB", tmp_path / "harita_veri.js")
     m.main()
-    assert (tmp_path / "harita_veri.js").read_bytes() == (WEB / "harita_veri.js").read_bytes()
+    # Satır sonundan bağımsız: core.autocrlf=true olan Windows çalışma ağacında dosya CRLF'dir, üreteç LF yazar
+    lf = lambda yol: yol.read_bytes().replace(b"\r\n", b"\n")  # noqa: E731
+    assert lf(tmp_path / "harita_veri.js") == lf(WEB / "harita_veri.js")
 
 
 def _oklab(h):
