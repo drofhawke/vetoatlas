@@ -42,7 +42,9 @@ button, input, select, textarea { font: inherit; }
 code, kbd, samp, pre { font-family: var(--sans); font-size: inherit; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
 small { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
 table { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
-summary { cursor: pointer; }
+/* Açılır başlıklar: tarayıcının üçgen işareti yok; altı çizili bağlantı gibi (20 Ekim 2026) */
+summary { cursor: pointer; list-style: none; text-decoration: underline; text-underline-offset: 3px; }
+summary::-webkit-details-marker { display: none; }
 
 /* Hizalama: bütün metin sola yaslı; iki yana yaslama ve heceleme hiçbir genişlikte kullanılmaz (KILAVUZ bölüm 2) */
 body { text-align: left; -webkit-hyphens: none; hyphens: none; }

@@ -169,7 +169,7 @@ def test_yazi_tipleri_yerel_ozetli_ve_gomulu():
     readme = (fonts / "README.md").read_text(encoding="utf-8")
     tablo = dict(re.findall(r"\| `([\w.-]+\.woff2)` \| `([0-9a-f]{64})` \|", readme))
     adlar = re.findall(r"src: url\(([^)]+)\) format\('woff2'\)", css)
-    assert len(adlar) == 12 and sorted(adlar) == sorted(p.name for p in fonts.glob("*.woff2")) == sorted(tablo)
+    assert len(adlar) == 13 and sorted(adlar) == sorted(p.name for p in fonts.glob("*.woff2")) == sorted(tablo)
     for ad in adlar:
         assert not dis_adres_mi(ad), ad
         veri = (fonts / ad).read_bytes()

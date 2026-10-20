@@ -131,11 +131,11 @@ def kartlar(V: dict, S: dict) -> list[dict]:
     """Kart listesi: her kart iki dilde başlık/sayı, en fazla iki cümle ve kaynak satırı taşır."""
     k2026, k2025, k2019 = alinti(V, "2026-1"), alinti(V, "2025-1"), alinti(V, "2019-1")
     konu = S["konu"]
-    konu_tr = " · ".join(f"{ad.split(' ve ')[0] if ad.startswith('Filistin') else ad.split(',')[0] if ad.startswith('Güney') else ad} – {UYE_AD[v['uye']]['tr']} {v['oy']}" for ad, v in konu.items())
-    konu_en = " · ".join(f"{v['en'].split(' and ')[0] if ad.startswith('Filistin') else v['en'].split(',')[0] if ad.startswith('Güney') else v['en']} – {UYE_AD[v['uye']]['en']} {v['oy']}" for ad, v in konu.items())
-    # Alt bilgi tek satırdır: kısa kaynak ve veri tarihi solda, atlasın adı ve adresi sağda.
-    veri_kaynak = {"tr": f"Veto Atlası veri seti, {tarih_uzun(S['son_tarih'], 'tr')} · DHL veto listesi ve S/PV kayıtları",
-                   "en": f"Veto Atlas dataset, {tarih_uzun(S['son_tarih'], 'en')} · DHL veto list and S/PV records"}
+    konu_tr = ", ".join(f"{ad.split(' ve ')[0] if ad.startswith('Filistin') else ad.split(',')[0] if ad.startswith('Güney') else ad} – {UYE_AD[v['uye']]['tr']} {v['oy']}" for ad, v in konu.items())
+    konu_en = ", ".join(f"{v['en'].split(' and ')[0] if ad.startswith('Filistin') else v['en'].split(',')[0] if ad.startswith('Güney') else v['en']} – {UYE_AD[v['uye']]['en']} {v['oy']}" for ad, v in konu.items())
+    # Alt bilgi tek satırdır: kaynak ve veri tarihi solda, atlasın adı ve adresi sağda (orta nokta yalnızca künyede).
+    veri_kaynak = {"tr": f"DHL veto listesi ve S/PV kayıtları, {tarih_uzun(S['son_tarih'], 'tr')}",
+                   "en": f"DHL veto list and S/PV records, {tarih_uzun(S['son_tarih'], 'en')}"}
     return [
         {"id": "kart-01-vetosuz", "tur": "sayi",
          "buyuk": {"tr": f"{S['vetosuz_kabul']} / {S['toplam']}", "en": f"{S['vetosuz_kabul']} / {S['toplam']}"},
@@ -151,8 +151,8 @@ def kartlar(V: dict, S: dict) -> list[dict]:
          "buyuk": {"tr": f"{S['gk_gorusulen']} / {S['gk_sonrasi']}", "en": f"{S['gk_gorusulen']} / {S['gk_sonrasi']}"},
          "metin": {"tr": f"Nisan 2022'den bu yana veto ile düşen {S['gk_sonrasi']} önerinin {S['gk_gorusulen']}'si Genel Kurul'da görüşüldü. Veto eden ülke {S['vg_tartisma']} veto girişimi tartışmasının {S['vg_soz_alan']}'inde söz aldı.",
                    "en": f"Since April 2022, {S['gk_gorusulen']} of the {S['gk_sonrasi']} vetoed proposals have been debated in the General Assembly. The vetoing country took the floor in {S['vg_soz_alan']} of the {S['vg_tartisma']} veto initiative debates."},
-         "kaynak": {"tr": f"A/RES/76/262 · A/…/PV kayıtları ve BM Günlüğü · {tarih_uzun(S['son_tarih'], 'tr')}",
-                    "en": f"A/RES/76/262 · A/…/PV records and UN Journal · {tarih_uzun(S['son_tarih'], 'en')}"}},
+         "kaynak": {"tr": f"A/RES/76/262, A/…/PV kayıtları ve BM Günlüğü, {tarih_uzun(S['son_tarih'], 'tr')}",
+                    "en": f"A/RES/76/262, A/…/PV records and UN Journal, {tarih_uzun(S['son_tarih'], 'en')}"}},
         {"id": "kart-04-besi-de", "tur": "uyeler",
          "buyuk": {"tr": str(S["ret_toplam"]), "en": str(S["ret_toplam"])},
          "metin": {"tr": f"1946'dan bu yana {S['ret_toplam']} ret oyu; beş daimî üyenin hepsi veto kullandı. Kapalı oturumdaki {S['kapali']} veto üye toplamına girmez.",
@@ -162,8 +162,8 @@ def kartlar(V: dict, S: dict) -> list[dict]:
          "buyuk": {"tr": "4 konu", "en": "4 topics"},
          "metin": {"tr": f"Dört konuda en çok ret oyu kullanan üyeler: {konu_tr}. Yalnızca kaydın ana konusu sayılır.",
                    "en": f"The members with the most negative votes on four topics: {konu_en}. Only the main topic of each record is counted."},
-         "kaynak": {"tr": f"Veto Atlası veri seti, {tarih_uzun(S['son_tarih'], 'tr')} · gündem sözlüğü (ana konu)",
-                    "en": f"Veto Atlas dataset, {tarih_uzun(S['son_tarih'], 'en')} · agenda glossary (main topic)"}},
+         "kaynak": {"tr": f"Gündem sözlüğü (ana konu), {tarih_uzun(S['son_tarih'], 'tr')}",
+                    "en": f"Agenda glossary (main topic), {tarih_uzun(S['son_tarih'], 'en')}"}},
         *temsil_kartlari(S["temsil"]),
         {"id": "kart-06-alinti-2026", "tur": "alinti",
          "buyuk": {"tr": k2026["metin_tr"], "en": k2026["metin_en"] or k2026["metin_tr"]},
@@ -183,8 +183,8 @@ def kartlar(V: dict, S: dict) -> list[dict]:
 def temsil_kartlari(R: dict) -> list[dict]:
     """Temsil endeksinden üç kart: nüfus ve koltuk çubukları yan yana; sayılar temsil.json'dan."""
     a, f, p = R["ASP"], R["AFR"], R["P5"]
-    kaynak = {"tr": "Temsil endeksi · WPP 2024 · ölçek 2025–27 · barış gücü Şubat 2026 · Konsey 2026",
-              "en": "Representation index · WPP 2024 · scale 2025–27 · peacekeeping Feb 2026 · Council 2026"}
+    kaynak = {"tr": "WPP 2024, bütçe ölçeği 2025–27, barış gücü Şubat 2026, Konsey 2026",
+              "en": "WPP 2024, budget scale 2025–27, peacekeeping February 2026, Council 2026"}
     gorsel = lambda x: {"nufus": x["nufus"], "koltuk": x["koltuk"], "daimi": x["daimi"], "secilmis": x["secilmis"]}
     return [
         {"id": "kart-09-asya-pasifik", "tur": "temsil", "gorsel": gorsel(a),
@@ -321,7 +321,8 @@ def html(kart: dict, dil: str, boyut: str, S: dict) -> str:
                     f'viewBox="{-(kutu - vb_g) / 2:.2f} {-(kutu - vb_y) / 2:.2f} {kutu:.2f} {kutu:.2f}" width="44" height="44"', isaret, count=1)
     # Kartta işaret adın yanında süstür (eski dosyadaki gibi): görsel rolü ve başlığı alınmaz
     isaret = re.sub(r"<title>[^<]*</title>", "", re.sub(r' role="img" aria-label="[^"]*"', ' aria-hidden="true"', isaret, count=1), count=1)
-    baslik = "Söz ve Kayıt" if alinti and dil == "tr" else "Word and Record" if alinti else "Veto Atlası" if dil == "tr" else "Veto Atlas"
+    # Sol üst etiket yalnızca alıntı kartlarında ("Söz ve Kayıt"); sayı kartlarında atlasın adı alt bilgide zaten var
+    baslik = ("Söz ve Kayıt" if dil == "tr" else "Word and Record") if alinti else ""
     buyuk = f'<div class="buyuk{" alinti" if alinti else ""}" lang="{"tr" if alinti and not kart["buyuk"].get("en") else dil}">{esc(kart["buyuk"][dil])}</div>'
     metin = f'<div class="metin">{esc(kart["metin"][dil])}</div>'
     if alinti:
@@ -361,7 +362,7 @@ html, body {{ margin: 0; width: {g}px; height: {y}px; overflow: hidden; backgrou
 .alt .ad {{ flex: none; color: {MUREKKEP}; display: inline-flex; align-items: center; gap: 12px; }}
 .alt .ad svg {{ display: block; }}
 </style></head><body><div class="kart">
-<div class="ust">{baslik}</div>
+{f'<div class="ust">{baslik}</div>' if baslik else ""}
 {govde}
 <div class="alt"><div class="kaynak">{esc(kart['kaynak'][dil])}</div><div class="ad">{esc(yer)}{isaret}</div></div>
 </div></body></html>

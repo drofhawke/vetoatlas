@@ -121,9 +121,10 @@ def fonts_hazirla(web: Path) -> tuple[str, dict[str, str]]:
 
 
 def varliklar_hazirla(web: Path) -> dict[str, str]:
-    """Logo, çubuk işareti ve sekme simgeleri (logo paketi v2): dosya adı -> data: adresi (SVG, PNG ve ICO base64)."""
+    """Çubuk işareti ve sekme simgeleri (logo paketi v3): dosya adı -> data: adresi (SVG, PNG ve ICO base64). Çubuk logosunun
+    yazısı canlı metindir (20 Ekim; yazı tipi FONTLAR ile gömülür), logo-cubuk-b.svg gömülmez."""
     v = {}
-    for ad in ("logo-cubuk-b.svg", "logo-cubuk-b-koyu.svg", "isaret.svg", "isaret-koyu.svg", "favicon.svg"):
+    for ad in ("isaret.svg", "isaret-koyu.svg", "favicon.svg"):
         # SVG metindir: satır sonu git'teki gibi LF sayılır, CRLF'li bir Windows çalışma ağacı da aynı dosyayı üretir
         svg = (web / ad).read_bytes().replace(b"\r\n", b"\n")
         v[ad] = "data:image/svg+xml;base64," + base64.b64encode(svg).decode()

@@ -1,8 +1,8 @@
 """
 ADIM 41 ve 45 – okunurluk: sayfa yapısındaki kalıcı kararlar (kaynaklar/kimlik/KILAVUZ.md bölüm 2, "Okuma kolaylığı").
 
-- Ya veto olmasaydı?: "Oyların sayım sırası bir gösterimdir…" notu panellerin altında bir kez.
-- Vetolar: grafik açıklaması tek cümle; kalan cümleler hemen altındaki "Nasıl okunur?" kutusunda, metinleri aynen.
+- Ya veto olmasaydı?: sayım sırası notu sayfada değil Metodoloji 2.10'da (20 Ekim 2026).
+- Vetolar: grafik açıklaması tek cümle; etkileşim notu yok, klavye notu yalnızca ekran okuyucuya (20 Ekim 2026).
   Grafiğin işaretleri (kapalı oturum vetosu, hitap üçgeni) üye düğmelerinden ayrı, kendi satırında (ADIM 45).
 - Yöntem yalnızca "Nasıl yaptık?"ta (ADIM 45, kalıcı kural): diğer sayfalarda kaynak dosyası, SHA-256, indirme
   listesi, "sayılar veri setinden hesaplanır" türü notlar, alt bilgide kaynak listesi, tanımlar bölümü ve slogan
@@ -46,46 +46,32 @@ def cumleler(metin):
     return [c for c in re.split(r"(?<=[.!?])\s+", metin.strip()) if c]
 
 
-def test_sira_notu_panellerin_altinda_bir_kez():
+def test_sira_notu_metodolojide():
+    """20 Ekim 2026: sayım sırası notu ve 108. madde notu sayfada değil Metodoloji 2.10'da; sayfada yalnızca iki cümlelik
+    "Sınırlar" notu (kutusuz, panellerin altında)."""
     s = oku("simulasyon.html")
+    assert "siraNotu" not in s and "sira-notu" not in s and "parametreYok" not in s and 'class="sinirlar kutu"' not in s
     g = govde(s)
-    assert g.count('data-t="siraNotu"') == 1
-    for panel in re.findall(r'<article class="panel kutu".*?</article>', g, re.S):
-        assert "sira-notu" not in panel
-    # ADIM 51: panellerin altındaki sonuç bloğunun en altında, düğmelerden sonra (küçük yazıyla)
-    assert '        </div>\n        <p class="sira-notu" data-t="siraNotu"></p>\n      </div>\n      <div class="serit kutu" id="serit" hidden>' in g
-    assert g.index('<div class="sonuc-blok kutu" id="sonuc-blok">') < g.index('class="sira-notu"')
-    assert 'siraNotu: "Oyların sayım sırası bir gösterimdir; toplantı kayıtlarında üye bazlı oylama sırası yoktur.",' in s
-    assert ".sira-notu { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); color: var(--murekkep-2);" in s
-
-
-ESKI_ACIKLAMA = [  # ADIM 41 öncesi grafik açıklaması: cümleler bölünerek taşındı, metin aynı kaldı
-    "Her kare bir ret oyunu gösterir; sütunlar yılları, renkler vetoyu kullanan daimi üyeyi. Bir sütuna tıklayınca o "
-    "yılın vetoları aşağıda listelenir, bir kareye tıklayınca ilgili kayıt açılır. Üstteki küçük üçgenler, "
-    "Cumhurbaşkanı Erdoğan’ın kaynaklarda yer alan Genel Kurul hitaplarının tarihlerini gösterir; üzerine gelince ya "
-    "da Tab tuşuyla odaklanınca o yılın alıntısı görünür; tıklayınca ya da Enter’a basınca alıntı Söz ve Kayıt "
-    "sayfasında açılır.",
-    "Each square is one negative vote; columns are years, colours show the permanent member that cast the veto. Click "
-    "a column to list that year's vetoes below; click a square to open the record. The small triangles at the top mark "
-    "the dates of President Erdoğan’s addresses to the General Assembly that are in the sources; hover over one or "
-    "focus it with the Tab key to see that year’s quotation; click it or press Enter to open the quotation on the Word "
-    "and Record page.",
-]
+    assert '<span data-t="tekrarKisa"></span></button></div>\n      <p class="sinirlar-not" data-t="sinirlar"></p>\n    </section>' in g
+    assert 'sinirlar: "Sayım, kayıttaki oyların başka bir kuralda da aynı kalacağını varsayar. Veto tehdidiyle oylanmayan taslaklar ve kapalı oturum vetoları sayılmaz.",' in s
+    md = (KOK / "METODOLOJI.md").read_text(encoding="utf-8")
+    b = md[md.index("### 2.10."):md.index("## 3.")]
+    assert "Oyların panellerdeki sayım sırası bir gösterimdir" in b and "108. maddesine göre" in b and "7, 8 ve 6" in b
+    en = (KOK / "METODOLOJI_EN.md").read_text(encoding="utf-8")
+    assert "Article 108" in en[en.index("### 2.10."):en.index("## 3.")]
 
 
 def test_vetolar_grafik_aciklamasi_tek_cumle():
+    """Grafik açıklaması tek cümle; "Nasıl okunur?" kutusu ve tıklama talimatı yok (20 Ekim 2026), klavye notu yalnızca ekran
+    okuyucuya (gorunmez, aria-describedby)."""
     s = oku("vetolar.html")
-    aciklama, okuma = sozluk(s, "grafik.aciklama"), sozluk(s, "grafik.okuma")
-    assert len(aciklama) == len(okuma) == 2
-    for a, o, eski in zip(aciklama, okuma, ESKI_ACIKLAMA):
-        assert len(cumleler(a)) == 1, a
-        assert a + " " + o == eski  # kalan cümleler "Nasıl okunur?" kutusunda, metin değişmeden
-    assert sozluk(s, "grafik.okumaBaslik") == ["Nasıl okunur?", "How to read this chart"]
+    aciklama = sozluk(s, "grafik.aciklama")
+    assert len(aciklama) == 2 and all(len(cumleler(a)) == 1 for a in aciklama), aciklama
+    assert "grafik.okuma" not in s and "Nasıl okunur" not in s and "tıklayınca" not in s
     g = govde(s)
     assert ('<figcaption id="grafik-aciklama" data-t="grafik.aciklama"></figcaption>\n'
-            '    <details class="okuma"><summary data-t="grafik.okumaBaslik"></summary>'
-            '<p id="grafik-okuma" data-t="grafik.okuma"></p></details>') in g
-    assert 'aria-labelledby="grafik-aciklama" aria-describedby="grafik-okuma grafik-klavye"' in g
+            '    <p id="grafik-klavye" class="gorunmez" data-t="grafik.klavye"></p>') in g
+    assert 'aria-labelledby="grafik-aciklama" aria-describedby="grafik-klavye"' in g and "<details class=\"okuma\"" not in g
 
 
 def test_vetolar_alt_bilgi_yalnizca_veri_tarihi():
@@ -130,12 +116,13 @@ def test_yontem_yalnizca_nasil_yaptikta():
         assert not bulunan, (ad, s[max(0, bulunan.start() - 80):bulunan.end() + 40])
         # Alt bilgi yalnızca veri tarihi taşıyan sayfalarda (Hikâye, Vetolar); diğerlerinde alt bilgi yok
         assert ("<footer" in s) == (ad in ("hikaye", "vetolar")), ad
-    # Kalan okuma notları: kapalı oturum sayımı, "Küresel" tanımı, doğrulanmayan 1945 değeri, oran okuma notu
+    # Kalan okuma notları: kapalı oturum sayımı, "Küresel" satırı, hesaplanmayan 1945 değeri, oran okuma cümlesi (kutusuz)
     v = oku("vizyon.html")
-    assert "“Küresel”: belirli bir bölgeye bağlanmayan gündemler" in v and "kitaptaki 1945 değeri (yüzde 60) bu çalışmayla doğrulanmadı" in v
-    assert 'giris2: "Hitaplarda basılı sayfa numarası, kitapta bölüm başlığı verilir. Alıntı ile sayı arasında bir neden-sonuç ilişkisi ileri sürülmez.",' in v
+    assert "“Küresel” satırı belirli bir bölgeye bağlanmayan gündemleri toplar" in v and "kitaptaki yüzde 60 burada hesaplanmadı" in v
+    assert "giris2" not in v and "neden-sonuç" not in v
     t = oku("temsil.html")
-    assert "Koltuk / gösterge oranı 1 ise grubun koltuk payı gösterge payına eşittir" in t and "Paylar BM üyelerinin toplamı içindedir." in t
+    assert "Kartların altındaki oran, koltuk payının gösterge payına bölümüdür" in t and "Paylar BM üyelerinin toplamı içindedir." in t
+    assert "giris2" not in t and "Bileşik puan" not in t
     # Taşınan bilgiler Metodoloji'de: Gazze seçim dosyası, bölge ataması, 1963 nüfus kuralı, simülasyonun kapsamı
     m = (KOK / "METODOLOJI.md").read_text(encoding="utf-8")
     for parca in ("`kaynaklar/gazze_taslaklari.md`", "Bölge gündem başlığına göre atanır", "SSCB 13 cumhuriyet",
@@ -170,11 +157,11 @@ def test_reform_sayfasi():
     assert '<div class="olcutler kutu" id="olcutler"></div>' in g
     assert 'const MODELLER = ["Ezulwini Uzlaşısı", "G4", "Uzlaşı için Birlik", "Daha Adil Bir Dünya Mümkün"]' in r
     assert 'const OLCUTLER = ["toplam", "yeni_daimi", "veto", "genel_kurul"];' in r
-    assert "<small>${t(\"dayanak\")}: " in r
+    assert '<small>${esc(DIL === "en" ? dayanakEn(r.belge) : r.belge)}, ' in r and 'dayanak: "' not in r and "details.yontem" not in r
     assert "@media (max-width: 960px) {\n  .tablo-kap { display: none; }\n  .olcutler { display: block; }\n}" in r
     # Sayfa başlığı sekme adıyla aynı; eski başlık giriş cümlesinde (denetim sonrası)
     assert 'baslik: "Reform modelleri"' in r and 'baslik: "Reform models"' in r
-    assert 'giris: "Güvenlik Konseyi reformu için dört model aynı ölçütlerle, belgelerin tarih sırasıyla."' in r
+    assert 'giris: "Güvenlik Konseyi reformu için dört model aynı ölçütlerle, belgelerin tarih sırasıyla. Her hücrenin altındaki küçük satır, belgedeki yeri gösterir."' in r
     # Söz ve Kayıt'ta reform bölümü yok; kitaptaki model bölümü yerinde
     v = oku("vizyon.html")
     assert "h-reform" not in v and "reformModelleri" not in v and 'id="h-model"' in v
@@ -309,8 +296,11 @@ def test_denetim_sonrasi_duzeltmeler():
     ifadeler lang="tr"; sabit yazılmış iki sayı veriden; Temsil'deki 1963 hesabı tek cümle ve Metodoloji 2.9'a bağlantı;
     sayfa başlıkları sekme adlarıyla aynı."""
     v = oku("vizyon.html")
-    assert '<details class="tablo-ac"><summary>${t("tabloGoster")}</summary>\n      <div class="tablo-kap"><table>' in v
-    assert '<details class="tablo-ac"><summary>${t("tabloGoster")}</summary>\n        <div class="tablo-kap"><table>' in v
+    # Kayıt hücresindeki küçük tablolar açık durur (20 Ekim 2026); hitaplar arası ve konu × üye tabloları kapalı
+    assert '<details class="tablo-ac" open><summary>${t("tabloGoster")}</summary>\n      <div class="tablo-kap"><table>' in v
+    assert '<details class="tablo-ac" open><summary>${t("tabloGoster")}</summary>\n        <div class="tablo-kap"><table>' in v
+    assert '<details class="tablo-ac" open><summary data-t="tabloGoster"></summary><div class="tablo-kap kutu"><table id="gazze">' in v
+    assert '<details class="tablo-ac"><summary data-t="tabloGoster"></summary><div class="tablo-kap kutu"><table id="aralik">' in v
     assert v.count("</tbody></table></div></details>") == 2 and "</tbody></table></details>" not in v
     # Sabit sayılar veriden
     assert '<p class="aciklama" id="konu-aciklama"></p>' in v and 'data-t="konu.aciklama"' not in v
@@ -321,7 +311,7 @@ def test_denetim_sonrasi_duzeltmeler():
     assert "yer('[data-yer=\"konu-sayisi\"]').textContent = sayi((m.konular || []).length);" in h
     # lang="tr" işaretleri
     # Resmî İngilizcesi olmayan kitap alıntısında bölüm İngilizce baskıdaki adıyla
-    assert ': esc({ "Giriş": "Introduction", "2. Bölüm: Birleşmiş Milletler Reformu": "Part II: A United Nations Reform" }[a.bolum] || a.bolum)}`;' in oku("simulasyon.html")
+    assert ': esc(t("kitapBolumEn", { b: { "Giriş": "Introduction", "2. Bölüm: Birleşmiş Milletler Reformu": "Part II: A United Nations Reform" }[a.bolum] || a.bolum })));' in oku("simulasyon.html")
     md = oku("metodoloji.html")
     assert '<span lang="tr">“Dünya 5’ten Büyüktür.”</span>' in md and '<span lang="tr">DHL listesinin kapsamı</span>' in md
     # Temsil: tek cümle + Metodoloji 2.9 bağlantısı (iki dilde doğru adres)
@@ -379,9 +369,9 @@ def metin_sayfasi(sayfa, dil):
 
 HAKKINDA_BOLUMLERI = {
     "tr": ["Kaynaklar", "Nasıl sayıyoruz", "Tarih kuralı", "Konular ve Türkçe başlıklar", "Genel Kurul tartışmaları",
-           "Nedensellik dili", "Düzeltme ve doğrulama", "Bilinen sınırlar", "İletişim"],
+           "Düzeltme ve doğrulama", "Bilinen sınırlar", "İletişim"],
     "en": ["Sources", "How we count", "Date rule", "Topics and agenda items", "General Assembly debates",
-           "Language of causation", "Corrections and verification", "Known limitations", "Contact"],
+           "Corrections and verification", "Known limitations", "Contact"],
 }
 
 
@@ -441,7 +431,7 @@ def test_bu_sayfada_dizini_node_ile(tmp_path):
     cikti = json.loads(r.stdout)
     assert cikti == beklenen
     hakkinda_tr, _, metodoloji_tr, metodoloji_en = cikti
-    assert hakkinda_tr.count("<li>") == 9 and "<ul>" not in hakkinda_tr[4:]  # Hakkında: dokuz bölüm, alt bölüm yok
+    assert hakkinda_tr.count("<li>") == 8 and "<ul>" not in hakkinda_tr[4:]  # Hakkında: sekiz bölüm, alt bölüm yok
     assert '<li><a href="#bolum-2">2. Sayım kuralları</a><ul><li><a href="#bolum-2-1">2.1. Erken dönem kayıtları (1946–1953)</a></li>' in metodoloji_tr
     assert '<li><a href="#bolum-2-10">2.10. &quot;Ya veto olmasaydı?&quot; sayfası</a></li></ul></li><li><a href="#bolum-3">' in metodoloji_tr
     assert '<li><a href="#en-bolum-5">5. The vetoing party&#39;s reasons</a></li>' in metodoloji_en
@@ -470,8 +460,8 @@ def test_vetolar_kapali_oturum_etiketi_kaynaga_uygun():
     """ADIM 46: iki kapalı oturum kaydında (1953 SSCB, 1996 ABD) etiket kaynağın ifadesiyle. DHL listesi "Not identified in
     private meeting communiqué, but attributed to …" der; "sonradan kabul etti" kaynakta yoktur."""
     s = oku("vetolar.html")
-    assert '"kapaliSatir": ({ uyeler }) => `Resmî bildiride adı yok; DHL listesine göre ${uyeler}`,' in s
-    assert '"kapaliSatir": ({ uyeler }) => `Not named in the official communiqué; attributed to ${uyeler} by the DHL list`,' in s
+    assert '"kapaliSatir": ({ uyeler }) => `Resmî bildiride adı yok. DHL listesine göre ${uyeler}`,' in s
+    assert '"kapaliSatir": ({ uyeler }) => `Not named in the official communiqué. Attributed to ${uyeler} by the DHL list`,' in s
     assert 'uyeBelirli = (u) => (DIL === "en" && CUMLE_EN.kisa[u]) || uyeKisa(u);' in s and 't("kapaliSatir", { uyeler: k.uyeler.map(uyeBelirli).join(", ") })' in s
     assert 'kisa: { SSCB: "the USSR", USA: "the US", GBR: "the UK" } };' in s  # İngilizcede "attributed to the US"
     assert "kabul etti" not in s and "acknowledged" not in s

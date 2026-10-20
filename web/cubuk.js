@@ -2,8 +2,9 @@
  * Veto Atlası ortak üst çubuk ve tema (kaynaklar/kimlik/KILAVUZ.md).
  *
  * Her sayfa <head> içinde bu betiği yükler ve <body> başında <header id="cubuk" class="cubuk"></header> taşır.
- * Çubuk: solda logo (ana sayfaya bağlantı), sağda sayfa bağlantıları, en sağda TR/EN ve tema düğmesi.
- * Çubuğun üstünde ince beta şeridi (hata bildirimi adresiyle); sayfayla kayar, yazdırılmaz.
+ * Çubuk: solda logo (işaret + canlı logo yazısı; ana sayfaya bağlantı), sağda sayfa bağlantıları, en sağda TR/EN ve tema düğmesi.
+ * Her sayfanın altında tek satırlık not (beta sürümü, hata bildirme adresi): sayfanın alt bilgisi varsa ona eklenir, yoksa
+ * sayfa kabının sonunda ince çizgili bir alt bilgi oluşturulur. Çubuğun üstündeki beta şeridi 20 Ekim 2026'da kaldırıldı.
  * Dar ekranda sayfa bağlantıları "Menü" düğmesine toplanır; çok dar ekranda logo yerine işaret görünür.
  *
  * Tema: site her zaman kâğıt (açık) temada açılır; işletim sisteminin koyu tema tercihi dikkate alınmaz.
@@ -36,18 +37,21 @@
   var CSS = [
     ".cubuk { display: block; position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--zemin) 92%, transparent); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); box-shadow: inset 0 -1px 0 var(--cizgi); font-family: var(--sans); font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); min-height: 76px; }",
     ".c-cubuklu { scroll-padding-top: 84px; }",
-    "/* Beta şeridi: çubuğun üstünde, yapışkan değil (sayfayla kayar); 32 px */",
-    ".beta-serit { display: block; flex: none; background: var(--yuzey); box-shadow: inset 0 -1px 0 var(--cizgi); color: var(--murekkep-2); font-family: var(--sans); font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }",
-    ".beta-serit .beta-ic { max-width: 1180px; margin: 0 auto; padding: 4px 24px; }",
-    ".beta-serit a { color: var(--murekkep); text-underline-offset: 3px; }",
-    ".beta-serit a:focus-visible { outline: 2px solid var(--murekkep); outline-offset: 2px; }",
+    "/* Alt bilgi notu: beta sürümü ve hata bildirme adresi, her sayfanın altında tek satır */",
+    ".alt-not { font-family: var(--sans); font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); color: var(--murekkep-2); max-width: var(--olcu); margin: 0; }",
+    ".alt-not a { color: var(--murekkep); text-underline-offset: 3px; }",
+    "footer.alt-bilgi { border-top: 1px solid var(--cizgi); margin: 64px 0 0; padding: 32px 0 0; }",
     ".cubuk-ic { max-width: 1180px; margin: 0 auto; padding: 12px 24px; display: flex; align-items: center; gap: 24px; min-height: 76px; }",
     ".cubuk a { color: inherit; }",
-    ".cubuk .c-logo { display: inline-flex; align-items: center; flex: none; text-decoration: none; }",
+    "/* Logo: işaret (isaret.svg, 40 px) + canlı logo yazısı. Ölçüler logo-cubuk-b.svg'nin 40 px'e ölçeklenmiş değerleridir: yazı 52/76,19 × 40 = 27,3 px,",
+    "   işaretle arası 26,83 birim = 14 px, taban çizgisi işaretin üstünden 54,1 birim = 28,4 px (40 px satır kutusunda 1 px aşağı). Yazı SVG dış çizgisi",
+    "   değil canlı metin olduğu için hinting ve ClearType alır; harfler logo paketindeki kesimle aynıdır (Veto Atlası Logo, KILAVUZ bölüm 3) */",
+    ".cubuk .c-logo { display: inline-flex; align-items: flex-start; flex: none; height: 40px; text-decoration: none; color: var(--murekkep); }",
     ".cubuk .c-logo img { height: 40px; width: auto; display: block; }",
-    ".cubuk .c-logo .c-koyu, .cubuk .c-logo .c-isaret, .cubuk .c-logo .c-isaret-koyu { display: none; }",
-    ":root[data-theme=\"dark\"] .cubuk .c-logo .c-acik { display: none; }",
-    ":root[data-theme=\"dark\"] .cubuk .c-logo .c-koyu { display: block; }",
+    ".cubuk .c-logo .c-isaret-koyu { display: none; }",
+    ":root[data-theme=\"dark\"] .cubuk .c-logo .c-isaret { display: none; }",
+    ":root[data-theme=\"dark\"] .cubuk .c-logo .c-isaret-koyu { display: block; }",
+    ".cubuk .c-logo .c-ad { font-family: \"Veto Atlası Logo\", var(--serif); font-weight: 600; font-size: 27.3px; line-height: 40px; letter-spacing: .2px; white-space: nowrap; margin-left: 14px; position: relative; top: 1px; }",
     ".cubuk .c-not { font-size: var(--yz-kucuk); color: var(--murekkep-2); white-space: nowrap; flex: none; line-height: var(--sa-kucuk); }",
     ".cubuk .c-sayfalar { margin-left: auto; }",
     ".cubuk .c-sayfalar ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 12px; }",
@@ -57,7 +61,7 @@
     ".cubuk .c-sayfalar a[aria-current=\"page\"] { color: var(--murekkep); border-bottom-color: var(--murekkep); font-weight: 600; }",
     ".cubuk .c-araclar { display: inline-flex; gap: 8px; align-items: center; flex: none; margin-left: 8px; }",
     ".cubuk .c-dil { display: inline-flex; gap: 8px; }",
-    ".cubuk .c-dil a, .cubuk .c-tema, .cubuk .c-menu { font: inherit; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); padding: 4px 8px; border: 1px solid var(--cizgi); border-radius: 999px; background: transparent; color: var(--murekkep); text-decoration: none; cursor: pointer; white-space: nowrap; }",
+    ".cubuk .c-dil a, .cubuk .c-tema, .cubuk .c-menu { font: inherit; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); padding: 4px 8px; border: 1px solid var(--cizgi); border-radius: 6px; background: transparent; color: var(--murekkep); text-decoration: none; cursor: pointer; white-space: nowrap; }",
     ".cubuk .c-dil a[aria-current=\"true\"] { background: var(--murekkep); color: var(--zemin); border-color: var(--murekkep); }",
     ".cubuk .c-tema[aria-pressed=\"true\"] { border-color: var(--murekkep); box-shadow: inset 0 0 0 1px var(--murekkep); }",
     ".cubuk .c-tema::before { content: \"\"; display: inline-block; width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid currentColor; background: linear-gradient(90deg, currentColor 50%, transparent 50%); margin-right: 8px; vertical-align: -1px; }",
@@ -79,22 +83,19 @@
     "  .cubuk-ic { padding: 12px 16px; gap: 12px; }",
     "  .cubuk.c-dar .c-sayfalar ul { padding: 4px 16px 8px; }",
     "  .cubuk .c-not { display: none; }",
-    "  .beta-serit .beta-ic { padding: 4px 16px; }",
     "}",
     "@media (max-width: 520px) {",
     "  .cubuk { min-height: 64px; }",
     "  .cubuk-ic { min-height: 64px; }",
     "  .c-cubuklu { scroll-padding-top: 72px; }",
+    "  .cubuk .c-logo { height: 34px; }",
     "  .cubuk .c-logo img { height: 34px; }",
-    "  .cubuk .c-logo .c-acik, :root[data-theme=\"dark\"] .cubuk .c-logo .c-koyu { display: none; }",
-    "  .cubuk .c-logo .c-isaret { display: block; }",
-    "  :root[data-theme=\"dark\"] .cubuk .c-logo .c-isaret { display: none; }",
-    "  :root[data-theme=\"dark\"] .cubuk .c-logo .c-isaret-koyu { display: block; }",
+    "  .cubuk .c-logo .c-ad { display: none; }",
     "  .cubuk .c-araclar { gap: 8px; }",
     "  .cubuk .c-dil a, .cubuk .c-tema, .cubuk .c-menu { padding: 4px 8px; }",
     "  .cubuk .c-araclar { margin-left: 0; }",
     "}",
-    "@media print { .cubuk, .beta-serit { display: none; } }",
+    "@media print { .cubuk { display: none; } }",
   ].join("\n");
   var stil = document.createElement("style");
   stil.id = "cubuk-stil";
@@ -112,9 +113,9 @@
     ["hakkinda", "Nasıl yaptık?", "How we did it"],
   ];
   var YAZI = {
-    tr: { logo: "Veto Atlası", ana: "Veto Atlası, ana sayfa", sayfalar: "Sayfalar", dil: "Dil", menu: "Menü", beta: "Beta sürümü", hata: "Hata bildirin",
+    tr: { logo: "Veto Atlası", ana: "Veto Atlası, ana sayfa", sayfalar: "Sayfalar", dil: "Dil", menu: "Menü", altNot: "Beta sürümü. Hata bildirmek için", altSon: " adresine yazın.",
           tema: "Koyu", temaUzun: "Koyu kâğıt teması", not: "İnceleme sürümü", notUzun: "İnceleme sürümü: sekiz sayfa yedi sekmede, tek dosyada. Paylaşım kartları bu dosyada yer almaz (web/kartlar/)." },
-    en: { logo: "Veto Atlas", ana: "Veto Atlas, home", sayfalar: "Pages", dil: "Language", menu: "Menu", beta: "Beta", hata: "Report an error",
+    en: { logo: "Veto Atlas", ana: "Veto Atlas, home", sayfalar: "Pages", dil: "Language", menu: "Menu", altNot: "Beta. To report an error, write to", altSon: ".",
           tema: "Dark", temaUzun: "Dark paper theme", not: "Review version", notUzun: "Review version: eight pages in seven tabs, in one file. Share cards are not included (web/kartlar/)." },
   };
   var SAYFA_GRUBU = { metodoloji: "hakkinda", index: "hikaye" };
@@ -143,6 +144,20 @@
     return i;
   }
 
+  // Alt bilgi notu: sayfanın kendi alt bilgisi (Hikâye, Vetolar: footer#alt) varsa ona eklenir; yoksa sayfa kabının sonunda
+  // ince çizgili bir alt bilgi oluşturulur. Tek dosyada her sayfa çerçevesi kendi notunu taşır.
+  function altBilgi(dil) {
+    var Y = YAZI[dil];
+    var eski = document.querySelector(".alt-not"); if (eski) eski.remove();
+    var p = document.createElement("p"); p.className = "alt-not";
+    p.innerHTML = esc(Y.altNot) + ' <a href="mailto:' + ILETISIM + '">' + ILETISIM + "</a>" + esc(Y.altSon);
+    var alt = document.getElementById("alt");
+    if (alt && alt.tagName === "FOOTER") { alt.appendChild(p); return; }
+    var f = document.querySelector("footer.alt-bilgi");
+    if (!f) { f = document.createElement("footer"); f.className = "alt-bilgi"; (document.querySelector(".kap") || document.body).appendChild(f); }
+    f.appendChild(p);
+  }
+
   function kur(secenek) {
     secenek = secenek || {};
     var yer = document.getElementById("cubuk");
@@ -153,10 +168,6 @@
     var ek = dil === "tr" ? "" : "?lang=" + dil;
     yer.classList.add("cubuk");
     yer.classList.remove("c-menu-acik");
-    // Beta şeridi çubuğun hemen önünde; yeniden kurulumda (tek dosyada dil değişimi) aynı öğe güncellenir
-    var serit = document.getElementById("beta-serit");
-    if (!serit) { serit = document.createElement("div"); serit.id = "beta-serit"; serit.className = "beta-serit"; yer.parentNode.insertBefore(serit, yer); }
-    serit.innerHTML = '<div class="beta-ic">' + esc(Y.beta) + " · " + esc(Y.hata) + ': <a href="mailto:' + ILETISIM + '">' + ILETISIM + "</a></div>";
     // Yayın adresi (vetoatlas.com): İngilizce görünümde canonical ve og:url ?lang=en adresini gösterir
     if (!tek && dil === "en") {
       var can = document.querySelector('link[rel="canonical"]'), og = document.querySelector('meta[property="og:url"]');
@@ -181,11 +192,11 @@
         "</span>" +
       "</div>";
     var logo = yer.querySelector(".c-logo");
-    // Çubukta slogansız logo (logo-cubuk-b); sloganlı tam logo sayfalarda kullanılmaz (KILAVUZ bölüm 3)
-    logo.appendChild(gorsel("c-acik", "logo-cubuk-b.svg", 183, 40, Y.logo));
-    logo.appendChild(gorsel("c-koyu", "logo-cubuk-b-koyu.svg", 183, 40, Y.logo));
-    logo.appendChild(gorsel("c-isaret", "isaret.svg", 31, 34, Y.logo));
-    logo.appendChild(gorsel("c-isaret-koyu", "isaret-koyu.svg", 31, 34, Y.logo));
+    // Çubukta işaret + canlı logo yazısı (slogansız; sloganlı tam logo sayfalarda kullanılmaz, KILAVUZ bölüm 3). Bağlantının adı
+    // aria-label'dadır; işaret süs (alt boş), yazı her iki dilde de marka adıdır. 520 px ve altında yalnızca işaret (34 px)
+    logo.appendChild(gorsel("c-isaret", "isaret.svg", 37, 40, ""));
+    logo.appendChild(gorsel("c-isaret-koyu", "isaret-koyu.svg", 37, 40, ""));
+    var ad = document.createElement("span"); ad.className = "c-ad"; ad.textContent = "Veto Atlası"; logo.appendChild(ad);
 
     var menu = yer.querySelector(".c-menu");
     function menuKapat() { yer.classList.remove("c-menu-acik"); menu.setAttribute("aria-expanded", "false"); }
@@ -217,6 +228,7 @@
       });
     });
     KOK.classList.add("c-cubuklu");
+    if (!tek) altBilgi(dil);
     sigdir();
     yer.querySelector(".c-tema").addEventListener("click", function () {
       tema = tema === "koyu" ? "kagit" : "koyu";
@@ -245,7 +257,7 @@
 
   window.VetoCubuk = { kur: kur, tema: function () { return tema; } };
   function basla() {
-    if (window.__CUBUK_GIZLI) { var c = document.getElementById("cubuk"); if (c) c.remove(); return; }
+    if (window.__CUBUK_GIZLI) { var c = document.getElementById("cubuk"); if (c) c.remove(); altBilgi(gecerliDil()); return; }
     if (!window.__CUBUK_ELLE) kur();
     // İnternetsiz çalışma (web/cevrimdisi.js; veto_atlasi/cevrimdisi.py): yalnızca sunucudaki sayfalarda; tek dosya ve dosya
     // olarak açılış kaydetmez

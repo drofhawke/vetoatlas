@@ -84,7 +84,7 @@ a { color: inherit; }
 .ipucu .alinti { font-family: var(--serif); display: block; margin-top: 4px; }
 
 /* Birim grafik */
-.serit { background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 6px; padding: 24px 24px 16px; position: relative; margin: 0; }
+.serit { position: relative; margin: 0; }
 .serit-kaydir { overflow-x: auto; }
 .serit svg { display: block; width: 100%; min-width: 780px; height: auto; }
 .serit .kare { transition: opacity .15s; cursor: pointer; }
@@ -103,9 +103,6 @@ a { color: inherit; }
 .serit .donem { stroke: var(--murekkep-2); stroke-dasharray: 2 3; stroke-width: 1; }
 .serit .donem-yazi { font: 400 var(--yz-kucuk)/var(--sa-kucuk) var(--sans); fill: var(--murekkep-2); }
 .serit figcaption { font-size: var(--yz-kucuk); color: var(--murekkep-2); margin-top: 12px; max-width: var(--olcu); line-height: var(--sa-kucuk); }
-.serit details.okuma { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); max-width: var(--olcu); margin: var(--b2) 0 0; }
-.serit details.okuma summary { font-weight: 600; width: max-content; max-width: 100%; }
-.serit details.okuma p { color: var(--murekkep-2); margin: var(--b2) 0 0; }
 
 .ipucu {
   position: absolute; pointer-events: none; background: var(--murekkep); color: var(--zemin);
@@ -116,22 +113,23 @@ a { color: inherit; }
 .ipucu strong { display: block; font-weight: 600; }
 
 /* Üye seçiciler (lejant) */
-.uyeler-lejant { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 0; padding: 0; list-style: none; }
+/* Üye lejantı çerçevesiz: seçili üye üst çubuktaki etkin sekme gibi 2 px alt çizgili; seçim varken ötekiler soluk */
+.uyeler-lejant { display: flex; flex-wrap: wrap; gap: 4px 24px; margin: 16px 0 0; padding: 0; list-style: none; }
 .uye-dugme {
   display: inline-flex; align-items: center; gap: 8px; font: 500 var(--yz-kucuk)/var(--sa-kucuk) var(--sans); color: var(--murekkep);
-  background: transparent; border: 1px solid var(--cizgi); border-radius: 999px; padding: 8px 16px 8px 12px; cursor: pointer;
+  background: transparent; border: 0; border-bottom: 2px solid transparent; padding: 4px 0; cursor: pointer;
 }
 .uye-dugme .nokta { width: 12px; height: 12px; border-radius: 2px; flex: none; }
 .uye-dugme .sayi { color: var(--murekkep-2); font-variant-numeric: tabular-nums; }
-.uye-dugme[aria-pressed="true"] { background: var(--murekkep); color: var(--zemin); border-color: var(--murekkep); }
-.uye-dugme[aria-pressed="true"] .sayi { color: inherit; opacity: .75; }
+.uye-dugme[aria-pressed="true"] { border-bottom-color: var(--murekkep); font-weight: 600; }
+.uyeler-lejant.secimli .uye-dugme[aria-pressed="false"] { color: var(--murekkep-2); }
 .isaret-lejant { display: flex; flex-wrap: wrap; gap: 0 24px; margin: 8px 0 0; padding: 0; list-style: none; }
 .isaret-lejant .hitap-lejant { align-items: baseline; }
 .kapali-lejant { font-size: var(--yz-kucuk); color: var(--murekkep-2); display: inline-flex; align-items: center; gap: 8px; padding: 8px 4px; line-height: var(--sa-kucuk); }
 .kapali-lejant .nokta { width: 12px; height: 12px; border: 1.5px dashed var(--murekkep-2); border-radius: 2px; }
 
 /* Konulara göre vetolar */
-.konular { background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 6px; padding: 24px 24px 12px; margin-top: 24px; }
+.konular { margin-top: 32px; }
 .konular h2 { font-family: var(--serif); font-weight: 600; font-size: var(--yz-govde); line-height: var(--sa-govde); margin: 0 0 8px; }
 .konular-aciklama { font-size: var(--yz-kucuk); color: var(--murekkep-2); margin: 0 0 12px; max-width: var(--olcu); line-height: var(--sa-kucuk); }
 .konu-listesi { list-style: none; margin: 0; padding: 0; }
@@ -183,18 +181,12 @@ a { color: inherit; }
 .kayit time { font-variant-numeric: tabular-nums; color: var(--murekkep-2); font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
 .kayit .gundem { font-family: var(--serif); font-size: var(--yz-govde); line-height: var(--sa-govde); }
 .kayit .gundem-ozgun { display: block; font-family: var(--sans); font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); color: var(--murekkep-2); margin-top: 4px; }
-.etiketler { display: inline-flex; flex-wrap: wrap; gap: 8px; margin-left: 8px; vertical-align: 2px; }
-.etiket { font: 500 var(--yz-kucuk)/var(--sa-kucuk) var(--sans); border: 1px solid var(--cizgi); border-radius: 3px; padding: 0 8px; color: var(--murekkep-2); white-space: nowrap; }
-.etiket.dogrulaniyor { border-color: var(--murekkep-2); color: var(--murekkep-2); }
-.etiket.gk { border-style: dashed; }
+.etiketler { display: inline-flex; flex-wrap: wrap; gap: 4px 16px; margin-left: 8px; vertical-align: 2px; }
+.etiket { font: 500 var(--yz-kucuk)/var(--sa-kucuk) var(--sans); color: var(--murekkep-2); white-space: nowrap; }
 .gk-tartisma { border-left: 2px solid var(--cizgi); padding-left: 12px; margin-top: 8px; }
 .gk-tartisma p + p { margin-top: 4px; }
 .gk-durum { color: var(--murekkep-2); font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
-/* Kayıt ayrıntısındaki açıklama kutusu: metin kartı, genişliği metin sütunu (KILAVUZ bölüm 2, "Kartlar") */
-.aciklama-kutusu { border: 1px solid var(--cizgi); border-radius: 4px; padding: 8px 12px; margin: 4px 0 12px; background: var(--yuzey); max-width: var(--olcu-metin); }
-.aciklama-kutusu summary { cursor: pointer; font-weight: 600; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
-.aciklama-kutusu ul { margin: 8px 0 8px; }
-.aciklama-kutusu .kaynak, .detay .kaynak { color: var(--murekkep-2); font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+.detay .kaynak { color: var(--murekkep-2); font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
 .kayit .uye-adlari { display: flex; flex-wrap: wrap; gap: 4px 12px; justify-content: flex-end; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
 .uye-ad { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
 .uye-ad .nokta { width: 8px; height: 8px; border-radius: 2px; }
@@ -235,7 +227,6 @@ footer p { max-width: var(--olcu); margin: 0 0 8px; }
   .detay { padding-left: 4px; }
   .arac .alan { flex: 1 1 100%; }
   .alan input[type="search"] { width: 100%; }
-  .konular { padding: 16px 16px 8px; }
   .konu-satir { grid-template-columns: 1fr auto; gap: 4px 12px; }
   .konu-cubuk { grid-column: 1 / -1; grid-row: 2; }
   .konu-not { grid-column: 1 / -1; }
@@ -264,9 +255,8 @@ footer p { max-width: var(--olcu); margin: 0 0 8px; }
   </header>
 
   <figure class="serit" id="serit">
-    <div class="serit-kaydir"><svg id="grafik" role="group" aria-labelledby="grafik-aciklama" aria-describedby="grafik-okuma grafik-klavye"></svg></div>
+    <div class="serit-kaydir"><svg id="grafik" role="group" aria-labelledby="grafik-aciklama" aria-describedby="grafik-klavye"></svg></div>
     <figcaption id="grafik-aciklama" data-t="grafik.aciklama"></figcaption>
-    <details class="okuma"><summary data-t="grafik.okumaBaslik"></summary><p id="grafik-okuma" data-t="grafik.okuma"></p></details>
     <p id="grafik-klavye" class="gorunmez" data-t="grafik.klavye"></p>
     <ul class="uyeler-lejant" id="lejant"></ul>
     <ul class="isaret-lejant" id="isaretler"></ul>
@@ -333,12 +323,10 @@ footer p { max-width: var(--olcu); margin: 0 0 8px; }
       "arac.filtrele": "Filtrele",
       "dil": "Dil",
       "veriYok": "Veri dosyası bulunamadı. Proje klasöründe önce python scripts/04_web_verisi.py komutunu çalıştırın.",
-      "ozet": ({ ilk, son, oneri, tek }) => `BM Güvenlik Konseyi'nde ${ilk} ile ${son} arasında ${oneri} karar taslağı (öneri), beş daimi üyeden en az birinin ret oyuyla düştü.`,
-      "ozetTek": ({ tek }) => `Bunların en az ${tek} tanesinde Konsey'in geri kalan bütün üyeleri lehte oy verdi; öneri tek bir ülkenin ret oyuyla düştü.`,
+      "ozet": ({ ilk, son, oneri, tek }) => `BM Güvenlik Konseyi'nde ${ilk} ile ${son} arasında ${oneri} karar taslağı, beş daimi üyeden en az birinin ret oyuyla düştü.`,
+      "ozetTek": ({ tek }) => `Bunların en az ${tek} tanesinde Konsey'in geri kalan bütün üyeleri lehte oy verdiği hâlde öneri tek bir ülkenin ret oyuyla düştü.`,
       "ozet2": ({ oy, kapali }) => `Toplam ${oy} ret oyu kullanıldı. Kapalı oturumda kullanılan ve resmi kayıtta kimin kullandığı yazmayan ${kapali} veto bu toplama dahil değildir.`,
       "grafik.aciklama": "Her kare bir ret oyunu gösterir; sütunlar yılları, renkler vetoyu kullanan daimi üyeyi.",
-      "grafik.okumaBaslik": "Nasıl okunur?",
-      "grafik.okuma": "Bir sütuna tıklayınca o yılın vetoları aşağıda listelenir, bir kareye tıklayınca ilgili kayıt açılır. Üstteki küçük üçgenler, Cumhurbaşkanı Erdoğan’ın kaynaklarda yer alan Genel Kurul hitaplarının tarihlerini gösterir; üzerine gelince ya da Tab tuşuyla odaklanınca o yılın alıntısı görünür; tıklayınca ya da Enter’a basınca alıntı Söz ve Kayıt sayfasında açılır.",
       "lejant.aria": "Daimi üyeye göre filtrele",
       "grafik.klavye": "Yıllar arasında sol ve sağ ok tuşlarıyla, başa ve sona Home ve End tuşlarıyla gidilir; Enter ya da boşluk o yılı listeler. Grafikten sonra Tab tuşu Genel Kurul hitabı işaretlerine geçer; Escape alıntıyı kapatır.",
       "atla": "Grafiği geç, filtrelere ve listeye git",
@@ -352,58 +340,48 @@ footer p { max-width: var(--olcu); margin: 0 0 8px; }
       "yil.aria": ({ yil, n }) => `${yil}: ${n} ret oyu. Bu yılı listele.`,
       "ipucu.kapali": "Kapalı oturum, veto eden resmi kayıtta yok",
       "konular.baslik": "Konulara göre vetolar",
-      "konular.aciklama": "Çubuklar ret oylarını gösterir, renkler vetoyu kullanan daimi üyeyi. Sayılar yalnızca kaydın ana konusunu sayar. Bir konuya tıklayınca o konudaki vetolar aşağıda listelenir; listede o konuya ikincil olarak bağlı kayıtlar da yer alır.",
+      "konular.aciklama": "Çubuklar ret oylarını, renkler veto eden üyeyi gösterir. Sayılar kaydın ana konusuna göredir.",
       "konu.retOyu": ({ ad, n }) => `${ad}: ${n} ret oyu`,
       "konu.kapaliBaslik": ({ n }) => `Kapalı oturum vetosu: ${n}`,
       "konu.ikincil": ({ n }) => `İkincil olarak bu konuya bağlı ${n} kayıt daha`,
       "konu.kapaliNot": ({ n }) => `${n} kapalı oturum vetosu ret oyu toplamına dahil değil`,
       "konu.aria": ({ konu, oneri, oy, ikincil }) => `${konu}: ${oneri} öneri, ${oy} ret oyu${ikincil ? `, ikincil olarak bağlı ${ikincil} kayıt daha` : ""}. Bu konuyu listele.`,
-      "konu.sayi": ({ oneri, oy }) => `<b>${oneri}</b> öneri · ${oy} oy`,
-      "arac.ara": "Gündemde ara", "arac.araOrnek": "Örn. Suriye, Namibia", "arac.donem": "Dönem", "arac.tumYillar": "Tüm yıllar",
+      "konu.sayi": ({ oneri, oy }) => `<b>${oneri}</b> öneri, ${oy} oy`,
+      "arac.ara": "Gündemde ara", "arac.araOrnek": "Suriye, Namibia…", "arac.donem": "Dönem", "arac.tumYillar": "Tüm yıllar",
       "arac.konu": "Konu", "arac.tumKonular": "Tüm konular", "arac.tur": "Kayıt türü",
       "arac.dogrulaniyor": "Yalnızca doğrulaması süren kayıtlar", "arac.temizle": "Filtreleri temizle",
       "tur.tum": "Tüm vetolar", "tur.uyelik": "Üyelik başvurusu vetoları", "tur.kismi": "Paragraf ve değişiklik önergesi vetoları",
       "tur.onSoru": "Ön soru (çifte) vetoları", "tur.kapali": "Kapalı oturum vetoları", "tur.eklendi": "Mutabakatta eklenen kayıtlar",
       "sonuc.filtre": ({ yil, oneri, oy, ikincil }) => `${yil ? `${yil} yılında ` : ""}<b>${oneri}</b> öneri ve <b>${oy}</b> ret oyu gösteriliyor.${ikincil ? ` Bunların ${ikincil} tanesi bu konuya ikincil olarak bağlı.` : ""}`,
-      "sonuc.tum": ({ oneri, oy }) => `Tüm kayıtlar gösteriliyor: <b>${oneri}</b> öneri, <b>${oy}</b> ret oyu. En yeniden eskiye sıralı.`,
+      "sonuc.tum": ({ oneri, oy }) => `<b>${oneri}</b> öneri, <b>${oy}</b> ret oyu; en yeniden eskiye.`,
       "bos": "Bu filtrelerle eşleşen veto yok. Bir filtreyi kaldırın ya da aramayı kısaltın.",
       "etiket.dogrulaniyor": "Doğrulanıyor", "etiket.eklendi": "Mutabakatta eklendi", "etiket.kapali": "Kapalı oturum",
-      "etiket.onSoru": "Ön soru vetosu", "etiket.kismi": "Kısmi veto (metnin yalnızca bir bölümü oylandı)", "etiket.gk": "Genel Kurul'da görüşüldü",
+      "etiket.onSoru": "Ön soru vetosu", "etiket.kismi": "Kısmi veto", "etiket.gk": "Genel Kurul'da görüşüldü",
       "oy.kapali": "Kapalı oturumda yapılan oylamanın dağılımı resmi kayıtta yer almıyor.",
       "oy.yok": "Oy dağılımı henüz eşleştirilmedi.",
-      "oy.dagilim": ({ l, a, c }) => `${l} evet (lehte), ${a} hayır (aleyhte), ${c} çekimser`,
-      "oy.yeterli": ({ l, gerek }) => `Öneri ${l} lehte oy aldı; kabul için ${gerek} oy yeterliydi. Daimi üyenin ret oyu nedeniyle kabul edilmedi.`,
-      "oy.yetersiz": ({ l, gerek }) => `Öneri ${l} lehte oy aldı; kabul için gereken ${gerek} oya ulaşmamıştı.`,
+      "oy.dagilim": ({ l, a, c }) => `${l} evet, ${a} hayır, ${c} çekimser`,
+      "oy.yeterli": ({ l, gerek }) => `Öneri ${l} lehte oy aldı, kabul için ${gerek} yeterliydi. Daimî üyenin ret oyuyla düştü.`,
+      "oy.yetersiz": ({ l, gerek }) => `Öneri ${l} lehte oy aldı, kabul için gereken ${gerek} oya ulaşmamıştı.`,
       "oy.tek": ({ n }) => ` Konsey'in ${n} üyesinden ret oyu veren tek ülke dışındaki herkes lehteydi.`,
       "oy.baslik": "lehte–aleyhte–çekimser",
       "d.genelOy": "Genel oy", "d.konu": "Konu", "d.ikincil": "İkincil konu", "d.belgeler": "Belgeler",
       "d.toplantiKaydi": "toplantı kaydı", "d.taslak": "karar taslağı", "d.dogrulamaDurumu": "Doğrulama durumu",
       "d.dogrulamaKaynagi": "Doğrulama kaynağı", "d.notlar": "Notlar", "d.mutabakat": "Mutabakat",
-      "d.kaynakSatiri": ({ alanlar, kayit, sayfa, paragraf }) => `${alanlar}: ${kayit} toplantı kaydı, ${paragraf ? `par. ${paragraf} <span class="soluk">(PDF s. ${sayfa})</span>` : `s. ${sayfa} <span class="soluk">(PDF sayfası)</span>`}`,
+      "dz.oy": ({ k }) => `Oy dağılımı toplantı kaydından eklendi (${k}).`, "dz.tablo": ({ n }) => `Kayıt referans tablodan eklendi (Tablo 4, #${n}).`,
+      "dz.bm": ({ k }) => `Kayıt BM birincil kaynağından eklendi (${k}).`, "dz.bolundu": ({ a, b }) => `İki kayda ayrıldı (Tablo 4, #${a} ve #${b}).`,
+      "dz.uye": ({ u, n, k }) => `Ret oyu veren üye eklendi (${u}; Tablo 4, #${n}, ${k} ile doğrulandı).`,
+      "d.kaynakSatiri": ({ alanlar, kayit, sayfa, paragraf }) => `${alanlar}, ${kayit} toplantı kaydı, ${paragraf ? `par. ${paragraf} <span class="soluk">(PDF s. ${sayfa})</span>` : `PDF s. ${sayfa}`}`,
       "alan.tarih": "Oylama günü", "alan.oy": "Oy dağılımı", "alan.uye": "Ret oyu veren üyeler", "ve": " ve ",
-      "kapaliSatir": ({ uyeler }) => `Resmî bildiride adı yok; DHL listesine göre ${uyeler}`,
+      "kapaliSatir": ({ uyeler }) => `Resmî bildiride adı yok. DHL listesine göre ${uyeler}`,
       "gk.baslik": "Genel Kurul", "gk.ozelRapor": "Konsey'in özel raporu", "gk.yok": "Genel Kurul tartışması henüz kayıtlı değil.",
       "gk.vg": "Veto girişimi tartışması (A/RES/76/262)", "gk.oo": ({ oturum }) => `Olağanüstü özel oturum (${oturum})`,
       "gk.kayitlar": "Toplantı kayıtları", "gk.kararlar": "Kabul edilen kararlar",
-      "gk.konusmacilar": ({ uye, gozlemci, grup, cevap }) => `Konuşmacılar: ${uye} üye devlet ve ${gozlemci} gözlemci açıklama yaptı${grup ? `; ${grup} delegasyon grup adına konuştu` : ""}${cevap ? `; ${cevap} delegasyon cevap hakkı kullandı` : ""}.`,
-      "gk.vetoEden": "Veto eden", "gk.kaynakGunluk": "Sayım kaynağı: BM Günlüğü özeti (tutanak henüz yayımlanmadı).",
-      "gk.kaynakTranskript": "Sayım kaynağı: gayriresmî transkript.",
+      "gk.konusmacilar": ({ uye, gozlemci, grup, cevap }) => `${uye} üye devlet ve ${gozlemci} gözlemci konuştu${grup ? `, ${grup} delegasyon grup adına` : ""}${cevap ? `, ${cevap} delegasyon cevap hakkı kullandı` : ""}.`,
+      "gk.vetoCumle": ({ uyeler, durum }) => `Veto eden ${uyeler} ${durum}.`, "gk.kaynakGunluk": "Tutanak henüz yayımlanmadı; sayım BM Günlüğü özetinden.",
+      "gk.kaynakTranskript": "Sayım gayriresmî transkriptten.", "gk.nedir": "A/RES/76/262 ve veto girişimi tartışmaları, Metodoloji 2.5",
       "gk.durum.resmi": "resmî tutanak", "gk.durum.gayriresmi_transkript": "tutanak yayımlanmadı, gayriresmî transkript var",
       "gk.durum.yayimlanmadi": "tutanak henüz yayımlanmadı",
       "gk.konustu.aciklama": "söz aldı", "gk.konustu.yalnizca_cevap_hakki": "yalnızca cevap hakkı kullandı", "gk.konustu.hayir": "söz almadı",
-      "vg.baslik": "Veto girişimi (A/RES/76/262) hakkında",
-      "vg.maddeler": [
-        "Güvenlik Konseyi'nde bir ya da daha fazla daimi üye veto kullandığında Genel Kurul Başkanı, 10 iş günü içinde vetonun kullanıldığı durumu görüşmek üzere resmî bir Genel Kurul toplantısı toplar. Genel Kurul aynı konuda olağanüstü özel oturumda toplanıyorsa bu toplantı yapılmaz.",
-        "Veto kullanan daimi üye ya da üyelere konuşmacı listesinde öncelik tanınır.",
-        "Güvenlik Konseyi, tartışmadan en az 72 saat önce söz konusu veto hakkında Genel Kurul'a özel rapor sunmaya davet edilir.",
-        "Genel Kurul'un gündemine \"Use of the veto\" (vetonun kullanılması) adlı bir madde eklenir.",
-        "Karar 26 Nisan 2022'de, Genel Kurul'un 69. genel kurul toplantısında oylama yapılmadan kabul edildi.",
-        "Taslağın 57 sunucusu vardı; kabul toplantısında 27 delegasyon daha sunucu oldu. Timor-Leste iki listede de yer aldığından toplam sunucu sayısı 83'tür.",
-        "Daimi üyelerden ABD taslağın ilk sunucuları arasında, Fransa ve Birleşik Krallık sonradan sunucu olanlar arasındadır. Çin ve Rusya Federasyonu iki listede de yer almaz.",
-        "Türkiye taslağın ilk sunucuları arasındadır (belgede \"Turkey\").",
-        "Türkiye temsilcisi kabulden sonraki açıklamasında, Türkiye'nin iki yıl önceki başlangıcından bu yana girişimin çekirdek grubunda yer aldığını söyledi.",
-      ],
-      "vg.not": "Sayfa numaraları belgelerin PDF sayfalarıdır.", "par": "par.", "s": "s.",
       "alt.veriTarihi": ({ tarih }) => `Veri tarihi: ${tarih}.`,
     },
     en: {
@@ -414,11 +392,9 @@ footer p { max-width: var(--olcu); margin: 0 0 8px; }
       "dil": "Language",
       "veriYok": "Data file not found. Run python scripts/04_web_verisi.py in the project folder first.",
       "ozet": ({ ilk, son, oneri, tek }) => `Between ${ilk} and ${son}, ${oneri} proposals in the UN Security Council failed because at least one of the five permanent members voted against them.`,
-      "ozetTek": ({ tek }) => `In at least ${tek} of these, every other member of the Council voted in favour; the proposal failed on the negative vote of a single country.`,
+      "ozetTek": ({ tek }) => `In at least ${tek} of these, every other member of the Council voted in favour and the proposal still failed on the negative vote of a single country.`,
       "ozet2": ({ oy, kapali }) => `In total, ${oy} negative votes were cast. The ${kapali} vetoes cast in private meetings, for which the official record does not say who cast them, are not included in this total.`,
       "grafik.aciklama": "Each square is one negative vote; columns are years, colours show the permanent member that cast the veto.",
-      "grafik.okumaBaslik": "How to read this chart",
-      "grafik.okuma": "Click a column to list that year's vetoes below; click a square to open the record. The small triangles at the top mark the dates of President Erdoğan’s addresses to the General Assembly that are in the sources; hover over one or focus it with the Tab key to see that year’s quotation; click it or press Enter to open the quotation on the Word and Record page.",
       "lejant.aria": "Filter by permanent member",
       "grafik.klavye": "Move between years with the left and right arrow keys, to the first and last year with Home and End; Enter or Space lists that year. After the chart, the Tab key moves to the General Assembly address markers; Escape closes the quotation.",
       "atla": "Skip the chart, go to the filters and list",
@@ -432,58 +408,48 @@ footer p { max-width: var(--olcu); margin: 0 0 8px; }
       "yil.aria": ({ yil, n }) => `${yil}: ${n} negative votes. List this year.`,
       "ipucu.kapali": "Private meeting; the vetoing member is not in the official record",
       "konular.baslik": "Vetoes by topic",
-      "konular.aciklama": "Bars show negative votes; colours show the permanent member that cast the veto. Counts include only each record's main topic. Click a topic to list its vetoes below; the list also includes records linked to the topic as a secondary topic.",
+      "konular.aciklama": "Bars show negative votes, colours the vetoing member. Counts follow each record's main topic.",
       "konu.retOyu": ({ ad, n }) => `${ad}: ${n} negative votes`,
       "konu.kapaliBaslik": ({ n }) => `Private-meeting veto: ${n}`,
       "konu.ikincil": ({ n }) => `${n} more records linked to this topic as a secondary topic`,
       "konu.kapaliNot": ({ n }) => `${n} private-meeting vetoes not included in the negative-vote total`,
       "konu.aria": ({ konu, oneri, oy, ikincil }) => `${konu}: ${oneri} proposals, ${oy} negative votes${ikincil ? `, ${ikincil} more linked as a secondary topic` : ""}. List this topic.`,
-      "konu.sayi": ({ oneri, oy }) => `<b>${oneri}</b> proposals · ${oy} votes`,
-      "arac.ara": "Search agenda items", "arac.araOrnek": "e.g. Syria, Namibia", "arac.donem": "Period", "arac.tumYillar": "All years",
+      "konu.sayi": ({ oneri, oy }) => `<b>${oneri}</b> proposals, ${oy} votes`,
+      "arac.ara": "Search agenda items", "arac.araOrnek": "Syria, Namibia…", "arac.donem": "Period", "arac.tumYillar": "All years",
       "arac.konu": "Topic", "arac.tumKonular": "All topics", "arac.tur": "Record type",
       "arac.dogrulaniyor": "Only records under verification", "arac.temizle": "Clear filters",
       "tur.tum": "All vetoes", "tur.uyelik": "Membership application vetoes", "tur.kismi": "Vetoes of paragraphs and amendments",
       "tur.onSoru": "Preliminary-question (double) vetoes", "tur.kapali": "Private-meeting vetoes", "tur.eklendi": "Records added in reconciliation",
       "sonuc.filtre": ({ yil, oneri, oy, ikincil }) => `${yil ? `In ${yil}, showing` : "Showing"} <b>${oneri}</b> proposals and <b>${oy}</b> negative votes.${ikincil ? ` ${ikincil} of them are linked to this topic as a secondary topic.` : ""}`,
-      "sonuc.tum": ({ oneri, oy }) => `Showing all records: <b>${oneri}</b> proposals, <b>${oy}</b> negative votes. Newest first.`,
+      "sonuc.tum": ({ oneri, oy }) => `<b>${oneri}</b> proposals, <b>${oy}</b> negative votes; newest first.`,
       "bos": "No vetoes match these filters. Remove a filter or shorten the search.",
       "etiket.dogrulaniyor": "Under verification", "etiket.eklendi": "Added in reconciliation", "etiket.kapali": "Private meeting",
       "etiket.onSoru": "Preliminary-question veto", "etiket.kismi": "Partial veto", "etiket.gk": "Debated in the General Assembly",
       "oy.kapali": "The breakdown of the vote held in a private meeting is not in the official record.",
       "oy.yok": "Vote breakdown not yet matched.",
       "oy.dagilim": ({ l, a, c }) => `${l} in favour, ${a} against, ${c} abstaining`,
-      "oy.yeterli": ({ l, gerek }) => `The proposal received ${l} votes in favour; ${gerek} were enough for adoption. It was not adopted because of a permanent member's negative vote.`,
-      "oy.yetersiz": ({ l, gerek }) => `The proposal received ${l} votes in favour; it had not reached the ${gerek} required for adoption.`,
+      "oy.yeterli": ({ l, gerek }) => `The proposal received ${l} votes in favour, and ${gerek} were enough for adoption. It failed on a permanent member's negative vote.`,
+      "oy.yetersiz": ({ l, gerek }) => `The proposal received ${l} votes in favour and had not reached the ${gerek} required for adoption.`,
       "oy.tek": ({ n }) => ` Of the Council's ${n} members, everyone except the country casting the negative vote was in favour.`,
       "oy.baslik": "in favour–against–abstaining",
       "d.genelOy": "Vote", "d.konu": "Topic", "d.ikincil": "Secondary topic", "d.belgeler": "Documents",
       "d.toplantiKaydi": "meeting record", "d.taslak": "draft resolution", "d.dogrulamaDurumu": "Verification status",
       "d.dogrulamaKaynagi": "Verification source", "d.notlar": "Notes", "d.mutabakat": "Reconciliation",
-      "d.kaynakSatiri": ({ alanlar, kayit, sayfa, paragraf }) => `${alanlar}: meeting record ${kayit}, ${paragraf ? `para. ${paragraf} <span class="soluk">(PDF p. ${sayfa})</span>` : `p. ${sayfa} <span class="soluk">(PDF page)</span>`}`,
+      "dz.oy": ({ k }) => `Vote breakdown added from the meeting record (${k}).`, "dz.tablo": ({ n }) => `Record added from the reference table (Table 4, #${n}).`,
+      "dz.bm": ({ k }) => `Record added from the UN primary source (${k}).`, "dz.bolundu": ({ a, b }) => `Split into two records (Table 4, #${a} and #${b}).`,
+      "dz.uye": ({ u, n, k }) => `Member casting a negative vote added (${u}; Table 4, #${n}, verified with ${k}).`,
+      "d.kaynakSatiri": ({ alanlar, kayit, sayfa, paragraf }) => `${alanlar}, meeting record ${kayit}, ${paragraf ? `para. ${paragraf} <span class="soluk">(PDF p. ${sayfa})</span>` : `PDF p. ${sayfa}`}`,
       "alan.tarih": "Voting day", "alan.oy": "Vote breakdown", "alan.uye": "Members casting negative votes", "ve": " and ",
-      "kapaliSatir": ({ uyeler }) => `Not named in the official communiqué; attributed to ${uyeler} by the DHL list`,
+      "kapaliSatir": ({ uyeler }) => `Not named in the official communiqué. Attributed to ${uyeler} by the DHL list`,
       "gk.baslik": "General Assembly", "gk.ozelRapor": "Security Council special report", "gk.yok": "No General Assembly debate recorded yet.",
       "gk.vg": "Veto initiative debate (A/RES/76/262)", "gk.oo": ({ oturum }) => `Emergency special session (${oturum})`,
       "gk.kayitlar": "Meeting records", "gk.kararlar": "Resolutions adopted",
-      "gk.konusmacilar": ({ uye, gozlemci, grup, cevap }) => `Speakers: ${uye} Member States and ${gozlemci} observers made statements${grup ? `; ${grup} delegations spoke on behalf of groups` : ""}${cevap ? `; ${cevap} delegations exercised the right of reply` : ""}.`,
-      "gk.vetoEden": "Vetoing member", "gk.kaynakGunluk": "Count source: Journal of the United Nations summary (verbatim record not yet published).",
-      "gk.kaynakTranskript": "Count source: unofficial transcript.",
+      "gk.konusmacilar": ({ uye, gozlemci, grup, cevap }) => `${uye} Member States and ${gozlemci} observers spoke${grup ? `, ${grup} delegations on behalf of groups` : ""}${cevap ? `, ${cevap} delegations in right of reply` : ""}.`,
+      "gk.vetoCumle": ({ uyeler, durum, n }) => `${uyeler}, the vetoing member${n > 1 ? "s" : ""}, ${durum}.`, "gk.kaynakGunluk": "The verbatim record is not yet published; the count is from the Journal of the United Nations summary.",
+      "gk.kaynakTranskript": "The count is from the unofficial transcript.", "gk.nedir": "A/RES/76/262 and veto initiative debates, Methodology 2.5",
       "gk.durum.resmi": "official record", "gk.durum.gayriresmi_transkript": "record not yet published; unofficial transcript available",
       "gk.durum.yayimlanmadi": "record not yet published",
       "gk.konustu.aciklama": "took the floor", "gk.konustu.yalnizca_cevap_hakki": "spoke only in right of reply", "gk.konustu.hayir": "did not take the floor",
-      "vg.baslik": "About the veto initiative (A/RES/76/262)",
-      "vg.maddeler": [
-        "When one or more permanent members cast a veto in the Security Council, the President of the General Assembly convenes a formal meeting of the Assembly within 10 working days to hold a debate on the situation in which the veto was cast. The meeting is not held if the Assembly meets in an emergency special session on the same situation.",
-        "The permanent member or members that cast the veto are given precedence in the list of speakers.",
-        "The Security Council is invited to submit a special report on the use of the veto to the General Assembly at least 72 hours before the debate.",
-        "An item entitled \"Use of the veto\" is included in the agenda of the General Assembly.",
-        "The resolution was adopted without a vote on 26 April 2022, at the 69th plenary meeting of the General Assembly.",
-        "The draft had 57 sponsors; 27 more delegations became sponsors at the adoption meeting. Timor-Leste appears on both lists, so the total number of sponsors is 83.",
-        "Among the permanent members, the United States was one of the original sponsors, and France and the United Kingdom joined later. China and the Russian Federation are not on either list.",
-        "Türkiye is one of the original sponsors (listed as \"Turkey\").",
-        "In its statement after the adoption, the representative of Türkiye said that Türkiye had been in the core group of the initiative since its start two years earlier.",
-      ],
-      "vg.not": "Page numbers are PDF pages of the documents.", "par": "para.", "s": "p.",
       "alt.veriTarihi": ({ tarih }) => `Data as of ${tarih}.`,
     },
   };
@@ -814,24 +780,11 @@ footer p { max-width: var(--olcu); margin: 0 0 8px; }
       <p class="cogunluk">${cumle}</p>`;
   }
 
-  // Veto girişimi açıklama kutusu: düz bilgi, her cümlenin kaynağıyla.
-  const BELGE = (kod, ek = "") => `${bag("https://undocs.org/" + kod, kod)}${ek}`;
-  const VG_KAYNAK = [
-    () => BELGE("A/RES/76/262", `, ${t("par")} 1`), () => BELGE("A/RES/76/262", `, ${t("par")} 2`),
-    () => BELGE("A/RES/76/262", `, ${t("par")} 3`), () => BELGE("A/RES/76/262", `, ${t("par")} 4`),
-    () => BELGE("A/76/PV.69", `, ${t("s")} 8`), () => `${BELGE("A/76/L.52")}; ${BELGE("A/76/PV.69", `, ${t("s")} 7-8`)}`,
-    () => `${BELGE("A/76/L.52")}; ${BELGE("A/76/PV.69", `, ${t("s")} 7-8`)}`, () => BELGE("A/76/L.52"),
-    () => BELGE("A/76/PV.69", `, ${t("s")} 20`),
-  ];
-  const vetoGirisimiHtml = () => `<details class="aciklama-kutusu"><summary>${t("vg.baslik")}</summary><ul>${
-    t("vg.maddeler").map((m, i) => `<li>${esc(m)} <span class="kaynak">(${VG_KAYNAK[i]()})</span></li>`).join("")
-  }</ul><p class="kaynak">${t("vg.not")}</p></details>`;
-
   // ---------- Genel Kurul (A/RES/76/262; yalnızca 26 Nisan 2022 sonrası vetolar) ----------
   function genelKurulHtml(k) {
     const g = k.gk;
-    const satirlar = [vetoGirisimiHtml()];
-    if (g.ozelRapor) satirlar.push(`<p>${t("gk.ozelRapor")}: ${bag(g.ozelRapor.url, g.ozelRapor.kod)}</p>`);
+    const satirlar = [];
+    if (g.ozelRapor) satirlar.push(`<p>${t("gk.ozelRapor")} ${bag(g.ozelRapor.url, g.ozelRapor.kod)}</p>`);
     if (!g.tartismalar.length) satirlar.push(`<p>${t("gk.yok")}</p>`);
     g.tartismalar.forEach((ta) => {
       const tur = ta.tur === "veto_girisimi" ? t("gk.vg") : t("gk.oo", { oturum: esc(ta.oturum) });
@@ -842,14 +795,31 @@ footer p { max-width: var(--olcu); margin: 0 0 8px; }
       const s = ta.konusmacilar;
       if (s) {
         parca.push(`<p>${t("gk.konusmacilar", { uye: s.aciklama_uye_devlet, gozlemci: s.aciklama_gozlemci, grup: s.grup_adina_konusan, cevap: s.cevap_hakki })}</p>`);
-        parca.push(`<p>${t("gk.vetoEden")}: ${Object.entries(s.veto_eden_konustu).map(([u, d]) => `${uyeAdMetin(u)} ${t("gk.konustu." + d)}`).join("; ")}.</p>`);
+        // Veto eden ülke(ler): aynı durumdakiler tek cümlede ("Veto eden Çin ve Rusya Federasyonu söz aldı.")
+        const konusanlar = Object.entries(s.veto_eden_konustu);
+        parca.push(`<p>${[...new Set(konusanlar.map(([, d]) => d))].map((d) => { const ayni = konusanlar.filter(([, x]) => x === d).map(([u]) => uyeAdMetin(u));
+          const c = t("gk.vetoCumle", { uyeler: ayni.join(t("ve")), durum: t("gk.konustu." + d), n: ayni.length }); return c.charAt(0).toUpperCase() + c.slice(1); }).join(" ")}</p>`);
         if (s.kaynak !== "toplanti_kaydi") parca.push(`<p class="gk-durum">${s.kaynak === "bm_gunlugu" ? t("gk.kaynakGunluk") : t("gk.kaynakTranskript")}</p>`);
       }
       satirlar.push(`<div class="gk-tartisma">${parca.join("")}</div>`);
     });
+    // A/RES/76/262'nin ne olduğu Metodoloji 2.5'te; her kayıtta tekrar etmez
+    satirlar.push(`<p class="kaynak"><a href="${dilliBaglanti("metodoloji.html")}#${DIL === "tr" ? "" : "en-"}bolum-2-5">${t("gk.nedir")}</a></p>`);
     return `<div><h3>${t("gk.baslik")}</h3>${satirlar.join("")}</div>`;
   }
 
+  // Mutabakat satırı: veri dosyasındaki kısa kod (ör. "oy eklendi: toplantı kaydı (S/PV.10130)") okura cümle olarak yazılır
+  const DUZELTME = [
+    [/^oy eklendi: toplantı kaydı \((S\/PV\.[\w.]+)\)$/, (m) => t("dz.oy", { k: m[1] })],
+    [/^eklendi: scprocedure #(\d+)$/, (m) => t("dz.tablo", { n: m[1] })],
+    [/^eklendi: BM birincil kaynağı \((.+)\)$/, (m) => t("dz.bm", { k: m[1] })],
+    [/^ikiye bölündü: scprocedure #(\d+);(\d+)$/, (m) => t("dz.bolundu", { a: m[1], b: m[2] })],
+    [/^üye eklendi \((\w+)\): scprocedure #(\d+), (S\/PV\.[\w.]+) ile doğrulandı$/, (m) => t("dz.uye", { u: uyeAdMetin(m[1]), n: m[2], k: m[3] })],
+  ];
+  const duzeltmeMetni = (k) => {
+    for (const [r, f] of DUZELTME) { const m = k.duzeltme.match(r); if (m) return [f(m), DIL]; }
+    return DIL === "en" && k.duzeltmeEn ? [k.duzeltmeEn, "en"] : [k.duzeltme, "tr"];
+  };
   function detayHtml(k) {
     const p = [];
     const et = etiketler(k);
@@ -872,7 +842,7 @@ footer p { max-width: var(--olcu); margin: 0 0 8px; }
       const [m, dil] = metin(n.tr, n.en);
       return `<li lang="${dil}">${esc(m)}</li>`;
     }).join("")}</ul></div>`);
-    if (k.duzeltme) { const [m, dil] = metin(k.duzeltme, k.duzeltmeEn); p.push(`<div><h3>${t("d.mutabakat")}</h3><p lang="${dil}">${esc(m)}</p></div>`); }
+    if (k.duzeltme) { const [m, dil] = duzeltmeMetni(k); p.push(`<div><h3>${t("d.mutabakat")}</h3><p lang="${dil}">${esc(m)}</p></div>`); }
     return p.join("");
   }
   function satirHtml(k) {
@@ -915,6 +885,7 @@ footer p { max-width: var(--olcu); margin: 0 0 8px; }
     });
     svg.querySelectorAll(".yil").forEach((g) => g.classList.toggle("secili", g.dataset.yil === durum.yil));
     lejant.querySelectorAll(".uye-dugme").forEach((b) => b.setAttribute("aria-pressed", durum.uyeler.has(b.dataset.uye)));
+    lejant.classList.toggle("secimli", durum.uyeler.size > 0);
     konuListesi.querySelectorAll(".konu-satir").forEach((b) => b.setAttribute("aria-pressed", b.dataset.konu === durum.konu));
     $("#konular").classList.toggle("secimli", !!durum.konu);
     $("#temizle").hidden = !filtreVar();

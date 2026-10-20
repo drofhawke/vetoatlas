@@ -101,7 +101,6 @@ tfoot td, tfoot th { font-weight: 600; }
 .galeri { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(232px, 1fr)); gap: 12px; }
 .kart { background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 6px; padding: 12px 16px; display: flex; flex-direction: column; gap: 4px; }
 .kart .karsi { font-family: var(--serif); font-size: var(--yz-baslik); font-weight: 600; line-height: var(--sa-baslik); }
-.kart .karsi span { font-size: var(--yz-kucuk); font-family: var(--sans); font-weight: 400; color: var(--murekkep-2); display: block; margin-top: 4px; line-height: var(--sa-kucuk); }
 .kart .tarih { font-size: var(--yz-kucuk); color: var(--murekkep-2); font-variant-numeric: tabular-nums; line-height: var(--sa-kucuk); }
 .kart .noktalar { display: block; margin: 4px 0 4px; }
 .galeri-dugme { font: inherit; font-size: var(--yz-kucuk); padding: 8px 16px; border: 1px solid var(--cizgi); border-radius: 4px; background: var(--yuzey); color: var(--murekkep); cursor: pointer; }
@@ -171,14 +170,11 @@ details.tablo-ac > summary { cursor: pointer; font-size: var(--yz-kucuk); color:
 
 .kap p, .kap dd, .kap blockquote, .kap ul:not([class]) > li, .kap ol:not([class]) > li { max-width: var(--olcu); }
 .giris { padding-top: 64px; }
-details.yontem { font-size: var(--yz-kucuk); max-width: var(--olcu); margin: 8px 0 0; line-height: var(--sa-kucuk); }
-details.yontem summary { cursor: pointer; font-weight: 600; font-family: var(--sans); }
-details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: var(--murekkep-2); margin: 8px 0 0; line-height: var(--sa-kucuk); }
 #sim-satir { color: var(--murekkep-2); font-size: var(--yz-kucuk); margin: 12px 0 0; line-height: var(--sa-kucuk); }
 
 
-/* İçindekiler: girişin altında bölümlere bağlantılar (geniş ekranda iki sütun) */
-.icindekiler { margin: var(--b6) 0 0; padding: var(--b3) var(--b4); background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 6px; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+/* İçindekiler: girişin altında bölümlere bağlantılar (geniş ekranda iki sütun); kutu değil, üstte ve altta ince çizgi */
+.icindekiler { margin: var(--b6) 0 0; padding: var(--b3) 0; border-top: 1px solid var(--cizgi); border-bottom: 1px solid var(--cizgi); font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
 .icindekiler b { display: block; font-weight: 600; }
 .icindekiler ul { margin: var(--b2) 0 0; columns: 2 288px; column-gap: var(--b8); }
 .icindekiler li { break-inside: avoid; }
@@ -194,7 +190,6 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
   <header class="giris">
     <h1 data-t="baslik"></h1>
     <p data-t-html="giris1"></p>
-    <details class="yontem"><summary data-t="okuma"></summary><p data-t="giris2"></p></details>
     <nav class="icindekiler" aria-labelledby="icindekiler-baslik">
       <b id="icindekiler-baslik" data-t="icindekiler"></b>
       <ul>
@@ -234,7 +229,7 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
     <section aria-labelledby="h-gazze">
       <h2 id="h-gazze" data-t="h.gazze"></h2>
       <p class="aciklama" data-t="gazze.aciklama"></p>
-      <details class="tablo-ac"><summary data-t="tabloGoster"></summary><div class="tablo-kap kutu"><table id="gazze"></table></div></details>
+      <details class="tablo-ac" open><summary data-t="tabloGoster"></summary><div class="tablo-kap kutu"><table id="gazze"></table></div></details>
       <p class="tablo-not" data-t="gazze.not"></p>
     </section>
 
@@ -280,24 +275,23 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
       sayfaAciklamasi: "BM Genel Kurulu hitaplarından ve “Daha Adil Bir Dünya Mümkün” kitabından alıntılar, veto veri setinden hesaplanan karşılıklarıyla.",
       baslik: "Söz ve Kayıt",
       giris1: "Bu sayfa, Cumhurbaşkanı Recep Tayyip Erdoğan’ın Birleşmiş Milletler Genel Kurulu hitaplarından ve “Daha Adil Bir Dünya Mümkün” kitabından alıntıları, atlasın veri setinden hesaplanan karşılıklarıyla yan yana verir.",
-      okuma: "Nasıl okunur?", icindekiler: "İçindekiler",
-      giris2: "Hitaplarda basılı sayfa numarası, kitapta bölüm başlığı verilir. Alıntı ile sayı arasında bir neden-sonuç ilişkisi ileri sürülmez.",
-      "sim.satir": "Gerçek bir veto kaydının oylarını iki sistemde saymak için:", "sim.bag": "Ya veto olmasaydı? →",
+      icindekiler: "İçindekiler",
+      "sim.once": "Bir veto kaydının oylarını iki sistemde saymak için", "sim.bag": "Ya veto olmasaydı?", "sim.sonra": " sayfasına geçin.",
       "h.soz": "Söz ve kayıt", "h.aralik": "Hitaplar arasında kullanılan vetolar", "h.konu": "Konulara göre veto eden ülkeler",
       "h.gazze": "Ekim 2023’ten bu yana Gazze ile ilgili vetolar", "h.galeri": "On dörde karşı bir",
       "h.model": "Kitaptaki model", "h.cizelge": "Zaman çizelgesi",
-      "aralik.aciklama": "Kaynaklardaki iki Genel Kurul hitabı arasında veto ile düşen öneriler ve kullanılan ret oyları; her dönem bir hitabın ertesi gününden sonraki hitabın gününe kadardır. 2020 ve 2021 hitapları kaynaklarda bulunmadığı için ilk dönem 2019 ile 2022 hitapları arasıdır.",
-      "aralik.sonNot": ({ son, hitap }) => `Veri setinin son kaydı (${son}) son hitaptan (${hitap}) öncedir; o hitaptan sonraki dönem için satır yoktur.`,
+      "aralik.aciklama": "İki Genel Kurul hitabı arasında veto ile düşen öneriler ve ret oyları. Her dönem bir hitabın ertesi gününden sonraki hitabın gününe kadar. 2020 ve 2021 hitapları kaynaklarda bulunmadığı için ilk dönem 2019 ile 2022 hitapları arasıdır.",
+      "aralik.sonNot": ({ son, hitap }) => `Veri setinin son kaydı (${son}) son hitaptan (${hitap}) önce. O hitaptan sonraki dönem için satır yok.`,
       "aralik.donem": "Dönem", "aralik.oneri": "Öneri", "aralik.oy": "Ret oyu", "aralik.uyeler": "Veto eden",
       "aralik.sonra": ({ t }) => `${t} hitabından sonra`,
       "konu.aciklama": ({ n }) => `Ret oyları, kaydın ana konusuna göre. Kapalı oturumda kullanılan ve resmî kayıtta veto edeni yazmayan ${n} veto sayılmamıştır.`,
       "konu.konu": "Konu", "konu.toplam": "Toplam",
       "gazze.aciklama": "Oylama günü 7 Ekim 2023 ya da sonrası olan ve karar taslağının metninde “Gaza” sözcüğü geçen vetolar.",
-      "gazze.not": "22 Aralık 2023 vetosu taslağın kendisine değil, S/2023/1029’a toplantıda sözlü olarak önerilen değişikliğe yöneliktir; taslağın kendisi aynı toplantıda kabul edildi (S/PV.9520, s. 4-5).",
+      "gazze.not": "22 Aralık 2023 vetosu taslağın kendisine değil, S/2023/1029’a toplantıda sözlü olarak önerilen değişikliğe yöneliktir. Taslağın kendisi aynı toplantıda kabul edildi (S/PV.9520, s. 4-5).",
       "t.tarih": "Tarih", "t.taslak": "Taslak", "t.veto": "Veto eden", "t.oy": "Oy (evet–hayır–çekimser)", "t.toplam": "Toplam",
       "galeri.aciklama": ({ n, n11 }) => `Konsey’in geri kalan bütün üyeleri lehteyken tek bir ret oyuyla düşen ${n} öneri. ${n11} tanesi 1966 öncesinde, 11 üyeli Konsey’de oylandı (“ona karşı bir”). En yeniden eskiye.`,
-      "karsi.15": "14–1", "karsi.11": "10–1", "karsi.15y": "on dörde karşı bir", "karsi.11y": "ona karşı bir", tabloGoster: "Tabloyu göster",
-      "galeri.coklu": ({ n }) => `${n} öneri`, "galeri.tumu": ({ n }) => `Tümünü göster (${n} kart)`,
+      "karsi.15": "14–1", "karsi.11": "10–1", tabloGoster: "Tablo",
+      "galeri.coklu": ({ n }) => `${n} öneri`, "galeri.tumu": ({ n }) => `${n} kartın tümü`,
       "model.aciklama": "Kitap, Güvenlik Konseyi için dört unsurlu bir reform modeli önerir: temsil, üye sayısı, veto ile daimî üyelik ve Konsey’in Genel Kurul’la ilişkisi. Aşağıda her unsur kitabın kendi ifadesiyle yer alır; üye sayısı için kitabın sunduğu iki seçenek, kitaptaki sırayla verilmiştir.",
       "cizelge.aciklama": "Kitabın yayımı, A/RES/76/262’nin kabulü ve o tarihten bu yana Genel Kurul’da görüşülen vetolar, tarih sırasıyla.",
       sayfa: ({ s }) => `s.\u00a0${s}`, bolum: ({ b }) => b,
@@ -306,40 +300,40 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
       "model.kunye": 'Recep Tayyip Erdoğan, <i lang="tr">Daha Adil Bir Dünya Mümkün: Birleşmiş Milletler Reformu İçin Bir Model Önerisi</i>, Turkuvaz Kitap, 2021.',
       ceviriNotu: "",
       "sutun.soz": "Söz", "sutun.kayit": "Kayıt", "sutun.unsur": "Unsur", "sutun.kitaptan": "Kitaptan",
-      "k.toplam": ({ n, oy, tarih }) => `${tarih} itibarıyla ${n} öneri veto ile düştü; ${oy} ret oyu kullanıldı.`,
-      "k.toplamOnce": ({ n, oy, tarih }) => `Bu konuşmanın yapıldığı ${tarih} gününe kadar: ${n} öneri, ${oy} ret oyu.`,
+      "k.toplam": ({ n, oy, tarih }) => `${tarih} itibarıyla ${n} öneri veto ile düştü, ${oy} ret oyu kullanıldı.`,
+      "k.toplamOnce": ({ n, oy, tarih }) => `Bu konuşmanın yapıldığı ${tarih} gününe kadar ${n} öneri, ${oy} ret oyu.`,
       "k.filistin": ({ n, konu }) => `“${konu}” ana konulu ${n} öneri veto ile düştü. Ret oyları:`,
-      "k.filistinOnce": ({ n, tarih }) => `Konuşmanın yapıldığı ${tarih} gününe kadar: ${n} öneri.`,
-      "k.gk": ({ n, g, vg, oo }) => `A/RES/76/262’nin kabul edildiği 26 Nisan 2022’den bu yana ${n} öneri veto ile düştü; Genel Kurul bunların ${g} tanesini görüştü. Görüşmeler ${vg} veto girişimi tartışmasında ve ${oo} olağanüstü özel oturum toplantısında yapıldı.`,
-      "k.gkOnce": ({ n, g, tarih }) => `Bu hitabın yapıldığı ${tarih} gününe kadar: ${n} öneri, Genel Kurul’da görüşülen ${g}.`,
+      "k.filistinOnce": ({ n, tarih }) => `Konuşmanın yapıldığı ${tarih} gününe kadar ${n} öneri.`,
+      "k.gk": ({ n, g, vg, oo }) => `A/RES/76/262’nin kabul edildiği 26 Nisan 2022’den bu yana ${n} öneri veto ile düştü, Genel Kurul bunların ${g} tanesini görüştü. Görüşmeler ${vg} veto girişimi tartışmasında ve ${oo} olağanüstü özel oturum toplantısında yapıldı.`,
+      "k.gkOnce": ({ n, g, tarih }) => `Bu hitabın yapıldığı ${tarih} gününe kadar ${n} öneri, Genel Kurul’da görüşülen ${g}.`,
       "k.cekirdek": "Türkiye temsilcisi, kararın kabulünden sonraki açıklamasında Türkiye’nin girişimin başlangıcından bu yana çekirdek grupta yer aldığını söyledi (A/76/PV.69, s. 20).",
       "k.konu": "Ret oylarının en çok kullanıldığı üç konu:",
-      "k.konuSatir": ({ konu, oy }) => `${konu}: ${oy} ret oyu`,
+      "k.konuSatir": ({ konu, oy }) => `${konu}, ${oy} ret oyu`,
       "k.tek": ({ n }) => `Konsey’in geri kalan bütün üyeleri lehteyken tek bir ret oyuyla düşen öneri sayısı: ${n}.`,
-      "k.tekOnce": ({ once, sonra, tarih }) => `${tarih} gününe kadar ${once}; o günden bu yana ${sonra}.`,
+      "k.tekOnce": ({ once, sonra, tarih }) => `${tarih} gününe kadar ${once}, o günden bu yana ${sonra}.`,
       "k.bolge": ({ n }) => `Veto ile düşen ${n} önerinin konusunun bölgesi:`,
       "k.bolgeBas": "Bölge", "k.oneri": "Öneri", "k.retOyu": "Ret oyu",
-      "k.grupOzet": "BM bölgesel gruplarının nüfus payı (WPP 2024, 2023) ve Güvenlik Konseyi koltuk payı (mevcut dönem; daimî + seçilmiş):",
+      "k.grupOzet": "BM bölgesel gruplarının 2023 nüfus payı (WPP 2024) ve bugünkü Güvenlik Konseyi koltuk payı (daimî ve seçilmiş):",
       "k.grupBas": "Bölgesel grup", "k.nufusPayi": "Nüfus payı", "k.koltukPayi": "Koltuk payı", "k.koltukAyrim": ({ d, s }) => `${d} daimî + ${s} seçilmiş`,
-      "k.temsilBak": "Temsil endeksi →",
-      "k.p5": ({ u, d, y63 }) => `Beş daimî üyenin nüfus payı, 2023: BM üyelerinin toplamında ${u}; WPP dünya toplamında ${d}. 1963 (o tarihteki 113 üyenin toplamında): ${y63}.`,
-      "k.p5Not": "Nüfus: WPP 2024, 1 Ocak tahmini. 1945 için WPP serisi yoktur; kitaptaki 1945 değeri (yüzde 60) bu çalışmayla doğrulanmadı.",
-      "k.bolgeNot": ({ kapali }) => `“Küresel”: belirli bir bölgeye bağlanmayan gündemler (genel üyelik başvuruları, silahsızlanma, Genel Sekreter’in atanması, tematik konular). Kapalı oturumda kullanılan ${kapali} veto ret oyu sayımına girmez.`,
-      "k.gazze": ({ n, d }) => `7 Ekim 2023’ten bu yana taslak metninde Gazze geçen ${n} öneri veto ile düştü${d === 0 ? "" : d === 1 ? "; biri değişiklik önergesine yönelik" : `; ${d} tanesi değişiklik önergelerine yönelik`}. Ret oyları:`,
+      "k.temsilBak": "Temsil endeksi",
+      "k.p5": ({ u, d, y63 }) => `Beş daimî üyenin nüfus payı 2023’te BM üyelerinin toplamında ${u}, WPP dünya toplamında ${d}. 1963’te (o tarihteki 113 üyenin toplamında) ${y63}.`,
+      "k.p5Not": "Nüfus: WPP 2024, 1 Ocak tahmini. 1945 için WPP serisi yok, kitaptaki yüzde 60 burada hesaplanmadı.",
+      "k.bolgeNot": ({ kapali }) => `“Küresel” satırı belirli bir bölgeye bağlanmayan gündemleri toplar (genel üyelik başvuruları, silahsızlanma, Genel Sekreter’in atanması, tematik konular). Kapalı oturumda kullanılan ${kapali} veto ret oyu sayımına girmez.`,
+      "k.gazze": ({ n, d }) => `7 Ekim 2023’ten bu yana taslak metninde Gazze geçen ${n} öneri veto ile düştü${d === 0 ? "" : d === 1 ? ", biri değişiklik önergesine yönelik" : `, ${d} tanesi değişiklik önergelerine yönelik`}. Ret oyları:`,
       "k.konusmaci": ({ n, s }) => `A/RES/76/262’nin kabul edildiği 26 Nisan 2022’den bu yana yapılan ${n} veto girişimi tartışmasının ${s} tanesinde veto eden ülke ya da ülkeler söz aldı.`,
-      "k.delegasyon": ({ az, azT, cok, cokT }) => `Tartışma başına açıklama yapan delegasyon sayısı: en az ${az} (${azT}), en çok ${cok} (${cokT}).`,
-      "k.konusmaciOnce": ({ n, s, tarih }) => `Bu hitabın yapıldığı ${tarih} gününe kadar: ${n} tartışma; veto eden ülke ${s} tanesinde söz aldı.`,
-      "k.konusmaciNot": ({ g }) => `Delegasyon sayısına üye devletler ve gözlemciler girer; grup adına konuşan delegasyon bir kez sayılır, cevap hakkı kullanımları sayılmaz. Tutanağı yayımlanmamış ${g} tartışmada sayım BM Günlüğü’nden yapıldı.`,
-      "k.gazzeOnce": ({ n, tarih }) => `Konuşmanın yapıldığı ${tarih} gününe kadar: ${n} öneri.`,
+      "k.delegasyon": ({ az, azT, cok, cokT }) => `Tartışma başına en az ${az} (${azT}), en çok ${cok} (${cokT}) delegasyon açıklama yaptı.`,
+      "k.konusmaciOnce": ({ n, s, tarih }) => `Bu hitabın yapıldığı ${tarih} gününe kadar ${n} tartışma, veto eden ülke ${s} tanesinde söz aldı.`,
+      "k.konusmaciNot": ({ g }) => `Delegasyon sayısına üye devletler ve gözlemciler girer. Grup adına konuşan delegasyon bir kez sayılır, cevap hakkı kullanımları sayılmaz. Tutanağı yayımlanmamış ${g} tartışmada sayım BM Günlüğü’nden yapıldı.`,
+      "k.gazzeOnce": ({ n, tarih }) => `Konuşmanın yapıldığı ${tarih} gününe kadar ${n} öneri.`,
       "k.bak": "Ayrıntı aşağıda",
       "m.temsil": "Temsil", "m.temsilOzet": "Kitabın Giriş bölümü, Konsey’in kıtaları, inançları, kökenleri ve kültürleri adil biçimde temsil edecek şekilde yeniden düzenlenmesini önerir.",
       "m.sayi": "Üye sayısı: iki seçenek", "m.sayiOzet": "Giriş bölümünde iki seçenek yer alır: daimî üye sayısının 5 yerine 20 olması ve alternatif olarak Konsey’de yer alacak 20 ülkenin Genel Kurul’dan seçilmesi.",
       "m.veto": "Veto ve daimî üyelik", "m.vetoOzet": "Kitap, veto yetkisinin ve mevcut daimî üyelik anlayışının kaldırılmasını reformun ön koşulu olarak koyar. 2. Bölüm’de Konsey üyelerinin Genel Kurul’dan, belirli görev süreleriyle ve dönüşümlü olarak seçilmesi önerilir.",
       "m.gk": "Genel Kurul ve Güvenlik Konseyi", "m.gkOzet": "2. Bölüm’de Genel Kurul’un yasa koyucu, Konsey’in icracı olması ve Konsey’in Genel Kurul’a hesap vermesi önerilir.",
       "c.kitap": "“Daha Adil Bir Dünya Mümkün” yayımlandı (Turkuvaz Kitap, birinci baskı).",
-      "c.762": "Genel Kurul A/RES/76/262’yi oylama yapmadan kabul etti (A/76/PV.69, s. 8). Türkiye taslağın ilk sunucuları arasındaydı (A/76/L.52); Türkiye temsilcisi kabulden sonraki açıklamasında Türkiye’nin çekirdek grupta yer aldığını söyledi (A/76/PV.69, s. 20).",
-      "c.veto": ({ gundem, uyeler }) => `Veto: ${gundem} (${uyeler}).`,
-      "c.gk": ({ tur, tarihler }) => `Genel Kurul: ${tur}, ${tarihler}.`,
+      "c.762": "Genel Kurul A/RES/76/262’yi oylama yapmadan kabul etti (A/76/PV.69, s. 8). Türkiye taslağın ilk sunucuları arasındaydı (A/76/L.52). Türkiye temsilcisi kabulden sonraki açıklamasında Türkiye’nin çekirdek grupta yer aldığını söyledi (A/76/PV.69, s. 20).",
+      "c.veto": ({ gundem, uyeler }) => `${gundem} (${uyeler}).`,
+      "c.gk": ({ tur, tarihler }) => `Genel Kurul’da ${tarihler} görüşüldü (${tur}).`,
       "c.vg": "veto girişimi tartışması", "c.oo": ({ oturum }) => `olağanüstü özel oturum (${oturum})`,
       "c.kitapKisa": "Kitap yayımlandı", "c.762Kisa": "A/RES/76/262 kabul edildi",
       "serit.etiket": "Olaylar zaman ölçeğinde. Bir olayı seçince listede ekranın ortasına gelir.",
@@ -351,24 +345,23 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
       sayfaAciklamasi: "Quotations from addresses to the UN General Assembly and the book “A Fairer World is Possible” (“Daha Adil Bir Dünya Mümkün”), with the corresponding figures computed from the veto dataset.",
       baslik: "Word and Record",
       giris1: 'This page sets quotations from President Recep Tayyip Erdoğan’s addresses to the United Nations General Assembly and from the book “A Fairer World is Possible” (<span lang="tr">“Daha Adil Bir Dünya Mümkün”</span>) side by side with the corresponding figures computed from the atlas dataset.',
-      okuma: "How to read this page", icindekiler: "Contents",
-      giris2: "For the addresses the printed page number is given; for the book, the chapter title. No causal link between a quotation and a figure is claimed.",
-      "sim.satir": "To count the votes of a real veto record under two systems:", "sim.bag": "What if there were no veto? →",
+      icindekiler: "Contents",
+      "sim.once": "To count the votes of a veto record under two systems, go to", "sim.bag": "What if there were no veto?", "sim.sonra": ".",
       "h.soz": "Word and record", "h.aralik": "Vetoes cast between addresses", "h.konu": "Vetoing countries by topic",
       "h.gazze": "Vetoes related to Gaza since October 2023", "h.galeri": "Fourteen against one",
       "h.model": "The model in the book", "h.cizelge": "Timeline",
-      "aralik.aciklama": "Proposals that failed because of a veto, and negative votes cast, between two General Assembly addresses in the sources; each period runs from the day after one address to the day of the next. The 2020 and 2021 addresses are not in the sources, so the first period runs from the 2019 to the 2022 address.",
-      "aralik.sonNot": ({ son, hitap }) => `The last record in the dataset (${son}) is earlier than the last address (${hitap}); there is no row for the period after that address.`,
+      "aralik.aciklama": "Proposals that failed because of a veto, and negative votes cast, between two General Assembly addresses. Each period runs from the day after one address to the day of the next. The 2020 and 2021 addresses are not in the sources, so the first period runs from the 2019 to the 2022 address.",
+      "aralik.sonNot": ({ son, hitap }) => `The last record in the dataset (${son}) is earlier than the last address (${hitap}). There is no row for the period after that address.`,
       "aralik.donem": "Period", "aralik.oneri": "Proposals", "aralik.oy": "Negative votes", "aralik.uyeler": "Vetoing members",
       "aralik.sonra": ({ t }) => `After the ${t} address`,
       "konu.aciklama": ({ n }) => `Negative votes by the record’s main topic. The ${n} veto${n === "1" ? "" : "es"} cast in private meetings, for which the official record does not name the vetoing member, ${n === "1" ? "is" : "are"} not counted.`,
       "konu.konu": "Topic", "konu.toplam": "Total",
       "gazze.aciklama": "Vetoes with a voting day on or after 7 October 2023 whose draft resolution text contains the word “Gaza”.",
-      "gazze.not": "The veto of 22 December 2023 concerned not the draft itself but an amendment to S/2023/1029 proposed orally at the meeting; the draft itself was adopted at the same meeting (S/PV.9520, pp. 4-5).",
+      "gazze.not": "The veto of 22 December 2023 concerned not the draft itself but an amendment to S/2023/1029 proposed orally at the meeting. The draft itself was adopted at the same meeting (S/PV.9520, pp. 4-5).",
       "t.tarih": "Date", "t.taslak": "Draft", "t.veto": "Vetoing members", "t.oy": "Vote (in favour–against–abstaining)", "t.toplam": "Total",
       "galeri.aciklama": ({ n, n11 }) => `${n} proposals that failed on a single negative vote while every other member of the Council voted in favour. ${n11} of them were voted on before 1966 in the 11-member Council (“ten against one”). Newest first.`,
-      "karsi.15": "14–1", "karsi.11": "10–1", "karsi.15y": "fourteen against one", "karsi.11y": "ten against one", tabloGoster: "Show the table",
-      "galeri.coklu": ({ n }) => `${n} proposals`, "galeri.tumu": ({ n }) => `Show all (${n} cards)`,
+      "karsi.15": "14–1", "karsi.11": "10–1", tabloGoster: "Table",
+      "galeri.coklu": ({ n }) => `${n} proposals`, "galeri.tumu": ({ n }) => `All ${n} cards`,
       "model.aciklama": "The book proposes a four-part reform model for the Security Council: representation, the number of members, the veto and permanent membership, and the Council’s relationship with the General Assembly. Each element appears below in the book’s own words; the two options the book offers for the number of members are given in the book’s order.",
       "cizelge.aciklama": "Publication of the book, adoption of A/RES/76/262 and the vetoes debated in the General Assembly since then, in date order.",
       sayfa: ({ s }) => `${s.includes("–") ? "pp." : "p."}\u00a0${s}`, bolum: ({ b }) => ({ "Giriş": "Introduction", "2. Bölüm: Birleşmiş Milletler Reformu": "Part II: A United Nations Reform" }[b] || `<span lang="tr">${b}</span>`),
@@ -378,40 +371,40 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
       "model.kunye": 'Recep Tayyip Erdoğan, <i>A Fairer World is Possible: A Proposed Model for a United Nations Reform</i>, Turkuvaz Kitap, 2021; Turkish original: <i lang="tr">Daha Adil Bir Dünya Mümkün</i>.',
       ceviriNotu: "Unofficial translation by Veto Atlas",
       "sutun.soz": "Word", "sutun.kayit": "Record", "sutun.unsur": "Element", "sutun.kitaptan": "From the book",
-      "k.toplam": ({ n, oy, tarih }) => `As of ${tarih}, ${n} proposals had failed because of a veto; ${oy} negative votes had been cast.`,
-      "k.toplamOnce": ({ n, oy, tarih }) => `Up to the day of this address, ${tarih}: ${n} proposals, ${oy} negative votes.`,
+      "k.toplam": ({ n, oy, tarih }) => `As of ${tarih}, ${n} proposals had failed because of a veto and ${oy} negative votes had been cast.`,
+      "k.toplamOnce": ({ n, oy, tarih }) => `Up to the day of this address, ${tarih}, ${n} proposals and ${oy} negative votes.`,
       "k.filistin": ({ n, konu }) => `${n} proposals with the main topic “${konu}” failed because of a veto. Negative votes:`,
-      "k.filistinOnce": ({ n, tarih }) => `Up to the day of this address, ${tarih}: ${n} proposals.`,
-      "k.gk": ({ n, g, vg, oo }) => `Since 26 April 2022, when A/RES/76/262 was adopted, ${n} proposals have failed because of a veto; the General Assembly has debated ${g} of them, in ${vg} veto initiative debates and ${oo} emergency special session meetings.`,
-      "k.gkOnce": ({ n, g, tarih }) => `Up to the day of this address, ${tarih}: ${n} proposals, ${g} of them debated in the General Assembly.`,
+      "k.filistinOnce": ({ n, tarih }) => `Up to the day of this address, ${tarih}, ${n} proposals.`,
+      "k.gk": ({ n, g, vg, oo }) => `Since 26 April 2022, when A/RES/76/262 was adopted, ${n} proposals have failed because of a veto, and the General Assembly has debated ${g} of them, in ${vg} veto initiative debates and ${oo} emergency special session meetings.`,
+      "k.gkOnce": ({ n, g, tarih }) => `Up to the day of this address, ${tarih}, ${n} proposals, ${g} of them debated in the General Assembly.`,
       "k.cekirdek": "In its statement after the adoption, the representative of Türkiye said that Türkiye had been in the core group of the initiative since its start (A/76/PV.69, p. 20).",
       "k.konu": "The three topics with the most negative votes:",
-      "k.konuSatir": ({ konu, oy }) => `${konu}: ${oy} negative votes`,
+      "k.konuSatir": ({ konu, oy }) => `${konu}, ${oy} negative votes`,
       "k.tek": ({ n }) => `Proposals that failed on a single negative vote while every other member of the Council voted in favour: ${n}.`,
-      "k.tekOnce": ({ once, sonra, tarih }) => `${once} up to ${tarih}; ${sonra} since then.`,
+      "k.tekOnce": ({ once, sonra, tarih }) => `${once} up to ${tarih}, ${sonra} since then.`,
       "k.bolge": ({ n }) => `Region of the topic of the ${n} proposals that failed because of a veto:`,
       "k.bolgeBas": "Region", "k.oneri": "Proposals", "k.retOyu": "Negative votes",
-      "k.grupOzet": "Population share (WPP 2024, 2023) and Security Council seat share (current term; permanent + elected) of the UN regional groups:",
+      "k.grupOzet": "Population share of the UN regional groups in 2023 (WPP 2024) and their current Security Council seat share (permanent and elected):",
       "k.grupBas": "Regional group", "k.nufusPayi": "Population share", "k.koltukPayi": "Seat share", "k.koltukAyrim": ({ d, s }) => `${d} permanent + ${s} elected`,
-      "k.temsilBak": "Representation index →",
-      "k.p5": ({ u, d, y63 }) => `Population share of the five permanent members, 2023: ${u} of the total of UN Member States; ${d} of the WPP world total. 1963 (of the total of the 113 members at that time): ${y63}.`,
-      "k.p5Not": "Population: WPP 2024, estimate as of 1 January. There is no WPP series for 1945; the 1945 figure in the book (60 per cent) was not verified by this work.",
-      "k.bolgeNot": ({ kapali }) => `“Global”: agenda items not tied to a particular region (general membership applications, disarmament, appointment of the Secretary-General, thematic issues). The ${kapali} vetoes cast in private meetings are not included in the negative-vote count.`,
-      "k.gazze": ({ n, d }) => `Since 7 October 2023, ${n} proposals whose draft text mentions Gaza have failed because of a veto${d === 0 ? "" : d === 1 ? "; one of them concerned an amendment" : `; ${d} of them concerned amendments`}. Negative votes:`,
+      "k.temsilBak": "Representation index",
+      "k.p5": ({ u, d, y63 }) => `Population share of the five permanent members in 2023: ${u} of the total of UN Member States, ${d} of the WPP world total. In 1963 (of the total of the 113 members at that time) ${y63}.`,
+      "k.p5Not": "Population: WPP 2024, estimate as of 1 January. There is no WPP series for 1945, and the 60 per cent in the book is not computed here.",
+      "k.bolgeNot": ({ kapali }) => `The “Global” row collects agenda items not tied to a particular region (general membership applications, disarmament, appointment of the Secretary-General, thematic issues). The ${kapali} vetoes cast in private meetings are not included in the negative-vote count.`,
+      "k.gazze": ({ n, d }) => `Since 7 October 2023, ${n} proposals whose draft text mentions Gaza have failed because of a veto${d === 0 ? "" : d === 1 ? ", one of them concerning an amendment" : `, ${d} of them concerning amendments`}. Negative votes:`,
       "k.konusmaci": ({ n, s }) => `Since 26 April 2022, when A/RES/76/262 was adopted, the vetoing country or countries took the floor in ${s} of the ${n} veto initiative debates.`,
-      "k.delegasyon": ({ az, azT, cok, cokT }) => `Delegations making statements per debate: at least ${az} (${azT}), at most ${cok} (${cokT}).`,
-      "k.konusmaciOnce": ({ n, s, tarih }) => `Up to the day of this address, ${tarih}: ${n} debates; the vetoing country took the floor in ${s} of them.`,
-      "k.konusmaciNot": ({ g }) => `The number of delegations includes member states and observers; a delegation speaking on behalf of a group is counted once, and rights of reply are not counted. For the ${g} debates whose verbatim records have not been published, the count is taken from the UN Journal.`,
-      "k.gazzeOnce": ({ n, tarih }) => `Up to the day of this address, ${tarih}: ${n} proposals.`,
+      "k.delegasyon": ({ az, azT, cok, cokT }) => `Per debate, at least ${az} (${azT}) and at most ${cok} (${cokT}) delegations made statements.`,
+      "k.konusmaciOnce": ({ n, s, tarih }) => `Up to the day of this address, ${tarih}, ${n} debates, and the vetoing country took the floor in ${s} of them.`,
+      "k.konusmaciNot": ({ g }) => `The number of delegations includes member states and observers. A delegation speaking on behalf of a group is counted once, and rights of reply are not counted. For the ${g} debates whose verbatim records have not been published, the count is taken from the UN Journal.`,
+      "k.gazzeOnce": ({ n, tarih }) => `Up to the day of this address, ${tarih}, ${n} proposals.`,
       "k.bak": "Details below",
       "m.temsil": "Representation", "m.temsilOzet": "The Introduction proposes that the Council be restructured so as to represent continents, faiths, origins and cultures fairly.",
       "m.sayi": "Number of members: two options", "m.sayiOzet": "The Introduction contains two options: 20 permanent members instead of 5, and, as an alternative, the election by the General Assembly of the 20 countries to sit on the Council.",
       "m.veto": "Veto and permanent membership", "m.vetoOzet": "The book makes the removal of the veto and of the current understanding of permanent membership a precondition of reform. Part II proposes that Council members come from the General Assembly, with fixed terms and on a rotating basis.",
       "m.gk": "General Assembly and Security Council", "m.gkOzet": "Part II proposes that the General Assembly be the legislator and the Council the executive, and that the Council be accountable to the General Assembly.",
       "c.kitap": "“A Fairer World is Possible” published (Turkuvaz Kitap, first edition).",
-      "c.762": "The General Assembly adopted A/RES/76/262 without a vote (A/76/PV.69, p. 8). Türkiye was among the original sponsors of the draft (A/76/L.52); in its statement after the adoption, the representative of Türkiye said that Türkiye had been in the core group (A/76/PV.69, p. 20).",
-      "c.veto": ({ gundem, uyeler }) => `Veto: ${gundem} (${uyeler}).`,
-      "c.gk": ({ tur, tarihler }) => `General Assembly: ${tur}, ${tarihler}.`,
+      "c.762": "The General Assembly adopted A/RES/76/262 without a vote (A/76/PV.69, p. 8). Türkiye was among the original sponsors of the draft (A/76/L.52). In its statement after the adoption, the representative of Türkiye said that Türkiye had been in the core group (A/76/PV.69, p. 20).",
+      "c.veto": ({ gundem, uyeler }) => `${gundem} (${uyeler}).`,
+      "c.gk": ({ tur, tarihler }) => `Debated in the General Assembly on ${tarihler} (${tur}).`,
       "c.vg": "veto initiative debate", "c.oo": ({ oturum }) => `emergency special session (${oturum})`,
       "c.kitapKisa": "Book published", "c.762Kisa": "A/RES/76/262 adopted",
       "serit.etiket": "Events on a time scale. Selecting an event brings it to the middle of the screen in the list.",
@@ -432,7 +425,7 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
   document.querySelectorAll("[data-t]").forEach((e) => { e.textContent = t(e.dataset.t); });
   // İçinde dil işareti (lang="tr") olan metinler: sayfanın kendi sözlüğünden, HTML olarak
   document.querySelectorAll("[data-t-html]").forEach((e) => { e.innerHTML = t(e.dataset.tHtml); });
-  $("#sim-satir").innerHTML = `${t("sim.satir")} <a href="simulasyon.html${ek}">${t("sim.bag")}</a>`;
+  $("#sim-satir").innerHTML = `${t("sim.once")} <a href="simulasyon.html${ek}">${t("sim.bag")}</a>${t("sim.sonra")}`;
 
   const V = window.VETO_VERISI;
   if (!V) return;
@@ -506,7 +499,7 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
   const yuzde1 = (p) => { const s = (100 * p).toLocaleString(DIL === "tr" ? "tr-TR" : "en-GB", { minimumFractionDigits: 1, maximumFractionDigits: 1 }); return DIL === "tr" ? "%" + s : s + "%"; };
   const grupOzeti = () => {
     const T = window.TEMSIL_VERISI; if (!T) return "";
-    return `<p>${t("k.grupOzet")}</p><details class="tablo-ac"><summary>${t("tabloGoster")}</summary>
+    return `<p>${t("k.grupOzet")}</p><details class="tablo-ac" open><summary>${t("tabloGoster")}</summary>
       <div class="tablo-kap"><table><thead><tr><th scope="col">${t("k.grupBas")}</th><th scope="col" class="sayi">${t("k.nufusPayi")}</th><th scope="col" class="sayi">${t("k.koltukPayi")}</th></tr></thead>
       <tbody>${T.gruplar.map((g) => `<tr><th scope="row">${esc(g.ad[DIL])}</th><td class="sayi">${yuzde1(g.paylar.nufus_2023)}</td><td class="sayi">${yuzde1(g.koltuk.toplam_payi)} <span class="dil-notu">(${esc(t("k.koltukAyrim", { d: g.koltuk.daimi, s: g.koltuk.secilmis }))})</span></td></tr>`).join("")}</tbody></table></div></details>
       <p class="ek"><a href="temsil.html${DIL === "tr" ? "" : "?lang=" + DIL}">${t("k.temsilBak")}</a></p>`;
@@ -544,7 +537,7 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
       const c = {};
       kayitlar.forEach((k) => { c[k.bolge] = c[k.bolge] || { n: 0, oy: 0 }; c[k.bolge].n++; if (!k.kapali) c[k.bolge].oy += k.uyeler.length; });
       const sira = Object.keys(c).sort((x, y) => (x === "Küresel") - (y === "Küresel") || c[y].n - c[x].n || c[y].oy - c[x].oy);
-      return `<p>${t("k.bolge", { n: sayi(kayitlar.length) })}</p><details class="tablo-ac"><summary>${t("tabloGoster")}</summary>
+      return `<p>${t("k.bolge", { n: sayi(kayitlar.length) })}</p><details class="tablo-ac" open><summary>${t("tabloGoster")}</summary>
         <div class="tablo-kap"><table><thead><tr><th scope="col">${t("k.bolgeBas")}</th><th scope="col" class="sayi">${t("k.oneri")}</th><th scope="col" class="sayi">${t("k.retOyu")}</th></tr></thead>
         <tbody>${sira.map((b) => `<tr><th scope="row">${esc(bolgeAd(b))}</th><td class="sayi">${sayi(c[b].n)}</td><td class="sayi">${sayi(c[b].oy)}</td></tr>`).join("")}</tbody></table></div></details>
         <p class="ek">${t("k.bolgeNot", { kapali: sayi(kayitlar.filter((k) => k.kapali).length) })}</p>${grupOzeti()}`;
@@ -638,9 +631,9 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
   const kart = (g) => {
     const on1 = konseyBuyuklugu(g.kayitlar[0]) === 11;
     const uyeler = [...new Set(g.kayitlar.flatMap((k) => k.uyeler))];
-    return `<li class="kart"><p class="karsi" style="margin:0">${t(on1 ? "karsi.11" : "karsi.15")}<span>${t(on1 ? "karsi.11y" : "karsi.15y")}</span></p>
+    return `<li class="kart"><p class="karsi" style="margin:0">${t(on1 ? "karsi.11" : "karsi.15")}</p>
       ${noktalar(on1 ? 11 : 15)}
-      <span class="tarih">${tarihUzun(g.tarih)}${g.kayitlar.length > 1 ? ` · ${t("galeri.coklu", { n: sayi(g.kayitlar.length) })}` : ""}</span>
+      <span class="tarih">${tarihUzun(g.tarih)}${g.kayitlar.length > 1 ? `, ${t("galeri.coklu", { n: sayi(g.kayitlar.length) })}` : ""}</span>
       <span>${uyeler.map((u) => `<span class="nokta" style="background:${UYELER[u].renk}"></span> ${uyeAd(u)}`).join(", ")}</span>
       <span class="gundem" ${DIL === "en" ? 'lang="en"' : ""}>${esc(g.govde)}${g.kuyruklar.length ? `: ${esc(g.kuyruklar.join(", "))}` : ""}</span></li>`;
   };
@@ -662,12 +655,18 @@ details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: 
   $("#model").innerHTML = MADDELER.map(([b, o, ids]) => `<div class="kutu" role="row"><div class="model-ozet" role="cell"><h3>${t(b)}</h3><p>${t(o)}</p></div><div class="model-alinti" role="cell">${ids.map(kitapAlinti).join("")}</div></div>`).join("");
 
   // ---------- Zaman çizelgesi ----------
+  // Türkçede yıl eki, yılın son söylenen kelimesine göre (2022'de, 2023'te, 2026'da); simülasyon sayfasındaki sayiEki ile aynı kural
+  const sonKelime = (n) => { n = Math.abs(n); if (n % 10) return ["", "bir", "iki", "üç", "dört", "beş", "altı", "yedi", "sekiz", "dokuz"][n % 10];
+    if (n % 100) return ["", "on", "yirmi", "otuz", "kırk", "elli", "altmış", "yetmiş", "seksen", "doksan"][Math.floor(n / 10) % 10]; return n % 1000 ? "yüz" : "bin"; };
+  const yilEki = (y) => { const s = sonKelime(+y), son = s[s.length - 1], u = [...s].filter((c) => "aeıioöuü".includes(c)).pop();
+    return ("çfhkpsşt".includes(son) ? "t" : "d") + ("aıou".includes(u) ? "a" : "e"); };
+  const tarihEkli = (x) => (DIL === "tr" ? `${tarihUzun(x)}’${yilEki(x.slice(0, 4))}` : tarihUzun(x));
   const kitapTarih = (kitap[0] || {}).tarih || "2021-09";
   const olaylar = [{ tarih: kitapTarih, tur: "diger", kisa: t("c.kitapKisa"), html: `<p>${t("c.kitap")}</p>` },
     { tarih: GK_BAS, tur: "diger", kisa: t("c.762Kisa"), html: `<p>${t("c.762")}</p>` }];
   kayitlar.filter((k) => k.tarih >= GK_BAS && k.gk && k.gk.durum === "yapildi").forEach((k) => {
     const gk = k.gk.tartismalar.map((x) => t("c.gk", { tur: x.tur === "veto_girisimi" ? t("c.vg") : t("c.oo", { oturum: x.oturum }),
-      tarihler: x.tarihler.map(tarihUzun).join(t("ve")) })).join(" ");
+      tarihler: x.tarihler.map(tarihEkli).join(t("ve")) })).join(" ");
     const uyeler = k.uyeler.map(uyeAd).join(", ");
     olaylar.push({ tarih: k.tarih, tur: "veto", kisa: t("c.veto", { gundem: baslik(k), uyeler }),
       html: `<p>${t("c.veto", { gundem: esc(baslik(k)), uyeler })}</p><p class="gk">${gk}</p>` });

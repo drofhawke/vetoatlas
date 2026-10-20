@@ -4,7 +4,8 @@ Adım 6: Paylaşım önizleme görseli (Open Graph) üretir.
     python scripts/06_onizleme_gorseli.py
 
 web/veri.js'teki kayıtlardan birim grafiğin sade bir hâlini çizer: her kare bir ret oyu,
-sütunlar yıllar, renkler vetoyu kullanan daimi üye (arayüzdeki açık tema renkleri); sol üstte halka işareti (web/isaret.svg). Kapalı
+sütunlar yıllar, renkler vetoyu kullanan daimi üye (arayüzdeki açık tema renkleri); sol üstte çubuk logosu (web/logo-cubuk-b.svg,
+yazı işaretli). Kapalı
 oturum vetoları gri kare olarak gösterilir. Metin yoktur; başlık ve açıklama og: etiketlerinden
 gelir. Ek bağımlılık gerektirmez (PNG, standart kütüphaneyle yazılır); aynı veri aynı dosyayı verir.
 
@@ -76,12 +77,12 @@ def yol_cokgenleri(d: str) -> list[list[tuple[float, float]]]:
     return cokgenler
 
 
-def isaret_ciz(piksel: list[bytearray], x0: int, y0: int, boyut: int) -> None:
-    """web/isaret.svg'deki kareleri (yollar, renkleri SVG'den) boyut px yükseklikte, sol üst köşesi (x0, y0) olacak biçimde
-    çizer. Kenarlar 4 x 4 alt örnekle yumuşatılır (alttaki renge karıştırılır); aynı dosya aynı pikselleri verir."""
+def svg_ciz(piksel: list[bytearray], dosya: str, x0: int, y0: int, boyut: int) -> None:
+    """Bir SVG'deki yolları (renkleri SVG'den) boyut px yükseklikte, sol üst köşesi (x0, y0) olacak biçimde çizer (web/isaret.svg,
+    web/logo-cubuk-b.svg). Kenarlar 4 x 4 alt örnekle yumuşatılır (alttaki renge karıştırılır); aynı dosya aynı pikselleri verir."""
     import math
     import re
-    svg = (KOK / "web/isaret.svg").read_text(encoding="utf-8")
+    svg = (KOK / dosya).read_text(encoding="utf-8")
     vb_g, vb_y = (float(v) for v in re.search(r'viewBox="0 0 ([\d.]+) ([\d.]+)"', svg).groups())
     olcek = boyut / vb_y
     ornek = [(k + 0.5) / 4 for k in range(4)]
@@ -144,9 +145,9 @@ def main():
     # Onyıl işaretleri
     for yil in range((ilk // 10 + 1) * 10, son + 1, 10):
         dikdortgen(sol + (yil - ilk) * adim + adim // 2 - 1, zemin_y + 8, 2, 10, KAPALI)
-    # Sol üstte halka işareti (web/isaret.svg; renkleri SVG'den). Dosya boşluksuz kırpıldığı için 86 px yükseklik ve (16, 13) px
-    # içeride: eski 112 px'lik kutudaki halkayla aynı boyut ve yer
-    isaret_ciz(piksel, sol + 16, zemin_y - en_cok * adim - 150 + 13, 86)
+    # Sol üstte çubuk logosu (web/logo-cubuk-b.svg: halka işareti ve "Veto Atlası" yazısı; renkleri SVG'den), 40 px yükseklikte,
+    # eski halkanın (86 px) bandında dikeyde ortalanmış
+    svg_ciz(piksel, "web/logo-cubuk-b.svg", sol + 16, zemin_y - en_cok * adim - 150 + 13 + 23, 40)
 
     hedef = KOK / "web/onizleme.png"
     png_yaz(hedef, piksel)

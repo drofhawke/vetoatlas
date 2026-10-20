@@ -1,4 +1,5 @@
-/* Yerel yazı tipleri: @fontsource 5.3.0 (Google Fonts derlemesi), SIL Open Font License 1.1.
+/* Yerel yazı tipleri: Google Fonts'un Source Sans 3 (3.052) ve Source Serif 4 (4.004) değişken yazı tiplerinden
+   scripts/14_yazi_tipleri.py ile üretilen hinting'li kesimler (ttfautohint; README.md), SIL Open Font License 1.1.
    Lisans: OFL-source-serif-4.txt, OFL-source-sans-3.txt. Yalnızca latin ve latin-ext alt kümeleri.
    Source Sans 3 italik yalnızca 400 ağırlıkta (hikâyede büyük sayının alt yazısı); tarayıcı italiği yapay üretmez. */
 
@@ -120,4 +121,16 @@
   font-weight: 600;
   src: url(source-sans-3-latin-600-normal.woff2) format('woff2');
   unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* veto-atlasi-logo */
+@font-face {
+  /* Çubuktaki "Veto Atlası" logo yazısı (web/cubuk.js), yalnızca bu harfler; logo paketindeki yola çevrilmiş yazıyla aynı
+     kesim (Source Serif 4 Semibold, optik boy 20). Yüklenene kadar yedek yazı tipi gösterilmez (block). */
+  font-family: 'Veto Atlası Logo';
+  font-style: normal;
+  font-display: block;
+  font-weight: 600;
+  src: url(veto-atlasi-logo.woff2) format('woff2');
+  unicode-range: U+0020,U+0041,U+0056,U+0061,U+0065,U+006C,U+006F,U+0073,U+0074,U+0131;
 }

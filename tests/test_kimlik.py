@@ -56,7 +56,7 @@ def test_metin_karsitligi():
 
 def test_kirmizi_yalnizca_ret_ve_veto():
     v = (WEB / "vetolar.html").read_text(encoding="utf-8")
-    assert ".serit .hitap-cizgi { stroke: var(--murekkep-2);" in v and ".etiket.dogrulaniyor { border-color: var(--murekkep-2); color: var(--murekkep-2); }" in v
+    assert ".serit .hitap-cizgi { stroke: var(--murekkep-2);" in v and ".etiket { font: 500 var(--yz-kucuk)/var(--sa-kucuk) var(--sans); color: var(--murekkep-2);" in v  # etiketler çerçevesiz, gri
     assert "border-top: 8px solid var(--murekkep)" in v  # hitap lejant üçgeni
     t = (WEB / "temsil.html").read_text(encoding="utf-8")
     assert "--g-secilmis: #5A6578" in t
@@ -66,7 +66,7 @@ def test_kirmizi_yalnizca_ret_ve_veto():
         s = (WEB / ad).read_text(encoding="utf-8")
         assert "outline: 2px solid var(--vurgu)" not in s, ad
     s = (WEB / "simulasyon.html").read_text(encoding="utf-8")
-    assert ".etiket.kaynakli { border-color: var(--murekkep-2);" in s and "--lehte: #9AA3B2" in s and "--aleyhte: #13213A" in s
+    assert ".etiket { display: inline-block; font-size: var(--yz-kucuk); color: var(--murekkep-2);" in s and "--lehte: #9AA3B2" in s and "--aleyhte: #13213A" in s
     h = (WEB / "hikaye.html").read_text(encoding="utf-8")
     # Hikâye (taslaktaki stil): daimî koltuk mürekkep, içinde küçük kırmızı kare (veto yetkisi); ret noktası kırmızı
     assert ".koltuk.daimi { background: var(--murekkep); }" in h and ".koltuk.daimi::after {" in h and "background: var(--vurgu); }  /* veto yetkisi" in h
@@ -116,16 +116,23 @@ def test_logo_ikon_ve_bildirim():
     assert all(satir in giris for satir in simge)
     bulunamadi = (WEB / "404.html").read_text(encoding="utf-8")
     assert all(satir in bulunamadi for satir in simge[:3] + simge[4:]) and '<base href="/">' in bulunamadi
-    # Çubukta slogansız logo (logo-cubuk-b, 40 px; dosya boşluksuz kırpılmış, eski 52 px'lik logoyla aynı görünür boyut; çubuk 76 px);
-    # 520 px altında asıl işaret (isaret.svg) 34 px: telefon 2–3 kat yoğunlukla çizer; koyu kâğıtta koyu sürümler
+    # Çubukta işaret (isaret.svg, 40 px) + canlı logo yazısı "Veto Atlası" (20 Ekim; KILAVUZ bölüm 3): yazı logo-cubuk-b.svg'nin
+    # ölçülerinde (27,3 px, 14 px aralık) ve aynı kesimle (Veto Atlası Logo: Source Serif 4 Semibold, optik boy 20) canlı metindir;
+    # %100 ölçekte SVG dış çizgisi gri tonlu yumuşatmayla bulanık çiziliyordu, canlı metin hinting ve ClearType alır. logo-cubuk-b.svg
+    # sitede kullanılmaz, kimlik dosyası olarak web/ altında durur. 520 px altında yalnızca işaret 34 px: telefon 2–3 kat yoğunlukla
+    # çizer; koyu kâğıtta koyu işaret, yazı rengi --murekkep
     cubuk = (WEB / "cubuk.js").read_text(encoding="utf-8")
-    for ad in ("logo-cubuk-b.svg", "logo-cubuk-b-koyu.svg", "isaret.svg", "isaret-koyu.svg"):
+    for ad in ("isaret.svg", "isaret-koyu.svg"):
         assert f'"{ad}"' in cubuk and (WEB / ad).exists(), ad
-    assert "isaret-kucuk" not in cubuk
-    assert 'gorsel("c-acik", "logo-cubuk-b.svg", 183, 40, Y.logo)' in cubuk and 'gorsel("c-isaret", "isaret.svg", 31, 34, Y.logo)' in cubuk
+    assert "isaret-kucuk" not in cubuk and '"logo-cubuk-b' not in cubuk and "logo-yatay-a" not in cubuk  # dosya olarak anılmaz (yorumda ölçü kaynağı)
+    assert 'gorsel("c-isaret", "isaret.svg", 37, 40, "")' in cubuk and 'gorsel("c-isaret-koyu", "isaret-koyu.svg", 37, 40, "")' in cubuk
+    assert 'ad.className = "c-ad"; ad.textContent = "Veto Atlası";' in cubuk
+    assert '".cubuk .c-logo .c-ad { font-family: \\"Veto Atlası Logo\\", var(--serif); font-weight: 600; font-size: 27.3px; line-height: 40px; letter-spacing: .2px; white-space: nowrap; margin-left: 14px; position: relative; top: 1px; }"' in cubuk
     assert '".cubuk .c-logo img { height: 40px; width: auto; display: block; }"' in cubuk and "min-height: 76px; }" in cubuk
-    assert '"  .cubuk .c-logo img { height: 34px; }"' in cubuk and ".c-cubuklu { scroll-padding-top: 84px; }" in cubuk
-    assert "logo-yatay-a" not in cubuk
+    assert '"  .cubuk .c-logo img { height: 34px; }"' in cubuk and '"  .cubuk .c-logo .c-ad { display: none; }"' in cubuk
+    assert ".c-cubuklu { scroll-padding-top: 84px; }" in cubuk
+    fonts_css = (WEB / "fonts/fonts.css").read_text(encoding="utf-8")
+    assert "font-family: 'Veto Atlası Logo';" in fonts_css and "font-display: block;" in fonts_css and (WEB / "fonts/veto-atlasi-logo.woff2").exists()
     # Sayfaların içinde logo yok (ADIM 42: Hakkında'daki sloganlı tam logo kaldırıldı; üst çubuktaki logo yeterli).
     # ADIM 45: slogan sayfaların alt bilgisinde tekrarlanmaz (çubuk betiği alt bilgi eklemez); atlasın çıkış noktası
     # hikâyenin giriş alıntısında ve Hakkında'nın girişinde
@@ -134,8 +141,9 @@ def test_logo_ikon_ve_bildirim():
         assert "logo-yatay-a" not in s and "c-slogan" not in s, ad
     assert "tam-logo" not in (WEB / "hakkinda.html").read_text(encoding="utf-8")
     assert "slogan" not in cubuk.replace("slogansız", "").replace("sloganlı", "") and ".c-alt" not in cubuk
-    assert "“Dünya 5’ten büyüktür” çağrısından hareketle hazırlanmıştır." in (WEB / "hakkinda.html").read_text(encoding="utf-8")
-    assert "starting point President Recep Tayyip Erdoğan’s call\n    that “the world is bigger than five”." in (WEB / "hakkinda.html").read_text(encoding="utf-8")
+    h = (WEB / "hakkinda.html").read_text(encoding="utf-8")
+    assert "Çıkış noktamız Cumhurbaşkanı Recep Tayyip Erdoğan’ın\n    “Dünya 5’ten büyüktür” çağrısı." in h
+    assert "Our starting point is President Recep Tayyip Erdoğan’s call that “the world\n    is bigger than five”." in h
     assert 'EPIGRAF = { tr: ["2019-1", "“Dünya 5’ten Büyüktür.”"]' in (WEB / "hikaye.html").read_text(encoding="utf-8")
     # Köşede işaret: eski dosyadaki gibi 44 × 44 px kutu, çizim ortalanmış 34 px yükseklikte (eski kutudaki halkayla aynı görünür
     # boyut; alt bilgi satırı değişmez: 13 Ekim'de 44 kartın hepsi canlıdakiyle yalnızca işaretin 32 × 34 px'lik alanında farklı);
@@ -150,7 +158,7 @@ def test_logo_ikon_ve_bildirim():
         if ad.endswith(".svg"):
             veri = veri.replace(b"\r\n", b"\n")  # SVG'de satır sonu git'teki gibi LF (CRLF'li Windows çalışma ağacı)
         assert f"data:{tur};base64," + base64.b64encode(veri).decode() in tek, ad  # tek dosyada aynı simge
-    assert "logo-yatay-a" not in tek and "isaret-kucuk" not in tek  # kullanılmayan logo ve işaret gömülmez
+    assert "logo-yatay-a" not in tek and "isaret-kucuk" not in tek and '"logo-cubuk-b' not in tek  # kullanılmayan logo ve işaret gömülmez
     assert (KOK / "kaynaklar/kimlik/KILAVUZ.md").exists()
 
 

@@ -63,9 +63,6 @@ a { color: inherit; text-underline-offset: 3px; }
    tek satırda kalır. İngilizce başlık (1038 px) sütunda iki satırdır. */
 @media (min-width: 960px) { .giris h1:lang(tr) { white-space: nowrap; } }
 .giris .ozet { font-family: var(--serif); font-size: var(--yz-govde); line-height: var(--sa-govde); max-width: var(--olcu); margin: 0 0 8px; }
-.asagi { margin: 0 0 16px; font-size: var(--yz-kucuk); color: var(--murekkep-2); display: flex; align-items: center; gap: 12px; transition: opacity .3s, visibility .3s; line-height: var(--sa-kucuk); }
-.asagi i { display: inline-block; width: 1px; height: 40px; background: var(--murekkep); }
-.asagi.gecti { opacity: 0; visibility: hidden; }
 
 /* İlerleme rayı: masaüstünde solda sabit */
 .ray { position: fixed; left: 24px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 16px; z-index: 4; }
@@ -128,7 +125,7 @@ a { color: inherit; text-underline-offset: 3px; }
 .kareler i { display: block; aspect-ratio: 1; border-radius: 2px; background: var(--oy-lehte); }
 .kareler i.bos { background: transparent; border: 1.5px dashed var(--murekkep-2); }
 .cubuklar { display: grid; gap: 16px; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
-.cubuklar .et { color: var(--murekkep-2); margin-bottom: 4px; }
+.cubuklar .et { color: var(--murekkep-2); margin-bottom: 4px; display: flex; justify-content: space-between; gap: 12px; }  /* etiket solda, sayı sağda */
 .cubuklar .cb { height: 20px; background: var(--bos); border-radius: 3px; overflow: hidden; display: flex; }
 .cubuklar .cb span { display: block; height: 100%; background: var(--oy-lehte); }
 .cubuklar .cb span.koltuk-payi { background: var(--murekkep); }
@@ -139,8 +136,6 @@ a { color: inherit; text-underline-offset: 3px; }
 .kapanis blockquote { font-family: var(--serif); font-size: var(--yz-govde); line-height: var(--sa-govde); margin: 0 0 8px; padding-left: 24px; border-left: 3px solid var(--murekkep); }
 .kapanis .kunye { font-size: var(--yz-kucuk); color: var(--murekkep-2); margin: 0 0 24px; line-height: var(--sa-kucuk); }
 .kapanis .dugme { margin: 0 12px 12px 0; }  /* birincil ve ikincil düğme: web/temel.css */
-.sayfa-listesi { font-size: var(--yz-kucuk); color: var(--murekkep-2); margin-top: 24px; line-height: var(--sa-kucuk); }
-.sayfa-listesi a { margin-right: 12px; }
 footer { border-top: 1px solid var(--cizgi); margin: 32px 0 48px; padding-top: 16px; color: var(--murekkep-2); font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
 
 @media (max-width: 760px) {
@@ -157,7 +152,7 @@ footer { border-top: 1px solid var(--cizgi); margin: 32px 0 48px; padding-top: 1
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .adim > * { opacity: 1; transform: none; transition: none; }
-  .ray a, .asagi { transition: none; }
+  .ray a { transition: none; }
 }
 </style>
 </head>
@@ -170,7 +165,6 @@ footer { border-top: 1px solid var(--cizgi); margin: 32px 0 48px; padding-top: 1
     <h1 data-t="baslik"></h1>
     <p class="ozet" data-t="giris1"></p>
   </header>
-  <p class="asagi" id="asagi" aria-hidden="true"><i></i><span data-t="asagi"></span></p>
   <main id="adimlar"></main>
   <section class="kapanis" id="kapanis"></section>
   <footer id="alt"></footer>
@@ -190,11 +184,11 @@ footer { border-top: 1px solid var(--cizgi); margin: 32px 0 48px; padding-top: 1
       baslik: "Yedi adımda veto",
       bolum: ({ b }) => b, ceviriNotu: "",
       giris1: "Güvenlik Konseyi'nde kim, kaç kez, neyi durdurdu? Yedi adımda, kayıtlarla.",
-      asagi: "Kaydırarak ilerleyin", ray: "Adımlar",
+      ray: "Adımlar",
       kunyeKim: "Cumhurbaşkanı Recep Tayyip Erdoğan", sayfaKisa: "s.",
-      adim: ({ n }) => `${n}. adım`, ayrinti: "Ayrıntı →",
+      adim: ({ n }) => `${n}. adım`, ayrinti: "Ayrıntı",
       basliklar: ["Veto nedir?", "Kaç karar düştü?", "Kim kullandı?", "Tek ülke, bütün Konsey", "Kim temsil ediliyor?", "Her vetodan sonra Genel Kurul", "Ya veto olmasaydı?"],
-      "4.sonuc": "14 evet · 1 hayır → düştü",
+      "4.sonuc": "14 evet, 1 hayır → düştü",
       // Alt yazı sayının ne olduğunu söyler; metindeki sayılar (yazıyla yazılanlar ve ekleri dâhil) veriden gelir
       "1.etiket": ({ uye, daimi }) => `${yazi(uye)} üyeden ${yazi(daimi, "iyelik")}, daimî`,
       "1.metin": ({ uye, daimi }) => `Güvenlik Konseyi ${yazi(uye)} üyeden oluşur. Bunların ${yazi(daimi, "iyelik")} daimî üyedir ve diğerlerinde bulunmayan bir yetkiye sahiptir: tek bir ret oyuyla, usul işleri dışındaki her kararı düşürebilirler. Bu yetkinin adı vetodur.`,
@@ -204,15 +198,14 @@ footer { border-top: 1px solid var(--cizgi); margin: 32px 0 48px; padding-top: 1
       "3.metin": ({ daimi }) => `Veto, ${yazi(daimi)} daimî üyenin tamamı tarafından kullanıldı. Dağılım dönemlere göre değişir: Soğuk Savaş'ın ilk yıllarında Sovyetler Birliği, 1970'lerden sonra ABD, son on beş yılda Rusya ve Çin öne çıkar.`,
       "4.etiket": "karar, tek bir ret oyuyla",
       "4.metin": ({ n11, yil, boy }) => `Bu kararların her birinde Konsey'in diğer bütün üyeleri lehte oy kullandı; karar yine de düştü, çünkü ret oyunu veren tek ülke bir daimî üyeydi. ${buyuk(yazi(n11, "iyelik"))}, ${yil} öncesinin ${yazi(boy)} üyeli Konseyi'nde oylandı.`,
-      "5.etiket": "Asya-Pasifik grubunun BM nüfusundaki payı", "5.nufus": "Asya-Pasifik · nüfus payı", "5.koltuk": "Asya-Pasifik · koltuk payı", "5.afr": "Afrika · daimî koltuk", "5.afrDeger": ({ d }) => `${d} / 5`,
+      "5.etiket": "Asya-Pasifik grubunun BM nüfusundaki payı", "5.nufus": "Asya-Pasifik nüfus payı", "5.koltuk": "Asya-Pasifik koltuk payı", "5.afr": "Afrika, daimî koltuk", "5.afrDeger": ({ d }) => `${d} / 5`,
       "5.metin": ({ yil, koltuk, asp, afr }) => `Konsey'in bugünkü koltuk dağılımı ${yilEkli(yil, "de")} belirlendi ve o günden beri değişmedi; dünya nüfusu ise değişti. BM üyesi ülkelerin nüfusunun yarısından fazlasını barındıran Asya-Pasifik grubu ${yazi(koltuk)} koltuğun ${yazi(asp, "yonelme")} sahip. ${buyuk(yazi(afr))} üyeli Afrika grubunun ise hiç daimî koltuğu yok.`,
       "6.etiket": ({ yil }) => `veto, ${yilEkli(yil, "den")} bu yana Genel Kurul'da görüşüldü`,
       "6.metin": ({ ay, yil, v, s }) => `${ay} ${yilEkli(yil, "de")} kabul edilen ve Türkiye'nin ilk sunucuları arasında yer aldığı bir kararla, Genel Kurul artık her vetodan sonra toplanıyor. O tarihten bu yana kullanılan vetoların tamamı görüşüldü; veto eden ülke, ${yazi(v)} veto girişimi tartışmasının ${yazi(s, "bulunma")} de söz aldı.`,
       "7.etiket": ({ t }) => `karar, ${t} içinde`,
       "7.metin": ({ dis }) => `Veto olmasaydı ve üyeler kayıtlardaki oylarını değiştirmeseydi, düşen kararların neredeyse tamamı kabul edilmiş olurdu. Dışarıda kalan ${yazi(dis, "iyelik")}, oy dağılımı kayıtlı olmayan kapalı oturum vetolarıdır. Sayımı istediğiniz kayıt üzerinde kendiniz yapabilirsiniz.`,
-      "7.bag": "Sayımı kendiniz yapın →",
-      kesfet: "Veriyi keşfet", sozKayit: "Söz ve Kayıt",
-      "sayfaListesi": "Atlasın bütün sayfaları:",
+      "7.bag": "Sayımı kendiniz yapın",
+      kesfet: "Bütün kayıtlar", sozKayit: "Söz ve Kayıt",
       alt: ({ tarih }) => `Veri tarihi: ${tarih}.`,
       sayfa: { vetolar: "Vetolar", vizyon: "Söz ve Kayıt", reform: "Reform modelleri", simulasyon: "Ya veto olmasaydı?", temsil: "Kim temsil ediliyor?", hakkinda: "Hakkında", metodoloji: "Metodoloji" },
       uye: { SSCB: "Sovyetler Birliği", RUS: "Rusya Federasyonu", USA: "ABD", GBR: "Birleşik Krallık", FRA: "Fransa", CHN: "Çin" },
@@ -226,11 +219,11 @@ footer { border-top: 1px solid var(--cizgi); margin: 32px 0 48px; padding-top: 1
       baslik: "The veto in seven steps",
       bolum: ({ b }) => ({ "Giriş": "Introduction", "2. Bölüm: Birleşmiş Milletler Reformu": "Part II: A United Nations Reform" }[b] || `<span lang="tr">${b}</span>`), ceviriNotu: "Unofficial translation by Veto Atlas",
       giris1: "Who stopped what in the Security Council, and how many times? In seven steps, from the records.",
-      asagi: "Scroll to continue", ray: "Steps",
+      ray: "Steps",
       kunyeKim: "President Recep Tayyip Erdoğan", sayfaKisa: "p.",
-      adim: ({ n }) => `Step ${n}`, ayrinti: "Detail →",
+      adim: ({ n }) => `Step ${n}`, ayrinti: "Details",
       basliklar: ["What is the veto?", "How many decisions failed?", "Who used it?", "One country, the whole Council", "Who is represented?", "After every veto, the General Assembly", "What if there were no veto?"],
-      "4.sonuc": "14 yes · 1 no → failed",
+      "4.sonuc": "14 yes, 1 no → failed",
       "1.etiket": ({ uye, daimi }) => `${yaziEn(daimi)} of the ${yaziEn(uye)} members, permanent`,
       "1.metin": ({ uye, daimi }) => `The Security Council has ${yaziEn(uye)} members. ${buyuk(yaziEn(daimi))} of them are permanent members and hold a power the others lack: with a single negative vote, any one of them can defeat any decision other than a procedural one. This power is called the veto.`,
       "2.etiket": ({ yil }) => `decisions, from ${yil} to today`,
@@ -239,15 +232,14 @@ footer { border-top: 1px solid var(--cizgi); margin: 32px 0 48px; padding-top: 1
       "3.metin": ({ daimi }) => `All ${yaziEn(daimi)} permanent members have used the veto. The distribution changes from period to period: the Soviet Union stands out in the early years of the Cold War, the United States from the 1970s onwards, and Russia and China in the last fifteen years.`,
       "4.etiket": "decisions, on a single negative vote",
       "4.metin": ({ n11, yil, boy }) => `In each of these cases, every other member of the Council voted in favour; the draft still failed, because the only country voting against was a permanent member. ${buyuk(yaziEn(n11))} of them were voted on in the ${yaziEn(boy)}-member Council before ${yil}.`,
-      "5.etiket": "the Asia-Pacific Group's share of the population of UN Member States", "5.nufus": "Asia-Pacific · population share", "5.koltuk": "Asia-Pacific · seat share", "5.afr": "Africa · permanent seats", "5.afrDeger": ({ d }) => `${d} / 5`,
+      "5.etiket": "the Asia-Pacific Group's share of the population of UN Member States", "5.nufus": "Asia-Pacific population share", "5.koltuk": "Asia-Pacific seat share", "5.afr": "Africa, permanent seats", "5.afrDeger": ({ d }) => `${d} / 5`,
       "5.metin": ({ yil, koltuk, asp, afr }) => `The Council's current distribution of seats was set in ${yil} and has not changed since, while the world's population has. The Asia-Pacific Group, home to more than half of the population of UN Member States, holds ${yaziEn(asp)} of the ${yaziEn(koltuk)} seats. The ${yaziEn(afr)}-member African Group holds no permanent seat.`,
       "6.etiket": ({ yil }) => `vetoes debated in the General Assembly since ${yil}`,
       "6.metin": ({ ay, yil, v, s }) => `Under a resolution adopted in ${ay} ${yil}, of which Türkiye was one of the original sponsors, the General Assembly now meets after every veto. Every veto cast since then has been debated; the vetoing country took the floor in ${yaziEn(s)} of the ${yaziEn(v)} veto initiative debates.`,
       "7.etiket": ({ t }) => `decisions, out of ${t}`,
       "7.metin": ({ dis }) => `Had there been no veto, and had members kept the votes on record, almost all of the failed drafts would have been adopted. The ${yaziEn(dis)} left out are private-meeting vetoes, for which no vote count is on record. You can run the count yourself on any record.`,
-      "7.bag": "Run the count yourself →",
-      kesfet: "Explore the data", sozKayit: "Word and Record",
-      "sayfaListesi": "All pages of the atlas:",
+      "7.bag": "Run the count yourself",
+      kesfet: "All records", sozKayit: "Word and Record",
       alt: ({ tarih }) => `Data as of ${tarih}.`,
       sayfa: { vetolar: "Vetoes", vizyon: "Word and Record", reform: "Reform models", simulasyon: "What if there were no veto?", temsil: "Who is represented?", hakkinda: "About", metodoloji: "Methodology" },
       uye: { SSCB: "Soviet Union", RUS: "Russian Federation", USA: "United States", GBR: "United Kingdom", FRA: "France", CHN: "China" },
@@ -351,15 +343,15 @@ footer { border-top: 1px solid var(--cizgi); margin: 32px 0 48px; padding-top: 1
   const p5 = new Set((T.kumeler.find((k) => k.kod === "P5") || { uyeler: [] }).uyeler);
   const daimiler = SART_SIRASI.filter((u) => p5.has(u));
   const koltuklar = () => `<div class="koltuklar konsey" role="img" aria-label="${esc(t("konsey", { n: koltukSayisi, daimi: daimiler.map((u) => t("uye")[u]).join(", ") }))}">${Array.from({ length: koltukSayisi }, (_, i) => i < daimiler.length ? `<div class="koltuk daimi">${KOD[daimiler[i]]}</div>` : '<div class="koltuk"></div>').join("")}</div>
-    <p class="koltuk-kodlari">${daimiler.map((u) => `<span><b>${KOD[u]}</b> ${esc(t("uye")[u])}</span>`).join(" · ")}</p>`;
+    <p class="koltuk-kodlari">${daimiler.map((u) => `<span><b>${KOD[u]}</b> ${esc(t("uye")[u])}</span>`).join(", ")}</p>`;
   const kareler = () => `<div class="kareler" role="img" aria-label="${retToplam} + ${kapali.length}">${acik.flatMap((k) => k.uyeler.map(() => "<i></i>")).concat(kapali.map(() => '<i class="bos"></i>')).join("")}</div>`;
   const noktalar = () => `<div class="noktalar" role="img" aria-label="${esc(t("4.sonuc"))}">${Array.from({ length: 15 }, (_, i) => `<div class="nokta${i === 14 ? " ret" : ""}"></div>`).join("")}<span class="sonuc" aria-hidden="true">${esc(t("4.sonuc"))}</span></div>`;
-  const cubuk = (et, deger, oran, sinif) => `<div><div class="et">${esc(et)} · <b>${esc(deger)}</b></div><div class="cb"><span${sinif ? ` class="${sinif}"` : ""} style="width:${(100 * oran).toFixed(1)}%"></span></div></div>`;
+  const cubuk = (et, deger, oran, sinif) => `<div><div class="et"><span>${esc(et)}</span><b>${esc(deger)}</b></div><div class="cb"><span${sinif ? ` class="${sinif}"` : ""} style="width:${(100 * oran).toFixed(1)}%"></span></div></div>`;
   const uyeCubuklari = () => {
     const satirlar = [["sscbRus", ["SSCB", "RUS"]], ["USA", ["USA"]], ["GBR", ["GBR"]], ["CHN", ["CHN"]], ["FRA", ["FRA"]]];
     const enCok = Math.max(...satirlar.map(([, u]) => u.reduce((a, x) => a + (uyeSay[x] || 0), 0)));
     return `<div class="cubuklar">${satirlar.map(([ad, u]) => { const n = u.reduce((a, x) => a + (uyeSay[x] || 0), 0);
-      return `<div><div class="et">${esc(ad === "sscbRus" ? t("sscbRus") : t("uye")[ad])} · <b>${sayi(n)}</b></div><div class="cb">${u.map((x) => `<span style="width:${(100 * (uyeSay[x] || 0) / enCok).toFixed(1)}%;background:${RENK[x]}"></span>`).join("")}</div></div>`; }).join("")}</div>`;
+      return `<div><div class="et"><span>${esc(ad === "sscbRus" ? t("sscbRus") : t("uye")[ad])}</span><b>${sayi(n)}</b></div><div class="cb">${u.map((x) => `<span style="width:${(100 * (uyeSay[x] || 0) / enCok).toFixed(1)}%;background:${RENK[x]}"></span>`).join("")}</div></div>`; }).join("")}</div>`;
   };
   const payCubuklari = () => `<div class="cubuklar">${cubuk(t("5.nufus"), yuzdeIsaret(ASP.paylar.nufus_2023), ASP.paylar.nufus_2023)}${cubuk(t("5.koltuk"), yuzdeIsaret(ASP.koltuk.toplam_payi), ASP.koltuk.toplam_payi, "koltuk-payi")}${cubuk(t("5.afr"), t("5.afrDeger", { d: AFR.koltuk.daimi }), AFR.koltuk.daimi / daimiSayisi, "koltuk-payi")}</div>`;
   const gkKareleri = () => `<div class="koltuklar" role="img" aria-label="${gorusulen.length} / ${G.length}">${G.map((k) => `<div class="koltuk${k.gk && k.gk.durum === "yapildi" ? " gorusuldu" : ""}"></div>`).join("")}</div>`;
@@ -432,28 +424,24 @@ footer { border-top: 1px solid var(--cizgi); margin: 32px 0 48px; padding-top: 1
       <p class="ayrinti"><a href="${bagla(a.bag)}">${esc(a.bagMetni || t("ayrinti"))}</a></p>
     </section>`).join("");
 
-  // Kapanış: 2026 hitabından alıntı (alıntı bankası, kaynaklı) ve atlasın tamamına davet
+  // Kapanış: 2025 hitabından alıntı (alıntı bankası, kaynaklı) ve iki düğme; sayfa listesi üst çubukta zaten var
   const a = alintiBul("2025-1");
-  const SAYFALAR = ["vetolar", "vizyon", "reform", "simulasyon", "temsil", "hakkinda", "metodoloji"];
   $("#kapanis").innerHTML = (a ? `<blockquote lang="${DIL === "en" && a.metin_en ? "en" : "tr"}">${esc(DIL === "en" && a.metin_en ? a.metin_en : a.metin_tr)}</blockquote>
       <p class="kunye">${kunye(a)} · <a href="vizyon.html${ek}#alinti-${esc(a.id)}">${esc(t("sozKayit"))}</a></p>` : "")
-    + `<p><a class="dugme" href="vetolar.html${ek}">${esc(t("kesfet"))}</a><a class="dugme ikincil" href="simulasyon.html${ek}">${esc(t("sayfa").simulasyon)}</a></p>
-       <p class="sayfa-listesi">${esc(t("sayfaListesi"))} ${SAYFALAR.map((s) => `<a href="${s}.html${ek}">${esc(t("sayfa")[s])}</a>`).join("")}</p>`;
+    + `<p><a class="dugme" href="vetolar.html${ek}">${esc(t("kesfet"))}</a><a class="dugme ikincil" href="simulasyon.html${ek}">${esc(t("sayfa").simulasyon)}</a></p>`;
   // Alt bilgi: yalnızca veri tarihi (veri sürümünden); kaynaklar ve yöntem "Nasıl yaptık?" bölümündedir
   const veriTarihi = V.meta.veri_surumu ? `<time datetime="${esc(V.meta.veri_surumu)}">${esc(tarihUzun(V.meta.veri_surumu))}</time>` : "–";
   $("#alt").innerHTML = t("alt", { tarih: veriTarihi });
 
-  // İlerleme rayı: kaydırdıkça etkin adım değişir, tıklayınca adıma gider (bölüm odak alır); "Kaydırarak ilerleyin" ilk adımdan sonra görünmez
+  // İlerleme rayı: kaydırdıkça etkin adım değişir, tıklayınca adıma gider (bölüm odak alır)
   const azHareket = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const adimlar = [...document.querySelectorAll(".adim")];
   const ray = $("#ray");
   ray.setAttribute("aria-label", t("ray"));
   ray.innerHTML = adimlar.map((e, i) => `<a href="#${e.id}" title="${esc(`${i + 1}. ${BASLIK[i]}`)}" aria-label="${esc(`${t("adim", { n: i + 1 })}: ${BASLIK[i]}`)}"></a>`).join("");
   const rayBag = [...ray.querySelectorAll("a")];
-  const asagi = $("#asagi");
   let etkin = -1;
   const etkinYap = (i, kaydirma) => {
-    if (i >= 0 && kaydirma) asagi.classList.add("gecti");  // yalnızca okur kaydırıp ilk adıma geldiğinde; sonra bir daha görünmez
     if (i === etkin) return;
     etkin = i;
     rayBag.forEach((a, j) => { a.classList.toggle("gecti", j < i); if (j === i) a.setAttribute("aria-current", "step"); else a.removeAttribute("aria-current"); });

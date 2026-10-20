@@ -77,7 +77,8 @@ def test_ingilizce_cumle_icinde_belirli_tanimlik():
     # Cümle şablonlarına giden adlar: mevcut sistem kartı ve diğer modeller (ulkeAdi), filtre sıfırlama, Genel Kurul ayrıntısı
     assert 'const ulkeAdi = durum.ulke ? uyeAdMetin(durum.ulke) : k.uyeler.map(uyeAdMetin).join(DIL === "tr" ? " ve " : " and ");' in sim
     assert "uye: uyeAdMetin(x.deger) });" in sim
-    assert '.map(([u, d]) => `${uyeAdMetin(u)} ${t("gk.konustu." + d)}`)' in vet
-    assert "with the negative ${n > 1 ? `votes of ${uye}, permanent members` : `vote of ${uye}, a permanent member`}" in sim
+    assert 'const ayni = konusanlar.filter(([, x]) => x === d).map(([u]) => uyeAdMetin(u));' in vet  # "Veto eden ABD söz aldı."
+    assert 't("gk.vetoCumle", { uyeler: ayni.join(t("ve")), durum: t("gk.konustu." + d), n: ayni.length })' in vet
+    assert "With the negative ${n > 1 ? `votes of ${uye}, permanent members` : `vote of ${uye}, a permanent member`}" in sim
     assert sim.count("As the negative vote of ${uye} is that of a permanent member") == 2 and "the negative vote of ${uye} defeats" in sim
-    assert "no veto by ${uye} among the" in sim
+    assert "No veto by ${uye} among the" in sim

@@ -55,6 +55,9 @@ boşluğu, yazı boyutu, satır yüksekliği ve ailesi) tarayıcıda ayrıca öl
 
 **İki yazı tipi.** Source Serif 4 (başlıklar, okuma metni, büyük sayılar; 600) ve Source Sans 3 (arayüz,
 etiket, tablo, kod ve özet değerleri). Yazı tipleri yerel dosyalardır (`web/fonts/`, SIL OFL 1.1); dış istek yoktur.
+Kesimler hinting'lidir (20 Ekim; `scripts/14_yazi_tipleri.py`, `web/fonts/README.md`): Windows'ta Chrome ve Edge hinting'siz
+yazıyı dikey ızgaraya oturtamıyor, 15–18 px metin bulanık görünüyordu; macOS, iOS ve Android'de fark yoktur. Çubuktaki logo
+yazısının kendi kesimi vardır (bölüm 3, "Keskinlik").
 Source Sans 3'ün 400 ağırlıklı italik kesimi (latin ve latin-ext) hikâyede büyük sayının alt yazısı
 içindir; italik metin bu kesimle gösterilir, tarayıcı yapay italik üretmez.
 
@@ -102,8 +105,8 @@ Metodoloji'de alt bölümler h3, girintili) bağlantı verir ve okunan bölümü
 bölümünki mürekkep rengi ve solunda 2 px mürekkep çizgiyle (`aria-current`); kırmızı kullanılmaz. Dizinden seçilen bölüm,
 okur kendisi kaydırana dek vurgulu kalır. 1100 px altında dizin başlığın hemen altında katlanabilir bir kutudur ("Bu
 sayfada"): kapalı başlar, bir bağlantı seçilince kapanır. Dizin başlıklardan üretilir, elle yazılmaz; her bölüm
-başlığının kimliği vardır (İngilizcede "en-" önekiyle). Reform modelleri sayfasında giriş metni ve "Nasıl okunur?"
-kutusu aynı ölçüdedir; karşılaştırma tablosu tam genişlikte kalır ve sayfada bölüm başlığı olmadığı için dizin yoktur.
+başlığının kimliği vardır (İngilizcede "en-" önekiyle). Reform modelleri sayfasında giriş metni metin sütunu
+ölçüsündedir; karşılaştırma tablosu tam genişlikte kalır ve sayfada bölüm başlığı olmadığı için dizin yoktur.
 
 **Kartlar (kalıcı kural).** Tam genişlikteki, yani bulunduğu sütunu dolduran hiçbir kart tek bir dar metin sütunu
 taşımaz: kart ya iki sütuna bölünür ya da genişliği metin sütununa iner (`max-width: var(--olcu-metin)`, 68ch). Kart,
@@ -111,15 +114,15 @@ zemini `--yuzey` olan çerçeveli kutudur.
 
 - İki sütun: Söz ve Kayıt satırları ve "Kitaptaki model" kartları (sütunlar 1,15 : 1,
   aralarında 2 px çizgi; modelde solda bölüm başlığı ve özet, sağda kitaptan alıntılar ve künyeleri alt alta; 760 px
-  altında tek sütun, sağ sütun kesik çizginin altına iner), simülasyonun iki sonuç kartı, Söz ve Kayıt'ın içindekiler
-  kutusu (iki sütunlu liste).
-- Metin sütunu genişliği: Ya veto olmasaydı? "Sınırlar", Reform modellerinin 960 px ve altındaki ölçüt kutusu, Vetolar
-  kayıtlarındaki "Veto girişimi (A/RES/76/262) hakkında" kutusu.
-- Kuralın gerektirmediği kartlar: tablo, grafik ya da form taşıyan kartlar ve ızgarada yan yana duran kartlar genişliği
-  içerikleriyle doldurur; metin sütununun içindeki kartlar (Hakkında) kurala
-  uyar. 68ch'ten dar kartlar (dar ekranda bütün kartlar) metin sütunundan geniş olamaz.
-- Zemini ve çerçevesi olmayan açılır metinler ("Nasıl okunur?", "Nasıl hesaplanıyor?") kart değildir; genişlikleri en
-  fazla 640 px'tir.
+  altında tek sütun, sağ sütun kesik çizginin altına iner), simülasyonun iki sonuç kartı.
+- Metin sütunu genişliği: Reform modellerinin 960 px ve altındaki ölçüt kutusu.
+- Kuralın gerektirmediği kartlar: tablo ya da form taşıyan kartlar ve ızgarada yan yana duran kartlar genişliği
+  içerikleriyle doldurur. 68ch'ten dar kartlar (dar ekranda bütün kartlar) metin sütunundan geniş olamaz.
+- Kart yalnızca yan yana duran ya da seçilebilen öğeler içindir (20 Ekim 2026): öne çıkan kayıtlar, sonuç kartları, grup
+  kartları, Söz ve Kayıt satırları, galeri kartları, tablolar. Tek başına duran bölümler (Vetolar'ın grafiği ve konular
+  listesi, simülasyonun kayıt seçimi ve sınırlar notu, Söz ve Kayıt'ın içindekiler listesi, Hakkında'daki doğrulama sayıları)
+  çerçevesiz ve zeminsizdir; ayrım boşluk ve ince çizgiyle yapılır. Açılır metinler ("Ayarlar", "Kitaptan", "Filtrele",
+  tablo açıcılar) kart değildir; genişlikleri en fazla 640 px'tir.
 
 `tests/test_tasarim.py` her sayfanın kartlarını bu çözümlere göre sınıflandırır; yeni bir kart sınıflandırılmadan test
 geçmez. Tarayıcı taraması (12 Ekim 2026) iki dilde 390, 900, 960, 1280 ve 2560 px'te yapıldı.
@@ -169,19 +172,43 @@ yazılmaz (kullanıcı kararı, 19 Ekim 2026); arama bu alanları da bulur. BM i
 Kong, Makao, Fransa'nın deniz aşırı bölgeleri, Karayip Hollandası) üyenin renginde, ipucunda kendi adı ve nüfusuyla
 ("Réunion · Fransa toprağı; nüfusu BM istatistiklerinde ayrı sayılır"); üyenin kartında ayrıca listelenir (kullanıcı kararı:
 "nüfus sayımları ayrı ayrı, özgün isimleriyle"). Görünüm adreste saklanır (`#grup=…&ulke=…&balon=1&gorunum=x,y,kat`; varsayılanlar yazılmaz) ve
-"Bağlantıyı paylaş" ile paylaşılır (dokunmatikte paylaşım menüsü, öbürlerinde panoya kopyalama).
+"Bağlantıyı kopyala" ile paylaşılır (dokunmatikte paylaşım menüsü, öbürlerinde panoya kopyalama).
 
 **Hikâye, 5. adımın küçük haritası.** Temsil haritasıyla aynı çizim: Asya-Pasifik `--murekkep-2`, Afrika `--m-afr` (`#9AA3B2`;
 koyu kâğıtta `#5F6673`), öteki üyeler `--bos`, üye olmayanlar boş; altında iki grubun adı. Harita verisi adım yaklaşınca
 yüklenir; ilk sayfa hafif kalır.
 
 **Düğmeler.** İki tür vardır; tanım `web/temel.css`'tedir (`.dugme`, `.dugme.ikincil`, `.dugme.kucuk`) ve bütün sayfalarda
-aynıdır (Hikâye'de "Veriyi keşfet", simülasyonda "Sayımı yeniden başlat" ve "Rastgele kayıt"). Birincil: dolu mürekkep zemin
+aynıdır (Hikâye'de "Bütün kayıtlar", simülasyonda "Sayımı yeniden başlat" ve "Rastgele kayıt"). Birincil: dolu mürekkep zemin
 (`--murekkep`), kâğıt rengi yazı (`--zemin`), Source Sans 3 600 gövde boyutu, 48 px yükseklik, 24 px yatay iç boşluk, 6 px köşe.
 İkincil: açık zemin (`--yuzey`), mürekkep yazı, 1 px çizgi rengi çerçeve, aynı ölçüler. Küçük kopya (simülasyonun yapışkan
 şeridi): 40 px, küçük boyut, 16 px yatay iç boşluk. Simge solda, yazı rengiyle (`currentColor`); kırmızı kullanılmaz. Pasif
 durumda (ör. sayım sürerken) soluk (opaklık 0,45) ve `aria-disabled`: düğme odaklanabilir kalır, tıklama yok sayılır, odak
 kaybolmaz. Odak halkası mürekkep, 2 px. Hareket azaltma tercihinde sayım animasyonsuzdur; düğme sonucu anında yeniler.
+
+**Köşeler ve oklar (20 Ekim 2026).** Düğmelerin 6 px köşesi bütün denetimlerde aynıdır: üye ve grup seçim düğmeleri,
+simülasyonun gezinme ve ülke düğmeleri, etiketler, ülke arama kutusu, üst çubuktaki dil, tema ve menü düğmeleri. Hap biçimi
+(tam yuvarlak uçlar) kullanılmaz. Bağlantı metninde ok işareti (→, ↓) yoktur; bağlantı alt çizgisiyle tanınır. Ok yalnızca
+yön bildiren düğmelerde ("← Önceki", "Sonraki →") ve Hikâye 4. adımın sonuç satırında ("14 evet, 1 hayır → düştü") kalır.
+Ya veto olmasaydı?'nın üç adım göstergesi rozetsiz, sıra numaralı düz metindir ("1. Kaydı seç", "2. Oyları say",
+"3. Karşılaştır"): tamamlanan adım mürekkep rengi, o anki adım 600 ve üst çubuktaki etkin sekme gibi 2 px mürekkep alt
+çizgili. Bölüm başlıkları numarasızdır ("Kaydı seçin"). `tests/test_tasarim.py` denetler.
+
+**Noktalama ve ses (20 Ekim 2026).** Orta nokta (·) yalnızca künyede kullanılır; cümlelerde, sayaçlarda ve etiketlerde
+virgül ("13 evet, 1 hayır, 1 çekimser", "60 öneri, 60 oy"). Arayüz metninde cümle başına en çok bir noktalı virgül;
+Metodoloji yöntem metni olarak bu kuralın dışındadır. "Etiket: içerik" kalıbı yalnızca liste başlıklarında kalır
+("Toplantı kayıtları: …"); cümleler etiketle değil özneyle başlar ("67 üye devlet ve 3 gözlemci konuştu", "Veto eden ABD
+söz aldı"). Parantez içi sözlük yoktur ("evet (lehte)" değil "evet"); terim "öneri"dir, giriş cümlesinde "karar taslağı".
+Öne çıkan kayıt başlıkları iki noktayla açılmaz ("Gazze: ateşkes taslağı" değil "Gazze’de ateşkes taslağı").
+Hakkında ve sayfa notlarında anlatıcı "biz"dir, atlas kendinden üçüncü kişiyle söz etmez; Metodoloji edilgen kalır.
+Tarihler yazıyla (10 Ekim 2026), ISO biçimi okuma metninde kullanılmaz; SHA-256 özeti okuma metninde değil
+`kaynaklar/KAYNAKLAR.md`'dedir. Açılır başlıklar (`summary`) tarayıcı üçgeni olmadan, altı çizili bağlantı gibidir
+(`web/temel.css`); "Tabloyu göster" yerine "Tablo". Soru biçimli okuma kutusu ("Nasıl okunur?", "Nasıl hesaplanıyor?")
+yoktur: grafik açıklaması tek cümledir, etkileşim ve klavye notları yalnızca ekran okuyucuya gider, oran gibi okuma
+kuralları ilgili bölümün açıklamasında tek cümledir. Öne çıkan kayıtlar kart ızgarası değil iki sütunlu listedir (seçili
+kayıt solda 2 px çizgi). Kayıt ayrıntısındaki "Mutabakat" satırı veri dosyasındaki kısa kodu okura cümle olarak yazar
+("Oy dağılımı toplantı kaydından eklendi (S/PV.10130)."); kayıt notlarında çalışma günlüğü dili (indirme tarihi, iç
+dosya adları, erişim sorunları) yer almaz.
 
 **Yüzde.** Türkçede yüzde işareti sayının önüne gelir (%58, %18,3), İngilizcede arkasına (58%, 18.3%); sayı ile
 işaret arasında boşluk yoktur. Sayfalarda, kartlarda ve testlerde aynıdır; `tests/test_yazim.py` denetler.
@@ -196,8 +223,8 @@ Erdoğan · A Fairer World is Possible · Introduction · p. 31"); iki sayfaya y
 İngilizcesi olmayan alıntıda künye Türkçe kaynağı gösterir; kitap adı ve bölüm İngilizce baskıdaki gibi yazılır
 (A Fairer World is Possible · Introduction; Part II: A United Nations Reform) ve alıntının altında "Unofficial translation
 by Veto Atlas" etiketli çeviri durur. "s.", "p." ve "pp." numarasından ayrılmaz. Paylaşım kartlarında ad alıntının altında,
-kalan kısım alt bilgide aynı sıra ve ayraçla durur. Simülasyondaki "Kitapta: …" etiketi ve Reform modellerindeki
-"Dayanak" satırı künye değildir.
+kalan kısım alt bilgide aynı sıra ve ayraçla durur. Simülasyondaki "Kitabın girişinden" satırı ve Reform modellerindeki
+hücre altı belge satırı künye değildir.
 
 **Kitabın adı (14 Ekim 2026, kullanıcı kararı).** Türkçe sayfalarda “Daha Adil Bir Dünya Mümkün”, bölümler "Giriş" ve
 "2. Bölüm". İngilizce sayfalarda kitap İngilizce baskının adıyla anılır: “A Fairer World is Possible”. Her sayfada ilk
@@ -210,25 +237,26 @@ Mümkün*". Alt başlık künye sayfasından (PDF s. 4) alındı.
 **Dil işareti.** İngilizce sayfalardaki Türkçe ifadeler (alıntılar, bölüm adları, belge ve başlık adları) `lang="tr"`
 taşır; Metodoloji'nin Markdown kaynağında `[metin]{lang=tr}` yazılır.
 
-**İlk ekranda tek fikir.** Çubuğun altında yalnızca başlık, bir cümle ve ilk görsel; okuma notları
-"Nasıl okunur?" ya da "Nasıl hesaplanıyor?" açılır kutusunda ya da ilk görselin altında.
+**İlk ekranda tek fikir.** Çubuğun altında yalnızca başlık, bir cümle ve ilk görsel; okuma notu varsa tek cümledir ve
+ilk görselin altındadır (20 Ekim 2026'dan beri "Nasıl okunur?" kutusu yoktur).
 
 **Okuma kolaylığı.**
 
-- Grafik açıklaması tek cümledir; okuma ve etkileşim notları hemen altındaki "Nasıl okunur?" kutusundadır
-  (Vetolar).
+- Grafik açıklaması tek cümledir; etkileşim ve klavye notları görünmez, yalnızca ekran okuyucuya gider
+  (`aria-describedby`; Vetolar).
 - Aynı not iki yerde tekrarlanmaz: iki panelin ortak notu panellerin altında bir kez verilir (Ya veto olmasaydı?).
 - Ya veto olmasaydı?: paneller oyları sayar; sonuç panellerin altında tek bir "Sonuç" bloğundadır
   (`kaynaklar/kimlik/sonuc-taslak.html`): başlıkta kaydın tarihi ve belge numarası; iki sonuç kartı yan yana (sistem adı ve
   kural özeti, büyük sonuç sözcüğü, tek cümle neden; ayar notu önerilen sistem kartında tek satır); altında fark cümlesi,
-  birincil ve ikincil düğme, en altta küçük yazıyla sayım sırası notu. Mobilde kartlar alt alta. "Sınırlar" kutusu açık ve
-  ayrıdır, katlanmaz. Yapışkan şerit aynı renklerle iki sonucu ve küçük "Yeniden say" düğmesini taşır; yalnızca sonuç kartları
+  birincil ve ikincil düğme. Mobilde kartlar alt alta. "Sınırlar" notu kutusuz iki cümledir, panellerin altında;
+  sayım sırası notu Metodoloji 2.10'dadır. Yapışkan şerit aynı renklerle iki sonucu ve küçük "Yeniden say" düğmesini taşır; yalnızca sonuç kartları
   ekran dışındayken görünür.
 - Varsayıma dayanan seçenekler (karar eşiği, üye sayısı) varsayılan olarak kapalı "Ayarlar" kutusundadır; kutuda tek
   bir cümle kitabın bunları belirtmediğini söyler. Varsayılandan farklı bir ayar seçildiğinde, kutu kapalıyken de
-  önerilen sistemin sonuç kartında tek satırlık bir not (ör. "Ayar: üçte iki eşiği, 20 üyeli Konsey") görünür (Ya veto
+  önerilen sistemin sonuç kartında tek satırlık bir not (ör. "üçte iki eşiği, 20 üyeli Konsey ile sayıldı") görünür (Ya veto
   olmasaydı?).
-- Söz ve Kayıt'ta girişin altında bölümlere bağlantı veren bir "İçindekiler" kutusu bulunur; metin sayfalarında
+- Söz ve Kayıt'ta girişin altında bölümlere bağlantı veren bir "İçindekiler" listesi bulunur (kutu değil, üstte ve
+  altta çizgi); metin sayfalarında
   (Hakkında, Metodoloji) bunun yerine "Bu sayfada" dizini vardır (bkz. Metin sayfası). Tek dosya sürümünde sayfa içi
   bağlantılar sayfanın kendi çerçevesinde kalır.
 - Söz ve Kayıt satırlarının ve "Kitaptaki model" kartlarının üstünde bir sütun başlığı satırı vardır (Söz / Kayıt;
@@ -242,16 +270,17 @@ taşır; Metodoloji'nin Markdown kaynağında `[metin]{lang=tr}` yazılır.
   ("Güvenlik Konseyi reformu için dört model…", "Temsil endeksi, …").
 - Metodoloji'de bölümler sayıyla numaralanır (1, 2, 2.1, 2.2 …); alt bölümler "Bu sayfada" dizininde üst bölümün altında
   girintili, sayfada çizgisiz alt başlıktır (h3).
-- Grafiğin işaretleri (kapalı oturum vetosu, Cumhurbaşkanı Erdoğan'ın Genel Kurul hitabı) üye düğmelerinden ayrı,
-  kendi satırında açıklanır (Vetolar).
+- Grafiğin işaretleri (kapalı oturum vetosu, Cumhurbaşkanı Erdoğan'ın Genel Kurul hitabı) üye lejantından ayrı,
+  kendi satırında açıklanır (Vetolar). Üye lejantı, Temsil'deki grup seçimi ve simülasyondaki veto eden ülke seçimi
+  çerçevesiz sekme satırıdır: seçili öğe 2 px mürekkep alt çizgili ve 600; seçim varken ötekiler soluk (20 Ekim 2026).
 - Karşılaştırma tablosu açık durur: geniş ekranda tablo, 960 px ve altında ölçüt ölçüt alt alta (Reform modelleri).
 
 **Yöntem yalnızca "Nasıl yaptık?"ta (kalıcı kural).** Yöntem ve kaynak açıklamaları "Nasıl yaptık?" sekmesindeki
 Hakkında ve Metodoloji sayfalarındadır; başka sayfalarda yöntem açıklaması eklenmez. Diğer sayfalarda kaynak dosyası
 adı, SHA-256, indirme listesi, "sayılar veri setinden hesaplanır" türü notlar, alt bilgide kaynak listesi ya da
 tanımlar bölümü yer almaz. Sayfalarda kalanlar: ekrandaki bir sayıyı ya da işareti okumak için gereken kısa notlar
-("Nasıl okunur?" kutuları; simülasyonda "Nasıl hesaplanıyor?" ve "Sınırlar"), alıntı künyeleri ve kayıtların belge
-bağlantıları. Alt bilgide yalnızca veri tarihi bulunur (Hikâye, Vetolar). `tests/test_okunurluk.py` denetler.
+(tek cümlelik grafik açıklamaları; simülasyonda "Sınırlar" notu), alıntı künyeleri ve kayıtların belge
+bağlantıları. Alt bilgide veri tarihi (Hikâye, Vetolar) ve her sayfada beta notu bulunur. `tests/test_okunurluk.py` denetler.
 
 ## 3. Logo ve işaret (logo paketi v3)
 
@@ -261,9 +290,9 @@ ayrılır). Dosyalar vektördür (yazılar yola çevrilmiş), boşluksuz kırpı
 Kaynak `kaynaklar/kimlik/paket/`'tir (paketin kendisi): sitedeki logo ve işaret dosyaları `paket/svg/`'dekilerle, sekme ve
 uygulama simgeleri `paket/web/`'dekilerle baytı baytına aynıdır (`tests/test_kimlik.py`).
 
-- Ortak üst çubuk (`web/cubuk.js`, bütün sayfalar ve tek dosya sürümü): solda slogansız çubuk logosu
-  `logo-cubuk-b.svg` (koyu kâğıtta `logo-cubuk-b-koyu.svg`), 40 px yükseklik ve 183 px genişlik (dosya boşluksuz
-  kırpıldığı için eski 52 px'lik logoyla aynı görünür boyut), hikâyeye bağlanır; çubuk 76 px (alt çizgi iç gölgeyle
+- Ortak üst çubuk (`web/cubuk.js`, bütün sayfalar ve tek dosya sürümü): solda asıl işaret (`isaret.svg`, koyu kâğıtta
+  `isaret-koyu.svg`) 40 px yükseklikte ve yanında canlı logo yazısı "Veto Atlası" (20 Ekim; ölçüler "Keskinlik"te); ikisi
+  birlikte `logo-cubuk-b.svg`'nin görünümünü ve 183 px'lik genişliğini verir, hikâyeye bağlanır; çubuk 76 px (alt çizgi iç gölgeyle
   çizilir, yüksekliğe eklenmez). Sağda sayfa bağlantıları (Hikâye · Vetolar · Söz ve Kayıt · Reform modelleri · Ya veto
   olmasaydı? · Kim temsil ediliyor? · Nasıl yaptık?; aralarında 12 px), en sağda TR/EN ve tema düğmesi. Çubuk
   yapışkandır ve %92 saydam zemin üzerinde bulanıklık kullanır (taslaktaki gibi); sayfa içi bağlantılar 84 px kaydırma
@@ -271,10 +300,20 @@ uygulama simgeleri `paket/web/`'dekilerle baytı baytına aynıdır (`tests/test
   düğmesine toplanır; 520 px ve altında logo yerine asıl işaret 34 px yükseklikte (`isaret.svg`, koyu kâğıtta
   `isaret-koyu.svg`), çubuk 64 px, kaydırma payı 72 px. Telefonlar 2–3 kat piksel yoğunluğuyla çizdiği için asıl işaret
   bu boyutta nettir.
-- Keskinlik: çubuk logosunun genişliği tam piksele denk gelir (40 px yükseklikte 183 px). Eski logo 196,55 px
-  genişlikteydi; pencere genişliği tek sayı olduğunda (kaydırma çubuğu yüzünden) x = 66,5'e ortalanıp farklı ve bulanık
-  çiziliyordu. Yeni logo aynı konumda tam piksele oturur: 13 Ekim'de Edge'de 1265 ve 1280 px pencerede çizilen logolar
-  1 px kaydırmayla birebir aynıdır.
+- Keskinlik (20 Ekim): çubuk logosu tek bir SVG değildir. `logo-cubuk-b.svg`'deki yazı yola çevrilmiş olduğundan %100 ölçekte
+  (1 kat piksel yoğunluğu) tarayıcı onu gri tonlu yumuşatmayla çiziyor, yanındaki menü yazıları ise hinting ve ClearType (renkli
+  alt piksel) netliğinde çıkıyordu; logo yazısı bulanık, 5 px'e düşen halka kareleri lekeli görünüyordu (Windows, Chrome, ekran
+  görüntüsüyle doğrulandı; %150 ve üstünde sorun yok). Yazı bu yüzden canlı metin oldu: `Veto Atlası Logo` kesimi
+  (`web/fonts/veto-atlasi-logo.woff2`: Source Serif 4 Semibold, optik boy 20, yani logo paketinin yazıyı yola çevirdiği kesim;
+  yalnızca "Veto Atlası"nın 10 glifi, hinting'li, 4 kB), `logo-cubuk-b.svg`'nin 40 px'e ölçeklenmiş ölçüleriyle: yazı
+  52/76,19 × 40 = 27,3 px, harf aralığı 0,2 px, işaretle arası 14 px, taban çizgisi işaretin üstünden 28,4 px (40 px satır
+  kutusunda 1 px aşağı); Chromium'da 4 kat yoğunlukta ölçüldü, yazının mürekkep kutusu SVG'dekiyle 0,25 px içinde aynıdır.
+  Yazının rengi `--murekkep` (koyu kâğıtta kendiliğinden açılır); yazı tipi yüklenene kadar yedek gösterilmez
+  (`font-display: block`). `tests/test_tasarim.py` bu tek kuralı yazı ölçeği taramasının dışında tutar. Halkanın 1 kat
+  yoğunlukta ~5 px'lik kareleri çizimin sınırıdır; küçük boya özel bir işaret çizimi (piksele oturan kareler) ayrı bir karardır,
+  yapılmadı. `logo-cubuk-b.svg` ve koyu sürümü sitede kullanılmaz, kimlik dosyası olarak `web/` altında ve pakette durur
+  (bayt bayt aynı). Eski not (13 Ekim): logo 183 px genişlikte tam piksele oturuyordu; Edge'de 1265 ve 1280 px pencerede
+  çizilenler 1 px kaydırmayla birebir aynıydı.
 - Sayfaların içinde logo kullanılmaz; üst çubuktaki logo yeterlidir. Sloganlı tam logo (`logo-yatay-a.svg`, koyu
   kâğıtta `logo-yatay-a-koyu.svg`) kimlik dosyası olarak `web/` altında durur; sayfalarda ve tek dosya sürümünde
   yer almaz. Slogan ("Dünya 5'ten büyüktür" / "The world is bigger than five") sayfaların alt bilgisinde
@@ -363,12 +402,14 @@ sözlüğündedir.
 `og:image` (`https://vetoatlas.com/onizleme.png`), `canonical` ve `hreflang` (tr, en = `?lang=en`, x-default) taşır;
 İngilizce görünümde `web/cubuk.js` canonical ve `og:url` adresine `?lang=en` ekler. Giriş sayfasının
 (`web/index.html`) canonical adresi hikâyedir. Tek dosyada sayfa çerçeveleri canonical ve hreflang taşımaz.
-Paylaşım kartlarının alt bilgisi: "Veto Atlası · vetoatlas.com" / "Veto Atlas · vetoatlas.com".
+Paylaşım kartlarının alt bilgisi: "Veto Atlası · vetoatlas.com" / "Veto Atlas · vetoatlas.com"; solda kaynak satırı
+("DHL veto listesi ve S/PV kayıtları, 17 Eylül 2026"). Sol üst etiket yalnızca alıntı kartlarında ("Söz ve Kayıt"); sayı
+kartlarında etiket yoktur (20 Ekim 2026). Önizleme görselinin sol üstünde çubuk logosu (yazı işaretli).
 
-**Beta şeridi.** Her sayfanın üstünde, çubuğun önünde ince bir şerit: "Beta sürümü · Hata bildirin:
-iletisim@vetoatlas.com" (EN "Beta · Report an error: …"). `web/cubuk.js` kurar (tek dosyada üst belgede);
-yüzey zemini, alt çizgisi iç gölgeyle, küçük yazı, 4 px dikey boşlukla 32 px. Yapışkan değildir, sayfayla kayar;
-yazdırılmaz.
+**Alt bilgi notu.** Her sayfanın altında tek satır: "Beta sürümü. Hata bildirmek için iletisim@vetoatlas.com adresine
+yazın." (EN "Beta. To report an error, write to …"). `web/cubuk.js` kurar: sayfanın kendi alt bilgisi varsa (Hikâye,
+Vetolar) ona eklenir, yoksa sayfa kabının sonunda ince çizgili bir alt bilgi oluşturulur; tek dosyada her çerçeve kendi
+notunu taşır. Çubuğun üstündeki beta şeridi 20 Ekim 2026'da kaldırıldı.
 
 **İnternetsiz çalışma.** `web/cevrimdisi.js` (service worker; `veto_atlasi/cevrimdisi.py` üretir, 04 ve 11 yeniler)
 sekiz sayfayı ve kullandıkları dosyaları (betikler, stiller, veri, yazı tipleri, çubuk logoları, uygulama ikonları; yaklaşık
@@ -378,7 +419,7 @@ eskisi silinir. Paylaşım kartları, indirme dosyaları (`web/veri/`) ve tek do
 bağlamda (https) kaydeder; tek dosya ve dosya olarak açılış kaydetmez. Yalnızca site içi isteklere karışır, dış istek yoktur.
 
 **Sunuş kutusu (kaldırıldı).** Hikâyede başlık ve özetten sonra doğrudan 1. adım gelir. İleride bir Sunuş eklenirse
-kutu `web/hikaye.html` içinde `<header class="giris">` ile `<p class="asagi">` arasına girer; kapalıyken tek satır
+kutu `web/hikaye.html` içinde `<header class="giris">` ile `<main id="adimlar">` arasına girer; kapalıyken tek satır
 (solda başlık, sağda imza ve açma oku), 48 px. Çerçeve iç gölgeyle çizildiği için kart kuralında "metin" sınıfındadır
 (`tests/test_tasarim.py`, `KARTLAR`). Metni ve imzası yayımlayan tarafından yazılır; sözlüğe `sunus.baslik`,
 `sunus.imza`, `sunus.metin` anahtarlarıyla iki dilde eklenir.

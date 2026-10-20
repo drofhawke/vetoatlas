@@ -11,6 +11,10 @@ kaynaklar/calisma_metinleri/
 # yeniden indirme: scripts/07_belgeleri_indir.py
 kaynaklar/.belgeler/
 
+# Yazı tipi kaynakları (Google Fonts değişken dosyaları, 2 MB); depoya girmez, SHA-256 değerleri veto_atlasi/yazi_tipleri.py'de;
+# yeniden indirme: scripts/14_yazi_tipleri.py
+kaynaklar/.yazi_tipleri/
+
 # Açık depo: ham kaynak kopyaları ve referans tablo depoya girmez; künyeleri data/raw/KAYNAK.md ve
 # kaynaklar/KAYNAKLAR.md'de
 data/raw/*.html

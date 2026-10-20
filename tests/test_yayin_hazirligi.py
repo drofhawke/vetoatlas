@@ -31,12 +31,16 @@ def test_yayin_adresi_etiketleri():
     assert '<link rel="canonical"' not in tek and '<link rel="alternate"' not in tek
 
 
-def test_beta_seridi():
+def test_alt_bilgi_notu():
+    """20 Ekim 2026: beta şeridi yerine her sayfanın altında tek satırlık not; sayfanın alt bilgisi (footer#alt) varsa ona eklenir,
+    yoksa oluşturulur; tek dosyada her çerçeve kendi notunu taşır."""
     c = (WEB / "cubuk.js").read_text(encoding="utf-8")
-    assert 'beta: "Beta sürümü", hata: "Hata bildirin"' in c and 'beta: "Beta", hata: "Report an error"' in c
+    assert 'altNot: "Beta sürümü. Hata bildirmek için", altSon: " adresine yazın.",' in c and 'altNot: "Beta. To report an error, write to", altSon: ".",' in c
     assert 'var ILETISIM = "iletisim@vetoatlas.com";' in c and """<a href="mailto:' + ILETISIM + '">' + ILETISIM""" in c
-    assert 'serit.id = "beta-serit"' in c and "yer.parentNode.insertBefore(serit, yer)" in c
-    assert '"@media print { .cubuk, .beta-serit { display: none; } }",' in c
+    assert "function altBilgi(dil) {" in c and 'if (alt && alt.tagName === "FOOTER") { alt.appendChild(p); return; }' in c
+    assert "if (!tek) altBilgi(dil);" in c and "altBilgi(gecerliDil()); return; }" in c
+    assert "beta" not in c.lower().replace("alt-bilgi", "").replace("beta sürümü", "").replace("beta.", "").replace("beta şeridi", "")
+    assert '"@media print { .cubuk { display: none; } }",' in c
 
 
 def test_hakkinda_iletisim_ve_lisans_satiri():
@@ -48,11 +52,12 @@ def test_hakkinda_iletisim_ve_lisans_satiri():
     for eski in ('data-yer="indir"', 'class="atif"', 'class="lisans"', "orcid.org", "Nuh Mehmet", "Yayımlayan", "Published by"):
         assert eski not in h, eski
     posta = '<a href="mailto:iletisim@vetoatlas.com">iletisim@vetoatlas.com</a>'
-    assert f"<p>İletişim: {posta}. Hata bildirimleri" in h and f"<p>Contact: {posta}. Error reports" in h
+    assert f"<p>Hata bildirimi ve sorular için {posta}. Düzeltmeleri değişiklik günlüğüne işliyoruz.</p>" in h
+    assert f"<p>For error reports and questions, {posta}. We enter corrections in the change log.</p>" in h
     doi = f'<a href="https://doi.org/{DOI}">{DOI}</a>'
     ld = '<a href="LICENSE-DATA.txt">LICENSE-DATA</a>'
-    assert f"<p>Lisans: kod MIT, veri derlemesi CC BY 4.0 (ayrıntılar: {ld}) · Veri setinin arşivi: Zenodo, DOI {doi}</p>" in h
-    assert f"<p>Licence: code MIT, data compilation CC BY 4.0 (details: {ld}) · Dataset archive: Zenodo, DOI {doi}</p>" in h
+    assert f"<p>Kod MIT, veri derlemesi CC BY 4.0 lisansıyla ({ld}). Veri setinin arşivi Zenodo'da, DOI {doi}.</p>" in h
+    assert f"<p>Code under MIT, the data compilation under CC BY 4.0 ({ld}). The dataset is archived on Zenodo, DOI {doi}.</p>" in h
     assert "[DOI]" not in h and "yer-tutucu" not in h
 
 

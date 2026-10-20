@@ -179,12 +179,18 @@ def test_scprocedure_iletisi_yayindan_sonra_atif_bildirir():
     assert "permission" not in ileti and "we would like to publish it" not in ileti
 
 
-def test_aciklama_kutusundaki_belge_kodlari():
+def test_veto_girisimi_belge_kodlari_metodolojide():
+    """Kayıtlardaki "Veto girişimi (A/RES/76/262) hakkında" kutusu 20 Ekim 2026'da kaldırıldı: belge kodları Metodoloji 2.5'te,
+    kayıtta yalnızca o bölüme bağlantı."""
     s = (KOK / "web/vetolar.html").read_text(encoding="utf-8")
-    kodlar = re.findall(r'BELGE\("([^"]+)"', s)
-    assert len(kodlar) >= 9
-    for kod in kodlar:
-        assert GA_KOD.fullmatch(kod), kod
+    assert "BELGE(" not in s and '#${DIL === "tr" ? "" : "en-"}bolum-2-5">${t("gk.nedir")}</a>' in s
+    for ad in ("METODOLOJI.md", "METODOLOJI_EN.md"):
+        md = (KOK / ad).read_text(encoding="utf-8")
+        b = md[md.index("### 2.5."):md.index("### 2.6.")]
+        kodlar = {k.rstrip(".") for k in re.findall(r"A/(?:RES/)?\d+/[\w.]+", b)}
+        assert {"A/RES/76/262", "A/76/PV.69", "A/76/L.52"} <= kodlar, ad
+        for kod in kodlar:
+            assert GA_KOD.fullmatch(kod), (ad, kod)
     for u in METIN_URL.findall(s):
         if "undocs.org" in u and u != "https://undocs.org/":
             assert url_gecerli(u), u

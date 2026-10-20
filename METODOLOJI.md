@@ -1,22 +1,22 @@
 # Metodoloji
 
-Bu belge platformla birlikte yayımlanır. Her rakam ve her iddia buradaki
+Bu belge atlasla birlikte yayımlanır. Her rakam ve her iddia buradaki
 kurallara dayanır; kural değişirse belge sürümlenir.
 
 ## 1. Kategoriler
 
-Platform üç ayrı kategori kullanır ve bunları asla karıştırmaz.
+Atlas üç kategoriyi ayrı tutar.
 
-**Resmi veto:** Bir daimi üyenin, aksi halde gerekli oyu almış bir karar taslağına
-ret oyu vermesi. Ana kaynak: Dag Hammarskjöld Kütüphanesi veto listesi
-(1946–2004 dönemi BM belgesi A/58/47, Ek III'e dayanır).
+Resmî veto, bir daimî üyenin aksi hâlde gerekli oyu almış bir karar taslağına ret oyu
+vermesidir. Ana kaynak Dag Hammarskjöld Kütüphanesi veto listesidir (1946–2004 dönemi
+BM belgesi A/58/47, Ek III'e dayanır).
 
-**Gizli veto:** Veto tehdidi nedeniyle oylamaya sunulmayan ya da sulandırılan
-taslaklar. Ancak birincil kaynakta (toplantı kaydı, resmi açıklama) veya tanınmış
-bağımsız kaynakta (ör. Security Council Report) belgelenmişse kayda girer.
+Gizli veto, veto tehdidi nedeniyle oylamaya sunulmayan ya da sulandırılan taslaklardır.
+Ancak birincil kaynakta (toplantı kaydı, resmî açıklama) veya tanınmış bağımsız kaynakta
+(ör. Security Council Report) belgelenmişse kayda girer.
 
-**Eylemsizlik:** Konsey'in bir kriz karşısında karar almaması veya mevcut görevi
-daraltması. Örnek: 1994 Ruanda. Bu vakalar veto olarak sunulmaz.
+Eylemsizlik, Konsey'in bir kriz karşısında karar almaması veya mevcut görevi daraltmasıdır
+(örnek: 1994 Ruanda). Bu vakalar veto olarak sunulmaz.
 
 ## 2. Sayım kuralları
 
@@ -201,6 +201,18 @@ toplanıyorsa ayrı bir tartışma yapılmaz. Güvenlik Konseyi ise her veto iç
 sunar. Bu tarihten önceki vetolar bu bölümün kapsamı dışındadır; arayüzde Genel Kurul bölümü
 gösterilmez.
 
+A/RES/76/262, Genel Kurul'un 26 Nisan 2022'deki 69. genel kurul toplantısında oylama yapılmadan
+kabul edildi (A/76/PV.69, s. 8). Karara göre veto kullanan daimî üye ya da üyelere konuşmacı
+listesinde öncelik tanınır; Güvenlik Konseyi tartışmadan en az 72 saat önce Genel Kurul'a özel
+rapor sunmaya davet edilir; Genel Kurul'un gündemine "Use of the veto" (vetonun kullanılması)
+maddesi eklenmiştir (par. 1–4). Taslağın 57 sunucusu vardı, kabul toplantısında 27 delegasyon daha
+sunucu oldu; Timor-Leste iki listede de yer aldığından toplam sunucu sayısı 83'tür (A/76/L.52;
+A/76/PV.69, s. 7–8). Daimî üyelerden ABD ilk sunucular arasında, Fransa ve Birleşik Krallık sonradan
+sunucu olanlar arasındadır; Çin ve Rusya Federasyonu iki listede de yer almaz. Türkiye ilk sunucular
+arasındadır (belgede "Turkey") ve temsilcisi kabulden sonraki açıklamasında Türkiye'nin iki yıl önceki
+başlangıcından bu yana girişimin çekirdek grubunda yer aldığını söyledi (A/76/PV.69, s. 20). Sayfa
+numaraları belgelerin PDF sayfalarıdır.
+
 Tartışmalar `kaynaklar/genel_kurul_tartismalari.csv` dosyasında, vetolardan ayrı tutulur. Bir
 tartışma birden çok vetoyu, bir veto da birden çok tartışmayı kapsayabilir. Konsey'in özel
 raporları `kaynaklar/ozel_raporlar.csv` dosyasındadır. İki tür tartışma vardır:
@@ -320,10 +332,10 @@ başlığıdır. Sayfa modeller hakkında değerlendirme cümlesi kurmaz.
 girdiler `kaynaklar/temsil/*.csv`, çıktı `data/processed/temsil.json`. Veto veri setine hiçbir şey
 eklenmez; bileşik puan ya da sıralama yoktur.
 
-- **Birim:** BM bölgesel grupları (DGACM listesi, 10 Ekim 2026). Türkiye iki grupta listelenir ve
+- Birim BM bölgesel gruplarıdır (DGACM listesi, 10 Ekim 2026). Türkiye iki grupta listelenir ve
   seçimlerde yalnızca WEOG sayılır; ABD hiçbir grubun üyesi değildir ve seçimlerde WEOG sayılır. Her ikisi
   WEOG'da sayılır ve notlanır. Coğrafi bölgeler (M49) kullanılmaz; koltuk dağılımı seçim birimine dayanır.
-- **Nüfus:** WPP 2024, 1 Ocak tahmini, bin kişi; yıllar 2023 (son tahmin yılı) ve 1963 (A/RES/1991 (XVIII)
+- Nüfus verisi WPP 2024'ün 1 Ocak tahminidir, bin kişi; yıllar 2023 (son tahmin yılı) ve 1963 (A/RES/1991 (XVIII)
   yılı). 1945 için WPP serisi yoktur; hesaplanmaz. 2023 payı 193 üyenin toplamı içindedir (BM üyesi
   olmayan ülke ve alanlar, ör. Filistin, Tayvan, Kosova, Batı Sahra ve Porto Riko, paydaya girmez). Kıbrıs: WPP'nin
   verisi adanın tamamını kapsar ("Refers to the whole country"); Kuzey Kıbrıs Türk Cumhuriyeti'nin nüfusu (KKTC İstatistik
@@ -335,17 +347,17 @@ eklenmez; bileşik puan ya da sıralama yoktur.
   (Pakistan + Bangladeş, Malezya + Singapur, Etiyopya + Eritre, Sudan + Güney Sudan); Çin koltuğu Çin
   Cumhuriyeti'ndeyken nüfus "China" + "China, Taiwan Province of China" toplamıdır. Her ardıl kuralı
   JSON'da notlanır; hiçbir seri iki kez sayılmaz (test).
-- **Üye payı:** grup üye sayısı / 193. **Bütçe payı:** 2025–2027 olağan bütçe ölçeği yüzdelerinin toplamı
-  / 100 (A/RES/79/249; Katkılar Komitesi Excel'i). **Personel payı:** barış gücü üniformalı personel
+- Üye payı grup üye sayısı / 193. Bütçe payı 2025–2027 olağan bütçe ölçeği yüzdelerinin toplamı
+  / 100 (A/RES/79/249; Katkılar Komitesi Excel'i). Personel payı barış gücü üniformalı personel
   (asker, polis, uzman, karargâh subayı), 28 Şubat 2026 ülke sıralaması / genel toplam.
-- **Koltuk:** daimî koltuk payı = daimî / 5; toplam koltuk payı = (daimî + seçilmiş) / 15, mevcut dönem
+- Daimî koltuk payı = daimî / 5; toplam koltuk payı = (daimî + seçilmiş) / 15, mevcut dönem
   (BM Konsey üyeleri sayfası, 2026). Seçilmiş koltuk dağılımı A/RES/1991 (XVIII) A par. 3 (Afrika ve
   Asya 5, Doğu Avrupa 1, Latin Amerika 2, Batı Avrupa ve diğerleri 2); Afrika 3 / Asya-Pasifik 2 ayrımı
   mevcut uygulamadır. Her gösterge için koltuk/gösterge oranı = toplam koltuk payı / gösterge payı; oran 1 ise
   grubun koltuk payı gösterge payına eşittir, 1'den büyükse koltuk payı daha yüksek, küçükse daha düşüktür.
-- **Kümeler:** beş daimî üye ve İİT üyeleri (57 üyeden Filistin BM üyesi değildir; 56 üye). İİT 1969'da
+- Kümeler beş daimî üye ve İİT üyeleridir (57 üyeden Filistin BM üyesi değildir; 56 üye). İİT 1969'da
   kurulduğundan 1963 değeri bugünkü üyelerden o tarihte BM üyesi olanların 1963 sınırlarıyla toplamıdır.
-- **Kaynaklar:** nüfus: United Nations, Department of Economic and Social Affairs, Population Division (2024),
+- Kaynaklar: nüfus: United Nations, Department of Economic and Social Affairs, Population Division (2024),
   World Population Prospects 2024, Online Edition, `WPP2024_GEN_F01_DEMOGRAPHIC_INDICATORS_COMPACT.xlsx`, lisans
   CC BY 3.0 IGO; üye devletler ve kabul tarihleri: un.org/en/about-us/member-states; bölgesel gruplar: DGACM,
   Regional groups of Member States, un.org/dgacm/en/content/regional-groups; bütçe ölçeği: Committee on
@@ -355,7 +367,7 @@ eklenmez; bileşik puan ya da sıralama yoktur.
   Security Council, Current Members, main.un.org/securitycouncil/en/content/current-members; seçilmiş koltuk
   dağılımı: A/RES/1991 (XVIII), 17 Aralık 1963. Hepsine erişim 10 Ekim 2026; künyeler ve SHA-256 değerleri
   `kaynaklar/KAYNAKLAR.md` dosyasındadır.
-- **Harita:** sayfanın başındaki harita, seçilen bölgesel grubun üyelerini ve Güvenlik Konseyi'ndeki koltuklarını
+- Sayfanın başındaki harita, seçilen bölgesel grubun üyelerini ve Güvenlik Konseyi'ndeki koltuklarını
   (2026) gösterir; aynı bilgi haritanın altındaki ülke listesindedir. Sınırlar Natural Earth 1:50m 5.1.2'den (kamu
   malı), Equal Earth izdüşümüyle; hesap `scripts/13_harita.py`. 193 üyenin her biri kendi ülkesiyle eşlenir; BM üyesi
   olmayan ülke ve alanlar (Batı Sahra, Kuzey Kıbrıs Türk Cumhuriyeti, Tayvan, Kosova, Filistin ve bağımlı topraklar)
@@ -369,14 +381,14 @@ eklenmez; bileşik puan ya da sıralama yoktur.
   notları): Çin'in verisi Hong Kong ve Makao'yu, Fransa'nınki Fransız Guyanası, Guadeloupe, Martinique, Mayotte ve
   Réunion'u, Hollanda'nınki Bonaire, Sint Eustatius ve Saba'yı kapsamaz. Bu bölgeler üyenin renginde ama kendi adı ve
   nüfusuyla gösterilir, nüfusları üyeye eklenmez (`kaynaklar/temsil/ayri_sayilan_bolgeler.csv`). Kıbrıs'ın nüfusundan
-  KKTC'ninki çıkarılmıştır (yukarıdaki Nüfus maddesi); KKTC'nin ipucunda bu sayı görünür. BM üyesi olmayan
+  KKTC'ninki çıkarılmıştır (yukarıdaki nüfus maddesi); KKTC'nin ipucunda bu sayı görünür. BM üyesi olmayan
   alanların üzerine gelince adı ve durumu (üye değil, gözlemci devlet, kendi kendini yönetmeyen toprak) gösterilir; adlar
   BM'nin kullandığı biçimdedir (WPP 2024; WPP'de yoksa M49); Türkiye'nin tanıdığı devletler (Kuzey Kıbrıs Türk Cumhuriyeti,
   Kosova, Filistin, Vatikan) T.C. Dışişleri Bakanlığı'nın kullandığı adla yazılır (Bakanlığın temsilcilik listesi). Bağlı olunan
   devlet ve anlaşmazlıklar yazılmaz; iki üye arasında tartışmalı Siachen Buzulu adsızdır
   (`kaynaklar/temsil/uye_olmayan_alanlar.csv`). Nüfus balonlarında dairenin alanı ülkenin 2023 nüfusuyla (WPP 2024) orantılıdır. Harita BM üyeliğini gösterir; sınırların ve adların gösterimi bir egemenlik görüşü
   bildirmez.
-- **Dil:** sayfa payları verir; karşılaştırma ya da değerlendirme cümlesi kurmaz.
+- Sayfa payları verir; karşılaştırma ya da değerlendirme cümlesi kurmaz.
 
 ### 2.10. "Ya veto olmasaydı?" sayfası
 
@@ -391,9 +403,15 @@ eşiğe ulaşılamayan kayıt "düşerdi" sayılır. Toplu görünümdeki sayıl
 hesaplanır. Diğer modellerle karşılaştırma kutusu 2.8'deki belgelerin hükümlerini kullanır; her birinin dayanak
 paragrafı kutuda yazılıdır.
 
+Toplu görünümde eşikler 11 üyeli Konsey'de 7, 8 ve 6, 15 üyeli Konsey'de 9, 10 ve 8'dir (mevcut çoğunluk
+kuralı, üçte iki, salt çoğunluk). Oyların panellerdeki sayım sırası bir gösterimdir; toplantı kayıtlarında üye
+bazlı oylama sırası yoktur. BM Şartı'nın 108. maddesine göre Şart değişiklikleri, Genel Kurul üyelerinin üçte
+ikisinin oyuyla kabul edilip beş daimî üye dâhil üyelerin üçte ikisi tarafından onaylandığında yürürlüğe girer;
+sayfa bu süreç hakkında bir varsayım yapmaz.
+
 ## 3. Nedensellik dili
 
-Platform, bir vetonun belirli sonuçlara "yol açtığını" iddia etmez. Vaka
+Atlas, bir vetonun belirli sonuçlara "yol açtığını" iddia etmez. Vaka
 analizleri "taslağın engellenmesini izleyen dönemde yaşananlar" çerçevesinde
 sunulur ve karşı-olgusal bir kesinlik içermez. İnsani veriler (kayıp, göç,
 yardım erişimi) yalnızca BM ajansları ve tanınmış bağımsız kurumların yayımlanmış

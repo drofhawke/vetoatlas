@@ -3,23 +3,23 @@
 *Translated from the Turkish original (METODOLOJI.md). Where the two differ, the Turkish text
 prevails.*
 
-This document is published together with the platform. Every figure and every claim rests
+This document is published together with the atlas. Every figure and every claim rests
 on the rules set out here; if a rule changes, the document is versioned.
 
 ## 1. Categories
 
-The platform uses three separate categories and never mixes them.
+The atlas keeps three categories apart.
 
-**Formal veto:** A permanent member's negative vote on a draft resolution that would otherwise
-have received the required votes. Main source: the Dag Hammarskjöld Library veto list
+A formal veto is a permanent member's negative vote on a draft resolution that would otherwise
+have received the required votes. The main source is the Dag Hammarskjöld Library veto list
 (for 1946–2004 based on UN document A/58/47, Annex III).
 
-**Hidden veto:** Drafts not put to a vote, or watered down, because of a veto threat. They are
-recorded only if documented in a primary source (meeting record, official statement) or a
+A hidden veto is a draft not put to a vote, or watered down, because of a veto threat. Such drafts
+are recorded only if documented in a primary source (meeting record, official statement) or a
 recognised independent source (e.g. Security Council Report).
 
-**Inaction:** The Council's failure to take a decision in the face of a crisis, or its narrowing
-of an existing mandate. Example: Rwanda 1994. These cases are not presented as vetoes.
+Inaction is the Council's failure to take a decision in the face of a crisis, or its narrowing of an
+existing mandate (example: Rwanda 1994). These cases are not presented as vetoes.
 
 ## 2. Counting rules
 
@@ -216,6 +216,18 @@ special session on the same situation, no separate debate is held. The Security 
 part, submits a special report for every veto. Vetoes before that date are outside the scope of
 this section; no General Assembly section is shown for them in the interface.
 
+A/RES/76/262 was adopted without a vote at the 69th plenary meeting of the General Assembly on 26 April
+2022 (A/76/PV.69, p. 8). Under the resolution, the permanent member or members that cast the veto are given
+precedence in the list of speakers; the Security Council is invited to submit a special report to the General
+Assembly at least 72 hours before the debate; and an item entitled "Use of the veto" is included in the
+Assembly's agenda (paras. 1–4). The draft had 57 sponsors, and 27 more delegations became sponsors at the
+adoption meeting; as Timor-Leste appears on both lists, the total number of sponsors is 83 (A/76/L.52;
+A/76/PV.69, pp. 7–8). Among the permanent members, the United States was one of the original sponsors, and
+France and the United Kingdom joined later; China and the Russian Federation are on neither list. Türkiye is
+one of the original sponsors (listed as "Turkey"), and in its statement after the adoption its representative
+said that Türkiye had been in the core group of the initiative since its start two years earlier (A/76/PV.69,
+p. 20). Page numbers are PDF pages of the documents.
+
 Debates are kept separately from vetoes in `kaynaklar/genel_kurul_tartismalari.csv`. One debate
 can cover several vetoes, and one veto can be covered by several debates. The Council's special
 reports are in `kaynaklar/ozel_raporlar.csv`. There are two kinds of debate: `veto_girisimi`
@@ -348,11 +360,11 @@ chapter title. The page makes no evaluative statement about the models.
 `scripts/09_temsil.py`, the inputs `kaynaklar/temsil/*.csv`, the output `data/processed/temsil.json`.
 Nothing is added to the veto dataset; there is no composite score or ranking.
 
-- **Unit:** the UN regional groups (DGACM list, 10 October 2026). Türkiye is listed in two groups and is
+- The unit is the UN regional group (DGACM list, 10 October 2026). Türkiye is listed in two groups and is
   counted only in WEOG for electoral purposes; the United States is not a member of any group and is
   counted in WEOG for electoral purposes. Both are counted in WEOG and noted. Geographical regions (M49)
   are not used; the seat distribution rests on the electoral unit.
-- **Population:** WPP 2024, estimate as of 1 January, thousands; years 2023 (last estimate year) and 1963
+- The population data are the WPP 2024 estimates as of 1 January, in thousands; years 2023 (last estimate year) and 1963
   (the year of A/RES/1991 (XVIII)). There is no WPP series for 1945; it is not computed. The 2023 share is
   within the total of the 193 members (non-member countries and areas, e.g. Palestine, Taiwan, Kosovo, Western Sahara and Puerto Rico, are not in the
   denominator). Cyprus: WPP's data cover the whole island ("Refers to the whole country"); the population of the Turkish
@@ -366,20 +378,20 @@ Nothing is added to the veto dataset; there is no composite score or ranking.
   that time (Pakistan + Bangladesh, Malaysia + Singapore, Ethiopia + Eritrea, Sudan + South Sudan); with the
   China seat held by the Republic of China, the population is "China" + "China, Taiwan Province of China".
   Every successor rule is noted in the JSON; no series is counted twice (tested).
-- **Membership share:** members in the group / 193. **Budget share:** sum of the 2025–2027 regular budget
-  scale percentages / 100 (A/RES/79/249; Committee on Contributions Excel). **Personnel share:**
+- Membership share is members in the group / 193. Budget share is the sum of the 2025–2027 regular budget
+  scale percentages / 100 (A/RES/79/249; Committee on Contributions Excel). Personnel share is
   peacekeeping uniformed personnel (troops, police, experts, staff officers), country ranking as of
   28 February 2026 / grand total.
-- **Seats:** permanent seat share = permanent / 5; total seat share = (permanent + elected) / 15, current
+- Permanent seat share = permanent / 5; total seat share = (permanent + elected) / 15, current
   term (UN Council members page, 2026). Distribution of elected seats: A/RES/1991 (XVIII) A para. 3
   (African and Asian 5, Eastern European 1, Latin American 2, Western European and other 2); the Africa 3 /
   Asia-Pacific 2 split is current practice. For each indicator the seat/indicator ratio = total seat share /
   indicator share; a ratio of 1 means the group's seat share equals its indicator share, above 1 the seat share
   is higher, below 1 it is lower.
-- **Sets:** the five permanent members and the OIC members (of 57, Palestine is not a UN member; 56
+- The sets are the five permanent members and the OIC members (of 57, Palestine is not a UN member; 56
   members). As the OIC was founded in 1969, the 1963 value is the sum of today's members that were UN
   members at that time, with their 1963 borders.
-- **Sources:** population: United Nations, Department of Economic and Social Affairs, Population Division (2024),
+- Sources: population: United Nations, Department of Economic and Social Affairs, Population Division (2024),
   World Population Prospects 2024, Online Edition, `WPP2024_GEN_F01_DEMOGRAPHIC_INDICATORS_COMPACT.xlsx`, licence
   CC BY 3.0 IGO; Member States and dates of admission: un.org/en/about-us/member-states; regional groups: DGACM,
   Regional groups of Member States, un.org/dgacm/en/content/regional-groups; scale of assessments: Committee on
@@ -389,7 +401,7 @@ Nothing is added to the veto dataset; there is no composite score or ranking.
   UN Security Council, Current Members, main.un.org/securitycouncil/en/content/current-members; distribution of
   elected seats: A/RES/1991 (XVIII), 17 December 1963. All accessed 10 October 2026; references and SHA-256 values
   are in `kaynaklar/KAYNAKLAR.md`.
-- **Map:** the map at the top of the page shows the members of the selected regional group and their Security Council
+- The map at the top of the page shows the members of the selected regional group and their Security Council
   seats (2026); the same information is in the list of countries below the map. Borders are from Natural Earth 1:50m
   5.1.2 (public domain), in the Equal Earth projection; computed by `scripts/13_harita.py`. Each of the 193 members is
   matched to its own country; countries and areas that are not UN Member States (Western Sahara, the Turkish Republic of
@@ -403,14 +415,14 @@ Nothing is added to the veto dataset; there is no composite score or ranking.
   Macao, those for France do not include French Guiana, Guadeloupe, Martinique, Mayotte and Réunion, and those for the
   Netherlands do not include Bonaire, Sint Eustatius and Saba. These areas are shown in the Member State's colour but with
   their own names and populations, which are not added to the Member State (`kaynaklar/temsil/ayri_sayilan_bolgeler.csv`).
-  The population of the TRNC has been subtracted from that of Cyprus (see Population above); the TRNC's tooltip shows it. Hovering over an area that is not a UN Member State shows its name and status (not
+  The population of the TRNC has been subtracted from that of Cyprus (see the population item above); the TRNC's tooltip shows it. Hovering over an area that is not a UN Member State shows its name and status (not
   a Member State, observer State, Non-Self-Governing Territory); names are those used by the UN (WPP 2024; M49 where WPP
   has none); States recognised by Türkiye (the Turkish Republic of Northern Cyprus, Kosovo, Palestine, Vatican City) are
   named as the Ministry of Foreign Affairs of Türkiye names them (the Ministry's list of missions). The State an area belongs to and disputes
   are not stated; the Siachen Glacier, disputed between two Members, has no name (`kaynaklar/temsil/uye_olmayan_alanlar.csv`). In the population circles, the area of each circle is proportional to the country's 2023
   population (WPP 2024). The map shows UN
   membership; the depiction of borders and names does not express a view on sovereignty.
-- **Language:** the page gives shares; it makes no comparative or evaluative statement.
+- The page gives shares; it makes no comparative or evaluative statement.
 
 ### 2.10. The "What if there were no veto?" page
 
@@ -427,9 +439,16 @@ guessed; a record that would not reach the threshold even if all of them voted y
 the page loads. The box comparing the other models uses the provisions of the documents in 2.8; the paragraph
 relied on for each is given in the box.
 
+In the aggregate view the thresholds are 7, 8 and 6 in the 11-member Council and 9, 10 and 8 in the 15-member
+Council (current majority rule, two thirds, simple majority). The order in which the votes are counted in the
+panels is a presentation; the meeting records give no member-by-member order of voting. Under Article 108 of
+the UN Charter, amendments come into force when adopted by two thirds of the members of the General Assembly
+and ratified by two thirds of the Members, including all the permanent members of the Security Council; the
+page makes no assumption about that process.
+
 ## 3. Language of causation
 
-The platform does not claim that a veto "led to" particular outcomes. Case studies are presented
+The atlas does not claim that a veto "led to" particular outcomes. Case studies are presented
 in the frame of "what happened in the period following the blocking of the draft" and contain no
 counterfactual certainty. Humanitarian data (casualties, displacement, access to aid) are taken
 only from published figures of UN agencies and recognised independent institutions; where a

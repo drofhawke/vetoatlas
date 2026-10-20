@@ -22,9 +22,11 @@ def test_kayitli_dosyalar_ve_strateji():
     for yol in dosyalar:
         assert (WEB / yol.lstrip("/")).is_file(), yol
     assert not any(y.startswith(("/kartlar/", "/veri/")) or "tek-dosya" in y or y.endswith(".html") for y in dosyalar)
-    for gerekli in ("/cubuk.js", "/temel.css", "/metin.js", "/veri.js", "/temsil_veri.js", "/fonts/fonts.css", "/logo-cubuk-b.svg",
-                    "/logo-cubuk-b-koyu.svg", "/isaret.svg", "/isaret-koyu.svg", "/site.webmanifest", "/icon-maskable-512.png"):
+    for gerekli in ("/cubuk.js", "/temel.css", "/metin.js", "/veri.js", "/temsil_veri.js", "/fonts/fonts.css", "/fonts/veto-atlasi-logo.woff2",
+                    "/isaret.svg", "/isaret-koyu.svg", "/site.webmanifest", "/icon-maskable-512.png"):
         assert gerekli in dosyalar, gerekli
+    for gereksiz in ("/logo-cubuk-b.svg", "/logo-cubuk-b-koyu.svg"):  # çubuk logosu canlı metin oldu (20 Ekim), SVG logo kayıtlı değil
+        assert gereksiz not in dosyalar, gereksiz
     # fonts.css'teki her yazı tipi dosyası kayıtlı
     css = (WEB / "fonts/fonts.css").read_text(encoding="utf-8")
     assert {"/fonts/" + f for f in re.findall(r"url\(\s*['\"]?([^'\")]+\.woff2)", css)} <= set(dosyalar)

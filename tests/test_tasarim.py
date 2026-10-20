@@ -26,7 +26,9 @@ def stil_kaynaklari():
         s = (WEB / f"{ad}.html").read_text(encoding="utf-8")
         yield f"{ad}.html", "\n".join(re.findall(r"<style>(.*?)</style>", s, re.S))
     c = (WEB / "cubuk.js").read_text(encoding="utf-8")
-    yield "cubuk.js", c[c.index("var CSS = ["):c.index("].join(")]
+    # Çubuktaki logo yazısı (.c-ad) yazı ölçeğinin dışındadır: logo-cubuk-b.svg'nin ölçüleriyle çizilir (27,3 px / 40 px, kendi kesimi);
+    # KILAVUZ bölüm 3. Bu tek kural taramanın dışında tutulur
+    yield "cubuk.js", "\n".join(satir for satir in c[c.index("var CSS = ["):c.index("].join(")].split("\n") if ".c-logo .c-ad {" not in satir)
     yield "temel.css", TEMEL
     m = (KOK / "veto_atlasi/metodoloji.py").read_text(encoding="utf-8")
     yield "metodoloji.py", "\n".join(re.findall(r"<style>(.*?)</style>", m, re.S))
@@ -75,7 +77,7 @@ def test_iki_yazi_tipi():
         for d in bildirimler(css, "font-family"):
             assert d in ("var(--serif)", "var(--sans)", "inherit"), (ad, d)
     aileler = set(re.findall(r"font-family:\s*[\"']([^\"']+)[\"']", (WEB / "fonts/fonts.css").read_text(encoding="utf-8")))
-    assert aileler == {"Source Serif 4", "Source Sans 3"}
+    assert aileler == {"Source Serif 4", "Source Sans 3", "Veto Atlası Logo"}  # üçüncüsü yalnızca çubuktaki logo yazısı (10 glif)
     # Kod ve özet değerleri tarayıcının eş aralıklı yazı tipine düşmez
     assert "code, kbd, samp, pre { font-family: var(--sans);" in TEMEL and "button, input, select, textarea { font: inherit; }" in TEMEL
 
@@ -124,8 +126,8 @@ def test_etiketler_buyuk_harfsiz():
     assert "  font: 600 var(--yz-kucuk)/var(--sa-kucuk) var(--sans); color: var(--murekkep-2); }\n.c-cubuklu .sutun-basliklari" in v
     assert '"sutun.soz": "Söz", "sutun.kayit": "Kayıt"' in v and '"sutun.soz": "Word", "sutun.kayit": "Record"' in v
     s = (WEB / "simulasyon.html").read_text(encoding="utf-8")
-    assert ".etiket { display: inline-block; font-size: var(--yz-kucuk); padding: 0 8px; border: 1px solid var(--cizgi); border-radius: 999px; color: var(--murekkep-2);" in s
-    assert '      kitapta: "Kitapta",\n' in s and '      kitapta: "In the book",\n' in s  # "Kitapta: …" bölüm künyesi
+    assert ".etiket { display: inline-block; font-size: var(--yz-kucuk); color: var(--murekkep-2); vertical-align: middle; margin-left: 8px;" in s  # çerçevesiz (20 Ekim 2026)
+    assert "      kitapBolum: ({ b }) =>" in s and "      kitapBolumEn: ({ b }) =>" in s and "kitapta:" not in s  # "Kitabın girişinden" satırı
     # Paylaşım kartlarının üst etiketi ("Veto Atlası", "Söz ve Kayıt"): betik ve üretilmiş bütün kartlar
     kart = (KOK / "scripts/08_paylasim_kartlari.py").read_text(encoding="utf-8")
     assert '.ust {{ font-family: "Source Sans 3", "Segoe UI", sans-serif; font-weight: 600; font-size: 22px; color: {MUREKKEP2}; }}' in kart
@@ -170,7 +172,7 @@ def test_metin_sayfasi_duzeni():
     assert "--vurgu" not in TEMEL
     r = (WEB / "reform.html").read_text(encoding="utf-8")
     assert "line-height: var(--sa-govde); max-width: var(--olcu-metin); margin: 0 0 12px; }" in r
-    assert "details.yontem { font-size: var(--yz-kucuk); max-width: var(--olcu-metin);" in r
+    assert "details.yontem" not in r  # okuma kutusu yok (20 Ekim 2026)
 
 
 # ADIM 52, kalıcı kural (KILAVUZ bölüm 2, "Kartlar"): tam genişlikteki (bulunduğu sütunu dolduran) hiçbir kart tek bir dar
@@ -181,13 +183,12 @@ def test_metin_sayfasi_duzeni():
 #   izgara: kartlar yan yana   metin: kart bir metin sütununun içinde ya da metni kartı dolduruyor
 KARTLAR = {
     "hikaye": {},
-    "vetolar": {".serit": "genis", ".konular": "genis", ".aciklama-kutusu": "olcu"},
-    "vizyon": {"soz-kayit kutu": "iki", "kutu": "iki", "tablo-kap kutu": "genis", ".kart": "izgara", ".icindekiler": "iki"},
+    "vetolar": {},  # grafik ve konular listesi kutusuz (20 Ekim 2026)
+    "vizyon": {"soz-kayit kutu": "iki", "kutu": "iki", "tablo-kap kutu": "genis", ".kart": "izgara"},
     "reform": {"olcutler kutu": "olcu", "tablo-kap kutu": "genis"},
-    "simulasyon": {"kutu": "genis", "panel kutu": "izgara", "sonuc-blok kutu": "iki", "serit kutu": "genis",
-                   "sinirlar kutu": "olcu", "tablo-kap kutu": "genis"},
+    "simulasyon": {"panel kutu": "izgara", "sonuc-blok kutu": "iki", "serit kutu": "genis", "tablo-kap kutu": "genis"},
     "temsil": {"kutu grup": "izgara", "kutu": "genis", "kutu ulke-karti": "genis"},  # ülke kartı: çok sütunlu bilgi ızgarası
-    "hakkinda": {"kutu": "metin"},
+    "hakkinda": {},  # doğrulama sayıları kutusuz (20 Ekim 2026)
     "metodoloji": {},
 }
 # İki sütunlu kartların düzeni ve 760 px altındaki tek sütun (içindekiler listesi sütun genişliğine göre kendisi tek sütuna iner)
@@ -196,7 +197,6 @@ IKI_SUTUN = {
                                    ".soz-satir { grid-template-columns: minmax(0, 1fr); }"),
     ("vizyon", "kutu"): (".model > .kutu { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }",
                          ".model > .kutu { grid-template-columns: 1fr; }"),
-    ("vizyon", ".icindekiler"): (".icindekiler ul { margin: var(--b2) 0 0; columns: 2 288px;", None),
     ("simulasyon", "sonuc-blok kutu"): (".sonuc-kartlar { display: grid; grid-template-columns: 1fr 1fr;", ".sonuc-kartlar { grid-template-columns: 1fr; }"),
 }
 ETKILESIMLI = re.compile(r"button|select|input|dugme|\.atla|::before")
@@ -239,10 +239,31 @@ def test_kartlar_dar_metin_sutunu_tasimaz():
     assert "**Kartlar (kalıcı kural).** Tam genişlikteki, yani bulunduğu sütunu dolduran hiçbir kart tek bir dar metin sütunu" in kilavuz
 
 
-def test_cubuk_ve_beta_seridi_izgarada():
-    """Alt çizgi iç gölgeyle: çubuk 76 px (dar ekranda 64 px), beta şeridi 32 px (24 px satır + 2 × 4 px)."""
+def test_cubuk_ve_alt_bilgi_notu_izgarada():
+    """Alt çizgi iç gölgeyle: çubuk 76 px (dar ekranda 64 px). Beta şeridi yok (20 Ekim 2026); beta notu her sayfanın altında
+    tek satır, sayfanın alt bilgisi yoksa ince çizgili alt bilgi (64 px üstten boşluk, 32 px iç boşluk)."""
     c = (WEB / "cubuk.js").read_text(encoding="utf-8")
     assert "box-shadow: inset 0 -1px 0 var(--cizgi);" in c and "border-bottom: 1px solid var(--cizgi); font-family" not in c
     assert "min-height: 76px; }" in c and '"  .cubuk { min-height: 64px; }"' in c
-    assert ".beta-serit { display: block; flex: none; background: var(--yuzey); box-shadow: inset 0 -1px 0 var(--cizgi);" in c
-    assert "font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }" in c and ".beta-serit .beta-ic { max-width: 1180px; margin: 0 auto; padding: 4px 24px; }" in c
+    assert "beta-serit" not in c and "beta-ic" not in c
+    assert '".alt-not { font-family: var(--sans); font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); color: var(--murekkep-2); max-width: var(--olcu); margin: 0; }",' in c
+    assert '"footer.alt-bilgi { border-top: 1px solid var(--cizgi); margin: 64px 0 0; padding: 32px 0 0; }",' in c
+
+
+def test_koseler_ve_ok_isaretleri():
+    """20 Ekim 2026: düğmeler, seçim düğmeleri, etiketler ve üst çubuğun dil/tema düğmeleri 6 px köşeli; hap biçimi
+    (999 px) yok. Ok işareti bağlantı metninde yok; yalnızca yön düğmelerinde (Önceki, Sonraki) ve Hikâye 4. adımın sonuç
+    satırında. Ya veto olmasaydı?'nın adım göstergesi rozetsiz, sıra numaralı düz metin."""
+    for ad, css in stil_kaynaklari():
+        assert "999px" not in css, ad
+    assert ".cubuk .c-dil a, .cubuk .c-tema, .cubuk .c-menu { font: inherit; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); padding: 4px 8px; border: 1px solid var(--cizgi); border-radius: 6px;" in (WEB / "cubuk.js").read_text(encoding="utf-8")
+    oklu = set()
+    for yol in [*(WEB / f"{ad}.html" for ad in SAYFALAR), WEB / "cubuk.js", WEB / "metin.js", WEB / "suzgec.js"]:
+        oklu |= set(re.findall(r'"[^"\n]*[→↓←↑][^"\n]*"', yol.read_text(encoding="utf-8")))
+    assert oklu == {'"14 evet, 1 hayır → düştü"', '"14 yes, 1 no → failed"', '"← Önceki"', '"Sonraki →"', '"← Previous"', '"Next →"'}
+    s = (WEB / "simulasyon.html").read_text(encoding="utf-8")
+    assert '.adimlar .no::after { content: "."; }' in s and ".adimlar .no { width: 28px" not in s
+    assert '.adimlar li[aria-current="step"] { color: var(--murekkep); font-weight: 600; border-bottom-color: var(--murekkep); }' in s
+    assert '"h.secim": "Kaydı seçin"' in s and '"h.secim": "Choose a record"' in s
+    kilavuz = (KOK / "kaynaklar/kimlik/KILAVUZ.md").read_text(encoding="utf-8")
+    assert "**Köşeler ve oklar (20 Ekim 2026).**" in kilavuz

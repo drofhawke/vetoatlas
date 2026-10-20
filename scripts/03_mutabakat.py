@@ -197,16 +197,18 @@ def main():
                 no = d["scprocedure_no"]
                 if no and ref_no[no]["oy_lehte_aleyhte_cekimser"] != d["oy"]:
                     ref_oy = ref_no[no]["oy_lehte_aleyhte_cekimser"]
-                    not_ekle(k, f"scprocedure Tablo 4 #{no} oy dağılımını {ref_oy} veriyor; toplantı kaydı esas alındı.",
-                             f"scprocedure Table 4 #{no} gives the vote breakdown as {ref_oy}; the meeting record was followed.")
+                    not_ekle(k, f"Referans tablo (Tablo 4, #{no}) oy dağılımını {ref_oy} veriyor; toplantı kaydı esas alındı.",
+                             f"The reference table (Table 4, #{no}) gives the vote breakdown as {ref_oy}; the meeting record was followed.")
                 if not k["duzeltme"]:
                     duzeltme_yaz(k, f"oy eklendi: toplantı kaydı ({d['toplanti']})",
                                  f"vote added: meeting record ({d['toplanti']})")
                 dogrulama_isle(k, "oy", d)
             else:
                 acik_eslesme[d["hedef"]] = d["scprocedure_no"]
-                not_ekle(k, f"Oy dağılımı: {d['aciklama']} (scprocedure #{d['scprocedure_no']}).",
-                         ing(d, f"Vote breakdown: {{}} (scprocedure #{d['scprocedure_no']})."))
+                # Okur notunda iç ad yok: referans tablo numarası "(Tablo 4, #N)" olarak, açıklama numarayı zaten veriyorsa eksiz
+                ek = "" if f"#{d['scprocedure_no']}" in d["aciklama"] else f" (Tablo 4, #{d['scprocedure_no']})"
+                ek_en = "" if f"#{d['scprocedure_no']}" in (d.get("aciklama_en") or "") else f" (Table 4, #{d['scprocedure_no']})"
+                not_ekle(k, f"Oy dağılımı: {d['aciklama']}{ek}.", ing(d, f"Vote breakdown: {{}}{ek_en}."))
         elif tur == "tarih_farki":
             k = idx[d["hedef"]]
             k["referans_tarih"] = d["tarih"]

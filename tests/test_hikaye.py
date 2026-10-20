@@ -28,7 +28,7 @@ def test_yedi_adim_ve_baglantilar():
     for hedef in ("metodoloji.html", "vetolar.html", "vizyon.html#h-konu", "vizyon.html#h-galeri", "temsil.html", "vizyon.html#h-cizelge", "simulasyon.html"):
         assert hedef in BETIK, hedef
     # Kapanış: 2026 hitabı alıntısı alıntı bankasından (kimlikle), yorum cümlesi yok
-    assert '"2025-1"' in BETIK and "Veriyi keşfet" in BETIK and "Explore the data" in BETIK
+    assert '"2025-1"' in BETIK and 'kesfet: "Bütün kayıtlar"' in BETIK and 'kesfet: "All records"' in BETIK
     # Her adımın altında alıntı bankasından söz: 1→2019-1, 2→2023-1, 3→2024-1, 4→2026-1, 5→2023-2, 6→2022-1, 7→kitap-4
     assert 'const SOZLER = ["2019-1", "2023-1", "2024-1", "2026-1", "2023-2", "2022-1", "kitap-4"];' in BETIK
     assert "Sunuş" not in SAYFA and "Foreword" not in SAYFA and 'EPIGRAF = { tr: ["2019-1", "“Dünya 5’ten Büyüktür.”"], en: ["2019-1", "The world is bigger than five!"] }[DIL];' in BETIK
@@ -77,9 +77,9 @@ def test_sadelestirme():
     for ad in ("vizyon.html", "temsil.html"):
         t = (KOK / "web" / ad).read_text(encoding="utf-8")
         assert 'class="tablo-ac"' in t and "tabloGoster" in t, ad
-    # Jargon: ilk görünen yerde düz karşılık
-    assert "evet (lehte)" in atlas and "Kısmi veto (metnin yalnızca bir bölümü" in atlas
-    assert "Evet (lehte)" in (KOK / "web/simulasyon.html").read_text(encoding="utf-8")
+    # Parantez içi sözlük yok (20 Ekim 2026): "evet", "hayır", "Kısmi veto"
+    assert "(lehte)" not in atlas and "(aleyhte)" not in atlas and '"etiket.kismi": "Kısmi veto"' in atlas
+    assert "(lehte)" not in (KOK / "web/simulasyon.html").read_text(encoding="utf-8")
 
 
 def test_adim_tasarimi_taslaktaki_gibi():
@@ -98,10 +98,10 @@ def test_adim_tasarimi_taslaktaki_gibi():
         assert kural in SAYFA, kural
     assert 'basliklar: ["Veto nedir?", "Kaç karar düştü?", "Kim kullandı?", "Tek ülke, bütün Konsey", "Kim temsil ediliyor?", "Her vetodan sonra Genel Kurul", "Ya veto olmasaydı?"]' in BETIK
     assert 'basliklar: ["What is the veto?", "How many decisions failed?", "Who used it?", "One country, the whole Council", "Who is represented?", "After every veto, the General Assembly", "What if there were no veto?"]' in BETIK
-    # Bölüm başlıkları (h2) ile gezilebilir; ray bağlantıları adlandırılmış, etkin adım aria-current; aşağı işareti ilk adımdan sonra gizli
+    # Bölüm başlıkları (h2) ile gezilebilir; ray bağlantıları adlandırılmış, etkin adım aria-current
     assert '<h2 class="adim-baslik" id="adim-${i + 1}-baslik">' in BETIK and 'aria-labelledby="adim-${i + 1}-baslik" tabindex="-1"' in BETIK
-    assert 'a.setAttribute("aria-current", "step")' in BETIK and 'if (i >= 0 && kaydirma) asagi.classList.add("gecti");' in BETIK
-    assert 'behavior: azHareket ? "auto" : "smooth"' in BETIK and '"14 evet · 1 hayır → düştü"' in BETIK
+    assert 'a.setAttribute("aria-current", "step")' in BETIK
+    assert 'behavior: azHareket ? "auto" : "smooth"' in BETIK and '"14 evet, 1 hayır → düştü"' in BETIK
     # Taslaktaki yerel OTF yazı tipleri değil, sitenin woff2 dosyaları
     assert ".otf" not in SAYFA and 'href="fonts/fonts.css"' in SAYFA
 
@@ -122,10 +122,9 @@ def test_kucuk_kararlar_adim38():
 
 def test_giris_sikilastirma_adim40():
     assert ".giris { padding: 48px 0 24px; text-align: left; }" in SAYFA and "@media (max-width: 760px) {\n  .giris { padding-top: 32px; }" in SAYFA
-    # "Kaydırarak ilerleyin" girişin hemen altında, ilk adımdan önce
+    # Kaydırma ipucu yok (20 Ekim 2026): girişin hemen altında ilk adım
     govde = SAYFA[SAYFA.index("<body"):]
-    assert '  </header>\n  <p class="asagi" id="asagi"' in govde
-    assert govde.index('<header class="giris">') < govde.index('<p class="asagi" id="asagi"') < govde.index('<main id="adimlar">')
+    assert "asagi" not in SAYFA and '  </header>\n  <main id="adimlar"></main>' in govde
 
 
 def test_alt_bilgi_ve_giris_adim45():
@@ -136,7 +135,7 @@ def test_alt_bilgi_ve_giris_adim45():
     assert "tarihUzun(V.meta.veri_surumu)" in BETIK and "web/veri.js ve web/temsil_veri.js dosyalarından" not in BETIK
     for eski in ('data-t="not"', "sayfa açılırken", "when the page opens", "veri setinden hesaplanır", "computed from the atlas dataset", "Metodoloji</a>"):
         assert eski not in SAYFA, eski
-    assert 'const SAYFALAR = ["vetolar", "vizyon", "reform", "simulasyon", "temsil", "hakkinda", "metodoloji"];' in BETIK
+    assert "sayfaListesi" not in BETIK and "sayfa-listesi" not in SAYFA  # sayfa listesi yok, üst çubuk yeter (20 Ekim 2026)
     assert 'reform: "Reform modelleri"' in BETIK and 'reform: "Reform models"' in BETIK
     # Listede sayfaların kendi adları: "Nasıl yaptık?" yerine Hakkında ve Metodoloji (çubuktaki sekme adı değişmez)
     assert 'hakkinda: "Hakkında", metodoloji: "Metodoloji" },' in BETIK and 'hakkinda: "About", metodoloji: "Methodology" },' in BETIK

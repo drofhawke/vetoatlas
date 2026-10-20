@@ -14,7 +14,7 @@ sayının altında) kartın verisini gösteren sade bir görsel vardır; ana gra
 görsel yoktur. Alt bilgi tek satırdır: solda kısa kaynak ve veri tarihi, sağda atlasın adı ve yayın
 adresi için yer tutucu; yayın adresi belli olunca betikteki `yer` metni doldurulur.
 
-Aşağıdaki sayılar 10 Ekim 2026 tarihli veri setine (son kayıt 17 Eylül 2026) aittir.
+Aşağıdaki sayılar 20 Ekim 2026 tarihli veri setine (son kayıt 17 Eylül 2026) aittir.
 
 ## kart-01-vetosuz — 264 / 266
 - **Kart metni:** Veto ile düşen 266 önerinin 264'ü, veto olmasaydı kayıtlı oylarla kabul edilmiş

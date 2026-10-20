@@ -48,9 +48,6 @@ a { color: inherit; text-underline-offset: 3px; }
 .giris { padding: var(--b12) 0 var(--b12); }
 h1 { font-family: var(--serif); font-weight: 600; font-size: var(--yz-baslik); line-height: var(--sa-baslik); margin: 0 0 16px; }
 .giris p { font-family: var(--serif); font-size: var(--yz-govde); line-height: var(--sa-govde); max-width: var(--olcu-metin); margin: 0 0 12px; }
-details.yontem { font-size: var(--yz-kucuk); max-width: var(--olcu-metin); margin: 8px 0 0; line-height: var(--sa-kucuk); }
-details.yontem summary { cursor: pointer; font-weight: 600; font-family: var(--sans); }
-details.yontem p { font-family: var(--sans); font-size: var(--yz-kucuk); color: var(--murekkep-2); margin: 8px 0 0; line-height: var(--sa-kucuk); }
 
 /* Karşılaştırma, geniş ekranda tablo: ölçütler satırda, modeller sütunda (belgelerin tarih sırasıyla) */
 .tablo-kap { overflow-x: auto; }
@@ -86,7 +83,6 @@ table.reform { border-collapse: collapse; width: 100%; table-layout: fixed; font
   <header class="giris">
     <h1 id="baslik" data-t="baslik"></h1>
     <p data-t="giris"></p>
-    <details class="yontem"><summary data-t="okuma"></summary><p data-t="okumaMetni"></p></details>
   </header>
 
   <main>
@@ -108,29 +104,23 @@ table.reform { border-collapse: collapse; width: 100%; table-layout: fixed; font
       sayfaBasligi: "Reform modelleri · Veto Atlası",
       sayfaAciklamasi: "Güvenlik Konseyi reformu için dört model aynı dört ölçütle: Ezulwini Uzlaşısı, G4, Uzlaşı için Birlik ve “Daha Adil Bir Dünya Mümkün”.",
       baslik: "Reform modelleri",
-      giris: "Güvenlik Konseyi reformu için dört model aynı ölçütlerle, belgelerin tarih sırasıyla.",
-      okuma: "Nasıl okunur?",
-      okumaMetni: "Hücreler belgelerin kendi hükümlerini özetler; dayanak paragrafları her hücrenin altındadır.",
+      giris: "Güvenlik Konseyi reformu için dört model aynı ölçütlerle, belgelerin tarih sırasıyla. Her hücrenin altındaki küçük satır, belgedeki yeri gösterir.",
       olcut: "Ölçüt",
       "olcut.toplam": "Toplam üye sayısı", "olcut.yeni_daimi": "Yeni daimî üye var mı", "olcut.veto": "Veto kimde", "olcut.genel_kurul": "Genel Kurul ile ilişki",
       "model.Ezulwini Uzlaşısı": "Ezulwini Uzlaşısı (Afrika Birliği, Mart 2005)", "model.G4": "G4 (A/59/L.64, Temmuz 2005)",
       "model.Uzlaşı için Birlik": "Uzlaşı için Birlik (A/59/L.68, Temmuz 2005)", "model.Daha Adil Bir Dünya Mümkün": "“Daha Adil Bir Dünya Mümkün” (Eylül 2021)",
-      dayanak: "Dayanak",
     },
     en: {
       sayfaBasligi: "Reform models · Veto Atlas",
       sayfaAciklamasi: "Four models for Security Council reform against the same four criteria: the Ezulwini Consensus, the G4, Uniting for Consensus and “A Fairer World is Possible” (“Daha Adil Bir Dünya Mümkün”).",
       baslik: "Reform models",
-      giris: "Four models for Security Council reform against the same criteria, in the date order of the documents.",
-      okuma: "How to read this table",
-      okumaMetni: "Cells summarise each document’s own provisions; the paragraphs relied on are given under each cell.",
+      giris: "Four models for Security Council reform against the same criteria, in the date order of the documents. The small line under each cell gives the place in the document.",
       olcut: "Criterion",
       "olcut.toplam": "Total membership", "olcut.yeni_daimi": "New permanent members?", "olcut.veto": "Who holds the veto", "olcut.genel_kurul": "Relationship with the General Assembly",
       "model.Ezulwini Uzlaşısı": "Ezulwini Consensus (African Union, March 2005)", "model.G4": "G4 (A/59/L.64, July 2005)",
       "model.Uzlaşı için Birlik": "Uniting for Consensus (A/59/L.68, July 2005)", "model.Daha Adil Bir Dünya Mümkün": "“A Fairer World is Possible” (September 2021)",
       // Sayfada ilk geçiş (geniş ekranda tablo başlığı, dar ekranda ilk ölçüt): Türkçe özgün ad parantez içinde, lang="tr"
       "modelIlk.Daha Adil Bir Dünya Mümkün": '“A Fairer World is Possible” (<span lang="tr">“Daha Adil Bir Dünya Mümkün”</span>, September 2021)',
-      dayanak: "Basis",
     },
   };
   const t = (a) => SOZLUK[DIL][a] ?? SOZLUK.tr[a];
@@ -157,7 +147,7 @@ table.reform { border-collapse: collapse; width: 100%; table-layout: fixed; font
   const modelAdi = (m, ilk) => (ilk && SOZLUK[DIL]["modelIlk." + m]) || esc(t("model." + m));
   const hucre = (m, o) => {
     const r = R.find((x) => x.model === m && x.olcut === o);
-    return `${esc(DIL === "en" ? r.en : r.tr)}<small>${t("dayanak")}: ${esc(DIL === "en" ? dayanakEn(r.belge) : r.belge)}, ${esc(DIL === "en" ? dayanakEn(r.dayanak) : r.dayanak)}</small>`;
+    return `${esc(DIL === "en" ? r.en : r.tr)}<small>${esc(DIL === "en" ? dayanakEn(r.belge) : r.belge)}, ${esc(DIL === "en" ? dayanakEn(r.dayanak) : r.dayanak)}</small>`;
   };
   // Geniş ekranda tablo; dar ekranda aynı hücreler ölçüt ölçüt alt alta (CSS hangisinin görüneceğini seçer)
   $("#reform").innerHTML = `<colgroup><col class="olcut">${MODELLER.map(() => "<col>").join("")}</colgroup>

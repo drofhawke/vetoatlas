@@ -1,8 +1,8 @@
 # Veto Atlası (BM Veto ve Kilitlenme Atlası)
 
-BM Güvenlik Konseyi'nde 1946'dan bugüne kullanılan vetoları, veto tehdidiyle masaya
-gelmeyen taslakları ve Konsey'in eylemsizlik vakalarını kaynaklı, doğrulanabilir ve
-indirilebilir bir veri setinde toplayan interaktif platform.
+Veto Atlası, BM Güvenlik Konseyi'nde 1946'dan bu yana kullanılan vetoları kaynaklarıyla
+toplar: sekiz sayfalık site (vetoatlas.com), açık veri ve üretim betikleri. Veto tehdidiyle
+masaya gelmeyen taslaklar ve Konsey'in eylemsizlik vakaları henüz veri setinde yok.
 
 > **Bu depo yayın kopyasıdır; çalışma geçmişi özeldir.** Sürüm 1.0.0 (beta), https://vetoatlas.com.
 > Depoda olmayanlar: ham kaynak kopyaları (`data/raw/`; adres, indirme zamanı, bayt ve SHA-256
@@ -10,8 +10,6 @@ indirilebilir bir veri setinde toplayan interaktif platform.
 > burada çalışmaz; çıktısı `data/processed/vetolar_mutabik.*`), yerel belgeler ve çalışma metinleri (künyeleri
 > `kaynaklar/KAYNAKLAR.md`'de; belgeler `07` ile indirilir). Ham dosya yoksa `04` kayıtlı özetle çalışır;
 > ham dosyayı ya da yerel belgeleri isteyen testler atlanır.
-
-**Aşama 1 (bu sürüm): Veri temeli.** Arayüz, veri seti sağlamlaşmadan yazılmaz.
 
 ## Kurulum (Windows, VS Code)
 

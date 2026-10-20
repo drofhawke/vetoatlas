@@ -50,9 +50,7 @@ p, li { max-width: var(--olcu); }
 ul { padding-left: 24px; }
 li + li { margin-top: 4px; }
 .giris { font-family: var(--serif); font-size: var(--yz-govde); line-height: var(--sa-govde); }
-.kutu { background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 6px; padding: 16px 16px; }
 code { word-break: break-all; }
-.kutu > ul { margin: 0; }
 .ikincil { color: var(--murekkep-2); font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
 @media (max-width: 760px) { body { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); } .kap { padding: 0 16px 48px; } h1 { margin-top: 32px; } }
 
@@ -82,7 +80,7 @@ code { word-break: break-all; }
     "tr",
     "en"
   ],
-  "temporalCoverage": "1946-02-16/2026-10-10",
+  "temporalCoverage": "1946-02-16/2026-10-20",
   "keywords": [
     "BM Güvenlik Konseyi",
     "veto",
@@ -129,79 +127,73 @@ code { word-break: break-all; }
     <div class="metin-dizin"></div>
     <div class="metin">
     <p class="giris">Veto Atlası, BM Güvenlik Konseyi'nde 1946'dan bu yana kullanılan vetoları kaynaklarıyla birlikte,
-    doğrulanabilir ve indirilebilir bir veri setinde toplar. Atlas, Cumhurbaşkanı Recep Tayyip Erdoğan’ın
-    “Dünya 5’ten büyüktür” çağrısından hareketle hazırlanmıştır.</p>
+    doğrulanabilir ve indirilebilir bir veri setinde toplar. Çıkış noktamız Cumhurbaşkanı Recep Tayyip Erdoğan’ın
+    “Dünya 5’ten büyüktür” çağrısı.</p>
     <p class="ozet-sayilar ikincil"></p>
-    <p>Bu sayfa, verinin nasıl derlendiğini sade bir dille anlatır. Ayrıntılı kurallar <a href="metodoloji.html">Metodoloji</a> sayfasındadır.</p>
+    <p>Ayrıntılı kurallar <a href="metodoloji.html">Metodoloji</a> sayfasındadır.</p>
 
     <h2 id="kaynaklar">Kaynaklar</h2>
-    <ul>
-      <li><b>Ana liste:</b> BM Dag Hammarskjöld Kütüphanesi'nin (DHL) Güvenlik Konseyi veto listesi. İndirilen sayfanın
-        değiştirilmemiş kopyası SHA-256 özetiyle tanımlanır: <span class="ham-kaynak"></span>.</li>
-      <li><b>Referans tablo:</b> Sievers ve Daws, <i>The Procedure of the UN Security Council</i>, Tablo 4 (18 Eylül 2025
-        sürümü). Liste bu tabloyla satır satır karşılaştırılır.</li>
-      <li><b>Birincil belgeler:</b> Güvenlik Konseyi toplantı kayıtları (S/PV), karar taslakları, Genel Kurul toplantı
-        kayıtları ve kararları, Konsey'in özel raporları, BM Günlüğü (Journal of the United Nations). Referans tablonun
-        kapsadığı son tarihten (18 Eylül 2025) sonraki vetolar bu belgelerden eklenir.</li>
-    </ul>
+    <p>Ana listemiz BM Dag Hammarskjöld Kütüphanesi'nin (DHL) Güvenlik Konseyi veto listesi: <span class="ham-kaynak"></span>.
+    İndirdiğimiz sayfanın değiştirilmemiş kopyasını saklıyoruz.</p>
+    <p>Listeyi Sievers ve Daws'ın <i>The Procedure of the UN Security Council</i> kitabındaki Tablo 4 ile (18 Eylül 2025
+    sürümü) satır satır karşılaştırdık.</p>
+    <p>Birincil belgeler Güvenlik Konseyi toplantı kayıtları (S/PV), karar taslakları, Genel Kurul toplantı kayıtları ve
+    kararları, Konsey'in özel raporları ve BM Günlüğü (Journal of the United Nations). Referans tablonun kapsadığı son
+    tarihten (18 Eylül 2025) sonraki vetoları bu belgelerden ekliyoruz.</p>
 
     <h2 id="sayim">Nasıl sayıyoruz</h2>
     <ul>
-      <li>İki sayı birlikte verilir: veto ile düşen <b>öneri</b> sayısı ve kullanılan <b>ret oyu</b> sayısı. Bir öneriyi iki
-        daimi üye veto ettiyse bu bir öneri, iki ret oyudur.</li>
+      <li>İki sayıyı birlikte veriyoruz: veto ile düşen <b>öneri</b> sayısı ve kullanılan <b>ret oyu</b> sayısı. Bir öneriyi iki
+        daimî üye veto ettiyse bu bir öneri, iki ret oyudur.</li>
       <li>Kapalı oturumda kullanılan ve resmî kayıtta kimin kullandığı yazmayan vetolar (Genel Sekreter seçimi) öneri
         sayısına girer, ret oyu toplamına girmez.</li>
-      <li>Sovyetler Birliği'nin vetoları, Rusya Federasyonu'nunkilerden ayrı gösterilir. 25 Ekim 1971 öncesindeki "Çin"
+      <li>Sovyetler Birliği'nin vetolarını Rusya Federasyonu'nunkilerden ayrı gösteriyoruz. 25 Ekim 1971 öncesindeki "Çin"
         vetosu Çin Cumhuriyeti'ne aittir.</li>
-      <li>Paragraf ve değişiklik önergesi vetoları ile "ön soru" (çifte) vetoları ayrıca işaretlenir.</li>
+      <li>Paragraf ve değişiklik önergesi vetoları ile "ön soru" (çifte) vetoları ayrıca işaretlidir.</li>
+      <li>Vetonun sonraki olaylara yol açtığını söylemiyoruz; kayıt ve sayı yan yana durur.</li>
     </ul>
 
     <h2 id="tarih">Tarih kuralı</h2>
     <p>Bir vetonun tarihi, oylamanın fiilen yapıldığı takvim günüdür. Gece yarısını geçen toplantılarda bu gün, toplantı
-    kaydının başlığındaki tarihten farklı olabilir; iki tarih de kayıtta tutulur. Kayıt kimlikleri (ör. V-1950-09-05-1)
-    değişmeyen anahtarlardır; içlerindeki tarih bilgi taşımaz.</p>
+    kaydının başlığındaki tarihten farklı olabilir. İki tarihi de kayıtta tutuyoruz. Kayıt kimlikleri (ör. V-1950-09-05-1)
+    değişmeyen anahtarlardır, içlerindeki tarih bilgi taşımaz.</p>
 
     <h2 id="konular">Konular ve Türkçe başlıklar</h2>
-    <p>Her veto <span data-yer="konu-sayisi"></span> konudan birine ana konu olarak atanır; bazı vetolar ayrıca başka bir konuya ikincil olarak bağlanır.
-    Konu sayıları yalnızca ana konuyu sayar. Gündem başlıkları sadık Türkçe çevirileriyle verilir; özgün başlık her zaman
+    <p>Her vetoyu <span data-yer="konu-sayisi"></span> konudan birine ana konu olarak atıyoruz. Bazı vetolar ayrıca başka bir konuya ikincil olarak bağlı.
+    Konu sayıları yalnızca ana konuyu sayar. Gündem başlıklarını sadık Türkçe çevirileriyle veriyoruz, özgün başlık her zaman
     görünür. Konu ataması ve çeviriler editoryal kararlardır ve gerekçeleriyle kaynak dosyalarda kayıtlıdır.</p>
 
     <h2 id="genel-kurul">Genel Kurul tartışmaları</h2>
     <p>Genel Kurul, 26 Nisan 2022'de kabul ettiği A/RES/76/262 sayılı kararla her vetodan sonra 10 iş günü içinde bir
-    tartışma yapmayı kararlaştırdı. Atlas, bu tarihten sonraki her veto için Konsey'in özel raporunu, tartışmanın
-    toplantı kayıtlarını ve konuşan delegasyon sayılarını gösterir. Konu Genel Kurul'un olağanüstü özel oturumunda
-    görüşüldüyse yalnızca toplantı kayıtları ve kabul edilen kararlar yazılır.</p>
-
-    <h2 id="nedensellik">Nedensellik dili</h2>
-    <p>Atlas, bir vetonun belirli sonuçlara "yol açtığını" ileri sürmez. Vetodan sonra yaşananlar, "taslağın
-    engellenmesini izleyen dönemde" çerçevesinde ve yalnızca BM ajanslarının ya da tanınmış bağımsız kurumların
-    yayımlanmış verilerine dayanılarak anlatılır.</p>
+    tartışma yapmayı kararlaştırdı. Bu tarihten sonraki her veto için Konsey'in özel raporunu, tartışmanın toplantı
+    kayıtlarını ve konuşan delegasyon sayılarını gösteriyoruz. Konu Genel Kurul'un olağanüstü özel oturumunda
+    görüşüldüyse yalnızca toplantı kayıtlarını ve kabul edilen kararları yazıyoruz.</p>
 
     <h2 id="dogrulama">Düzeltme ve doğrulama</h2>
-    <p>İki kaynak arasındaki her fark gerekçesiyle bir düzeltme dosyasında tutulur; kodun içine düzeltme gömülmez. Kaynakların
-    ayrıştığı ya da tek başına yetmediği durumlarda ilgili toplantı kaydı açılır: oy dağılımı kayıttaki oylama
-    listesinden sayılır, oylama günü toplantının açılış ve kapanış saatlerinden ve konuşmalardaki zaman ifadelerinden
-    belirlenir. Her sonuç toplantı kaydının sayfa numarasıyla yazılır. Kesin sonuca ulaşılamayan kayıtta tahmin
-    yapılmaz; kayıt "doğrulanıyor" olarak kalır ve nedeni gösterilir.</p>
-    <p>Kayıtlara eklenen notlar ve düzeltme gerekçeleri Türkçe yazılır ve İngilizceye çevrilir; asıl metin Türkçedir.
-    Çevirilerde belge kodları, sayfa numaraları ve özel adlar değiştirilmez.</p>
-    <div class="kutu" data-yer="dogrulama"></div>
+    <p>İki kaynak arasındaki her farkı gerekçesiyle bir düzeltme dosyasında tutuyoruz, kodun içine düzeltme gömmüyoruz.
+    Kaynaklar ayrıştığında ya da tek başına yetmediğinde ilgili toplantı kaydını açıyoruz: oy dağılımını kayıttaki oylama
+    listesinden sayıyor, oylama gününü toplantının açılış ve kapanış saatlerinden ve konuşmalardaki zaman ifadelerinden
+    belirliyoruz. Her sonucu toplantı kaydının sayfa numarasıyla yazıyoruz. Kesin sonuca ulaşamadığımız kayıtta tahmin
+    yapmıyoruz; kayıt "doğrulanıyor" olarak kalır ve nedeni görünür.</p>
+    <p>Kayıtlara eklediğimiz notları ve düzeltme gerekçelerini Türkçe yazıp İngilizceye çeviriyoruz, asıl metin Türkçedir.
+    Çevirilerde belge kodları, sayfa numaraları ve özel adlar değişmez.</p>
+    <div data-yer="dogrulama"></div>
 
     <h2 id="sinirlar">Bilinen sınırlar</h2>
     <ul>
-      <li>Atlas şimdilik yalnızca resmî vetoları içerir. Veto tehdidiyle oylamaya sunulmayan taslaklar ve Konsey'in
-        eylemsizlik vakaları henüz eklenmedi.</li>
-      <li>DHL listesiyle referans tablonun uyuştuğu kayıtlar ayrıca toplantı kaydından doğrulanmadı; toplantı kaydına
-        yalnızca iki kaynağın ayrıştığı ya da tek başına yetmediği durumlarda başvuruldu.</li>
-      <li>Oy dağılımlarının çoğu referans tablodan alınmıştır.</li>
-      <li>Genel Kurul tartışmalarından bazılarının resmî toplantı kaydı henüz yayımlanmadı; bu tartışmalarda konuşmacı
-        sayıları BM Günlüğü özetlerinden alındı ve bazıları Genel Kurul Başkanlığı'nın özetlerinden bir-iki delegasyon
-        farklıdır.</li>
+      <li>Şimdilik yalnızca resmî vetoları aldık. Veto tehdidiyle oylamaya sunulmayan taslakları ve Konsey'in
+        eylemsizlik vakalarını henüz eklemedik.</li>
+      <li>DHL listesiyle referans tablonun uyuştuğu kayıtları ayrıca toplantı kaydından doğrulamadık; toplantı kaydına
+        yalnızca iki kaynağın ayrıştığı ya da tek başına yetmediği durumlarda başvurduk.</li>
+      <li>Oy dağılımlarının çoğunu referans tablodan aldık.</li>
+      <li>Genel Kurul tartışmalarından bazılarının resmî toplantı kaydı henüz yayımlanmadı. Bu tartışmalarda konuşmacı
+        sayılarını BM Günlüğü özetlerinden aldık; bazıları Genel Kurul Başkanlığı'nın özetlerinden bir-iki delegasyon
+        farklı.</li>
     </ul>
 
     <h2 id="iletisim">İletişim</h2>
-    <p>İletişim: <a href="mailto:iletisim@vetoatlas.com">iletisim@vetoatlas.com</a>. Hata bildirimleri kabul edilir ve düzeltmeler değişiklik günlüğüne işlenir.</p>
-    <p>Lisans: kod MIT, veri derlemesi CC BY 4.0 (ayrıntılar: <a href="LICENSE-DATA.txt">LICENSE-DATA</a>) · Veri setinin arşivi: Zenodo, DOI <a href="https://doi.org/10.5281/zenodo.23326362">10.5281/zenodo.23326362</a></p>
+    <p>Hata bildirimi ve sorular için <a href="mailto:iletisim@vetoatlas.com">iletisim@vetoatlas.com</a>. Düzeltmeleri değişiklik günlüğüne işliyoruz.</p>
+    <p>Kod MIT, veri derlemesi CC BY 4.0 lisansıyla (<a href="LICENSE-DATA.txt">LICENSE-DATA</a>). Veri setinin arşivi Zenodo'da, DOI <a href="https://doi.org/10.5281/zenodo.23326362">10.5281/zenodo.23326362</a>.</p>
     </div>
   </main>
 
@@ -210,85 +202,78 @@ code { word-break: break-all; }
     <div class="metin-dizin"></div>
     <div class="metin">
     <p class="giris">The Veto Atlas collects the vetoes cast in the UN Security Council since 1946, with their sources, in a
-    verifiable and downloadable dataset. The atlas takes as its starting point President Recep Tayyip Erdoğan’s call
-    that “the world is bigger than five”.</p>
+    verifiable and downloadable dataset. Our starting point is President Recep Tayyip Erdoğan’s call that “the world
+    is bigger than five”.</p>
     <p class="ozet-sayilar ikincil"></p>
-    <p>This page explains in plain language how the data were compiled. The detailed rules are on the
+    <p>The detailed rules are on the
     <a href="metodoloji.html?lang=en">Methodology</a> page.</p>
 
     <h2 id="en-kaynaklar">Sources</h2>
-    <ul>
-      <li><b>Main list:</b> the Security Council veto list of the UN Dag Hammarskjöld Library (DHL). An unmodified copy of
-        the downloaded page is identified by its SHA-256 digest: <span class="ham-kaynak"></span>.</li>
-      <li><b>Reference table:</b> Sievers and Daws, <i>The Procedure of the UN Security Council</i>, Table 4 (version of
-        18 September 2025). The list is compared with this table line by line.</li>
-      <li><b>Primary documents:</b> Security Council meeting records (S/PV), draft resolutions, General Assembly meeting
-        records and resolutions, the Council's special reports, and the Journal of the United Nations. Vetoes after the
-        last date covered by the reference table (18 September 2025) are added from these documents.</li>
-    </ul>
+    <p>Our main list is the Security Council veto list of the UN Dag Hammarskjöld Library (DHL): <span class="ham-kaynak"></span>.
+    We keep an unmodified copy of the downloaded page.</p>
+    <p>We compared the list line by line with Table 4 in Sievers and Daws, <i>The Procedure of the UN Security Council</i>
+    (version of 18 September 2025).</p>
+    <p>The primary documents are Security Council meeting records (S/PV), draft resolutions, General Assembly meeting
+    records and resolutions, the Council's special reports and the Journal of the United Nations. We add vetoes after the
+    last date covered by the reference table (18 September 2025) from these documents.</p>
 
     <h2 id="en-sayim">How we count</h2>
     <ul>
-      <li>Two numbers are given together: the number of <b>proposals</b> that failed because of a veto and the number of
+      <li>We give two numbers together: the number of <b>proposals</b> that failed because of a veto and the number of
         <b>negative votes</b> cast. If two permanent members vetoed one proposal, that is one proposal and two negative
         votes.</li>
       <li>Vetoes cast in private meetings, for which the official record does not say who cast them (appointment of the
         Secretary-General), are counted as proposals but not in the negative-vote total.</li>
-      <li>Vetoes of the Soviet Union are shown separately from those of the Russian Federation. "China" vetoes before
+      <li>We show the vetoes of the Soviet Union separately from those of the Russian Federation. "China" vetoes before
         25 October 1971 belong to the Republic of China.</li>
       <li>Vetoes of paragraphs and amendments, and "preliminary question" (double) vetoes, are marked separately.</li>
+      <li>We do not say that a veto caused what followed; the record and the number stand side by side.</li>
     </ul>
 
     <h2 id="en-tarih">Date rule</h2>
     <p>The date of a veto is the calendar day on which the vote actually took place. For meetings that ran past midnight,
-    this day can differ from the date in the heading of the meeting record; both dates are kept in the record. Record
-    identifiers (e.g. V-1950-09-05-1) are permanent keys; the date inside them carries no information.</p>
+    this day can differ from the date in the heading of the meeting record. We keep both dates in the record. Record
+    identifiers (e.g. V-1950-09-05-1) are permanent keys, and the date inside them carries no information.</p>
 
     <h2 id="en-konular">Topics and agenda items</h2>
-    <p>Each veto is assigned one of <span data-yer="konu-sayisi"></span> topics as its main topic; some vetoes are also linked to another topic as a
+    <p>We assign each veto one of <span data-yer="konu-sayisi"></span> topics as its main topic. Some vetoes are also linked to another topic as a
     secondary topic. Topic counts include only the main topic. In the English version, agenda items are shown in their
-    original UN wording; the Turkish version gives faithful Turkish translations next to the original. Topic assignments
-    and translations are editorial decisions and are recorded with their reasons in the source files.</p>
+    original UN wording, and the Turkish version gives faithful Turkish translations next to the original. Topic
+    assignments and translations are editorial decisions and are recorded with their reasons in the source files.</p>
 
     <h2 id="en-genel-kurul">General Assembly debates</h2>
     <p>By resolution A/RES/76/262, adopted on 26 April 2022, the General Assembly decided to hold a debate within 10
-    working days after every veto. For every veto after that date, the atlas shows the Council's special report, the
-    meeting records of the debate and the number of delegations that spoke. If the matter was taken up in an emergency
-    special session of the General Assembly, only the meeting records and the resolutions adopted are listed.</p>
-
-    <h2 id="en-nedensellik">Language of causation</h2>
-    <p>The atlas does not claim that a veto "led to" particular outcomes. What happened after a veto is described in the
-    frame of "the period following the blocking of the draft", and only on the basis of published data from UN agencies
-    or recognised independent institutions.</p>
+    working days after every veto. For every veto after that date, we show the Council's special report, the meeting
+    records of the debate and the number of delegations that spoke. If the matter was taken up in an emergency special
+    session of the General Assembly, we list only the meeting records and the resolutions adopted.</p>
 
     <h2 id="en-dogrulama">Corrections and verification</h2>
-    <p>Every difference between the two sources is recorded with its reason in a corrections file; no corrections are
-    embedded in the code. Where the sources disagree or are not sufficient on their own, the relevant meeting record is
-    opened: the vote breakdown is counted from the voting list in the record, and the voting day is determined from the
-    opening and closing times of the meeting and from time references in the statements. Every finding is recorded with
-    the page number of the meeting record. Where no definite conclusion can be reached, no guess is made; the record stays
-    "under verification" and the reason is shown.</p>
-    <p>The notes attached to the records and the reasons for corrections are written in Turkish and translated into
-    English; the Turkish text is the original. Document symbols, page numbers and proper names are not changed in
+    <p>We record every difference between the two sources, with its reason, in a corrections file, and we embed no
+    corrections in the code. Where the sources disagree or are not sufficient on their own, we open the relevant meeting
+    record: we count the vote breakdown from the voting list in the record and determine the voting day from the opening
+    and closing times of the meeting and from time references in the statements. We record every finding with the page
+    number of the meeting record. Where we cannot reach a definite conclusion, we do not guess; the record stays "under
+    verification" and the reason is shown.</p>
+    <p>We write the notes attached to the records and the reasons for corrections in Turkish and translate them into
+    English, so the Turkish text is the original. Document symbols, page numbers and proper names do not change in
     translation.</p>
-    <div class="kutu" data-yer="dogrulama"></div>
+    <div data-yer="dogrulama"></div>
 
     <h2 id="en-sinirlar">Known limitations</h2>
     <ul>
-      <li>For now the atlas includes only formal vetoes. Drafts not put to a vote because of a veto threat, and cases of
-        Council inaction, have not yet been added.</li>
-      <li>Records on which the DHL list and the reference table agree were not separately verified from the meeting
-        record; meeting records were consulted only where the two sources disagreed or were not sufficient on their
-        own.</li>
-      <li>Most vote breakdowns are taken from the reference table.</li>
-      <li>The official records of some General Assembly debates have not yet been published; for these debates, speaker
-        counts were taken from Journal of the United Nations summaries, and some differ by one or two delegations from the
+      <li>For now we include only formal vetoes. We have not yet added drafts not put to a vote because of a veto threat,
+        or cases of Council inaction.</li>
+      <li>We did not separately verify from the meeting record the records on which the DHL list and the reference table
+        agree; we consulted meeting records only where the two sources disagreed or were not sufficient on their own.</li>
+      <li>We took most vote breakdowns from the reference table.</li>
+      <li>The official records of some General Assembly debates have not yet been published. For these debates we took the
+        speaker counts from Journal of the United Nations summaries; some differ by one or two delegations from the
         summaries of the Office of the President of the General Assembly.</li>
     </ul>
 
     <h2 id="en-iletisim">Contact</h2>
-    <p>Contact: <a href="mailto:iletisim@vetoatlas.com">iletisim@vetoatlas.com</a>. Error reports are welcome, and corrections are entered in the change log.</p>
-    <p>Licence: code MIT, data compilation CC BY 4.0 (details: <a href="LICENSE-DATA.txt">LICENSE-DATA</a>) · Dataset archive: Zenodo, DOI <a href="https://doi.org/10.5281/zenodo.23326362">10.5281/zenodo.23326362</a></p>
+    <p>For error reports and questions, <a href="mailto:iletisim@vetoatlas.com">iletisim@vetoatlas.com</a>. We enter corrections in the change log.</p>
+    <p>Code under MIT, the data compilation under CC BY 4.0 (<a href="LICENSE-DATA.txt">LICENSE-DATA</a>). The dataset is archived on Zenodo, DOI <a href="https://doi.org/10.5281/zenodo.23326362">10.5281/zenodo.23326362</a>.</p>
     </div>
   </main>
 </div>
@@ -305,17 +290,17 @@ code { word-break: break-all; }
   const SOZLUK = {
     tr: {
       sayfaBasligi: "Hakkında · Veto Atlası", sayfaAciklamasi: "Veto Atlası'nın kaynakları, sayım ve tarih kuralları, doğrulama yöntemi, bilinen sınırları ve açık verisi.",
-      ozet: ({ surum, oneri, oy }) => `Veri sürümü ${surum}: ${oneri} öneri, ${oy} ret oyu.`,
-      dogrulanan: ({ n }) => `<b>${n}</b> kaydın tarihi, oy dağılımı ya da ret oyu veren üyesi toplantı kaydından doğrulandı.`,
-      dogrulanamayan: ({ n }) => `<b>${n}</b> kaydın oylama günü toplantı kaydına erişilemediği için doğrulanamadı.`,
-      hatalar: ({ dhl, sc }) => `Kaynaklarda toplantı kaydıyla doğrulanan hata sayısı: DHL listesinde <b>${dhl}</b>, referans tabloda <b>${sc}</b>. Bu hatalar kaynak sahiplerine iletilmek üzere ayrı bir bildirimde toplandı.`,
+      ozet: ({ surum, oneri, oy }) => `Veri sürümü ${surum}, ${oneri} öneri ve ${oy} ret oyu.`, erisim: "erişim",
+      dogrulanan: ({ n }) => `<b>${n}</b> kaydın tarihini, oy dağılımını ya da ret oyu veren üyesini toplantı kaydından doğruladık.`,
+      dogrulanamayan: ({ n }) => `<b>${n}</b> kaydın oylama gününü toplantı kaydına erişemediğimiz için doğrulayamadık.`,
+      hatalar: ({ dhl, sc }) => `Kaynaklarda toplantı kaydıyla doğruladığımız hata sayısı DHL listesinde <b>${dhl}</b>, referans tabloda <b>${sc}</b>. Bu hataları kaynak sahiplerine iletmek üzere ayrı bir bildirimde topladık.`,
     },
     en: {
       sayfaBasligi: "About · Veto Atlas", sayfaAciklamasi: "Sources, counting and date rules, verification method, known limitations and open data of the Veto Atlas.",
-      ozet: ({ surum, oneri, oy }) => `Data version ${surum}: ${oneri} proposals, ${oy} negative votes.`,
-      dogrulanan: ({ n }) => `For <b>${n}</b> records, the date, the vote breakdown or the member casting the negative vote was verified from the meeting record.`,
-      dogrulanamayan: ({ n }) => `For <b>${n}</b> record${n === "1" ? "" : "s"}, the voting day could not be verified because the meeting record could not be accessed.`,
-      hatalar: ({ dhl, sc }) => `Errors in the sources confirmed from meeting records: <b>${dhl}</b> in the DHL list, <b>${sc}</b> in the reference table. These errors have been collected in a separate report to be sent to the source owners.`,
+      ozet: ({ surum, oneri, oy }) => `Data version ${surum}, ${oneri} proposals and ${oy} negative votes.`, erisim: "accessed",
+      dogrulanan: ({ n }) => `For <b>${n}</b> records we verified the date, the vote breakdown or the member casting the negative vote from the meeting record.`,
+      dogrulanamayan: ({ n }) => `For <b>${n}</b> record${n === "1" ? "" : "s"} we could not verify the voting day because we could not access the meeting record.`,
+      hatalar: ({ dhl, sc }) => `We confirmed <b>${dhl}</b> errors in the DHL list and <b>${sc}</b> in the reference table from meeting records. We have collected them in a separate report for the source owners.`,
     },
   };
   const t = (a, p) => { const v = SOZLUK[DIL][a]; return typeof v === "function" ? v(p || {}) : v; };
@@ -338,11 +323,16 @@ code { word-break: break-all; }
   const yer = (s) => icerik.querySelector(s);
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const sayi = (n) => (n ?? 0).toLocaleString(DIL === "tr" ? "tr-TR" : "en-GB");
+  // Tarihler yazıyla (10 Ekim 2026 / 10 October 2026); ISO biçimi okuma metninde kullanılmaz
+  const AYLAR = { tr: ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"],
+    en: ["January","February","March","April","May","June","July","August","September","October","November","December"] }[DIL];
+  const tarihUzun = (x) => { const [y, a, g] = String(x || "").slice(0, 10).split("-"); return g ? `${+g} ${AYLAR[+a - 1]} ${y}` : x; };
   const kayit = V.kayitlar;
   const oy = kayit.filter((k) => !k.kapali).reduce((s, k) => s + k.uyeler.length, 0);
-  yer(".ozet-sayilar").textContent = t("ozet", { surum: m.veri_surumu, oneri: sayi(kayit.length), oy: sayi(oy) });
+  yer(".ozet-sayilar").textContent = t("ozet", { surum: tarihUzun(m.veri_surumu), oneri: sayi(kayit.length), oy: sayi(oy) });
   yer('[data-yer="konu-sayisi"]').textContent = sayi((m.konular || []).length);
-  yer(".ham-kaynak").innerHTML = `<a href="${esc(m.kaynak_url || "")}">${esc(m.kaynak_url || "")}</a>, ${DIL === "tr" ? "erişim" : "accessed"} ${esc((m.kaynak_indirme || "").slice(0, 10))}, SHA-256 <code>${esc(m.kaynak_sha256)}</code>`;
+  // Özet (SHA-256) okuma metninde değil; kaynak künyesi ve özet kaynaklar/KAYNAKLAR.md ve data/raw/KAYNAK.md'de
+  yer(".ham-kaynak").innerHTML = `<a href="${esc(m.kaynak_url || "")}">${esc(m.kaynak_url || "")}</a>, ${t("erisim")} ${esc(tarihUzun(m.kaynak_indirme))}`;
   const h = ist.kaynak_hatalari || {};
   yer('[data-yer="dogrulama"]').innerHTML = `<ul>
     <li>${t("dogrulanan", { n: sayi(ist.toplanti_kaydindan_dogrulanan) })}</li>
