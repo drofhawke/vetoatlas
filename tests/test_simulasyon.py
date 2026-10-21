@@ -466,8 +466,8 @@ def test_sonuc_kartlari_adim51():
     g = SAYFA[SAYFA.index("<body"):SAYFA.index('<script src="veri.js">')]
     blok = g[g.index('<div class="sonuc-blok kutu" id="sonuc-blok">'):g.index('<div class="serit kutu" id="serit" hidden>')]
     sira = ['<h2 class="sonuc-baslik" id="h-sonuc"></h2>', '<div class="sonuc-kartlar" id="sonuc-kartlar">',
-            '<div class="sonuc-kart" id="kart-oneri"><p class="ad" id="ad-oneri"></p><p class="sonuc" id="sonuc-oneri" aria-live="polite"></p><p class="neden" id="aciklama-oneri"></p><p class="ayar-notu" id="ayar-notu" hidden></p></div>',
-            '<div class="sonuc-kart" id="kart-mevcut"><p class="ad" id="ad-mevcut"></p><p class="sonuc" id="sonuc-mevcut" aria-live="polite"></p><p class="neden" id="aciklama-mevcut"></p></div>',
+            '<div class="sonuc-kart" id="kart-oneri"><p class="sistem-adi" id="sistem-oneri"></p><p class="sonuc" id="sonuc-oneri" aria-live="polite"></p><p class="neden" id="aciklama-oneri"></p><p class="ayar-notu" id="ayar-notu" hidden></p></div>',
+            '<div class="sonuc-kart" id="kart-mevcut"><p class="sistem-adi" id="sistem-mevcut"></p><p class="sonuc" id="sonuc-mevcut" aria-live="polite"></p><p class="neden" id="aciklama-mevcut"></p></div>',
             '<p class="fark" id="fark" hidden></p>', '<div class="dugmeler">']
     konum = [blok.index(x) for x in sira]
     assert konum == sorted(konum)
@@ -490,7 +490,7 @@ def test_sonuc_kartlari_adim51():
                   '"serit.oneri": "Önerilen:", "serit.mevcut": "Mevcut:",', '"serit.oneri": "Proposed:", "serit.mevcut": "Current:",',
                   'const belge = (k.belgeler.find((b) => b.tur === "taslak") || k.belgeler[0] || {}).kod;',
                   '$("#h-sonuc").textContent = t("sonuc.baslik", { tarih: tarihUzun(k.tarih), belge });',
-                  '$("#ad-oneri").textContent = `${t("p.oneri")}: ${t("kart.oneri", { boy: yirmi ? 20 : boy, esik })}`;',
+                  '$("#sistem-oneri").textContent = `${t("p.oneri")}: ${t("kart.oneri", { boy: yirmi ? 20 : boy, esik })}`;',
                   'so.className = "sonuc " + (sonucOneri === "kabul" ? "kabul" : sonucOneri === "bagli" ? "bagli" : "yok");',
                   'const seritGuncelle = () => { $("#serit").hidden = !seritDolu || kartlarGorunur; };',
                   'new IntersectionObserver((g) => { kartlarGorunur = g[g.length - 1].isIntersecting; seritGuncelle(); }).observe($("#sonuc-kartlar"));',

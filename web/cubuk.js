@@ -51,7 +51,8 @@
     ".cubuk .c-logo .c-isaret-koyu { display: none; }",
     ":root[data-theme=\"dark\"] .cubuk .c-logo .c-isaret { display: none; }",
     ":root[data-theme=\"dark\"] .cubuk .c-logo .c-isaret-koyu { display: block; }",
-    ".cubuk .c-logo .c-ad { font-family: \"Veto Atlası Logo\", var(--serif); font-weight: 600; font-size: 27.3px; line-height: 40px; letter-spacing: .2px; white-space: nowrap; margin-left: 14px; position: relative; top: 1px; }",
+    "/* Sınıf adı c-yazi: reklam engelleyicilerin ortak listesi (EasyList) \"c-ad\" sınıfını genel kuralla gizliyordu (21 Ekim 2026) */",
+    ".cubuk .c-logo .c-yazi { font-family: \"Veto Atlası Logo\", var(--serif); font-weight: 600; font-size: 27.3px; line-height: 40px; letter-spacing: .2px; white-space: nowrap; margin-left: 14px; position: relative; top: 1px; }",
     ".cubuk .c-not { font-size: var(--yz-kucuk); color: var(--murekkep-2); white-space: nowrap; flex: none; line-height: var(--sa-kucuk); }",
     ".cubuk .c-sayfalar { margin-left: auto; }",
     ".cubuk .c-sayfalar ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 12px; }",
@@ -90,10 +91,19 @@
     "  .c-cubuklu { scroll-padding-top: 72px; }",
     "  .cubuk .c-logo { height: 34px; }",
     "  .cubuk .c-logo img { height: 34px; }",
-    "  .cubuk .c-logo .c-ad { display: none; }",
+    "  .cubuk .c-logo .c-yazi { font-size: 23.2px; line-height: 34px; letter-spacing: .17px; margin-left: 12px; }",
     "  .cubuk .c-araclar { gap: 8px; }",
     "  .cubuk .c-dil a, .cubuk .c-tema, .cubuk .c-menu { padding: 4px 8px; }",
     "  .cubuk .c-araclar { margin-left: 0; }",
+    "  .cubuk .c-tema .c-tema-metin { display: none; }",
+    "  .cubuk .c-tema { min-width: 34px; min-height: 34px; padding: 0; display: inline-flex; align-items: center; justify-content: center; }",
+    "  .cubuk .c-tema::before { margin-right: 0; width: 10px; height: 10px; }",
+    "}",
+    "@media (max-width: 380px) {",
+    "  .cubuk .c-logo .c-yazi { font-size: 20.8px; letter-spacing: .15px; }",
+    "}",
+    "@media (max-width: 340px) {",
+    "  .cubuk .c-logo .c-yazi { display: none; }",
     "}",
     "@media print { .cubuk { display: none; } }",
   ].join("\n");
@@ -188,15 +198,16 @@
           '<span class="c-dil" role="group" aria-label="' + esc(Y.dil) + '">' +
             ["tr", "en"].map(function (d) { return '<a href="' + esc(tek ? "#" : dilAdresi(d)) + '" lang="' + d + '" data-dil="' + d + '"' + (d === dil ? ' aria-current="true"' : "") + ">" + d.toUpperCase() + "</a>"; }).join("") +
           "</span>" +
-          '<button type="button" class="c-tema" aria-pressed="' + (tema === "koyu") + '" aria-label="' + esc(Y.temaUzun) + '" title="' + esc(Y.temaUzun) + '">' + esc(Y.tema) + "</button>" +
+          '<button type="button" class="c-tema" aria-pressed="' + (tema === "koyu") + '" aria-label="' + esc(Y.temaUzun) + '" title="' + esc(Y.temaUzun) + '"><span class="c-tema-metin">' + esc(Y.tema) + "</span></button>" +
         "</span>" +
       "</div>";
     var logo = yer.querySelector(".c-logo");
     // Çubukta işaret + canlı logo yazısı (slogansız; sloganlı tam logo sayfalarda kullanılmaz, KILAVUZ bölüm 3). Bağlantının adı
-    // aria-label'dadır; işaret süs (alt boş), yazı her iki dilde de marka adıdır. 520 px ve altında yalnızca işaret (34 px)
+    // aria-label'dadır; işaret süs (alt boş), yazı her iki dilde de marka adıdır. 520 px ve altında işaret 34 px, yazı aynı oranla
+    // 23,2 px (380 px altında 20,8 px, 340 px altında yalnızca işaret); tema düğmesi orada yalnızca simge, adı aria-label'da
     logo.appendChild(gorsel("c-isaret", "isaret.svg", 37, 40, ""));
     logo.appendChild(gorsel("c-isaret-koyu", "isaret-koyu.svg", 37, 40, ""));
-    var ad = document.createElement("span"); ad.className = "c-ad"; ad.textContent = "Veto Atlası"; logo.appendChild(ad);
+    var yazi = document.createElement("span"); yazi.className = "c-yazi"; yazi.textContent = "Veto Atlası"; logo.appendChild(yazi);
 
     var menu = yer.querySelector(".c-menu");
     function menuKapat() { yer.classList.remove("c-menu-acik"); menu.setAttribute("aria-expanded", "false"); }

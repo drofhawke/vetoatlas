@@ -72,9 +72,9 @@ h3 { font-family: var(--serif); font-weight: 600; font-size: var(--yz-govde); ma
 .ornekler { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(420px, 100%), 1fr)); gap: 0 24px; margin: 0 0 16px; }
 .ornekler button { text-align: left; padding: 4px 0 4px 12px; border: 0; border-left: 2px solid transparent; background: none; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); color: var(--murekkep); }
 .ornekler button[aria-pressed="true"] { border-left-color: var(--murekkep); }
-.ornekler button[aria-pressed="true"] .ad { font-weight: 600; }
+.ornekler button[aria-pressed="true"] .kayit-baslik { font-weight: 600; }
 .ornekler .tarih { color: var(--murekkep-2); font-variant-numeric: tabular-nums; }
-.ornekler .ad { font-family: var(--serif); font-size: var(--yz-govde); line-height: var(--sa-govde); }
+.ornekler .kayit-baslik { font-family: var(--serif); font-size: var(--yz-govde); line-height: var(--sa-govde); }
 .ornekler .alt { color: var(--murekkep-2); }
 
 /* Kayıt seçimi: kutusuz, üstte ve altta ince çizgi */
@@ -139,7 +139,7 @@ details.ayarlar .parametre { margin: var(--b2) 0 0; }
 .sonuc-kartlar { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .sonuc-kart { padding: 16px 24px; background: var(--zemin); border: 1px solid var(--cizgi); border-radius: 6px; display: grid; gap: 8px; align-content: start; }
 .sonuc-kart > * { margin: 0; min-width: 0; }
-.sonuc-kart .ad, .sonuc-kart .neden { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); color: var(--murekkep-2); }
+.sonuc-kart .sistem-adi, .sonuc-kart .neden { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); color: var(--murekkep-2); }
 .sonuc { font-family: var(--serif); font-size: var(--yz-baslik); font-weight: 600; line-height: var(--sa-baslik); margin: 0; min-height: var(--sa-baslik); }
 /* Sonuç renkleri: yeşil yalnızca "Kabul edilirdi"; vetoyla "Düştü" ret kırmızısı; "Yeni üyelerin oyuna bağlı" ikincil;
    önerilen sistemde çoğunluk olmadan düşme (veto değil) mürekkep */
@@ -264,8 +264,8 @@ td.sayi, th.sayi { text-align: right; font-variant-numeric: tabular-nums; white-
       <div class="sonuc-blok kutu" id="sonuc-blok">
         <h2 class="sonuc-baslik" id="h-sonuc"></h2>
         <div class="sonuc-kartlar" id="sonuc-kartlar">
-          <div class="sonuc-kart" id="kart-oneri"><p class="ad" id="ad-oneri"></p><p class="sonuc" id="sonuc-oneri" aria-live="polite"></p><p class="neden" id="aciklama-oneri"></p><p class="ayar-notu" id="ayar-notu" hidden></p></div>
-          <div class="sonuc-kart" id="kart-mevcut"><p class="ad" id="ad-mevcut"></p><p class="sonuc" id="sonuc-mevcut" aria-live="polite"></p><p class="neden" id="aciklama-mevcut"></p></div>
+          <div class="sonuc-kart" id="kart-oneri"><p class="sistem-adi" id="sistem-oneri"></p><p class="sonuc" id="sonuc-oneri" aria-live="polite"></p><p class="neden" id="aciklama-oneri"></p><p class="ayar-notu" id="ayar-notu" hidden></p></div>
+          <div class="sonuc-kart" id="kart-mevcut"><p class="sistem-adi" id="sistem-mevcut"></p><p class="sonuc" id="sonuc-mevcut" aria-live="polite"></p><p class="neden" id="aciklama-mevcut"></p></div>
         </div>
         <p class="fark" id="fark" hidden></p>
         <div class="dugmeler">
@@ -501,7 +501,7 @@ td.sayi, th.sayi { text-align: right; font-variant-numeric: tabular-nums; white-
   ].filter((o) => { const k = kayitBul(o.id); return k && sayilabilir(k); });
   const ornekMi = (k) => !!k && ORNEKLER.some((o) => o.id === k.id);
   $("#ornekler").innerHTML = ORNEKLER.map((o) => { const k = kayitBul(o.id); return `<button type="button" data-ornek="${esc(o.id)}" aria-pressed="false">
-      <span class="tarih">${esc(tarihUzun(k.tarih))}</span> <span class="ad">${esc(o[DIL])}</span>
+      <span class="tarih">${esc(tarihUzun(k.tarih))}</span> <span class="kayit-baslik">${esc(o[DIL])}</span>
       <span class="alt">(${esc(k.uyeler.map(uyeAd).join(", "))}, ${esc(oyKisa(k))})</span></button>`; }).join("");
   const ornekleriIsaretle = () => $("#ornekler").querySelectorAll("[data-ornek]").forEach((b) => b.setAttribute("aria-pressed", String(!!durum.kayit && b.dataset.ornek === durum.kayit.id)));
 
@@ -694,8 +694,8 @@ td.sayi, th.sayi { text-align: right; font-variant-numeric: tabular-nums; white-
     const esik = yirmi ? esik20(durum.esik) : ESIKLER[durum.esik](boy);
     const belge = (k.belgeler.find((b) => b.tur === "taslak") || k.belgeler[0] || {}).kod;
     $("#h-sonuc").textContent = t("sonuc.baslik", { tarih: tarihUzun(k.tarih), belge });
-    $("#ad-oneri").textContent = `${t("p.oneri")}: ${t("kart.oneri", { boy: yirmi ? 20 : boy, esik })}`;
-    $("#ad-mevcut").textContent = `${t("p.mevcut")}: ${t("kart.mevcut")}`;
+    $("#sistem-oneri").textContent = `${t("p.oneri")}: ${t("kart.oneri", { boy: yirmi ? 20 : boy, esik })}`;
+    $("#sistem-mevcut").textContent = `${t("p.mevcut")}: ${t("kart.mevcut")}`;
     if (!sayilabilir(k)) {
       ALANLAR.forEach((a) => { $("#sonuc-" + a).className = "sonuc belirsiz"; $("#sonuc-" + a).textContent = t("r.oyYok"); $("#aciklama-" + a).textContent = t(k.kapali ? "a.kapali" : "a.oyYok"); });
       $("#karsilastir-liste").innerHTML = `<li>${t("k.yok")}</li>`;

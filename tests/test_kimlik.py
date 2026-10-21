@@ -119,17 +119,21 @@ def test_logo_ikon_ve_bildirim():
     # Çubukta işaret (isaret.svg, 40 px) + canlı logo yazısı "Veto Atlası" (20 Ekim; KILAVUZ bölüm 3): yazı logo-cubuk-b.svg'nin
     # ölçülerinde (27,3 px, 14 px aralık) ve aynı kesimle (Veto Atlası Logo: Source Serif 4 Semibold, optik boy 20) canlı metindir;
     # %100 ölçekte SVG dış çizgisi gri tonlu yumuşatmayla bulanık çiziliyordu, canlı metin hinting ve ClearType alır. logo-cubuk-b.svg
-    # sitede kullanılmaz, kimlik dosyası olarak web/ altında durur. 520 px altında yalnızca işaret 34 px: telefon 2–3 kat yoğunlukla
-    # çizer; koyu kâğıtta koyu işaret, yazı rengi --murekkep
+    # sitede kullanılmaz, kimlik dosyası olarak web/ altında durur. 520 px ve altında işaret 34 px, yazı aynı oranla 23,2 px (380 px
+    # altında 20,8 px, 340 px altında yalnızca işaret; 21 Ekim 2026, kullanıcı kararı); koyu kâğıtta koyu işaret, yazı rengi --murekkep.
+    # Yazının sınıfı c-yazi: reklam engelleyicilerin ortak listesi EasyList "##.c-ad" kuralıyla eski sınıfı gizliyordu (21 Ekim 2026)
     cubuk = (WEB / "cubuk.js").read_text(encoding="utf-8")
     for ad in ("isaret.svg", "isaret-koyu.svg"):
         assert f'"{ad}"' in cubuk and (WEB / ad).exists(), ad
     assert "isaret-kucuk" not in cubuk and '"logo-cubuk-b' not in cubuk and "logo-yatay-a" not in cubuk  # dosya olarak anılmaz (yorumda ölçü kaynağı)
     assert 'gorsel("c-isaret", "isaret.svg", 37, 40, "")' in cubuk and 'gorsel("c-isaret-koyu", "isaret-koyu.svg", 37, 40, "")' in cubuk
-    assert 'ad.className = "c-ad"; ad.textContent = "Veto Atlası";' in cubuk
-    assert '".cubuk .c-logo .c-ad { font-family: \\"Veto Atlası Logo\\", var(--serif); font-weight: 600; font-size: 27.3px; line-height: 40px; letter-spacing: .2px; white-space: nowrap; margin-left: 14px; position: relative; top: 1px; }"' in cubuk
+    assert 'yazi.className = "c-yazi"; yazi.textContent = "Veto Atlası";' in cubuk
+    assert '".cubuk .c-logo .c-yazi { font-family: \\"Veto Atlası Logo\\", var(--serif); font-weight: 600; font-size: 27.3px; line-height: 40px; letter-spacing: .2px; white-space: nowrap; margin-left: 14px; position: relative; top: 1px; }"' in cubuk
     assert '".cubuk .c-logo img { height: 40px; width: auto; display: block; }"' in cubuk and "min-height: 76px; }" in cubuk
-    assert '"  .cubuk .c-logo img { height: 34px; }"' in cubuk and '"  .cubuk .c-logo .c-ad { display: none; }"' in cubuk
+    assert '"  .cubuk .c-logo img { height: 34px; }"' in cubuk
+    assert '"  .cubuk .c-logo .c-yazi { font-size: 23.2px; line-height: 34px; letter-spacing: .17px; margin-left: 12px; }"' in cubuk
+    assert '"  .cubuk .c-logo .c-yazi { font-size: 20.8px; letter-spacing: .15px; }"' in cubuk and '"  .cubuk .c-logo .c-yazi { display: none; }"' in cubuk
+    assert '"  .cubuk .c-tema .c-tema-metin { display: none; }"' in cubuk and '<span class="c-tema-metin">' in cubuk
     assert ".c-cubuklu { scroll-padding-top: 84px; }" in cubuk
     fonts_css = (WEB / "fonts/fonts.css").read_text(encoding="utf-8")
     assert "font-family: 'Veto Atlası Logo';" in fonts_css and "font-display: block;" in fonts_css and (WEB / "fonts/veto-atlasi-logo.woff2").exists()
@@ -160,6 +164,32 @@ def test_logo_ikon_ve_bildirim():
         assert f"data:{tur};base64," + base64.b64encode(veri).decode() in tek, ad  # tek dosyada aynı simge
     assert "logo-yatay-a" not in tek and "isaret-kucuk" not in tek and '"logo-cubuk-b' not in tek  # kullanılmayan logo ve işaret gömülmez
     assert (KOK / "kaynaklar/kimlik/KILAVUZ.md").exists()
+
+
+def test_reklam_engelleyiciye_takilan_sinif_yok():
+    """21 Ekim 2026: çubuktaki logo yazısının sınıfı "c-ad" idi; reklam engelleyicilerin ortak listesi EasyList bunu genel kuralla
+    ("##.c-ad") gizlediği için engelleyicili tarayıcılarda logo yazısı görünmüyordu. Sınıf ve kimlik adlarında "ad", "ads", "advert",
+    "banner", "sponsor" gibi sözcüklerle başlamaz (listelerin genel kuralları bunları yakalar; "konu-ad" gibi Türkçe sonekler ve
+    "adim" gibi sözcükler serbest). Simülasyonun "ad" sınıfı da aynı gün "sistem-adi" ve "kayit-baslik" oldu. Tam denetim: EasyList,
+    AdGuard Temel, AdGuard Türkçe ve uBlock listelerinin 14.150 genel kuralı tarayıcıda sayfalara uygulandı, eşleşme 0."""
+    yasak = re.compile(r"^(?:c-)?(?:ad|ads|advert|advertisement|banner|sponsor|sponsored|promo)(?:$|[-_])")
+    adlar = set()
+    for ad in [p.name for p in WEB.glob("*.html") if p.name != "veto-atlasi-tek-dosya.html"] + ["cubuk.js", "metin.js", "suzgec.js"]:
+        s = (WEB / ad).read_text(encoding="utf-8")
+        # Öznitelik değerleri ve sınıf atamaları (betik içindeki HTML dizgeleri dahil; şablon değişkenli değerler atlanır)
+        degerler = re.findall(r'\b(?:class|id)="([^"$]+)"', s) + re.findall(r'className\s*=\s*"([^"]+)"', s)
+        degerler += re.findall(r'classList\.(?:add|remove|toggle|contains)\("([^"]+)"', s)
+        # CSS seçicileri: sayfalardaki <style> blokları ve çubuğun CSS dizisi (betikteki nesne.özellik erişimleri sayılmaz)
+        css = "\n".join(re.findall(r"<style>(.*?)</style>", s, re.S))
+        if ad == "cubuk.js":
+            css = s[s.index("var CSS = ["):s.index("].join(")]
+        for secici in re.findall(r"([^{}]+)\{", css):
+            degerler += re.findall(r"[.#]([A-Za-z][\w-]*)", secici)
+        for deger in degerler:
+            for parca in deger.split():
+                adlar.add((ad, parca))
+    bulunan = sorted(f"{ad}: {parca}" for ad, parca in adlar if yasak.search(parca))
+    assert not bulunan, bulunan
 
 
 def test_karsilastirmali_iddia_yok():

@@ -297,9 +297,11 @@ uygulama simgeleri `paket/web/`'dekilerle baytı baytına aynıdır (`tests/test
   olmasaydı? · Kim temsil ediliyor? · Nasıl yaptık?; aralarında 12 px), en sağda TR/EN ve tema düğmesi. Çubuk
   yapışkandır ve %92 saydam zemin üzerinde bulanıklık kullanır (taslaktaki gibi); sayfa içi bağlantılar 84 px kaydırma
   payıyla çubuğun altına iner. Bağlantılar tek satıra sığmadığında (betik ölçer; dile ve genişliğe göre) "Menü"
-  düğmesine toplanır; 520 px ve altında logo yerine asıl işaret 34 px yükseklikte (`isaret.svg`, koyu kâğıtta
-  `isaret-koyu.svg`), çubuk 64 px, kaydırma payı 72 px. Telefonlar 2–3 kat piksel yoğunluğuyla çizdiği için asıl işaret
-  bu boyutta nettir.
+  düğmesine toplanır; 520 px ve altında asıl işaret 34 px yükseklikte (`isaret.svg`, koyu kâğıtta `isaret-koyu.svg`) ve
+  yanında logo yazısı aynı oranla 23,2 px (harf aralığı 0,17 px, işaretle arası 12 px); 380 px altında yazı 20,8 px, 340 px
+  altında yalnızca işaret. Telefonda tema düğmesi yalnızca simgedir (34 × 34 px; adı `aria-label`'da). Çubuk 64 px, kaydırma
+  payı 72 px. 21 Ekim 2026, kullanıcı kararı: önceden telefonda yalnızca işaret vardı; 360–430 px'te TR ve EN çubukta
+  taşmadan sığdığı ölçüldü. Telefonlar 2–3 kat piksel yoğunluğuyla çizdiği için işaret ve yazı bu boyutta nettir.
 - Keskinlik (20 Ekim): çubuk logosu tek bir SVG değildir. `logo-cubuk-b.svg`'deki yazı yola çevrilmiş olduğundan %100 ölçekte
   (1 kat piksel yoğunluğu) tarayıcı onu gri tonlu yumuşatmayla çiziyor, yanındaki menü yazıları ise hinting ve ClearType (renkli
   alt piksel) netliğinde çıkıyordu; logo yazısı bulanık, 5 px'e düşen halka kareleri lekeli görünüyordu (Windows, Chrome, ekran
@@ -309,7 +311,10 @@ uygulama simgeleri `paket/web/`'dekilerle baytı baytına aynıdır (`tests/test
   52/76,19 × 40 = 27,3 px, harf aralığı 0,2 px, işaretle arası 14 px, taban çizgisi işaretin üstünden 28,4 px (40 px satır
   kutusunda 1 px aşağı); Chromium'da 4 kat yoğunlukta ölçüldü, yazının mürekkep kutusu SVG'dekiyle 0,25 px içinde aynıdır.
   Yazının rengi `--murekkep` (koyu kâğıtta kendiliğinden açılır); yazı tipi yüklenene kadar yedek gösterilmez
-  (`font-display: block`). `tests/test_tasarim.py` bu tek kuralı yazı ölçeği taramasının dışında tutar. Halkanın 1 kat
+  (`font-display: block`). `tests/test_tasarim.py` logo yazısı kurallarını yazı ölçeği taramasının dışında tutar. Yazının
+  sınıf adı `c-yazi`'dir: reklam engelleyicilerin ortak listesi EasyList eski `c-ad` sınıfını genel bir kuralla (`##.c-ad`)
+  gizlediği için 20–21 Ekim'de engelleyicili masaüstü tarayıcılarda logo yazısı görünmedi. Sınıf ve kimlik adlarında `ad`,
+  `ads`, `banner`, `sponsor` gibi parçalar kullanılmaz (`tests/test_kimlik.py`). Halkanın 1 kat
   yoğunlukta ~5 px'lik kareleri çizimin sınırıdır; küçük boya özel bir işaret çizimi (piksele oturan kareler) ayrı bir karardır,
   yapılmadı. `logo-cubuk-b.svg` ve koyu sürümü sitede kullanılmaz, kimlik dosyası olarak `web/` altında ve pakette durur
   (bayt bayt aynı). Eski not (13 Ekim): logo 183 px genişlikte tam piksele oturuyordu; Edge'de 1265 ve 1280 px pencerede

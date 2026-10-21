@@ -26,9 +26,9 @@ def stil_kaynaklari():
         s = (WEB / f"{ad}.html").read_text(encoding="utf-8")
         yield f"{ad}.html", "\n".join(re.findall(r"<style>(.*?)</style>", s, re.S))
     c = (WEB / "cubuk.js").read_text(encoding="utf-8")
-    # Çubuktaki logo yazısı (.c-ad) yazı ölçeğinin dışındadır: logo-cubuk-b.svg'nin ölçüleriyle çizilir (27,3 px / 40 px, kendi kesimi);
-    # KILAVUZ bölüm 3. Bu tek kural taramanın dışında tutulur
-    yield "cubuk.js", "\n".join(satir for satir in c[c.index("var CSS = ["):c.index("].join(")].split("\n") if ".c-logo .c-ad {" not in satir)
+    # Çubuktaki logo yazısı (.c-yazi) yazı ölçeğinin dışındadır: logo-cubuk-b.svg'nin ölçüleriyle çizilir (27,3 px / 40 px, telefonda aynı
+    # oranla 23,2 ve 20,8 px; kendi kesimi); KILAVUZ bölüm 3. Bu kurallar taramanın dışında tutulur
+    yield "cubuk.js", "\n".join(satir for satir in c[c.index("var CSS = ["):c.index("].join(")].split("\n") if ".c-logo .c-yazi {" not in satir)
     yield "temel.css", TEMEL
     m = (KOK / "veto_atlasi/metodoloji.py").read_text(encoding="utf-8")
     yield "metodoloji.py", "\n".join(re.findall(r"<style>(.*?)</style>", m, re.S))
