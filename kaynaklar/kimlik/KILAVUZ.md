@@ -412,6 +412,8 @@ yüklenirken düzen kaymaz.
 - Karşılaştırma tablosu açık durur: geniş ekranda tablo, 960 px ve altında ölçüt ölçüt alt alta (Reform modelleri);
   961–1180 px arasında hücre iç boşluğu 12 px, ölçüt sütunu 144 px. Altı ölçüt vardır; ilk satır taslağı kimin sunduğunu
   ("Kim sundu?"), veto satırından sonraki satır karar için gereken oyu gösterir.
+  Hücrenin altındaki belge satırı belge simgesini ve yerini verir (A/59/L.64, par. 1 (a)); kitap için "Kitap" değil kitabın adı
+  yazılır: “Daha Adil Bir Dünya Mümkün”, Giriş; İngilizcede “A Fairer World is Possible”, Introduction (22 Ekim 2026).
 - Vetolar’da kayıt türü "Genel Kurulda görüşülenler" seçilince (`?tur=genel-kurul`) listenin üstünde başlıklı bir tablo
   çıkar: her Genel Kurul tartışması bir satırdır (veto tarihi, gündem, veto eden, tartışma tarihi ve türü, konuşan üye
   devlet, veto edenin söz alıp almadığı, tutanak); gündem kaydı açar. Aynı tartışmada (aynı tarihler ve tutanaklar)

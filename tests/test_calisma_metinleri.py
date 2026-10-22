@@ -14,6 +14,9 @@ def test_tablo_bes_metni_iceriyor():
 
 
 def test_calisma_metinleri_depoda_izlenmiyor():
+    # Yayın denetiminde açık ağaç git deposu olmayan bir klasöre çıkarılıp sınanır; orada git yok, denetim açık klonda yapılır
+    if subprocess.run(["git", "rev-parse", "--show-toplevel"], cwd=KOK, capture_output=True).returncode != 0:
+        pytest.skip("git deposu değil (dışa çıkarılmış ağaç)")
     izlenen = subprocess.run(["git", "ls-files", "kaynaklar/calisma_metinleri"], cwd=KOK,
                              capture_output=True, text=True, check=True).stdout.strip()
     assert izlenen == ""

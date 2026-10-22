@@ -160,7 +160,10 @@ def test_reform_sayfasi():
     assert 'const MODELLER = ["Ezulwini Uzlaşısı", "G4", "Uzlaşı için Birlik", "Daha Adil Bir Dünya Mümkün"]' in r
     assert 'const OLCUTLER = ["sunan", "toplam", "yeni_daimi", "veto", "esik", "genel_kurul"];' in r
     assert '"olcut.sunan": "Kim sundu?", "olcut.esik": "Karar için gereken oy",' in r and '"olcut.sunan": "Put forward by", "olcut.esik": "Votes needed for a decision",' in r
-    assert '<small>${esc(DIL === "en" ? dayanakEn(r.belge) : r.belge)}, ' in r and 'dayanak: "' not in r and "details.yontem" not in r
+    assert '<small>${esc(belgeAdi(r.belge))}, ' in r and 'dayanak: "' not in r and "details.yontem" not in r
+    # Kitabın dayanak satırında "Kitap" / "Book" değil kitabın adı (kullanıcı isteği, 22 Ekim 2026)
+    assert 'const KITAP_ADI = { tr: "“Daha Adil Bir Dünya Mümkün”", en: "“A Fairer World is Possible”" };' in r
+    assert 'b === "Kitap" ? KITAP_ADI[DIL]' in r and '.replace(/Kitap/, "Book")' not in r
     assert "@media (max-width: 960px) {\n  .tablo-kap { display: none; }\n  .olcutler { display: block; }\n}" in r
     # Sayfa başlığı sekme adıyla aynı; eski başlık giriş cümlesinde (denetim sonrası)
     assert 'baslik: "Reform modelleri"' in r and 'baslik: "Reform models"' in r

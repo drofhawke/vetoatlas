@@ -161,8 +161,11 @@ table.reform { border-collapse: collapse; width: 100%; table-layout: fixed; font
   const R = V.reformModelleri || [];
   // Dayanak etiketlerinin İngilizcesi (belge kodları ve paragraf numaraları değişmez); birden çok paragraf "paras."
   const dayanakEn = (s) => s.replace(/2\. Bölüm/g, "Part II").replace(/Giriş/g, "Introduction").replace(/par\. (?=[^;]* ve )/g, "paras. ")
-    .replace(/par\./g, "para.").replace(/dipnot/g, "footnote").replace(/ ve /g, " and ").replace(/Kitap/, "Book")
+    .replace(/par\./g, "para.").replace(/dipnot/g, "footnote").replace(/ ve /g, " and ")
     .replace(/künye sayfası/, "imprint page").replace(/başlık/g, "title");
+  // Kitabın dayanak satırında "Kitap" değil kitabın adı yazar (sütun başlığıyla aynı biçimde)
+  const KITAP_ADI = { tr: "“Daha Adil Bir Dünya Mümkün”", en: "“A Fairer World is Possible”" };
+  const belgeAdi = (b) => (b === "Kitap" ? KITAP_ADI[DIL] : DIL === "en" ? dayanakEn(b) : b);
   const MODELLER = ["Ezulwini Uzlaşısı", "G4", "Uzlaşı için Birlik", "Daha Adil Bir Dünya Mümkün"].filter((m) => R.some((r) => r.model === m));
   const OLCUTLER = ["sunan", "toplam", "yeni_daimi", "veto", "esik", "genel_kurul"];
   // Model adı; ilk geçişte sözlükte HTML biçimi varsa o (İngilizcede kitabın Türkçe özgün adı lang="tr" ile)
@@ -176,7 +179,7 @@ table.reform { border-collapse: collapse; width: 100%; table-layout: fixed; font
   const bagla = (s) => s.replace(/<small>.*<\/small>/, (k) => k.replace(/A\/59\/L\.6[478]|Ext\/EX\.CL\/2\s\(VII\)/g, BELGE));
   const hucre = (m, o) => {
     const r = R.find((x) => x.model === m && x.olcut === o);
-    return bagla(bitisik(`${esc(DIL === "en" ? r.en : r.tr)}<small>${esc(DIL === "en" ? dayanakEn(r.belge) : r.belge)}, ${esc(DIL === "en" ? dayanakEn(r.dayanak) : r.dayanak)}</small>`));
+    return bagla(bitisik(`${esc(DIL === "en" ? r.en : r.tr)}<small>${esc(belgeAdi(r.belge))}, ${esc(DIL === "en" ? dayanakEn(r.dayanak) : r.dayanak)}</small>`));
   };
   // Geniş ekranda tablo; dar ekranda aynı hücreler ölçüt ölçüt alt alta (CSS hangisinin görüneceğini seçer)
   $("#reform").innerHTML = `<colgroup><col class="olcut">${MODELLER.map(() => "<col>").join("")}</colgroup>
