@@ -22,19 +22,56 @@ def kimlik(numara: str) -> str:
     return "bolum-" + numara.replace(".", "-")
 
 
-def _satir_ici(metin: str) -> str:
-    """Kod parçaları dışındaki metinde kalın ve italik işaretlerini dönüştürür."""
+_AY_ADLARI = ("Ocak|Şubat|Mart|Nisan|Mayıs|Haziran|Temmuz|Ağustos|Eylül|Ekim|Kasım|Aralık|January|February|March|"
+              "April|May|June|July|August|September|October|November|December")
+# Tarihte gün, ay ve yıl satır sonunda ayrılmaz (kılavuz, Satır sonu): aralarına bölünmez boşluk (U+00A0)
+_GUN_AY = re.compile(rf"\b(\d{{1,2}}) ({_AY_ADLARI})\b")
+_AY_YIL = re.compile(rf"\b({_AY_ADLARI}) (\d{{4}})\b")
+# Bu uzunluktan kısa, tire, eğik çizgi ya da boşluk taşıyan kodlar (ör. V-YYYY-AA-GG-n) satır sonunda bölünmez
+_KISA_KOD = 24
+
+
+def _tarih_bagla(metin: str) -> str:
+    return _AY_YIL.sub("\\1\u00a0\\2", _GUN_AY.sub("\\1\u00a0\\2", metin))
+
+
+# Satır sonunda ayrılmayan öteki parçalar (kılavuz, Satır sonu); kod parçalarına ve başlıklara uygulanmaz.
+# Yıl ve madde aralığında yarım çizginin iki yanına sözcük birleştirici (U+2060): 1946–2004, 57–72
+_ARALIK = re.compile(r"(?<=[\d)])–(?=[\d(])")
+# Kısaltma ya da gönderme sözcüğü ile sayı: par. 54, para. 54, s. 8, p. 20, No. 119, Kural 2, Rule 2, Tablo 4
+_KISALTMA_SAYI = re.compile(r"(?<![\w.])((?:par|paras|para|s|p|pp|No)\.|Kural|Rule|Madde|Article|Tablo|Table) (?=\d)")
+# Sayı ile ardındaki ad (57 üye, 27 delegasyon, 13 words); bağlaç ve edatlar bağlanmaz
+_BAGLAC = ("ve|ile|veya|ya|ise|ki|de|da|and|or|of|in|on|the|to|it|is|with|under|out|by|for|as|at|a|an|from|"
+           "be|means|have|has|come|become|becomes|belong|match|merged|concerned|whose")
+_SAYI_AD = re.compile(rf"(?<![\w./:,–\u2060-])(\d+(?:[.,]\d+)?) (?!(?:{_BAGLAC})\b)(?=[^\W\d_])")
+# Sayı ile ardındaki madde harfi: 27 (3), A/59/L.67 (b)
+_SAYI_HARF = re.compile(r"(\d) (?=\([a-z0-9]\))")
+
+
+def _satir_bagla(metin: str) -> str:
+    metin = _ARALIK.sub("\u2060–\u2060", metin)
+    metin = _KISALTMA_SAYI.sub("\\1\u00a0", metin)
+    metin = _SAYI_AD.sub("\\1\u00a0", metin)
+    return _SAYI_HARF.sub("\\1\u00a0", metin)
+
+
+def _satir_ici(metin: str, bagla: bool = True) -> str:
+    """Kod parçaları dışındaki metinde kalın ve italik işaretlerini dönüştürür; bagla ise tarihleri, aralıkları ve
+    sayılı göndermeleri satır sonunda ayrılmayacak biçimde bağlar (başlıklarda yalnız tarih)."""
     parcalar = re.split(r"(`[^`]+`)", metin)
     cikti = []
     for p in parcalar:
         if p.startswith("`") and p.endswith("`") and len(p) > 1:
-            cikti.append(f"<code>{html.escape(p[1:-1])}</code>")
+            kod = p[1:-1]
+            sinif = ' class="kisa"' if len(kod) < _KISA_KOD and re.search(r"[-/ ]", kod) else ""
+            cikti.append(f"<code{sinif}>{html.escape(kod)}</code>")
             continue
         p = html.escape(p, quote=False)
         p = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", p)
         p = re.sub(r"(?<![\w*])\*(?!\s)(.+?)(?<!\s)\*(?![\w*])", r"<em>\1</em>", p)
         p = re.sub(r"\[([^\]\n]+)\]\{lang=([a-z]{2})\}", r'<span lang="\2">\1</span>', p)
-        cikti.append(p)
+        p = _tarih_bagla(p)
+        cikti.append(_satir_bagla(p) if bagla else p)
     return "".join(cikti)
 
 
@@ -75,7 +112,11 @@ def md_html(md: str) -> tuple[str, str]:
             baslik = satir[duzey + 1:].strip()
             m = BASLIK_NO.match(baslik)
             kim = f' id="{kimlik(m[1])}"' if m else ""
-            bloklar.append(f"<h{duzey}{kim}>{_satir_ici(baslik)}</h{duzey}>")
+            bloklar.append(f"<h{duzey}{kim}>{_satir_ici(baslik, bagla=False)}</h{duzey}>")
+        elif satir.startswith(">"):
+            # Alıntı bloğu yalnızca depodaki dosya için not (ör. METODOLOJI_EN.md'nin çeviri notu); sayfada bu
+            # bilgi girişin altındaki küçük satırdadır, iki kez görünmesin diye taşınmaz.
+            paragraf_bitir(); liste_bitir()
         elif satir.startswith("- "):
             paragraf_bitir()
             liste.append(satir[2:].strip())
@@ -117,9 +158,11 @@ SAYFA = """<!doctype html>
 <meta property="og:image" content="https://vetoatlas.com/onizleme.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{gorsel_alt_tr} / {gorsel_alt_en}">
 <meta property="og:locale" content="tr_TR">
 <meta property="og:locale:alternate" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image:alt" content="{gorsel_alt_tr} / {gorsel_alt_en}">
 <meta property="og:url" content="https://vetoatlas.com/metodoloji">
 <link rel="canonical" href="https://vetoatlas.com/metodoloji">
 <link rel="alternate" hreflang="tr" href="https://vetoatlas.com/metodoloji">
@@ -153,9 +196,9 @@ h2 {{ font-family: var(--serif); font-weight: 600; font-size: var(--yz-govde); m
 p, li {{ max-width: var(--olcu); }}
 ul {{ padding-left: 24px; }}
 li + li {{ margin-top: 8px; }}
-code {{ word-break: break-all; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }}
+.giris {{ font-family: var(--serif); font-size: var(--yz-govde); line-height: var(--sa-govde); }}
 .ikincil {{ color: var(--murekkep-2); font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }}
-@media (max-width: 760px) {{ body {{ font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }} .kap {{ padding: 0 16px 48px; }} h1 {{ margin-top: 32px; }} }}
+@media (max-width: 760px) {{ .kap {{ padding: 0 16px 48px; }} h1 {{ margin-top: 32px; }} }}
 
 </style>
 </head>
@@ -172,8 +215,8 @@ code {{ word-break: break-all; font-size: var(--yz-kucuk); line-height: var(--sa
   const parametre = new URLSearchParams(location.search).get("lang");
   const DIL = DILLER.includes(parametre) ? parametre : "tr";
   const SOZLUK = {{
-    tr: {{ baslik: "Metodoloji · Veto Atlası", aciklama: "{aciklama_tr}" }},
-    en: {{ baslik: "Methodology · Veto Atlas", aciklama: "{aciklama_en}" }},
+    tr: {{ baslik: "Metodoloji · Veto Atlası", aciklama: "{aciklama_tr}", gorselAlt: "{gorsel_alt_tr}" }},
+    en: {{ baslik: "Methodology · Veto Atlas", aciklama: "{aciklama_en}", gorselAlt: "{gorsel_alt_en}" }},
   }}[DIL];
   const ek = DIL === "tr" ? "" : "?lang=" + DIL;
   document.documentElement.lang = DIL;
@@ -181,6 +224,8 @@ code {{ word-break: break-all; font-size: var(--yz-kucuk); line-height: var(--sa
   document.querySelector('meta[name="description"]').setAttribute("content", SOZLUK.aciklama);
   document.querySelector('meta[property="og:title"]').setAttribute("content", SOZLUK.baslik);
   document.querySelector('meta[property="og:description"]').setAttribute("content", SOZLUK.aciklama);
+  document.querySelector('meta[property="og:image:alt"]').setAttribute("content", SOZLUK.gorselAlt);
+  document.querySelector('meta[name="twitter:image:alt"]').setAttribute("content", SOZLUK.gorselAlt);
   document.querySelectorAll("main[data-dil]").forEach((m) => {{ m.hidden = m.dataset.dil !== DIL; }});
 }})();
 </script>
@@ -188,33 +233,75 @@ code {{ word-break: break-all; font-size: var(--yz-kucuk); line-height: var(--sa
 </html>
 """
 
-ACIKLAMA_TR = "Veto Atlası'nın kategorileri, sayım kuralları, kaynak mutabakatı, tarih kuralları ve doğrulama yöntemi."
+ACIKLAMA_TR = "Veto Atlası’nın kategorileri, sayım kuralları, kaynak mutabakatı, tarih kuralları ve doğrulama yöntemi."
 ACIKLAMA_EN = "Categories, counting rules, source reconciliation, date rules and verification method of the Veto Atlas."
+# Önizleme görselinin (onizleme.png) alt metni; web/vetolar.html "onizlemeAlt" ile aynı
+GORSEL_ALT_TR = "Veto Atlası: 1946’dan 2026’ya Güvenlik Konseyinde vetoyla düşen 266 öneri; her kare bir ret oyu, yıllara göre."
+GORSEL_ALT_EN = "Veto Atlas: 266 proposals blocked by the veto in the Security Council, 1946–2026; each square is one negative vote, by year."
+ACIK_DEPO = "https://github.com/drofhawke/vetoatlas"
+# Girişin altındaki küçük satır: son değişiklik tarihi ve asıl metnin yeri ({tarih} iki dilde yazıyla)
 KAYNAK_NOTU = {
-    "tr": "Bu sayfa depodaki <code>METODOLOJI.md</code> dosyasından üretilir; asıl metin odur.",
-    # İngilizce metin çeviri olduğunu kendi ilk paragrafında söyler.
-    "en": "",
+    "tr": f'Son değişiklik {{tarih}}. Asıl metin <a href="{ACIK_DEPO}">açık depodaki</a> <code>METODOLOJI.md</code> dosyasıdır.',
+    "en": f'Last changed {{tarih}}. This is a translation; the Turkish original, <code lang="tr">METODOLOJI.md</code> in the '
+          f'<a href="{ACIK_DEPO}">public repository</a>, prevails where the two differ.',
 }
+AYLAR = {
+    "tr": ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+    "en": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
+           "November", "December"],
+}
+KOK = Path(__file__).resolve().parent.parent
 
 
-def govde(md: str, dil: str) -> str:
+def son_degisiklik(kok: Path = KOK) -> str:
+    """METODOLOJI.md ve METODOLOJI_EN.md'nin son değiştiği gün (YYYY-AA-GG), git kaydından: işlenmemiş değişiklik
+    varsa bugün, yoksa iki dosyanın son commit'inin tarihi (scripts/12_site_haritasi.py ile aynı kural)."""
+    import datetime
+    import subprocess
+    yollar = ["METODOLOJI.md", "METODOLOJI_EN.md"]
+    try:
+        git = lambda *a: subprocess.run(["git", "-C", str(kok), *a], capture_output=True, text=True,  # noqa: E731
+                                        check=True, encoding="utf-8").stdout
+        if not git("status", "--porcelain", "--", *yollar).strip():
+            tarih = git("log", "-1", "--format=%cs", "--", *yollar).strip()
+            if tarih:
+                return tarih
+    except (OSError, subprocess.CalledProcessError):
+        pass
+    return datetime.date.today().isoformat()
+
+
+def tarih_yazi(iso: str, dil: str) -> str:
+    """'2026-10-21' -> '21 Ekim 2026' / '21 October 2026'."""
+    y, a, g = (int(x) for x in iso.split("-"))
+    return f"{g} {AYLAR[dil][a - 1]} {y}"
+
+
+def govde(md: str, dil: str, tarih: str) -> str:
     h1, ic = md_html(md)
     gizli = " hidden" if dil != "tr" else ""
-    not_ = f'    <p class="ikincil">{KAYNAK_NOTU[dil]}</p>\n' if KAYNAK_NOTU[dil] else ""
+    # İlk paragraf giriş (Hakkında'daki gibi); altında tek satır küçük not
+    not_ = f'<p class="ikincil">{KAYNAK_NOTU[dil].format(tarih=_tarih_bagla(tarih_yazi(tarih, dil)))}</p>'
+    if ic.startswith("<p>"):
+        son = ic.index("</p>") + len("</p>")
+        ic = '<p class="giris">' + ic[3:son] + "\n" + not_ + ic[son:]
+    else:
+        ic = not_ + "\n" + ic
     # Metin sayfası düzeni (web/temel.css): "Bu sayfada" dizininin yeri başlığın hemen altı; dizini web/metin.js üretir
     return (f'  <main class="duz-yazi metin-duzen" lang="{dil}" data-dil="{dil}"{gizli}>\n'
             f"    <h1>{html.escape(h1)}</h1>\n"
             '    <div class="metin-dizin"></div>\n'
             '    <div class="metin">\n'
-            f"{not_}"
             f"{ic}\n    </div>\n  </main>")
 
 
-def sayfa_uret(tr_md: str, en_md: str) -> str:
+def sayfa_uret(tr_md: str, en_md: str, tarih: str | None = None) -> str:
+    tarih = tarih or son_degisiklik()
     # Bölüm kimlikleri iki dilde aynı; tek sayfada çakışmasın diye İngilizcede önek eklenir.
-    en_govde = govde(en_md, "en").replace('id="bolum-', 'id="en-bolum-').replace('href="#bolum-', 'href="#en-bolum-')
-    return SAYFA.format(govdeler=govde(tr_md, "tr") + "\n" + en_govde,
-                        aciklama_tr=ACIKLAMA_TR, aciklama_en=ACIKLAMA_EN)
+    en_govde = govde(en_md, "en", tarih).replace('id="bolum-', 'id="en-bolum-').replace('href="#bolum-', 'href="#en-bolum-')
+    return SAYFA.format(govdeler=govde(tr_md, "tr", tarih) + "\n" + en_govde,
+                        aciklama_tr=ACIKLAMA_TR, aciklama_en=ACIKLAMA_EN,
+                        gorsel_alt_tr=GORSEL_ALT_TR, gorsel_alt_en=GORSEL_ALT_EN)
 
 
 def yaz(kok: Path) -> tuple[Path, list[str]]:
@@ -224,5 +311,5 @@ def yaz(kok: Path) -> tuple[Path, list[str]]:
         return kok / "web/metodoloji.html", ["METODOLOJI_EN.md yok; metodoloji.html üretilmedi"]
     en_md = en_yol.read_text(encoding="utf-8")
     hedef = kok / "web/metodoloji.html"
-    hedef.write_text(sayfa_uret(tr_md, en_md), encoding="utf-8", newline="\n")
+    hedef.write_text(sayfa_uret(tr_md, en_md, son_degisiklik(kok)), encoding="utf-8", newline="\n")
     return hedef, yapi_farklari(tr_md, en_md)

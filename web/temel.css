@@ -9,6 +9,7 @@
  * Yazı. İki aile: Source Serif 4 (başlıklar, okuma metni, sayılar) ve Source Sans 3 (arayüz, küçük metin, kod).
  * Dört boyut (boyut / satır yüksekliği, ikisi de 4 px ızgarasında):
  *   küçük 15/24 · gövde 18/28 · başlık 40/48 (760 px ve altında 32/40) · gösterge 96/96 (760 px ve altında 56/56)
+ * Metin sayfalarında (Hakkında, Metodoloji) bölüm başlığı (h2) ek boyuttadır: 24/32 (760 px ve altında 22/28).
  *
  * Bütün metin sola yaslıdır; iki yana yaslama ve heceleme hiçbir genişlikte kullanılmaz (tablolardaki sayılar
  * basamakları alt alta gelsin diye sağa yaslıdır). Etiketler küçük boyut ve ikincil renkle ayrılır; büyük harf
@@ -19,15 +20,17 @@
   --b1: 4px; --b2: 8px; --b3: 12px; --b4: 16px; --b6: 24px; --b8: 32px; --b12: 48px; --b16: 64px; --b24: 96px;
   --yz-kucuk: 15px; --sa-kucuk: 24px;
   --yz-govde: 18px; --sa-govde: 28px;
+  --yz-bolum: 24px; --sa-bolum: 32px;
   --yz-baslik: 40px; --sa-baslik: 48px;
   --yz-gosterge: 96px; --sa-gosterge: 96px;
   --olcu: 640px;      /* okuma metninin en geniş satırı */
   --olcu-metin: 68ch; /* metin sayfasının okuma sütunu: satır başına yaklaşık 70–80 karakter */
+  --olcu-kucuk: 520px; /* küçük boyuttaki açıklama ve notların satırı (Ya veto olmasaydı?) */
   --kap: 1180px;      /* sayfa kabı */
   --kenar: 24px;      /* sayfa kenar boşluğu */
 }
 @media (max-width: 760px) {
-  :root { --yz-baslik: 32px; --sa-baslik: 40px; --yz-gosterge: 56px; --sa-gosterge: 56px; --kenar: 16px; }
+  :root { --yz-bolum: 22px; --sa-bolum: 28px; --yz-baslik: 32px; --sa-baslik: 40px; --yz-gosterge: 56px; --sa-gosterge: 56px; --kenar: 16px; }
 }
 
 /* Taban */
@@ -55,7 +58,7 @@ main > section > h2:first-child { margin-top: 0; margin-bottom: var(--b2); }
 /* Düz yazı sayfaları (Hakkında, Metodoloji), dikey ritim: bölümler arası 32 px, ayırıcı çizgi ile bölüm başlığı arası 24 px,
    başlığın altı 12 px; alt bölüm başlığı çizgisiz, üstü 24 px, altı 12 px; paragraflar 16 px arayla. Bağlantıyla gidilen
    başlık çubuğun 16 px altında durur. */
-.duz-yazi h2 { margin: var(--b8) 0 var(--b3); padding-top: var(--b6); border-top: 1px solid var(--cizgi); }
+.duz-yazi h2 { margin: var(--b8) 0 var(--b3); padding-top: var(--b6); border-top: 1px solid var(--cizgi); font-size: var(--yz-bolum); line-height: var(--sa-bolum); }
 .duz-yazi h3 { margin: var(--b6) 0 var(--b3); }
 .duz-yazi :is(h2, h3)[id] { scroll-margin-top: var(--b4); }
 .duz-yazi :is(p, ul, ol, dl, blockquote, table, pre) { margin-bottom: var(--b4); }
@@ -69,6 +72,10 @@ main > section > h2:first-child { margin-top: 0; margin-bottom: var(--b2); }
 .metin-duzen .metin, .metin-dizin { max-width: var(--olcu-metin); }
 /* Uzun adresler (ör. main.un.org/…) dar ekranda satır içinde kırılır */
 .metin-duzen .metin p, .metin-duzen .metin li { overflow-wrap: break-word; }
+/* Alan ve dosya adları (Metodoloji): aynı yazı tipi, küçük boy, açık zemin; harf ortasında yalnızca satıra hiç sığmayan
+   uzun dosya adı kırılır */
+.duz-yazi code { font-size: var(--yz-kucuk); padding: 0 0.12em; border-radius: 4px; background: color-mix(in srgb, var(--cizgi) 60%, transparent); overflow-wrap: break-word; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.duz-yazi code.kisa { white-space: nowrap; }  /* kısa kod (ör. V-YYYY-AA-GG-n) satır sonunda bölünmez; uzun yol sarılır */
 .metin-dizin { margin-bottom: var(--b6); }
 .metin-dizin:empty { display: none; }
 .bu-sayfada { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }

@@ -53,7 +53,7 @@ def test_sira_notu_metodolojide():
     assert "siraNotu" not in s and "sira-notu" not in s and "parametreYok" not in s and 'class="sinirlar kutu"' not in s
     g = govde(s)
     assert '<span data-t="tekrarKisa"></span></button></div>\n      <p class="sinirlar-not" data-t="sinirlar"></p>\n    </section>' in g
-    assert 'sinirlar: "Sayım, kayıttaki oyların başka bir kuralda da aynı kalacağını varsayar. Veto tehdidiyle oylanmayan taslaklar ve kapalı oturum vetoları sayılmaz.",' in s
+    assert 'sinirlar: "Sayım, kayıttaki oyların başka bir kuralda da aynı kalacağını varsayar. Veto tehdidiyle oylanmayan öneriler ve kapalı oturum vetoları sayılmaz.",' in s
     md = (KOK / "METODOLOJI.md").read_text(encoding="utf-8")
     b = md[md.index("### 2.10."):md.index("## 3.")]
     assert "Oyların panellerdeki sayım sırası bir gösterimdir" in b and "108. maddesine göre" in b and "7, 8 ve 6" in b
@@ -75,7 +75,7 @@ def test_vetolar_grafik_aciklamasi_tek_cumle():
 
 
 def test_vetolar_alt_bilgi_yalnizca_veri_tarihi():
-    """ADIM 45 (ADIM 41'deki "Kaynak ve indirme ayrıntıları" kutusunun yerine): alt bilgide yalnızca veri tarihi; kaynak
+    """ADIM 45 (ADIM 41'deki "Kaynak ve indirme ayrıntıları" kutusunun yerine): alt bilgide yalnızca son vetonun ve verinin tarihi; kaynak
     dosyası ve SHA-256 "Nasıl yaptık?"ta (Hakkında, Metodoloji). Hakkında'daki indirme listesi 13 Ekim'de kaldırıldı (kullanıcı
     kararı); veri setinin arşivi Zenodo'da, İletişim'in altındaki satırda."""
     s = oku("vetolar.html")
@@ -85,8 +85,10 @@ def test_vetolar_alt_bilgi_yalnizca_veri_tarihi():
     for eski in ("alt-ayrinti", "alt.ayrinti", "alt.kaynak", "alt.baslik", "alt.surum", "alt.indir", 'class="indirmeler"', "m.indirmeler",
                  "kaynak_sha256", "SHA-256"):
         assert eski not in s, eski
-    assert '"alt.veriTarihi": ({ tarih }) => `Veri tarihi: ${tarih}.`,' in s and '"alt.veriTarihi": ({ tarih }) => `Data as of ${tarih}.`,' in s
+    assert '"alt.veriTarihi": ({ tarih, son }) => `Son veto ${son}${ekDa(son)}, veri ${tarih}${ekDa(tarih)} güncellendi.`,' in s
+    assert '"alt.veriTarihi": ({ tarih, son }) => `The latest veto was cast on ${son}, and the data were updated on ${tarih}.`,' in s
     assert '<time datetime="${esc(m.veri_surumu)}">${tarihUzun(m.veri_surumu)}</time>' in kod
+    assert 'son: `<time datetime="${sonTarih}">${tarihUzun(sonTarih)}</time>`' in kod and "const sonTarih = kayitlar[0].tarih;" in s
     # Hakkında'da indirme listesi yok; veri setinin arşivi Zenodo (DOI bağlantısı iki dilde)
     h = oku("hakkinda.html")
     assert 'data-yer="indir"' not in h and "m.indirmeler" not in h
@@ -118,7 +120,7 @@ def test_yontem_yalnizca_nasil_yaptikta():
         assert ("<footer" in s) == (ad in ("hikaye", "vetolar")), ad
     # Kalan okuma notları: kapalı oturum sayımı, "Küresel" satırı, hesaplanmayan 1945 değeri, oran okuma cümlesi (kutusuz)
     v = oku("vizyon.html")
-    assert "“Küresel” satırı belirli bir bölgeye bağlanmayan gündemleri toplar" in v and "kitaptaki yüzde 60 burada hesaplanmadı" in v
+    assert "“Küresel” satırı belirli bir bölgeye bağlanmayan gündemleri toplar" in v and "kitabın 1945 için verdiği %60 burada hesaplanmadı" in v
     assert "giris2" not in v and "neden-sonuç" not in v
     t = oku("temsil.html")
     assert "Kartların altındaki oran, koltuk payının gösterge payına bölümüdür" in t and "Paylar BM üyelerinin toplamı içindedir." in t
@@ -149,19 +151,21 @@ def test_vetolar_isaretler_ayri_satirda():
 
 def test_reform_sayfasi():
     """ADIM 45: Güvenlik Konseyi reform modelleri ayrı sekmede; tablo açık (kapalı kutuda değil), dört model belgelerin
-    tarih sırasıyla, dört ölçüt, her hücrenin altında dayanak; dar ekranda ölçüt ölçüt alt alta."""
+    tarih sırasıyla, altı ölçüt (Kim sundu? ve karar eşiği dâhil), her hücrenin altında dayanak; dar ekranda ölçüt ölçüt alt alta."""
     r = oku("reform.html")
     g = r[r.index("<body"):r.index('<script src="veri.js">')]
     assert '<body data-sayfa="reform">' in g and "<details class=\"tablo-ac\"" not in g
     assert '<div class="tablo-kap kutu"><table class="reform" id="reform" aria-labelledby="baslik"></table></div>' in g
     assert '<div class="olcutler kutu" id="olcutler"></div>' in g
     assert 'const MODELLER = ["Ezulwini Uzlaşısı", "G4", "Uzlaşı için Birlik", "Daha Adil Bir Dünya Mümkün"]' in r
-    assert 'const OLCUTLER = ["toplam", "yeni_daimi", "veto", "genel_kurul"];' in r
+    assert 'const OLCUTLER = ["sunan", "toplam", "yeni_daimi", "veto", "esik", "genel_kurul"];' in r
+    assert '"olcut.sunan": "Kim sundu?", "olcut.esik": "Karar için gereken oy",' in r and '"olcut.sunan": "Put forward by", "olcut.esik": "Votes needed for a decision",' in r
     assert '<small>${esc(DIL === "en" ? dayanakEn(r.belge) : r.belge)}, ' in r and 'dayanak: "' not in r and "details.yontem" not in r
     assert "@media (max-width: 960px) {\n  .tablo-kap { display: none; }\n  .olcutler { display: block; }\n}" in r
     # Sayfa başlığı sekme adıyla aynı; eski başlık giriş cümlesinde (denetim sonrası)
     assert 'baslik: "Reform modelleri"' in r and 'baslik: "Reform models"' in r
-    assert 'giris: "Güvenlik Konseyi reformu için dört model aynı ölçütlerle, belgelerin tarih sırasıyla. Her hücrenin altındaki küçük satır, belgedeki yeri gösterir."' in r
+    assert 'giris: "Güvenlik Konseyi reformu için dört model aynı ölçütlerle, belgelerin tarih sırasıyla. Küçük satırlar her bilginin belgedeki yerini gösterir.",' in r
+    assert 'giris: "Four models for Security Council reform, compared on the same criteria and ordered by the date of their documents. The small print under each entry shows where it appears in the document.",' in r
     # Söz ve Kayıt'ta reform bölümü yok; kitaptaki model bölümü yerinde
     v = oku("vizyon.html")
     assert "h-reform" not in v and "reformModelleri" not in v and 'id="h-model"' in v
@@ -174,7 +178,8 @@ def test_soz_ve_kayit_icindekiler():
     baglantilar = re.findall(r'<li><a href="#(h-[\w-]+)" data-t="(h\.\w+)"></a></li>', nav)
     bolumler = re.findall(r'<section aria-labelledby="(h-[\w-]+)">\s*<h2 id="\1" data-t="(h\.\w+)"', g)
     assert len(bolumler) == 7 and baglantilar == bolumler  # her bölüm, sayfadaki sırasıyla ve aynı başlıkla (reform ayrı sayfada)
-    assert g.index('<header class="giris">') < g.index("</nav>") < g.index("</header>", g.index('<header class="giris">')) < g.index("<main>")  # girişte, ilk bölümden önce
+    giris = g[g.index('<div class="giris">'):g.index("<main>")]  # girişte, ilk bölümden önce
+    assert "</nav>" in giris and giris.rstrip().endswith("</div>")
     assert '<b id="icindekiler-baslik" data-t="icindekiler"></b>' in nav
     assert 'icindekiler: "İçindekiler"' in s and 'icindekiler: "Contents"' in s
     assert ".icindekiler ul { margin: var(--b2) 0 0; columns: 2 288px; column-gap: var(--b8); }" in s
@@ -200,19 +205,18 @@ def test_kitaptaki_model_basligi_ve_girisi():
     assert ("Recep Tayyip Erdoğan, *Daha Adil Bir Dünya Mümkün: Birleşmiş Milletler Reformu İçin Bir Model Önerisi*, Turkuvaz Kitap, "
             "1. baskı, Eylül 2021") in kaynaklar
     assert ('"model.aciklama": "Kitap, Güvenlik Konseyi için dört unsurlu bir reform modeli önerir: temsil, üye sayısı, veto ile daimî '
-            'üyelik ve Konsey’in Genel Kurul’la ilişkisi. Aşağıda her unsur kitabın kendi ifadesiyle yer alır; üye sayısı için kitabın '
-            'sunduğu iki seçenek, kitaptaki sırayla verilmiştir.",') in v
+            'üyelik ve Konseyin Genel Kurulla ilişkisi. Her unsurun yanında kitaptan alıntı var. Üye sayısı için kitap iki seçenek sunar.",') in v
     assert ('"model.aciklama": "The book proposes a four-part reform model for the Security Council: representation, the number of '
-            'members, the veto and permanent membership, and the Council’s relationship with the General Assembly. Each element appears '
-            'below in the book’s own words; the two options the book offers for the number of members are given in the book’s order.",') in v
+            'members, the veto and permanent membership, and the Council’s relationship with the General Assembly. Each element is shown '
+            'with the book’s own wording. For the number of members the book offers two options.",') in v
     # Modelin dört unsuru, kartların sırasıyla
     assert 'const MADDELER = [["m.temsil", "m.temsilOzet", ["kitap-1"]], ["m.sayi", "m.sayiOzet", ["kitap-2", "kitap-3"]],' in v
     for eski in ("kitaptaki model\"", "the model in the book\"", "Kitap (Eylül 2021)", "The book (September 2021)", "kısa tutulmuş", "kept short"):
         assert eski not in v, eski
     tr_md = (KOK / "METODOLOJI.md").read_text(encoding="utf-8")
     en_md = (KOK / "METODOLOJI_EN.md").read_text(encoding="utf-8")
-    tr_not = '"Kitaptaki model" bölümünde alıntılar kısa tutulur; her unsurun geri kalanı özetlenir.'
-    en_not = 'In "The model in the book" section, quotations are kept short and the rest of each element is summarised.'
+    tr_not = '“Kitaptaki model” bölümünde alıntılar kısa tutulur; her unsurun geri kalanı özetlenir.'
+    en_not = 'In “The model in the book” section, quotations are kept short and the rest of each element is summarised.'
     assert tr_not in tr_md[tr_md.index("### 2.7."):tr_md.index("### 2.8.")]
     assert en_not in " ".join(en_md[en_md.index("### 2.7."):en_md.index("### 2.8.")].split())
     m = oku("metodoloji.html")
@@ -257,12 +261,12 @@ def test_soz_ve_kayit_sutun_basliklari():
 
 def test_kunye_tek_bicim():
     """Denetim sonrası: alıntı künyesi Hikâye'de, Söz ve Kayıt'ta ve paylaşım kartlarında aynı sıra ve ayraçla.
-    Hitap: Cumhurbaşkanı Recep Tayyip Erdoğan · BM 74. Genel Kurulu konuşması · 24 Eylül 2019 · s. 6
+    Hitap: Cumhurbaşkanı Recep Tayyip Erdoğan · BM 74. Genel Kurulu hitabı · 24 Eylül 2019 · s. 6
     Kitap: Cumhurbaşkanı Recep Tayyip Erdoğan · Daha Adil Bir Dünya Mümkün · Giriş
     İngilizcede aynı yapı, resmî İngilizce metnin kaynağıyla (President … · Address to the 74th Session of the UN General
-    Assembly · 24 September 2019 · p. 6; BM kaydında "A/74/PV.3, p. 22"; kitapta "A Fairer World is Possible · Introduction ·
-    p. 31", iki sayfada "pp."). Resmî İngilizcesi olmayan alıntıda Türkçe parçalar (kitap adı, bölüm adı) lang="tr". Sayfa
-    kısaltması numarasından ayrılmaz. Kartlarda ad alıntının altında, kalan kısım alt bilgide aynı sıra ve ayraçla (kart
+    Assembly · 24 September 2019 · p. 6; BM kaydında "A/74/PV.3, p. 22"; iki sayfada "pp."). Kitap künyesinde sayfa numarası
+    yoktur, iki dilde de yalnızca bölüm adı ("A Fairer World is Possible · Introduction"; kitap alıntısı kuralı). Resmî
+    İngilizcesi olmayan alıntıda Türkçe parçalar (kitap adı, bölüm adı) lang="tr". Sayfa kısaltması numarasından ayrılmaz. Kartlarda ad alıntının altında, kalan kısım alt bilgide aynı sıra ve ayraçla (kart
     düzeni iki satırdır)."""
     h, v = oku("hikaye.html"), oku("vizyon.html")
     for s in (h, v):
@@ -270,15 +274,27 @@ def test_kunye_tek_bicim():
         assert ': `${kim} · ${DIL === "tr" ? KITAP : KITAP_EN} · ${t("bolum", { b: esc(a.bolum) })}`;' in s
         assert '"2. Bölüm: Birleşmiş Milletler Reformu": "Part II: A United Nations Reform"' in s and "Chapter 2" not in s
     assert 'kunyeKim: "Cumhurbaşkanı Recep Tayyip Erdoğan", sayfaKisa: "s.",' in h and 'kunyeKim: "President Recep Tayyip Erdoğan", sayfaKisa: "p.",' in h
-    assert 'if (a.bolum) return ingilizce ? `${kim} · ${KITAP_EN} · ${esc(a.bolum_en)} · ${sayfa}`' in h
-    assert 'if (a.bolum) return en ? `${kim} · ${KITAP_EN} · ${esc(a.bolum_en)} · ${t("sayfa", { s: a.basili_sayfa_en })}`' in v
+    assert 'if (a.bolum) return ingilizce ? `${kim} · ${KITAP_EN} · ${esc(a.bolum_en)}`' in h
+    assert 'if (a.bolum) return en ? `${kim} · ${KITAP_EN} · ${esc(a.bolum_en)}`' in v
+    for s in (h, v):  # kitap dalında sayfa yok
+        dal = s[s.index("if (a.bolum) return"):]
+        dal = dal[:dal.index(";")]
+        assert "sayfa" not in dal and "basili_sayfa" not in dal
     assert ('const sayfa = `${ingilizce && a.belge_en ? `${esc(a.belge_en)}, ` : ""}${ingilizce && s.includes("–") ? "pp." : '
             'esc(t("sayfaKisa"))}\\u00a0${esc(s)}`;') in h
-    assert "return `${kim} · ${esc(etkinlikAdi(a))} · ${esc(tarihUzun(a.tarih))} · ${sayfa}`;" in h
+    # Sayfa göndermesi tarihten ayrılmaz: aradaki ayracın iki yanında bölünmez boşluk (H-hikaye-3)
+    assert "return `${kim} · ${esc(etkinlikAdi(a))} · ${esc(tarihUzun(a.tarih))}\u00a0·\u00a0${sayfa}`;" in h
     assert 'konusmaci: "' not in h and 't("konusmaci")' not in h and "epigrafKunye" not in h
-    assert '<p class="kaynak">${kunye(a)}' in h and '<p class="kunye">${kunye(a)} · <a href=' in h
+    assert '<p class="kaynak">${kunye(a)}' in h and '<p class="kunye">${kunye(a)}</p>' in h
+    # Söz ve Kayıt'ta künye satırı yalnız parça sınırında bölünür (KILAVUZ "Künye"; I-vizyon-2): her parça kendi kutusunda,
+    # kısa son parça ("Giriş", "Introduction") öncekiyle aynı kutuda. Hikâye'nin künyesi düz metin akar (21 Ekim 2026'da
+    # yayındaki hâl): parça kutusu 390 px'te İngilizce künyeyi üç satırdan dörde çıkarıyordu (son denetim ölçümü)
+    assert "const kunye = (a) => { const P = kunyeMetni(a).split(\" · \");" in v
+    assert 'if (P.length > 2 && P[P.length - 1].replace(/<[^>]*>/g, "").length <= 12) P.splice(-2, 2, P.slice(-2).join("\u00a0·\u00a0"));' in v
+    assert 'return P.map((p) => `<span class="kp">${p}</span>`).join("\u00a0· "); };' in v
+    assert ".kunye .kp { display: inline-block; }" in v and 'class="kp"' not in h
     assert 'kunyeKim: "Cumhurbaşkanı Recep Tayyip Erdoğan",' in v and 'kunyeKim: "President Recep Tayyip Erdoğan",' in v
-    assert ("return `${kim} · ${esc(etk)} · ${tarihUzun(a.tarih)} · ${en && a.belge_en ? `${esc(a.belge_en)}, ` : \"\"}"
+    assert ("return `${kim} · ${esc(etk)} · ${tarihUzun(a.tarih)}\u00a0·\u00a0${en && a.belge_en ? `${esc(a.belge_en)}, ` : \"\"}"
             "${t(\"sayfa\", { s })}`;") in v
     assert "sayfa: ({ s }) => `s.\\u00a0${s}`" in v and 'sayfa: ({ s }) => `${s.includes("–") ? "pp." : "p."}\\u00a0${s}`' in v
     assert "kitapEtkinlik" not in v
@@ -287,7 +303,7 @@ def test_kunye_tek_bicim():
     m = json.loads((WEB / "kartlar/kartlar.json").read_text(encoding="utf-8"))
     k = next(x for x in m["kartlar"] if x["id"] == "kart-08-alinti-2019")
     assert k["metin"]["tr"] == "Cumhurbaşkanı Recep Tayyip Erdoğan"
-    assert k["kaynak"]["tr"] == "BM 74. Genel Kurulu konuşması · 24 Eylül 2019 · s. 6"
+    assert k["kaynak"]["tr"] == "BM 74. Genel Kurulu hitabı · 24 Eylül 2019 · s. 6"
     assert k["kaynak"]["en"] == "Address to the 74th Session of the UN General Assembly · 24 September 2019 · p. 6"
 
 
@@ -307,8 +323,8 @@ def test_denetim_sonrasi_duzeltmeler():
     assert '$("#konu-aciklama").textContent = t("konu.aciklama", { n: sayi(kayitlar.filter((k) => k.kapali).length) });' in v
     assert "yazmayan 2 veto" not in v and "The 2 vetoes" not in v
     h = oku("hakkinda.html")
-    assert h.count('<span data-yer="konu-sayisi"></span>') == 2 and "15 konudan" not in h and "one of 15 topics" not in h
-    assert "yer('[data-yer=\"konu-sayisi\"]').textContent = sayi((m.konular || []).length);" in h
+    # Konu kuralı Hakkında'dan Metodoloji'ye taşındı (K16): Hakkında'da konu sayısı yazılmaz, sabit sayı da kalmadı
+    assert "konu-sayisi" not in h and "15 konudan" not in h and "one of 15 topics" not in h
     # lang="tr" işaretleri
     # Resmî İngilizcesi olmayan kitap alıntısında bölüm İngilizce baskıdaki adıyla
     assert ': esc(t("kitapBolumEn", { b: { "Giriş": "Introduction", "2. Bölüm: Birleşmiş Milletler Reformu": "Part II: A United Nations Reform" }[a.bolum] || a.bolum })));' in oku("simulasyon.html")
@@ -327,7 +343,8 @@ def test_denetim_sonrasi_duzeltmeler():
         s = oku(ad)
         assert tr in s and en in s, ad
     assert "<title>Vetolar · Veto Atlası</title>" in oku("vetolar.html") and "<title>Kim temsil ediliyor? · Veto Atlası</title>" in t
-    assert 'giris1: "Temsil endeksi, her BM bölgesel grubu için beş payı yan yana gösterir:' in t
+    assert "giris1: ({ g, nufus, koltuk }) => `Temsil endeksinde ${g}nun BM üyelerinin nüfusundaki payı ${nufus}, Güvenlik Konseyi koltuklarındaki payı ${koltuk};" in t
+    assert "giris1: ({ g, nufus, koltuk }) => `In the representation index, the ${g} holds ${nufus} of the population of UN Member States and ${koltuk} of Security Council seats;" in t
 
 
 def test_tek_dosyada_sayfa_ici_baglantilar_cercevede():
@@ -352,12 +369,13 @@ def test_metodoloji_sayi_ile_numaralanir():
         assert not re.search(r"^#+ \d+[a-z]\.", metin, re.M), md
         assert not re.search(r"\b2[a-i]\b", metin), md
         nolar = [n for n, _ in metodoloji.bolumler(metin)]
-        assert nolar == ["1", "2"] + [f"2.{i}" for i in range(1, 11)] + ["3", "4", "5", "6"], (md, nolar)
+        assert nolar == ["1", "2"] + [f"2.{i}" for i in range(1, 11)] + ["3", "4", "5", "6", "7"], (md, nolar)  # 7: Sonraki aşama
     sayfa = oku("metodoloji.html")
-    assert '<h3 id="bolum-2-1">2.1. Erken dönem kayıtları (1946–1953)</h3>' in sayfa
+    assert '<h3 id="bolum-2-1">2.1. Taslak kaynağı, kısmi ve ön soru vetoları</h3>' in sayfa
+    assert '<h3 id="en-bolum-2-1">2.1. Draft sources, partial and preliminary-question vetoes</h3>' in sayfa
     assert '<h3 id="bolum-2-8">2.8. Reform modelleri</h3>' in sayfa and '<h3 id="en-bolum-2-8">2.8. Reform models</h3>' in sayfa
     assert 'class="icindekiler"' not in sayfa and sayfa.count('<div class="metin-dizin"></div>') == 2  # dizin web/metin.js'ten
-    assert "Kayıt kimlikleri 2.3'teki Kural 2 gereği" in (KOK / "METODOLOJI.md").read_text(encoding="utf-8")
+    assert "Kayıt kimlikleri 2.3’teki Kural 2 gereği" in (KOK / "METODOLOJI.md").read_text(encoding="utf-8")
 
 
 def metin_sayfasi(sayfa, dil):
@@ -367,11 +385,10 @@ def metin_sayfasi(sayfa, dil):
     return m[1], basliklar
 
 
+# K16: sekiz bölüm beşe indi; sayım, tarih, konu ve doğrulama kuralları tek cümleyle Metodoloji'ye bağlanır
 HAKKINDA_BOLUMLERI = {
-    "tr": ["Kaynaklar", "Nasıl sayıyoruz", "Tarih kuralı", "Konular ve Türkçe başlıklar", "Genel Kurul tartışmaları",
-           "Düzeltme ve doğrulama", "Bilinen sınırlar", "İletişim"],
-    "en": ["Sources", "How we count", "Date rule", "Topics and agenda items", "General Assembly debates",
-           "Corrections and verification", "Known limitations", "Contact"],
+    "tr": ["Ne topladık ve neden", "Kaynaklar ve veriyi indirme", "Terimler", "Bilinen sınırlar ve düzeltmeler", "İletişim"],
+    "en": ["What we collected and why", "Sources and downloads", "Terms", "Known limitations and corrections", "Contact"],
 }
 
 
@@ -431,10 +448,10 @@ def test_bu_sayfada_dizini_node_ile(tmp_path):
     cikti = json.loads(r.stdout)
     assert cikti == beklenen
     hakkinda_tr, _, metodoloji_tr, metodoloji_en = cikti
-    assert hakkinda_tr.count("<li>") == 8 and "<ul>" not in hakkinda_tr[4:]  # Hakkında: sekiz bölüm, alt bölüm yok
-    assert '<li><a href="#bolum-2">2. Sayım kuralları</a><ul><li><a href="#bolum-2-1">2.1. Erken dönem kayıtları (1946–1953)</a></li>' in metodoloji_tr
-    assert '<li><a href="#bolum-2-10">2.10. &quot;Ya veto olmasaydı?&quot; sayfası</a></li></ul></li><li><a href="#bolum-3">' in metodoloji_tr
-    assert '<li><a href="#en-bolum-5">5. The vetoing party&#39;s reasons</a></li>' in metodoloji_en
+    assert hakkinda_tr.count("<li>") == 5 and "<ul>" not in hakkinda_tr[4:]  # Hakkında: beş bölüm, alt bölüm yok
+    assert '<li><a href="#bolum-2">2. Sayım kuralları</a><ul><li><a href="#bolum-2-1">2.1. Taslak kaynağı, kısmi ve ön soru vetoları</a></li>' in metodoloji_tr
+    assert '<li><a href="#bolum-2-10">2.10. “Ya veto olmasaydı?” sayfası</a></li></ul></li><li><a href="#bolum-3">' in metodoloji_tr
+    assert '<li><a href="#en-bolum-5">5. The vetoing party’s reasons</a></li>' in metodoloji_en
 
 
 def test_bu_sayfada_tek_dosyada_ve_kilavuzda():
@@ -460,10 +477,10 @@ def test_vetolar_kapali_oturum_etiketi_kaynaga_uygun():
     """ADIM 46: iki kapalı oturum kaydında (1953 SSCB, 1996 ABD) etiket kaynağın ifadesiyle. DHL listesi "Not identified in
     private meeting communiqué, but attributed to …" der; "sonradan kabul etti" kaynakta yoktur."""
     s = oku("vetolar.html")
-    assert '"kapaliSatir": ({ uyeler }) => `Resmî bildiride adı yok. DHL listesine göre ${uyeler}`,' in s
-    assert '"kapaliSatir": ({ uyeler }) => `Not named in the official communiqué. Attributed to ${uyeler} by the DHL list`,' in s
+    assert '"kapaliSatir": ({ uyeler }) => `Resmî bildiride adı yok. BM Dag Hammarskjöld Kütüphanesi listesine göre ${uyeler}`,' in s
+    assert '"kapaliSatir": ({ uyeler }) => `Not named in the official communiqué. The UN Dag Hammarskjöld Library list names ${uyeler}`,' in s
     assert 'uyeBelirli = (u) => (DIL === "en" && CUMLE_EN.kisa[u]) || uyeKisa(u);' in s and 't("kapaliSatir", { uyeler: k.uyeler.map(uyeBelirli).join(", ") })' in s
-    assert 'kisa: { SSCB: "the USSR", USA: "the US", GBR: "the UK" } };' in s  # İngilizcede "attributed to the US"
+    assert 'kisa: { SSCB: "the USSR", USA: "the US", GBR: "the UK" } };' in s  # İngilizcede "… list names the US"
     assert "kabul etti" not in s and "acknowledged" not in s
     # Etiket bir cümle: kırılabilir (üye adları kırılmaz), en fazla 320 px; 390 px'te yatay taşma yapmaz (tarayıcıda ölçüldü)
     assert '`<span class="uye-ad kapali-ad">${esc(t("kapaliSatir",' in s and ".uye-ad.kapali-ad { white-space: normal; max-width: 320px; }" in s
@@ -472,13 +489,14 @@ def test_vetolar_kapali_oturum_etiketi_kaynaga_uygun():
     assert sorted((k["id"], k["uyeler"]) for k in K if k["kapali"]) == [("V-1953-03-13-1", ["SSCB"]), ("V-1996-11-19-1", ["USA"])]
     for k in K:
         if k["kapali"]:
-            assert any("kaynak tarafından atfedilmiş" in n["tr"] for n in k["notlar"]), k["id"]
+            assert any("Resmî bildiri veto eden üyeyi adlandırmıyor; adı DHL listesi veriyor." in n["tr"] for n in k["notlar"]), k["id"]
 
 
 def test_kitabin_adi_ingilizce_sayfalarda():
     """Kullanıcı kararı (14 Ekim 2026; KILAVUZ "Kitabın adı"): İngilizce sayfalarda kitap “A Fairer World is Possible” adıyla
     anılır; her sayfada ilk geçişte Türkçe özgün adı parantez içinde ve lang="tr" ile (meta açıklamada yalnız parantez).
-    Bölüm İngilizcede "Part II", Türkçede "2. Bölüm". "literally" açıklaması yok."""
+    Bölüm İngilizcede "Part II", Türkçede "2. Bölüm". "literally" açıklaması yok. Lisans dosyasının İngilizce bölümü
+    yalnız İngilizcedir; kitabın Türkçe adı orada geçmez (21 Ekim 2026)."""
     import re
     ilk = '“A Fairer World is Possible” (<span lang="tr">“Daha Adil Bir Dünya Mümkün”</span>'
     meta = "“A Fairer World is Possible” (“Daha Adil Bir Dünya Mümkün”)"
@@ -516,7 +534,13 @@ def test_kitabin_adi_ingilizce_sayfalarda():
     for lisans in (KOK / "LICENSE-DATA", WEB / "LICENSE-DATA.txt"):
         t = " ".join(lisans.read_text(encoding="utf-8").split())
         assert 'kitabın İngilizce baskısından ("A Fairer World is Possible", Turkuvaz Kitap, 2021)' in t
-        assert 'book "A Fairer World is Possible" (Turkuvaz Kitap, 2021; Turkish original: "Daha Adil Bir Dünya Mümkün"' in t
+        assert 'book "A Fairer World is Possible" and its Turkish original (both Turkuvaz Kitap, 2021)' in t
+        # İngilizce bölümde kitabın Türkçe adı ve Türkçe harfli sözcük yok; özel adlar ve gerçek dosya yolları kalır
+        ing = t[t.index(" ENGLISH "):]
+        assert "Daha Adil Bir Dünya Mümkün" not in ing
+        for ad in ("Erdoğan", "Türkiye", "Hammarskjöld"):
+            ing = ing.replace(ad, "")
+        assert not set(ing) & set("çğıİöşüÇĞÖŞÜ"), ing
 
 
 def test_zaman_cizelgesi_tarih_ve_serit():

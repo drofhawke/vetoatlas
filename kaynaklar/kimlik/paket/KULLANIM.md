@@ -57,9 +57,11 @@ Logolar artık boşluksuz kırpıldığı için, sitede logoya CSS ile yüksekli
 {
   "name": "Veto Atlası",
   "short_name": "Veto Atlası",
+  "description": "1946’dan bu yana BM Güvenlik Konseyinde kullanılan vetolar, kaynaklarıyla.",
   "lang": "tr",
   "id": "/hikaye",
   "start_url": "/hikaye",
+  "scope": "/",
   "display": "standalone",
   "theme_color": "#FBF8F1",
   "background_color": "#FBF8F1",

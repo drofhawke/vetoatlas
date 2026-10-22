@@ -11,12 +11,12 @@ sayılır ve notlanır. Ayrı kümeler: beş daimî üye (P5) ve İslam İşbirl
 Göstergeler (pay = BM üyeleri toplamı içindeki pay):
   nüfus payı 2023 (WPP 2024 tahmini, 1 Ocak, bin), nüfus payı 1963 (o tarihteki 113 üye; ardıl devletler
   toplanır), üye payı, bütçe payı (2025–2027 olağan bütçe ölçeği), personel payı (BM barış gücü üniformalı
-  personel, 28 Şubat 2026), daimî koltuk payı (daimî koltuk / 5), toplam koltuk payı (mevcut dönem, / 15)
+  personel, 31 Temmuz 2026), daimî koltuk payı (daimî koltuk / 5), toplam koltuk payı (mevcut dönem, / 15)
   ve her gösterge için koltuk/gösterge oranı (toplam koltuk payı / gösterge payı). Bileşik puan yoktur.
 
 Ham kaynaklar: data/raw/temsil/*.html (BM üye devletler, DGACM bölgesel gruplar, İİT üyeler, Güvenlik
 Konseyi üyeleri; erişim 10 Ekim 2026) ve kaynaklar/.belgeler/ altındaki WPP 2024 Excel'i, bütçe ölçeği
-Excel'i, barış gücü sıralama PDF'i (künye ve SHA-256: kaynaklar/KAYNAKLAR.md).
+Excel'i, BM Barış ve Güvenlik Veri Merkezinin barış gücü katkı CSV'si (künye ve SHA-256: kaynaklar/KAYNAKLAR.md).
 """
 from __future__ import annotations
 
@@ -25,7 +25,6 @@ import hashlib
 import html
 import json
 import re
-import subprocess
 import sys
 import unicodedata
 import zipfile
@@ -59,23 +58,23 @@ SECILMIS_KOLTUK = {"AFR": 3, "ASP": 2, "EEG": 1, "GRULAC": 2, "WEOG": 2}
 ESKI_UYELER = {  # ad: (grup, [ISO3], not {tr, en})
     "Czechoslovakia": ("EEG", ["CZE", "SVK"], {"tr": "Çekoslovakya (üye 1945–1992): Çekya + Slovakya", "en": "Czechoslovakia (member 1945–1992): Czechia + Slovakia"}),
     "Yugoslavia": ("EEG", ["SVN", "HRV", "BIH", "SRB", "MNE", "MKD", "XKX"],
-                   {"tr": "Yugoslavya (üye 1945–1992): Slovenya, Hırvatistan, Bosna-Hersek, Sırbistan, Karadağ, Kuzey Makedonya ve Kosova (WPP: 'Kosovo (under UNSC res. 1244)') serilerinin toplamı",
-                    "en": "Yugoslavia (member 1945–1992): sum of the series for Slovenia, Croatia, Bosnia and Herzegovina, Serbia, Montenegro, North Macedonia and Kosovo (WPP: 'Kosovo (under UNSC res. 1244)')"}),
-    "Zanzibar": ("AFR", [], {"tr": "Zanzibar (üye 16 Aralık 1963 – 26 Nisan 1964): nüfusu WPP'de Tanzanya serisinin içinde, Tanganyika satırında sayıldı",
+                   {"tr": "Yugoslavya (üye 1945–1992): Slovenya, Hırvatistan, Bosna-Hersek, Sırbistan, Karadağ, Kuzey Makedonya ve Kosova (WPP: “Kosovo (under UNSC res. 1244)”) serilerinin toplamı",
+                    "en": "Yugoslavia (member 1945–1992): sum of the series for Slovenia, Croatia, Bosnia and Herzegovina, Serbia, Montenegro, North Macedonia and Kosovo (WPP: “Kosovo (under UNSC res. 1244)”)"}),
+    "Zanzibar": ("AFR", [], {"tr": "Zanzibar (üye 16 Aralık 1963 – 26 Nisan 1964): nüfusu WPP’de Tanzanya serisinin içinde, Tanganyika satırında sayılır",
                              "en": "Zanzibar (member 16 December 1963 – 26 April 1964): its population is within the WPP series for Tanzania, counted in the Tanganyika row"}),
 }
 ARDIL_1963 = {  # bugünkü üye ISO3 -> (1963'teki ülkesinin ISO3 bileşenleri, not {tr, en})
     "RUS": (["RUS", "ARM", "AZE", "GEO", "KAZ", "KGZ", "TJK", "TKM", "UZB", "EST", "LVA", "LTU", "MDA"],
-            {"tr": "SSCB: Rusya Federasyonu ile 1963'te ayrı BM üyesi olmayan 12 cumhuriyetin toplamı; Ukrayna SSC ve Beyaz Rusya SSC ayrı üye olarak kendi satırlarında",
+            {"tr": "SSCB: Rusya Federasyonu ile 1963’te ayrı BM üyesi olmayan 12 cumhuriyetin toplamı; Ukrayna SSC ve Beyaz Rusya SSC ayrı üye olarak kendi satırlarında",
              "en": "USSR: sum of the Russian Federation and the 12 republics that were not separate UN members in 1963; the Ukrainian SSR and the Byelorussian SSR are separate members in their own rows"}),
     "TZA": (["TZA"], {"tr": "Tanganyika: WPP Tanzanya serisi (Zanzibar dâhil)", "en": "Tanganyika: WPP series for Tanzania (including Zanzibar)"}),
-    "MYS": (["MYS", "SGP"], {"tr": "Malezya 1963 (16 Eylül'den itibaren Singapur dâhil): Malezya + Singapur", "en": "Malaysia 1963 (including Singapore from 16 September): Malaysia + Singapore"}),
+    "MYS": (["MYS", "SGP"], {"tr": "Malezya 1963 (16 Eylül’den itibaren Singapur dâhil): Malezya + Singapur", "en": "Malaysia 1963 (including Singapore from 16 September): Malaysia + Singapore"}),
     "PAK": (["PAK", "BGD"], {"tr": "Pakistan 1963: Pakistan + Bangladeş", "en": "Pakistan 1963: Pakistan + Bangladesh"}),
     "ETH": (["ETH", "ERI"], {"tr": "Etiyopya 1963: Etiyopya + Eritre", "en": "Ethiopia 1963: Ethiopia + Eritrea"}),
     "SDN": (["SDN", "SSD"], {"tr": "Sudan 1963: Sudan + Güney Sudan", "en": "Sudan 1963: Sudan + South Sudan"}),
-    "CHN": (["CHN", "TWN"], {"tr": "Çin 1963 (koltuk Çin Cumhuriyeti'nde): WPP 'China' + 'China, Taiwan Province of China'", "en": "China 1963 (seat held by the Republic of China): WPP 'China' + 'China, Taiwan Province of China'"}),
-    "YEM": (["YEM"], {"tr": "Yemen 1963 (Yemen Arap Cumhuriyeti): WPP serisi bütün Yemen'i kapsar, ayrılamadı", "en": "Yemen 1963 (Yemen Arab Republic): the WPP series covers all of Yemen and cannot be split"}),
-    "EGY": (["EGY"], {"tr": "Birleşik Arap Cumhuriyeti 1963: yalnızca Mısır (Suriye 1961'de ayrıldı)", "en": "United Arab Republic 1963: Egypt only (Syria withdrew in 1961)"}),
+    "CHN": (["CHN", "TWN"], {"tr": "Çin 1963 (koltuk Çin Cumhuriyeti’nde): WPP “China” + “China, Taiwan Province of China”", "en": "China 1963 (seat held by the Republic of China): WPP “China” + “China, Taiwan Province of China”"}),
+    "YEM": (["YEM"], {"tr": "Yemen 1963 (Yemen Arap Cumhuriyeti): WPP serisi bütün Yemen’i kapsar ve bölünemez", "en": "Yemen 1963 (Yemen Arab Republic): the WPP series covers all of Yemen and cannot be split"}),
+    "EGY": (["EGY"], {"tr": "Birleşik Arap Cumhuriyeti 1963: yalnızca Mısır (Suriye 1961’de ayrıldı)", "en": "United Arab Republic 1963: Egypt only (Syria withdrew in 1961)"}),
 }
 
 AD_1963 = {"RUS": "Union of Soviet Socialist Republics", "CHN": "China (seat: Republic of China)", "EGY": "United Arab Republic",
@@ -208,16 +207,16 @@ def girdi_uret() -> None:
         not_, not_en = "", ""
         if k == "TUR":
             secim = "WEOG"
-            not_ = "DGACM: iki grupta (WEOG ve Asya-Pasifik) listelenir; seçimlerde yalnızca WEOG üyesi sayılır. Burada WEOG'da sayıldı."
-            not_en = "DGACM: listed in two groups (WEOG and Asia-Pacific); for electoral purposes a member of WEOG only. Counted in WEOG here."
+            not_ = "BM Genel Kurul ve Konferans Yönetimi Dairesinin (DGACM) listesinde iki grupta (WEOG ve Asya-Pasifik) yer alır; seçimlerde yalnızca WEOG üyesi sayılır. Burada WEOG’da saydık."
+            not_en = "The list of the UN Department for General Assembly and Conference Management (DGACM) places it in two groups (WEOG and Asia-Pacific); for electoral purposes it is a member of WEOG only. We count it in WEOG here."
         elif k == "USA":
             secim = "WEOG"
-            not_ = "DGACM: hiçbir bölgesel grubun üyesi değildir; WEOG toplantılarına gözlemci katılır ve seçimlerde WEOG üyesi sayılır. Burada WEOG'da sayıldı."
-            not_en = "DGACM: not a member of any regional group; attends WEOG meetings as an observer and is considered a WEOG member for electoral purposes. Counted in WEOG here."
+            not_ = "BM Genel Kurul ve Konferans Yönetimi Dairesinin (DGACM) listesine göre hiçbir bölgesel grubun üyesi değildir; WEOG toplantılarına gözlemci katılır ve seçimlerde WEOG üyesi sayılır. Burada WEOG’da saydık."
+            not_en = "According to the list of the UN Department for General Assembly and Conference Management (DGACM), it is not a member of any regional group; it attends WEOG meetings as an observer and is considered a WEOG member for electoral purposes. We count it in WEOG here."
         elif k == "ISR":
             secim = "WEOG"
-            not_ = "DGACM: Mayıs 2000'de geçici, 2004'te kalıcı olarak WEOG üyesi."
-            not_en = "DGACM: WEOG member on a temporary basis from May 2000, permanent from 2004."
+            not_ = "BM Genel Kurul ve Konferans Yönetimi Dairesinin (DGACM) listesine göre Mayıs 2000’de geçici, 2004’te kalıcı olarak WEOG üyesi oldu."
+            not_en = "According to the list of the UN Department for General Assembly and Conference Management (DGACM), a WEOG member on a temporary basis from May 2000 and permanently from 2004."
         else:
             assert len(listeler) == 1, (k, listeler)
             secim = listeler[0]
@@ -258,24 +257,19 @@ def girdi_uret() -> None:
     assert len(olcek) == 193, len(olcek)
     yaz("butce_olcegi_2025_2027.csv", ["iso3", "ad_olcek", "yuzde"], sorted(olcek, key=lambda x: x["iso3"]))
 
-    # Barış gücü: ülke sıralaması PDF'i (pdftotext -layout); satır sonu taşan adlar birleştirilir
-    pdf = BELGELER / "02_country_ranking_95_february_2026.pdf"
-    metin = subprocess.run(["pdftotext", "-enc", "UTF-8", "-layout", str(pdf), "-"], capture_output=True, text=True, encoding="utf-8", check=True).stdout
-    assert "As of: 28/02/2026" in metin
+    # Barış gücü: BM Barış ve Güvenlik Veri Merkezi, DPO-UCLATEST (ülke başına üniformalı personel, son ay).
+    # peacekeeping.un.org'daki aylık sıralama PDF'i Şubat 2026'dan sonra güncellenmedi; veri merkezinin aylık serisi
+    # (DPO-UCHISTORICAL) 28 Şubat 2026 için o PDF'le ülke ülke aynı. Sıfır personelli ülkeler bu dosyada yer almaz.
     pk = []
-    for l in metin.splitlines():
-        m = re.match(r"^\s*(\d+)\s+(\d+)\s+(.+?)\s{2,}(\d+)\s+(\d+)\s+(\d+)\s+28/02/2026\s*$", l)
-        if m:
-            pk.append({"sira": int(m[2]), "ad_rapor": m[3].strip(), "erkek": int(m[4]), "kadin": int(m[5]), "toplam": int(m[6])})
-            continue
-        m = re.match(r"^\s*(\d+)\s+([A-Za-z][^\d]+?)\s{2,}(\d+)\s+(\d+)\s+(\d+)\s+28/02/2026\s*$", l)
-        if m and pk:
-            pk[-1]["ad_rapor"] += " " + m[2].strip()
-    genel = re.search(r"Grand Total\s+(\d+)\s+(\d+)\s+(\d+)", metin)
-    assert genel and sum(x["toplam"] for x in pk) == int(genel[3]), (genel and genel[3], sum(x["toplam"] for x in pk))
-    for x in pk:
-        x["iso3"] = iso(x["ad_rapor"])
-    yaz("baris_gucu_2026-02.csv", ["iso3", "ad_rapor", "sira", "erkek", "kadin", "toplam"], sorted(pk, key=lambda x: x["sira"]))
+    with (BELGELER / "baris_gucu" / "DPO-UCLATEST_2026-07-31.csv").open(encoding="utf-8", newline="") as f:
+        for r in csv.DictReader(f):
+            assert r["last_reporting_date"] == "2026-07-31", r
+            erkek, kadin, toplam = (int(float(r[k])) for k in ("male_personnel", "female_personnel", "total_uniformed_personnel"))
+            assert erkek + kadin == toplam and r["isocode3"] in uye_iso, r
+            pk.append({"iso3": r["isocode3"], "ad_rapor": r["contributing_country"], "sira": int(r["personnel_contribution_rank"]),
+                       "erkek": erkek, "kadin": kadin, "toplam": toplam})
+    assert len({x["iso3"] for x in pk}) == len(pk)
+    yaz("baris_gucu_2026-07.csv", ["iso3", "ad_rapor", "sira", "erkek", "kadin", "toplam"], sorted(pk, key=lambda x: (x["sira"], x["ad_rapor"])))
 
     # Güvenlik Konseyi üyeleri (mevcut dönem)
     s = RAW.joinpath(f"gk_uyeler_{ERISIM}.html").read_text(encoding="utf-8")
@@ -296,6 +290,16 @@ def oku(ad: str) -> list[dict]:
         return list(csv.DictReader(f))
 
 
+def son_baris_gucu() -> str:
+    """En yeni barış gücü dosyası (baris_gucu_YYYY-MM.csv); eskileri arşivde kalır, girdi sayılmaz."""
+    return max(p.name for p in GIRDI.glob("baris_gucu_*.csv"))
+
+
+def girdi_dosyalari() -> list[str]:
+    eski = {p.name for p in GIRDI.glob("baris_gucu_*.csv")} - {son_baris_gucu()}
+    return sorted(p.name for p in GIRDI.glob("*.csv") if p.name not in eski)
+
+
 def pay(a: float, b: float) -> float:
     return round(a / b, 6) if b else 0.0
 
@@ -308,7 +312,7 @@ def hesapla() -> dict:
     grup = {r["iso3"]: r for r in oku("bolgesel_gruplar.csv")}
     iit = {r["iso3"]: r for r in oku("iit_uyeleri.csv")}
     olcek = {r["iso3"]: float(r["yuzde"]) for r in oku("butce_olcegi_2025_2027.csv")}
-    pk = {r["iso3"]: int(r["toplam"]) for r in oku("baris_gucu_2026-02.csv")}
+    pk = {r["iso3"]: int(r["toplam"]) for r in oku(son_baris_gucu())}
     gk = {r["iso3"]: r for r in oku("gk_uyeleri_2026.csv")}
     assert len(uyeler) == 193 and set(grup) == {u["iso3"] for u in uyeler}
 
@@ -322,7 +326,7 @@ def hesapla() -> dict:
                   "gk": {"tur": gk[k]["tur"], "donem_sonu": gk[k]["donem_sonu"] or None} if k in gk else None,
                   "not": {"tr": grup[k]["not"], "en": grup[k]["not_en"]} if grup[k]["not"] else None})
     # KKTC (kullanıcı kararı, 19 Ekim 2026): WPP 2024'ün Kıbrıs verisi adanın tamamını kapsar (not 11: "Refers to the whole
-    # country"). KKTC İstatistik Kurumu'nun 2022 yıl sonu projeksiyonu (WPP'nin 1 Ocak 2023 tahminiyle aynı an) Kıbrıs'tan
+    # country"). KKTC İstatistik Kurumunun 2022 yıl sonu projeksiyonu (WPP'nin 1 Ocak 2023 tahminiyle aynı an) Kıbrıs'tan
     # çıkarılır; KKTC BM üyesi olmadığı için paydaya girmez. Verideki tek BM dışı nüfus kaynağı (kaynaklar/temsil/kktc_nufus.csv).
     # 1963 değerleri değişmez (KKTC 1983'te ilan edildi).
     kktc = oku("kktc_nufus.csv")
@@ -332,10 +336,10 @@ def hesapla() -> dict:
     assert kibris["not"] is None
     kibris["nufus_2023"] = round(kibris["nufus_2023"] - kktc_bin, 3)
     kisi = round(kktc_bin * 1000)
-    kibris["not"] = {"tr": f"Nüfus 2023: WPP 2024'ün Kıbrıs verisi adanın tamamını kapsar; Kuzey Kıbrıs Türk Cumhuriyeti'nin nüfusu "
-                           f"(KKTC İstatistik Kurumu, 2022 yıl sonu projeksiyonu: {f'{kisi:,}'.replace(',', '.')}) çıkarıldı.",
-                     "en": f"Population 2023: WPP 2024 data for Cyprus refer to the whole island; the population of the Turkish Republic "
-                           f"of Northern Cyprus (TRNC Statistical Institute, end-2022 projection: {kisi:,}) has been subtracted."}
+    kibris["not"] = {"tr": f"Nüfus 2023: WPP 2024’ün Kıbrıs verisi adanın tamamını kapsar; Kuzey Kıbrıs Türk Cumhuriyeti’nin nüfusunu "
+                           f"(KKTC İstatistik Kurumu, 2022 yıl sonu projeksiyonu: {f'{kisi:,}'.replace(',', '.')}) çıkardık.",
+                     "en": f"Population 2023: WPP 2024 data for Cyprus refer to the whole island; we subtract the population of the Turkish "
+                           f"Republic of Northern Cyprus (TRNC Statistical Institute, end-2022 projection: {kisi:,})."}
     toplam_nufus = sum(x["nufus_2023"] for x in U)
     toplam_butce = sum(x["butce_yuzde"] for x in U)
     toplam_pk = sum(x["personel"] for x in U)
@@ -369,7 +373,7 @@ def hesapla() -> dict:
                 "paylar": paylar,
                 "koltuk": {"daimi": daimi, "secilmis": secilmis, "toplam": daimi + secilmis,
                            "daimi_payi": pay(daimi, 5), "toplam_payi": toplam_koltuk_payi},
-                "oranlar": {g: (round(toplam_koltuk_payi / paylar[g], 3) if paylar[g] else None) for g in ("nufus_2023", "uye", "butce", "personel")},
+                "oranlar": {g: (round(toplam_koltuk_payi / paylar[g], 6) if paylar[g] else None) for g in ("nufus_2023", "uye", "butce", "personel")},
                 "notlar": notlar}
 
     gruplar = []
@@ -387,23 +391,23 @@ def hesapla() -> dict:
     iit_63 = [x for x in U63 if x["iit_bugun"]]
     kumeler = [
         kume("Beş daimî üye", "Five permanent members", "P5", p5, p5_63, 5, 0,
-             [{"tr": "1963 nüfusu: Çin koltuğu Çin Cumhuriyeti'ndeydi, nüfus WPP 'China' + 'China, Taiwan Province of China' serilerinin toplamıdır; SSCB 13 cumhuriyetin toplamıdır (Ukrayna ve Beyaz Rusya ayrı üye).",
-               "en": "1963 population: the China seat was held by the Republic of China; the population is the sum of the WPP series 'China' and 'China, Taiwan Province of China'; the USSR is the sum of 13 republics (Ukraine and Byelorussia separate members)."}]),
+             [{"tr": "1963 nüfusunda Çin ve SSCB yukarıdaki 1963 notlarındaki gibi sayılır.",
+               "en": "For 1963, China and the USSR are counted as in the 1963 notes above."}]),
         kume("İslam İşbirliği Teşkilatı üyeleri", "Organisation of Islamic Cooperation members", "IIT", iit_u, iit_63, 0,
              sum(1 for x in iit_u if x["gk"] and x["gk"]["tur"] == "secilmis"),
-             [{"tr": "İİT'nin 57 üyesinden Filistin BM üyesi değildir; paylara 56 üye girer.", "en": "Of the 57 OIC members, Palestine is not a UN Member State; 56 members enter the shares."},
-              {"tr": "1963: İİT 1969'da kuruldu; 1963 değeri bugünkü üyelerden o tarihte BM üyesi olanların 1963 sınırlarıyla toplamıdır (Pakistan Bangladeş'i, Malezya Singapur'u, Sudan Güney Sudan'ı kapsar).",
-               "en": "1963: the OIC was founded in 1969; the 1963 value is the sum of today's members that were UN members at that time, with their 1963 borders (Pakistan includes Bangladesh, Malaysia includes Singapore, Sudan includes South Sudan)."}]),
+             [{"tr": "İİT’nin 57 üyesinden Filistin BM üyesi değildir; paylara 56 üye girer.", "en": "Of the 57 OIC members, Palestine is not a UN Member State; 56 members enter the shares."},
+              {"tr": "1963: İİT 1969’da kuruldu; 1963 değeri bugünkü üyelerden o tarihte BM üyesi olanların 1963 sınırlarıyla toplamıdır. 1963 sınırları yukarıdaki notlardaki gibidir.",
+               "en": "1963: the OIC was founded in 1969; the 1963 value is the sum of today’s members that were UN members at that time, with their 1963 borders. The 1963 borders are as in the notes above."}]),
     ]
     return {
         "meta": {
             "uretim": date.today().isoformat(), "erisim_tarihi": ERISIM, "uye_sayisi": len(U), "uye_sayisi_1963": len(U63),
-            "nufus_yillari": [1963, 2023], "olcek_donemi": "2025–2027", "personel_tarihi": "2026-02-28", "gk_donemi": "2026",
+            "nufus_yillari": [1963, 2023], "olcek_donemi": "2025–2027", "personel_tarihi": "2026-07-31", "gk_donemi": "2026",
             "toplamlar": {"nufus_2023_bin": round(toplam_nufus, 3), "nufus_1963_bin": round(toplam_nufus_63, 3),
                           "dunya_nufus_2023_bin": dunya_2023, "dunya_nufus_1963_bin": dunya_1963, "butce_yuzde": round(toplam_butce, 3),
                           "personel": toplam_pk, "koltuk": 15, "daimi": 5},
             "secilmis_koltuk_dagilimi": SECILMIS_KOLTUK,
-            "girdi_sha256": {ad: sha(GIRDI / ad) for ad in sorted(p.name for p in GIRDI.glob("*.csv"))},
+            "girdi_sha256": {ad: sha(GIRDI / ad) for ad in girdi_dosyalari()},
             "kktc_nufus_bin": kktc_bin,
         },
         "gruplar": gruplar, "kumeler": kumeler,

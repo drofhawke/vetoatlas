@@ -27,27 +27,32 @@
       "description": "Oylamanın fiilen yapıldığı takvim günü. Gece yarısını geçen toplantılarda toplantı kaydı başlığındaki tarihten farklı olabilir; kaynağın ham tarihi 'tarih_ham'da durur."
     },
     "tarih_ham": {
-      "type": "string"
+      "type": "string",
+      "description": "Kaynağın verdiği tarih, kaynaktaki yazımıyla (ör. '13 March 1953', '3-4 December 1960')."
     },
     "tarih_aralik_mi": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Kaynak tarihi tek gün yerine bir aralık olarak veriyorsa true."
     },
     "taslak_belgeler": {
       "type": "array",
       "items": {
         "type": "string",
         "pattern": "^S/"
-      }
+      },
+      "description": "Veto edilen karar taslağının ve varsa değişiklik önergesinin belge kodları. Taslak ayrı belge olarak yayımlanmadıysa boş liste (taslak_kaynagi: toplanti_kaydi)."
     },
     "toplanti_kayitlari": {
       "type": "array",
       "items": {
         "type": "string"
-      }
+      },
+      "description": "Oylamanın geçtiği toplantının kaydı (S/PV.…)."
     },
     "gundem_maddesi": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "description": "Gündem maddesinin BM'deki İngilizce başlığı."
     },
     "veto_eden_uyeler": {
       "type": "array",
@@ -61,32 +66,38 @@
           "GBR",
           "FRA"
         ]
-      }
+      },
+      "description": "Veto eden daimî üye ya da üyeler. SSCB, Rusya Federasyonu'ndan (RUS) ayrı kodlanır; 25 Ekim 1971'den önceki CHN vetoları Çin Cumhuriyeti'ne aittir."
     },
     "kategori": {
       "enum": [
         "resmi_veto",
         "gizli_veto",
         "eylemsizlik"
-      ]
+      ],
+      "description": "Vetonun türü. Veri setindeki bütün kayıtlar resmi_veto; öteki değerler ileride kullanılmak üzere ayrılmıştır."
     },
     "kismi_veto_suphesi": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "true: veto taslağın bütününe değil, bir değişiklik önergesine ya da taslağın bir bölümüne (paragraf, cümle, kelime) yapılan ayrı oylamada kullanıldı."
     },
     "notlar": {
       "type": "array",
       "items": {
         "type": "string"
-      }
+      },
+      "description": "Kayda ait notlar. Türkçe asıl metindir; İngilizceleri aynı sırayla notlar_en'de."
     },
     "kaynak_url": {
-      "type": "string"
+      "type": "string",
+      "description": "Kaydın dayandığı kaynak sayfa: DHL veto listesi ya da DHL'de bulunmayan kayıtlarda toplantı kaydı."
     },
     "belge_linkleri": {
       "type": "array",
       "items": {
         "type": "string"
-      }
+      },
+      "description": "Açık veride belge kodlarından kurulan undocs.org bağlantıları (DHL sayfasındaki bağlantılar kullanılmaz)."
     },
     "bolge": {
       "type": [
@@ -101,7 +112,8 @@
         "Latin Amerika ve Karayipler",
         "Küresel",
         null
-      ]
+      ],
+      "description": "Gündem maddesinin bölgesi (kaynaklar/gundem_sozlugu.csv). Küresel, belirli bir bölgeye bağlı olmayan gündem maddeleridir."
     },
     "konu_kategorisi": {
       "description": "Ana konu. Sayımlarda yalnızca bu alan kullanılır (kaynaklar/gundem_sozlugu.csv, konu_duzeltmeleri.csv).",
@@ -147,47 +159,56 @@
         "katilmayan": {
           "type": "integer"
         }
-      }
+      },
+      "description": "Oylamanın lehte, aleyhte ve çekimser oy sayıları. Kapalı oturumdaki iki Genel Sekreter vetosunda null."
     },
     "ga_tartisma_belgesi": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "İleride doldurulacak; şimdilik bütün kayıtlarda boş. Genel Kurul tartışmaları genel_kurul alanında."
     },
     "baglam_ozeti": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "İleride doldurulacak; şimdilik bütün kayıtlarda boş."
     },
     "vaka_analizi_var": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "İleride doldurulacak; şimdilik bütün kayıtlarda false."
     },
     "taslak_kaynagi": {
       "enum": [
         "belge",
         "toplanti_kaydi"
-      ]
+      ],
+      "description": "belge: taslak ayrı bir S/ belgesi olarak yayımlandı. toplanti_kaydi: ayrı belge yok, öneri toplantı kaydında yer alıyor."
     },
     "on_soru_vetosu": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "true: veto, bir meselenin usul meselesi sayılıp sayılmayacağına dair ön soru oylamasında kullanıldı. Bu oylamaya çifte veto da denir."
     },
     "atif_belirsiz": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "true: veto kapalı oturumda kullanıldı; resmî bildiri veto eden üyeyi adlandırmaz, üyeyi DHL listesi verir. Açık veri CSV'sinde kapali_oturum sütunu."
     },
     "duzeltme": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Referans tabloyla (scprocedure.org, Tablo 4) mutabakatta kayda yapılan ekleme ya da değişiklik ve dayanağı. Türkçe asıl metin; null ise kayıt değişmedi."
     },
     "referans_tarih": {
       "type": [
         "string",
         "null"
       ],
-      "format": "date"
+      "format": "date",
+      "description": "Referans tablonun verdiği tarih; yalnızca iki kaynağın tarihi ayrıştığında dolu."
     },
     "ikincil_konular": {
       "description": "Kaydı filtrelemede başka konulara da bağlar; hiçbir toplama girmez.",
@@ -384,7 +405,7 @@
       }
     },
     "genel_kurul": {
-      "description": "Genel Kurul'un veto sonrası tartışmaları (A/RES/76/262). 26 Nisan 2022 öncesi vetolarda durum 'kapsam_disi'. Tartışma ayrıntıları kaynaklar/genel_kurul_tartismalari.csv'de.",
+      "description": "Genel Kurulun veto sonrası tartışmaları (A/RES/76/262). 26 Nisan 2022 öncesi vetolarda durum 'kapsam_disi'. Tartışma ayrıntıları kaynaklar/genel_kurul_tartismalari.csv'de.",
       "type": [
         "object",
         "null"
@@ -418,6 +439,23 @@
           }
         }
       }
+    },
+    "duzeltme_en": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "duzeltme alanının İngilizcesi."
+    },
+    "notlar_en": {
+      "type": "array",
+      "items": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "description": "notlar alanındaki notların aynı sıradaki İngilizceleri."
     }
   }
 }

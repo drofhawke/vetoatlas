@@ -127,9 +127,10 @@ def test_referans_tabloya_dayanan_eklemeler_toplanti_kaydindan_dogrulandi():
     onerge = [k for k in eklenen if k["tarih"] == "1955-12-13" and k["taslak_belgeler"] == ["S/3502", "S/3506"]]
     assert len(onerge) == 2 and all(k["kismi_veto_suphesi"] for k in eklenen if k["tarih"] == "1955-12-13")
     assert sum(1 for k in VERI["kayitlar"] if k["kismi_veto_suphesi"]) == 31
-    # Moğolistan vetosu Çin Cumhuriyeti'nin (1971 öncesi "Çin" koltuğu); toplantıda 16 vetonun 3.'sü
+    # Moğolistan vetosu Çin Cumhuriyeti'nin (1971 öncesi "Çin" koltuğu); toplantıda 16 vetonun üçüncüsü (sıra sayısı yazıyla)
     mog = KAYIT["V-1955-12-13-16"]
-    assert mog["veto_eden_uyeler"] == ["CHN"] and "Republic of China" in mog["notlar"][0] and "3.'sü" in mog["notlar"][0]
+    assert mog["veto_eden_uyeler"] == ["CHN"] and "Republic of China" in mog["notlar"][0] and "16 vetonun üçüncüsü" in mog["notlar"][0]
+    assert "third of 16 vetoes" in mog["notlar_en"][0]
     # 1972: değişiklik (S/10786 2 (a), 9-6-0) ABD vetosundan önce oylandı
     deg = KAYIT["V-1972-09-10-2"]
     assert deg["taslak_belgeler"] == ["S/10786"] and sorted(deg["veto_eden_uyeler"]) == ["CHN", "SSCB"]
@@ -180,11 +181,24 @@ def test_notlarin_ingilizcesi_tam_ve_eksik_olursa_04_uyarir():
 
 def test_sozlu_degisiklik_vetosu_kismi_olarak_isaretli():
     # DHL: "S/2023/1029 oral amendment"; S/PV.9520 s. 4-5: sözlü değişiklik önergesi 10-1-4 ile düştü
+    # Türkçe not düz cümle; "oral amendment" İngilizce notta (04'ün Gazze denetimi bu ifadeyi arar)
     k = KAYIT["V-2023-12-22-1"]
-    assert k["kismi_veto_suphesi"] and any("oral amendment" in n for n in k["notlar"])
+    assert k["kismi_veto_suphesi"] and any("sözlü olarak önerilen bir değişikliğe karşı" in n for n in k["notlar"])
+    assert any("oral amendment" in n for n in k["notlar_en"] if n)
     # "(as amended)" taslağın bütününe yapılan oylamadır
     for i in ("V-1974-07-31-1", "V-1972-09-29-1", "V-1964-12-21-1"):
         assert not KAYIT[i]["kismi_veto_suphesi"], i
+
+
+def test_kayit_notu_bicimi():
+    """KILAVUZ "Kayıt notu": notta PDF sayfası (PDF s., PDF p.) yok, atıf paragrafla; Türkçe notta alıntı çift tırnakla
+    (tek tırnaklı alıntı yok); görünen metinde kesme kıvrık (’); her not noktayla biter."""
+    import re as _re
+    for k in VERI["kayitlar"]:
+        for n in k["notlar"] + [x for x in (k.get("notlar_en") or []) if x]:
+            assert not _re.search(r"PDF [sp]\.", n), (k["id"], n)
+            assert "'" not in n, (k["id"], n)
+            assert n.rstrip().endswith((".", ".)", "”", '."', '?"')), (k["id"], n)
 
 
 def test_gazze_listesinde_degisiklik_onergesi_isaretli_ve_veriyle_tutarli():

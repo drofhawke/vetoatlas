@@ -19,11 +19,14 @@ NS = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9", "x": "http://www.w3.or
 
 
 def test_robots_txt():
-    # Paylaşım kartlarının kaynak sayfaları ve tek dosya (sitenin kopyası) taranmaz; önek kuralı .html'li ve uzantısız
-    # adresi birlikte kapsar. Sitemap satırı en sonda.
+    # Her şey taranabilir; paylaşım kartları ve tek dosya (sitenin kopyası) dizine eklenmez: bunu robots.txt'teki
+    # Disallow değil, _headers'taki X-Robots-Tag: noindex sağlar (Disallow, tarayıcının noindex'i görmesini engellerdi).
+    # Sitemap satırı en sonda.
     assert (WEB / "robots.txt").read_text(encoding="utf-8") == (
-        "User-agent: *\nAllow: /\nDisallow: /kartlar/\nDisallow: /veto-atlasi-tek-dosya\n\n"
-        "Sitemap: https://vetoatlas.com/sitemap.xml\n")
+        "User-agent: *\nAllow: /\n\nSitemap: https://vetoatlas.com/sitemap.xml\n")
+    basliklar = (WEB / "_headers").read_text(encoding="utf-8")
+    for yol in ("/kartlar/*", "/veto-atlasi-tek-dosya", "/veto-atlasi-tek-dosya.html"):
+        assert f"\n{yol}\n  X-Robots-Tag: noindex\n" in basliklar, yol
 
 
 def test_sitemap_sayfalarin_canonical_ve_hreflang_baglantilariyla_ayni():
@@ -46,7 +49,7 @@ def test_sitemap_sayfalarin_canonical_ve_hreflang_baglantilariyla_ayni():
     assert adresler == beklenen and len(adresler) == 16
     # Açık veri dosyaları da listede; lastmod her adreste geçerli bir tarih, bugünden ileri değil, iki dil aynı tarihte
     veri = {f"https://vetoatlas.com/veri/{p.name}" for p in (WEB / "veri").iterdir() if p.suffix in (".csv", ".json", ".xlsx")}
-    assert set(tarihler) == set(beklenen) | veri and len(veri) == 5
+    assert set(tarihler) == set(beklenen) | veri and len(veri) == 6  # veri_sozlugu.csv dahil (K10)
     for loc, tarih in tarihler.items():
         assert datetime.date.fromisoformat(tarih) <= datetime.date.today(), loc
     for s in cevrimdisi.SAYFALAR:
@@ -83,7 +86,9 @@ def test_dataset_jsonld_atif_dosyasi_ve_veriyle_tutarli():
     v = (WEB / "veri.js").read_text(encoding="utf-8")
     V = json.loads(v[v.index("{"):v.rstrip().rindex(";")])
     assert d["temporalCoverage"] == f'{min(k["tarih"] for k in V["kayitlar"])}/{V["meta"]["veri_surumu"]}'
-    assert [x["contentUrl"] for x in d["distribution"]] == ["https://vetoatlas.com/" + i["dosya"] for i in V["meta"]["indirmeler"]]
+    # Veri dosyaları ve sonda sütunları açıklayan veri sözlüğü (Hakkında'nın indirme bölümü ona bağlanır)
+    assert [x["contentUrl"] for x in d["distribution"]] == (["https://vetoatlas.com/" + i["dosya"] for i in V["meta"]["indirmeler"]]
+                                                            + ["https://vetoatlas.com/veri/veri_sozlugu.csv"])
     for x in d["distribution"]:
         yol = WEB / x["contentUrl"].removeprefix("https://vetoatlas.com/")
         assert yol.is_file() and x["@type"] == "DataDownload"
@@ -109,8 +114,15 @@ def test_icerik_sayfalarinda_noindex_yok_404_gercek_404():
 
 def test_headers_metin_ve_csv_utf8():
     """Sunucu .txt (LICENSE-DATA, robots, yazı tipi lisansları) ve açık veri CSV'lerini charset=utf-8 ile gönderir; yoksa
-    tarayıcı Türkçe karakterleri bozuk gösteriyordu (14 Ekim)."""
+    tarayıcı Türkçe karakterleri bozuk gösteriyordu (14 Ekim). Bütün adreslerde üç güvenlik başlığı; yazı tipleri bir yıl
+    (immutable), görseller bir hafta önbellekte; HTML ve veri için önbellek kuralı yok. Kartlar ve tek dosya noindex."""
     assert (WEB / "_headers").read_text(encoding="utf-8") == (
-        "/*.txt\n  Content-Type: text/plain; charset=utf-8\n/veri/*.csv\n  Content-Type: text/csv; charset=utf-8\n")
+        "/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n"
+        "  Permissions-Policy: camera=(), microphone=(), geolocation=()\n"
+        "/*.txt\n  Content-Type: text/plain; charset=utf-8\n/veri/*.csv\n  Content-Type: text/csv; charset=utf-8\n"
+        "/fonts/*\n  Cache-Control: public, max-age=31536000, immutable\n"
+        "/*.png\n  Cache-Control: public, max-age=604800\n/*.svg\n  Cache-Control: public, max-age=604800\n"
+        "/kartlar/*\n  X-Robots-Tag: noindex\n/veto-atlasi-tek-dosya\n  X-Robots-Tag: noindex\n"
+        "/veto-atlasi-tek-dosya.html\n  X-Robots-Tag: noindex\n")
     assert {p.name for p in WEB.rglob("*.txt")} >= {"LICENSE-DATA.txt", "robots.txt", "OFL-source-sans-3.txt"}
-    assert {p.name for p in (WEB / "veri").glob("*.csv")} == {"vetolar.csv", "genel_kurul_tartismalari.csv"}
+    assert {p.name for p in (WEB / "veri").glob("*.csv")} == {"vetolar.csv", "genel_kurul_tartismalari.csv", "veri_sozlugu.csv"}

@@ -27,10 +27,17 @@ def test_yedi_adim_ve_baglantilar():
     assert BETIK.count('.metin"') >= 7 and all(f'"{i}.metin"' in BETIK for i in range(1, 8))
     for hedef in ("metodoloji.html", "vetolar.html", "vizyon.html#h-konu", "vizyon.html#h-galeri", "temsil.html", "vizyon.html#h-cizelge", "simulasyon.html"):
         assert hedef in BETIK, hedef
+    assert 'gorsel: gkKareleri(), bag: "vizyon.html#h-cizelge" },' in BETIK and "tur=genel-kurul" not in BETIK
     # Kapanış: 2026 hitabı alıntısı alıntı bankasından (kimlikle), yorum cümlesi yok
     assert '"2025-1"' in BETIK and 'kesfet: "Bütün kayıtlar"' in BETIK and 'kesfet: "All records"' in BETIK
     # Her adımın altında alıntı bankasından söz: 1→2019-1, 2→2023-1, 3→2024-1, 4→2026-1, 5→2023-2, 6→2022-1, 7→kitap-4
     assert 'const SOZLER = ["2019-1", "2023-1", "2024-1", "2026-1", "2023-2", "2022-1", "kitap-4"];' in BETIK
+    # Yedi adımın hepsinde alıntı gösterilir; adımın bağlantısı "Ayrıntı" / "Details", 7. adımda "Sayımı kendiniz yapın"
+    # (21 Ekim 2026 kullanıcı kararı: adımlar yayındaki hâliyle; KILAVUZ "Hikâye, yedi adım")
+    assert "      ${soz(SOZLER[i])}\n" in BETIK and "GOSTERILEN" not in BETIK and "sozBag" not in BETIK
+    assert '<p class="ayrinti"><a href="${bagla(a.bag)}">${esc(a.bagMetni || t("ayrinti"))}</a></p>' in BETIK
+    assert 'ayrinti: "Ayrıntı",' in BETIK and 'ayrinti: "Details",' in BETIK
+    assert '"7.bag": "Sayımı kendiniz yapın",' in BETIK and '"7.bag": "Run the count yourself",' in BETIK
     assert "Sunuş" not in SAYFA and "Foreword" not in SAYFA and 'EPIGRAF = { tr: ["2019-1", "“Dünya 5’ten Büyüktür.”"], en: ["2019-1", "The world is bigger than five!"] }[DIL];' in BETIK
     assert not re.search(r"müttefik|korumak için|adalet|haks[ıi]z", SAYFA, re.I)
     assert "prefers-reduced-motion" in SAYFA and "IntersectionObserver" in BETIK
@@ -112,7 +119,7 @@ def test_kucuk_kararlar_adim38():
     # Sunuş kaldırıldı (yayın hazırlığı): başlık ve özetten sonra doğrudan 1. adım; kutunun kodu KILAVUZ bölüm 6'da
     assert "sunus" not in SAYFA and "[İmza" not in SAYFA and "[Signature" not in SAYFA
     kilavuz = (KOK / "kaynaklar/kimlik/KILAVUZ.md").read_text(encoding="utf-8")
-    assert "**Sunuş kutusu (kaldırıldı).**" in kilavuz and '<details class="sunus">' in kilavuz and ".sunus summary { list-style: none;" in kilavuz
+    assert "**Sunuş kutusu (sitede yok).**" in kilavuz and '<details class="sunus">' in kilavuz and ".sunus summary { list-style: none;" in kilavuz
     # Tasarım referansı depoda; yerel OTF yolları kılavuzda not edilmiş
     taslak = (KOK / "kaynaklar/kimlik/hikaye-taslak.html").read_text(encoding="utf-8")
     assert "SourceSerif4-Regular.otf" in taslak
@@ -124,15 +131,17 @@ def test_giris_sikilastirma_adim40():
     assert ".giris { padding: 48px 0 24px; text-align: left; }" in SAYFA and "@media (max-width: 760px) {\n  .giris { padding-top: 32px; }" in SAYFA
     # Kaydırma ipucu yok (20 Ekim 2026): girişin hemen altında ilk adım
     govde = SAYFA[SAYFA.index("<body"):]
-    assert "asagi" not in SAYFA and '  </header>\n  <main id="adimlar"></main>' in govde
+    assert "asagi" not in SAYFA and '      <p class="ozet" data-t="giris1"></p>\n    </div>\n    <div id="adimlar"></div>' in govde
 
 
 def test_alt_bilgi_ve_giris_adim45():
-    """Alt bilgide yalnızca veri tarihi (veri sürümünden); kaynaklar ve yöntem "Nasıl yaptık?"ta. Girişteki "Sayılar sayfa
+    """Alt bilgide yalnızca son vetonun tarihi (kayıtlardan) ve veri tarihi (veri sürümünden); kaynaklar ve yöntem "Nasıl yaptık?"ta. Girişteki "Sayılar sayfa
     açılırken …" notu ve alt bilgideki slogan yok. Kapanıştaki sayfa listesinde Reform modelleri (çubuktaki sırayla)."""
-    assert "alt: ({ tarih }) => `Veri tarihi: ${tarih}.`," in BETIK and "alt: ({ tarih }) => `Data as of ${tarih}.`," in BETIK
-    assert '$("#alt").innerHTML = t("alt", { tarih: veriTarihi });' in BETIK
-    assert "tarihUzun(V.meta.veri_surumu)" in BETIK and "web/veri.js ve web/temsil_veri.js dosyalarından" not in BETIK
+    assert "alt: ({ son, sonEk, tarih, tarihEk }) => `Son veto ${son}’${sonEk}, veri ${tarih}’${tarihEk} güncellendi.`," in BETIK
+    assert "alt: ({ son, tarih }) => `The latest veto was cast on ${son}, and the data were updated on ${tarih}.`," in BETIK
+    assert 'const sonVeto = K.map((k) => k.tarih).sort().pop(), surum = V.meta.veri_surumu;' in BETIK
+    assert ('t("alt", { son: zaman(sonVeto), sonEk: sayiEki(+sonVeto.slice(0, 4), "de"), tarih: zaman(surum), '
+            'tarihEk: sayiEki(+surum.slice(0, 4), "de") })') in BETIK and "web/veri.js ve web/temsil_veri.js dosyalarından" not in BETIK
     for eski in ('data-t="not"', "sayfa açılırken", "when the page opens", "veri setinden hesaplanır", "computed from the atlas dataset", "Metodoloji</a>"):
         assert eski not in SAYFA, eski
     assert "sayfaListesi" not in BETIK and "sayfa-listesi" not in SAYFA  # sayfa listesi yok, üst çubuk yeter (20 Ekim 2026)
@@ -156,18 +165,23 @@ def test_belirme_animasyonu_adim42():
 
 def test_kisaltilmis_alinti_adim42():
     """7. adımda kitap alıntısı atlama işaretiyle kısaltılır; her parça alıntı bankasındaki tam metinde sırasıyla geçer
-    (kaynakta parça parça doğrulama: tests/test_alintilar.py). Alıntı bankasında tam metin kalır."""
+    (kaynakta parça parça doğrulama: tests/test_alintilar.py). Alıntı bankasında tam metin kalır. 3. istisna (21 Ekim 2026,
+    kullanıcı kararı): İngilizce kısa biçim Türkçedeki yerden kısaltılır, iki dilde aynı parça; ikisi de tam metnin başından
+    başlar, tek atlama işareti taşır. Öteki adımların alıntıları tam metindir."""
     kisa = json.loads(re.search(r"const KISA = (\{.*?\});", BETIK)[1])
+    kisa_en = json.loads(re.search(r"const KISA_EN = (\{.*?\});", BETIK)[1])
     banka = {a["id"]: a for a in A.oku(KOK / "kaynaklar/alintilar.csv")}
-    assert set(kisa) == {"kitap-4"} and "kitap-4" == re.search(r'const SOZLER = \[(.*?)\];', BETIK)[1].split(", ")[6].strip('"')
-    for kimlik, metin in kisa.items():
-        tam = banka[kimlik]["metin_tr"]
-        assert A.ATLAMA in metin and A.ATLAMA not in tam and len(metin) < len(tam)
-        assert A.yerlesimler(metin, tam) == [0], kimlik  # tam metnin başından, parçalar sırasıyla
-        assert all(len(p.split()) >= 3 for p in A.parcalar(metin)), kimlik
+    assert set(kisa) == set(kisa_en) == {"kitap-4"} and "kitap-4" == re.search(r'const SOZLER = \[(.*?)\];', BETIK)[1].split(", ")[6].strip('"')
+    for kimlik in kisa:
+        for metin, tam in ((kisa[kimlik], banka[kimlik]["metin_tr"]), (kisa_en[kimlik], banka[kimlik]["metin_en"])):
+            assert metin.count(A.ATLAMA) == 1 and A.ATLAMA not in tam and len(metin) < len(tam)
+            assert A.yerlesimler(metin, tam) == [0], kimlik  # tam metnin başından, parçalar sırasıyla
+            assert all(len(p.split()) >= 3 for p in A.parcalar(metin)), kimlik
     assert kisa["kitap-4"] == ("Reform ve yeniden yapılandırma konusunda bir teklif türünün başarılı olabilmesinin öncelikli "
                                "koşulu mevcut şekliyle daimî üyelik paradigmasının ve üyelerin … veto yetkilerini kaldırmaktır.")
-    assert "${esc(ingilizce ? a.metin_en : (KISA[id] || a.metin_tr))}" in BETIK
+    assert kisa_en["kitap-4"] == ("To ensure that a reform and restructuring proposal will succeed, it is crucial to challenge the "
+                                  "current approach to permanent membership and to abolish the veto powers of permanent members …")
+    assert "${esc(ingilizce ? (KISA_EN[id] || a.metin_en) : (KISA[id] || a.metin_tr))}" in BETIK
 
 
 def test_hikaye_metinleri_adim47():
@@ -180,9 +194,10 @@ def test_hikaye_metinleri_adim47():
     assert 'const BUYUME = "1966-01-01", ESKI_BOYUT = 11, YENI_BOYUT = 15, GK_BAS = "2022-04-26", DAGILIM_YILI = 1963;' in BETIK
     for parca in ('t("1.metin", { uye: koltukSayisi, daimi: daimiSayisi })', 't("2.etiket", { yil: ilkYil })',
                   't("2.metin", { sure: sonYil - ilkYil })', "sayi: `${sayi(kullananKoltuk)} / ${sayi(daimiSayisi)}`",
+                  't("3.metin", { daimi: daimiSayisi })',
                   't("4.metin", { n11: tek11, yil: BUYUME.slice(0, 4), boy: ESKI_BOYUT })',
-                  't("5.metin", { yil: DAGILIM_YILI, koltuk: koltukSayisi, asp: ASP.koltuk.toplam, afr: AFR.uye_sayisi })',
-                  't("6.etiket", { yil: +GK_BAS.slice(0, 4) })',
+                  't("5.metin", { yil: DAGILIM_YILI, koltuk: koltukSayisi, asp: ASP.koltuk.toplam, afr: AFR.uye_sayisi, kat: Math.round(AFR.paylar.nufus_2023 / AFR.paylar.nufus_1963) })',
+                  't("6.etiket", { ay: AY[+GK_BAS.slice(5, 7) - 1], yil: +GK_BAS.slice(0, 4) })',
                   't("6.metin", { ay: AY[+GK_BAS.slice(5, 7) - 1], yil: +GK_BAS.slice(0, 4), v: vgTartismalar.length, s: vgSozAlinan.length })',
                   't("7.etiket", { t: sayi(K.length) })', 't("7.metin", { dis: K.length - vetosuz.length })',
                   'const kullananKoltuk = new Set(acik.flatMap((k) => k.uyeler.map((u) => (u === "RUS" ? "SSCB" : u)))).size;',
@@ -209,34 +224,42 @@ def test_hikaye_metinleri_adim47():
     vg = {x["id"]: x for k in gorusulen for x in k["gk"]["tartismalar"] if x["tur"] == "veto_girisimi" and x.get("konusmacilar")}
     soz = [x for x in vg.values() if all(d != "hayir" for d in x["konusmacilar"]["veto_eden_konustu"].values())]
     assert (len(G), len(gorusulen), len(vg), len(soz)) == (22, 22, 15, 15)  # "vetoların tamamı görüşüldü", "on beşinde de"
+    assert "gkGruplari" not in BETIK and "ozelOturum" not in BETIK and "RUS_CIN_YILI" not in BETIK  # 6. adımda kareler gruplanmaz
     T = json.loads((KOK / "data/processed/temsil.json").read_text(encoding="utf-8"))
     g = {x["kod"]: x for x in T["gruplar"]}
     assert g["ASP"]["paylar"]["nufus_2023"] > 0.5 and (g["ASP"]["koltuk"]["toplam"], T["meta"]["toplamlar"]["koltuk"]) == (3, 15)
     assert (g["AFR"]["uye_sayisi"], g["AFR"]["koltuk"]["daimi"]) == (54, 0) and 1963 in T["meta"]["nufus_yillari"]
+    # "Afrika grubunun payı iki katına çıktı" (1963'ten 2023'e, BM üyesi ülkelerin nüfusu içinde)
+    assert round(g["AFR"]["paylar"]["nufus_2023"] / g["AFR"]["paylar"]["nufus_1963"]) == 2
+    # 2. adımın ekran okuyucu metni: "322 ret oyu, her kare bir oy. Kesik çizgili iki kare …"
+    assert sum(len(k["uyeler"]) for k in acik) == 322 and len(kapali) == 2
 
 
+# Yedi adımın metni 21 Ekim 2026'da yayındaki hâliyle (kullanıcı kararı; KILAVUZ "Hikâye, yedi adım"); site geneli yazım kuralları
+# uygulanır (kıvrık kesme, kurum adlarına gelen ekler kesmesiz). Üç istisna: 5. adımda Afrika payı cümlesi, 6. adımın alt
+# yazısında ay, 7. adımda iki dilde aynı kısa alıntı (test_kisaltilmis_alinti_adim42). Giriş cümlesi ayrı karardır.
 BEKLENEN = {
     "tr": {
-        "giris": "Güvenlik Konseyi'nde kim, kaç kez, neyi durdurdu? Yedi adımda, kayıtlarla.",
+        "giris": "Güvenlik Konseyinde 1946’dan bu yana kim, kaç kez, neyi durdurdu? Yedi adımda, BM kayıtlarıyla.",
         "adimlar": [
             ["on beş üyeden beşi, daimî",
              "Güvenlik Konseyi on beş üyeden oluşur. Bunların beşi daimî üyedir ve diğerlerinde bulunmayan bir yetkiye sahiptir: tek bir ret "
              "oyuyla, usul işleri dışındaki her kararı düşürebilirler. Bu yetkinin adı vetodur."],
-            ["karar, 1946'dan bugüne",
-             "Konsey'in kuruluşundan bu yana daimî üyelerin ret oyuyla düşen karar taslaklarının toplamı budur. Aşağıdaki ızgarada her kare "
+            ["karar, 1946’dan bugüne",
+             "Konseyin kuruluşundan bu yana daimî üyelerin ret oyuyla düşen karar taslaklarının toplamı budur. Aşağıdaki ızgarada her kare "
              "bir ret oyunu gösterir; seksen yılın tamamı tek bakışta görülür."],
             ["daimî üyelerin tamamı",
-             "Veto, beş daimî üyenin tamamı tarafından kullanıldı. Dağılım dönemlere göre değişir: Soğuk Savaş'ın ilk yıllarında Sovyetler "
-             "Birliği, 1970'lerden sonra ABD, son on beş yılda Rusya ve Çin öne çıkar."],
+             "Veto, beş daimî üyenin tamamı tarafından kullanıldı. Dağılım dönemlere göre değişir: Soğuk Savaş’ın ilk yıllarında Sovyetler "
+             "Birliği, 1970’lerden sonra ABD, son on beş yılda Rusya ve Çin öne çıkar."],
             ["karar, tek bir ret oyuyla",
-             "Bu kararların her birinde Konsey'in diğer bütün üyeleri lehte oy kullandı; karar yine de düştü, çünkü ret oyunu veren tek ülke "
-             "bir daimî üyeydi. Yirmi yedisi, 1966 öncesinin on bir üyeli Konseyi'nde oylandı."],
+             "Bu kararların her birinde Konseyin diğer bütün üyeleri lehte oy kullandı; karar yine de düştü, çünkü ret oyunu veren tek ülke "
+             "bir daimî üyeydi. Yirmi yedisi, 1966 öncesinin on bir üyeli Konseyinde oylandı."],
             ["Asya-Pasifik grubunun BM nüfusundaki payı",
-             "Konsey'in bugünkü koltuk dağılımı 1963'te belirlendi ve o günden beri değişmedi; dünya nüfusu ise değişti. BM üyesi ülkelerin "
-             "nüfusunun yarısından fazlasını barındıran Asya-Pasifik grubu on beş koltuğun üçüne sahip. Elli dört üyeli Afrika grubunun ise hiç "
-             "daimî koltuğu yok."],
-            ["veto, 2022'den bu yana Genel Kurul'da görüşüldü",
-             "Nisan 2022'de kabul edilen ve Türkiye'nin ilk sunucuları arasında yer aldığı bir kararla, Genel Kurul artık her vetodan sonra "
+             "Konseyin bugünkü koltuk dağılımı 1963’te belirlendi ve o günden beri değişmedi. Aynı dönemde Afrika grubunun BM üyesi ülkelerin "
+             "nüfusundaki payı iki katına çıktı. BM üyesi ülkelerin nüfusunun yarısından fazlasını barındıran Asya-Pasifik grubu on beş "
+             "koltuğun üçüne sahip. Elli dört üyeli Afrika grubunun ise hiç daimî koltuğu yok."],
+            ["veto, Nisan 2022’den bu yana Genel Kurulda görüşüldü",
+             "Nisan 2022’de kabul edilen ve Türkiye’nin ilk sunucuları arasında yer aldığı bir kararla, Genel Kurul artık her vetodan sonra "
              "toplanıyor. O tarihten bu yana kullanılan vetoların tamamı görüşüldü; veto eden ülke, on beş veto girişimi tartışmasının on "
              "beşinde de söz aldı."],
             ["karar, 266 içinde",
@@ -245,7 +268,8 @@ BEKLENEN = {
         ],
     },
     "en": {
-        "giris": "Who stopped what in the Security Council, and how many times? In seven steps, from the records.",
+        "giris": ("Who has stopped what in the UN Security Council since 1946, and how often? Seven steps through the UN record, "
+                  "starting from a 2019 remark by Türkiye’s President Erdoğan."),
         "adimlar": [
             ["five of the fifteen members, permanent",
              "The Security Council has fifteen members. Five of them are permanent members and hold a power the others lack: with a single "
@@ -259,11 +283,11 @@ BEKLENEN = {
             ["decisions, on a single negative vote",
              "In each of these cases, every other member of the Council voted in favour; the draft still failed, because the only country "
              "voting against was a permanent member. Twenty-seven of them were voted on in the eleven-member Council before 1966."],
-            ["the Asia-Pacific Group's share of the population of UN Member States",
-             "The Council's current distribution of seats was set in 1963 and has not changed since, while the world's population has. The "
-             "Asia-Pacific Group, home to more than half of the population of UN Member States, holds three of the fifteen seats. The "
-             "fifty-four-member African Group holds no permanent seat."],
-            ["vetoes debated in the General Assembly since 2022",
+            ["the Asia-Pacific Group’s share of the population of UN Member States",
+             "The Council’s current distribution of seats was set in 1963 and has not changed since. Over the same period the African Group’s "
+             "share of the population of UN Member States has doubled. The Asia-Pacific Group, home to more than half of the population of "
+             "UN Member States, holds three of the fifteen seats. The fifty-four-member African Group holds no permanent seat."],
+            ["vetoes debated in the General Assembly since April 2022",
              "Under a resolution adopted in April 2022, of which Türkiye was one of the original sponsors, the General Assembly now meets "
              "after every veto. Every veto cast since then has been debated; the vetoing country took the floor in fifteen of the fifteen "
              "veto initiative debates."],
@@ -290,8 +314,8 @@ for (const DIL of ["tr", "en"]) {
     [f("2.etiket", { yil: p.ilkYil }), f("2.metin", { sure: p.sure })],
     [f("3.etiket"), f("3.metin", { daimi: p.daimi })],
     [f("4.etiket"), f("4.metin", { n11: p.tek11, yil: p.buyume, boy: p.eski })],
-    [f("5.etiket"), f("5.metin", { yil: p.dagilim, koltuk: p.koltuk, asp: p.asp, afr: p.afr })],
-    [f("6.etiket", { yil: p.gkYil }), f("6.metin", { ay: p.ay[DIL], yil: p.gkYil, v: p.v, s: p.s })],
+    [f("5.etiket"), f("5.metin", { yil: p.dagilim, koltuk: p.koltuk, asp: p.asp, afr: p.afr, kat: p.kat })],
+    [f("6.etiket", { ay: p.ay[DIL], yil: p.gkYil }), f("6.metin", { ay: p.ay[DIL], yil: p.gkYil, v: p.v, s: p.s })],
     [f("7.etiket", { t: p.n }), f("7.metin", { dis: p.dis })],
   ] };
   if (DIL === "tr") {
@@ -339,8 +363,8 @@ def test_giris_alintisi_bankadan():
     for ad, kalip in (("vizyon.html", 'a.iliskili_veri !== "model" && a.iliskili_veri !== "giris")'),
                       ("vetolar.html", 'a.iliskili_veri !== "model" && a.iliskili_veri !== "giris" && ')):
         assert kalip in (KOK / "web" / ad).read_text(encoding="utf-8"), ad
-    for md, cumle in (("METODOLOJI.md", 'İngilizcede İngilizce kitapçıktaki "The world is bigger than five!" cümlesi.'),
-                      ("METODOLOJI_EN.md", 'in English, "The world is bigger than five!" from the English booklet.')):
+    for md, cumle in (("METODOLOJI.md", 'İngilizcede İngilizce kitapçıktaki “The world is bigger than five!” cümlesi.'),
+                      ("METODOLOJI_EN.md", 'in English, “The world is bigger than five!” from the English booklet.')):
         assert cumle in " ".join((KOK / md).read_text(encoding="utf-8").split()), md
 
 
@@ -356,7 +380,8 @@ def test_hikaye_metinleri_node_ile(tmp_path):
     boyut = lambda k: 11 if k["tarih"] < "1966-01-01" else 15
     tek = [k for k in K if k["oy"] and k["oy"]["aleyhte"] == 1 and k["oy"]["lehte"] + 1 == boyut(k)]
     vetosuz = [k for k in acik if k["oy"] and k["oy"]["lehte"] >= (9 if boyut(k) == 15 else 7)]
-    G = [k for k in K if k["tarih"] >= "2022-04-26" and k.get("gk") and k["gk"]["durum"] == "yapildi"]
+    G = [k for k in K if k["tarih"] >= "2022-04-26"]
+    assert all(k.get("gk") and k["gk"]["durum"] == "yapildi" for k in G)  # "vetonun tamamı görüşüldü"
     vg = {x["id"]: x for k in G for x in k["gk"]["tartismalar"] if x["tur"] == "veto_girisimi" and x.get("konusmacilar")}
     T = json.loads((KOK / "data/processed/temsil.json").read_text(encoding="utf-8"))
     g = {x["kod"]: x for x in T["gruplar"]}
@@ -366,7 +391,7 @@ def test_hikaye_metinleri_node_ile(tmp_path):
              "buyume": "1966", "eski": 11, "dagilim": 1963, "asp": g["ASP"]["koltuk"]["toplam"], "afr": g["AFR"]["uye_sayisi"],
              "gkYil": 2022, "ay": {"tr": "Nisan", "en": "April"}, "v": len(vg),
              "s": sum(1 for x in vg.values() if all(d != "hayir" for d in x["konusmacilar"]["veto_eden_konustu"].values())),
-             "dis": len(K) - len(vetosuz)}
+             "dis": len(K) - len(vetosuz), "kat": round(g["AFR"]["paylar"]["nufus_2023"] / g["AFR"]["paylar"]["nufus_1963"])}
     betik = tmp_path / "hikaye.js"
     betik.write_text(HIKAYE_BETIGI, encoding="utf-8")
     r = subprocess.run([node, str(betik), str(KOK)], input=json.dumps(girdi), capture_output=True, text=True, encoding="utf-8", check=True)
@@ -382,10 +407,31 @@ def test_hikaye_metinleri_node_ile(tmp_path):
     assert cikti["yaziEn"] == ["twenty-one", "one hundred", "one hundred and fifteen", "one thousand nine hundred and forty-six", "two thousand and twenty-two"]
 
 
+def test_terim_istisnasi_yalniz_adim_metinlerinde():
+    """KILAVUZ "Hikâye, yedi adım": terim kuralları ("öneri", "evet oyu") adım metinlerinde uygulanmaz; adımlar "karar" ve
+    "lehte oy kullandı" der (21 Ekim 2026 kullanıcı kararı). İstisna dar: "karar" / "decisions" / "draft" yalnız yedi adımın
+    başlıklarında, alt yazılarında ve paragraflarında; "lehte oy" yalnız 4. adımın paragrafında bir kez. Giriş, meta açıklama ve
+    paylaşım görseli metni "öneri" / "proposals" der."""
+    tr = BETIK[BETIK.index("    tr: {"):BETIK.index("    en: {")]
+    en = BETIK[BETIK.index("    en: {"):BETIK.index("  const t = (a, p)")]
+    ADIM_ANAHTARI = re.compile(r'^\s*(?:basliklar\b|"[1-7]\.(?:etiket|metin)")')
+    for blok, terim in ((tr, r"\bkarar(?:ı|ın|lar\w*| taslak\w*)?\b|\blehte oy\b"), (en, r"\bdecisions?\b|\bdrafts?\b|\bvoted in favour\b")):
+        for satir in blok.splitlines():
+            if re.search(terim, satir) and not satir.lstrip().startswith("//"):
+                assert ADIM_ANAHTARI.match(satir), satir.strip()[:120]
+    assert len(re.findall(r"\blehte oy\b", SAYFA)) == 1
+    assert re.search(r'"4\.metin": \(\{ n11, yil, boy \}\) => `Bu kararların her birinde Konseyin diğer bütün üyeleri lehte oy kullandı;', BETIK)
+    # Adımların dışında terim "öneri" / "proposals"
+    assert "vetoyla düşen ${n} öneri" in tr and "${n} proposals blocked by the veto" in en
+    for ad in ("sayfaAciklamasi", "giris1", "kesfet"):
+        satir = next(x for x in tr.splitlines() if x.strip().startswith(ad + ":"))
+        assert "karar" not in satir, satir
+
+
 def test_ucuncu_adim_donemleri_veriyle_tutarli():
     """ADIM 47 (c): 3. adımdaki dönem ifadeleri veriyle sınanır; her dönemde en çok ret oyu kullanan üye veriden hesaplanır
-    (kapalı oturum vetoları hariç). "Soğuk Savaş'ın ilk yıllarında Sovyetler Birliği": 1946–1959 ve 1946–1965;
-    "1970'lerden sonra ABD": 1970–1991 ve 1970'ten son on beş yılın başına kadar; "son on beş yılda Rusya ve Çin": son veri yılı
+    (kapalı oturum vetoları hariç). "Soğuk Savaş’ın ilk yıllarında Sovyetler Birliği": 1946–1959 ve 1946–1965;
+    "1970’lerden sonra ABD": 1970–1991 ve 1970’ten son on beş yılın başına kadar; "son on beş yılda Rusya ve Çin": son veri yılı
     dâhil son on beş yılda en çok ret oyu kullanan iki üye."""
     s = (KOK / "web/veri.js").read_text(encoding="utf-8")
     K = [k for k in json.loads(s[s.index("{"):s.rstrip().rindex(";")])["kayitlar"] if not k["kapali"]]
@@ -404,7 +450,7 @@ def test_ucuncu_adim_donemleri_veriyle_tutarli():
     for bas, son in ((1970, 1991), (1970, son_yil - 15)):
         assert sira(bas, son)[0] == "USA", (bas, son, sira(bas, son))
     assert set(sira(son_yil - 14, son_yil)[:2]) == {"RUS", "CHN"}, sira(son_yil - 14, son_yil)
-    assert "Soğuk Savaş'ın ilk yıllarında Sovyetler Birliği, 1970'lerden sonra ABD, son on beş yılda Rusya ve Çin öne çıkar." in BETIK
+    assert "Soğuk Savaş’ın ilk yıllarında Sovyetler Birliği, 1970’lerden sonra ABD, son on beş yılda Rusya ve Çin öne çıkar." in BETIK
     assert ("the Soviet Union stands out in the early years of the Cold War, the United States from the 1970s onwards, and Russia and "
             "China in the last fifteen years.") in BETIK
 
@@ -422,3 +468,13 @@ def test_birinci_adim_koltuk_kodlari():
     assert ".konsey .koltuk.daimi::after { position: absolute; top: 8px; left: 8px; width: 8px; height: 8px; margin: 0; }" in h
     assert '<p class="koltuk-kodlari">' in h and "konsey: ({ n, daimi }) =>" in h
     assert ".koltuklar.konsey { display: grid; grid-template-columns: repeat(5, 40px); gap: 12px; }" in h  # dar ekranda beşerli
+
+
+def test_kunye_tarihi_ve_parca_satiri():
+    """KILAVUZ "Satır sonu": künye tarihinde gün, ay ve yıl bölünmez boşlukla birleşir (G-hikaye-1). 3. adımın görseli 21 Ekim
+    2026'da yayındaki hâlinde: Sovyetler Birliği ve Rusya tek çubukta, iki renkli; çubuğun altında parça satırı yoktur."""
+    s = (KOK / "web/hikaye.html").read_text(encoding="utf-8")
+    assert 'const tarihUzun = (x) => { const [y, m, g] = x.split("-"); return `${+g}\u00a0${AY[+m - 1]}\u00a0${y}`; };' in s
+    assert '[["sscbRus", ["SSCB", "RUS"]], ["USA", ["USA"]], ["GBR", ["GBR"]], ["CHN", ["CHN"]], ["FRA", ["FRA"]]]' in s
+    assert '<div class="cb">${u.map((x) => `<span style="width:${(100 * (uyeSay[x] || 0) / enCok).toFixed(1)}%;background:${RENK[x]}"></span>`).join("")}</div>' in s
+    assert ".parca" not in s and 'class="parca"' not in s

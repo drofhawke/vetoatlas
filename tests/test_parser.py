@@ -32,7 +32,8 @@ def test_alanlar():
     assert k["1986-02-06"].taslak_belgeler == ["S/17796/Rev.1"]
     assert k["2022-02-25"].toplanti_kayitlari == ["S/PV.8979"]
     assert any("Tayvan" in n for n in k["1955-12-13"].notlar)
-    assert any("SSCB" in n for n in k["1980-01-07"].notlar)
+    # SSCB ile Rusya Federasyonu ayrımı kayıt notunda değil, Metodoloji'de ve grafik lejantında (A dalgası, kayıt notları)
+    assert k["1980-01-07"].veto_eden_uyeler == ["SSCB"] and not any("SSCB" in n for n in k["1980-01-07"].notlar)
 
 
 def test_erken_donem_satirlari():

@@ -1,75 +1,77 @@
 # Methodology
 
-*Translated from the Turkish original (METODOLOJI.md). Where the two differ, the Turkish text
-prevails.*
+> This is a translation of the Turkish original, `METODOLOJI.md`, which prevails where the two differ.
 
-This document is published together with the atlas. Every figure and every claim rests
-on the rules set out here; if a rule changes, the document is versioned.
+Every figure on the site rests on the rules on this page. If a rule changes, the change is
+recorded here with its date.
 
 ## 1. Categories
 
-The atlas keeps three categories apart.
+The dataset contains formal vetoes only.
 
-A formal veto is a permanent member's negative vote on a draft resolution that would otherwise
+A formal veto is a permanent member’s negative vote on a draft resolution that would otherwise
 have received the required votes. The main source is the Dag Hammarskjöld Library veto list
 (for 1946–2004 based on UN document A/58/47, Annex III).
 
-A hidden veto is a draft not put to a vote, or watered down, because of a veto threat. Such drafts
-are recorded only if documented in a primary source (meeting record, official statement) or a
-recognised independent source (e.g. Security Council Report).
+Drafts that were never put to the vote, or were watered down, under a veto threat have not been
+added yet. If they are added, they will be kept apart and not counted as vetoes.
 
-Inaction is the Council's failure to take a decision in the face of a crisis, or its narrowing of an
-existing mandate (example: Rwanda 1994). These cases are not presented as vetoes.
+Cases where the Council took no decision in a crisis, as in Rwanda in 1994, are not counted as vetoes
+either.
 
 ## 2. Counting rules
 
-The "number of vetoes" is calculated in two ways, and both are always given together. The count
+The “number of vetoes” is calculated in two ways, and both are always given together. The count
 by draft is the number of draft resolutions that failed because of a veto. The count by vote is
-the number of negative votes cast; if two members vetoed one draft, it counts as 2. Council size:
+the number of negative votes cast; if two members vetoed one draft, it counts as 2. The 2 vetoes cast in private meetings on the
+appointment of the Secretary-General count as proposals but not as negative votes, so the total
+is 322 negative votes, not 324. Council size:
 eleven members and the rule of seven affirmative votes until 31 August 1965, when the 1963
 Charter amendment entered into force; fifteen members and nine votes thereafter. As no veto was
 cast between 31 August 1965 and the end of 1965, the dataset counts records before 1966 under the
-eleven-member Council ("ten against one" in the "fourteen against one" gallery, threshold 7 on
-the simulation page). Vetoes of
+eleven-member Council (“ten against one” in the “fourteen against one” gallery, threshold 7 on
+the simulation page). The “fourteen against one” count takes the proposals in which the votes in
+favour plus one equal the size of the Council; the 3 records in which a member did not take part in the
+vote (30 November 1950, 26 July 1973, 23 June 1976) are not included. Vetoes of
 paragraphs or amendments, marked with an asterisk in the source, are flagged separately.
 
 Vetoes of the USSR belong to the seat to which the Russian Federation succeeded, but are coded
-separately. "China" vetoes before 25 October 1971 belong to the Republic of China (Taiwan) and
-are not attributed to the People's Republic of China.
+separately. “China” vetoes before 25 October 1971 belong to the Republic of China (Taiwan) and
+are not attributed to the People’s Republic of China.
 
-### 2.1. Early records (1946–1953)
+### 2.1. Draft sources, partial and preliminary-question vetoes
 
-For some vetoes in this period the draft resolution was not issued as a separate S/ document;
+For some vetoes cast between 1946 and 1953 the draft resolution was not issued as a separate S/ document;
 the proposal was made directly at the meeting and appears in the meeting record. These records
 are not treated as missing data; they are flagged `taslak_kaynagi: toplanti_kaydi`.
 
 The source uses the asterisk in two different senses. Mostly it marks a partial veto of a
 paragraph or an amendment. In private meetings (e.g. the appointment of the Secretary-General)
 it shows that the vetoing member is not named in the official communiqué and that the
-attribution is the source's. The two are kept in separate fields.
+attribution is the source’s. The two are kept in separate fields.
 
 A partial veto is a negative vote cast in a separate vote on an amendment or on a part of a
 draft (a paragraph, a sentence, a word) rather than on the draft as a whole. The asterisk in the
-source, the "oral amendment" entry and the "kismi" column of `duzeltmeler.csv` set this flag.
-14 of the partial vetoes come from the membership package of 13 December 1955: the Council voted
-one by one on the country names in the second preambular paragraph of the draft of Brazil and
-New Zealand (S/3502); 13 words failed on the negative vote of the USSR and "Mongolian People's
-Republic" on that of the Republic of China (S/PV.704, paras. 54 and 57–72). The definition also
+source, the “oral amendment” entry and the “kismi” column of `duzeltmeler.csv` set this flag.
+In the open data the flag is the `kismi_veto_suphesi` column; `True` marks a partial veto.
+Of the 31 partial vetoes, 16 come from the membership vote of 13 December 1955. In 14 of them the
+Council voted one by one on the country names in the second preambular paragraph of the draft of Brazil and
+New Zealand (S/3502); 13 words failed on the negative vote of the USSR and “Mongolian People’s
+Republic” on that of the Republic of China (S/PV.704, paras. 54 and 57–72). The definition also
 covers the words and paragraphs of a draft voted on separately; this is consistent with the scope
-of Part II of A/58/47 Annex III ("Paragraphs of draft resolutions or amendments thereto not adopted
-owing to the negative vote of a permanent member"), which lists these votes as "Preambular para. 2
-(the word ...)". All 16 records of 13 December 1955 (the 14 word votes and the two parts of the
+of Part II of A/58/47 Annex III (“Paragraphs of draft resolutions or amendments thereto not adopted
+owing to the negative vote of a permanent member”), which lists these votes as “Preambular para. 2
+(the word ...)”. All 16 records of 13 December 1955 (the 14 word votes and the two parts of the
 Chinese amendment S/3506) are partial vetoes; the word votes are linked to draft S/3502, the
 amendment votes to S/3502 and S/3506.
 
-"Preliminary question" vetoes are vetoes cast in the vote on whether a matter is to be considered
+“Preliminary question” vetoes are vetoes cast in the vote on whether a matter is to be considered
 procedural (the double veto). Since there is no veto on procedural decisions, a permanent member
 that first vetoes this preliminary question opens the substantive matter to a veto as well.
 These records are flagged separately.
 
-Lines that appear more than once on the same day, under the same agenda item and with the same
-content are listed by the source as separate vetoes. They are not deleted; they are told apart
-by checking the meeting record.
+Where the source lists identical entries for the same day and agenda item, each is kept as a
+separate veto and told apart from the meeting record.
 
 ### 2.2. Source reconciliation
 
@@ -83,13 +85,13 @@ Every difference between the two sources is recorded with its reason in
 record carries in its `duzeltme` field the reference line on which it rests.
 
 The reconciliation found 18 proposals missing from the DHL list: 16 vetoes on 13 December 1955
-(15 membership and amendment vetoes by the USSR and the Republic of China's veto of Mongolia),
+(15 membership and amendment vetoes by the USSR and the Republic of China’s veto of Mongolia),
 the joint China–USSR amendment veto of 10 September 1972, and two separate Russian vetoes of
 24 February 2025 merged into a single line. In addition, a negative vote cast by France together
 with the USSR on 26 June 1946 is missing from the DHL list.
 
 The vetoes of 13 December 1955 and 10 September 1972 have been verified from the meeting records
-(S/PV.704 and S/PV.1662, `kaynaklar/.belgeler/`). The vote breakdowns and the vetoing
+(S/PV.704 and S/PV.1662). The vote breakdowns and the vetoing
 members are the same as in the reference table. The order within the day in the reference table
 differs from the order at the meeting: the Mongolia veto is the 3rd of the 16 vetoes at the
 meeting (No. 76 in the table, the last entry of the day); the 1972 amendment veto was voted
@@ -101,11 +103,11 @@ notes.
 The DHL list states that its data for 1946–2004 are taken from A/58/47 Annex III. These 17 vetoes
 are in Part II of that annex (vetoes of paragraphs and amendments), and the list includes other
 entries from the same part; their absence is therefore an omission rather than a difference of
-scope, and it is included in the error report (`kaynaklar/KAYNAKLAR.md`, "[DHL listesinin kapsamı]{lang=tr}").
+scope, and it is included in the error report (`kaynaklar/KAYNAKLAR.md`, “[DHL listesinin kapsamı]{lang=tr}”).
 
 The dates in the two sources differ for seven vetoes. These differences are not deleted. The
 voting day is determined from the meeting record, and the record uses the date given by
-whichever source is correct; the other source's date remains in the notes. Internal
+whichever source is correct; the other source’s date remains in the notes. Internal
 inconsistencies of the reference source (`kaynaklar/KAYNAKLAR.md`) are documented in the same
 way.
 
@@ -123,35 +125,37 @@ have no vote breakdown (7 April 2026, S/2026/273), the vote is added in this way
 not in the canonical DHL file (17 September 2026, S/2026/740) are recorded from the same
 sources. These lines are kept in `duzeltmeler.csv` with the `kaynak_url`, `oy` and `taslak`
 columns, and with the page number of the meeting record in the reason. In the reconciliation
-they are added to the reference totals as "after coverage". A detail that could not be verified
+they are added to the reference totals as “after coverage”. A detail that could not be verified
 (e.g. a press release that could not be opened) is stated explicitly in the reason.
 
-**Verification from meeting records.** Records on which the two sources disagree, or for which
+Records on which the two sources disagree, or for which
 neither is sufficient on its own, are verified from the meeting record (S/PV) itself. Records
 are opened as PDFs of the UN document system through undocs.org. For older years the Official
 Records version (S/PV.NNNN(OR)) is used; scanned pages without a text layer are read from the
 image. The vote breakdown is counted from the lists of countries voting in favour, against and
 abstaining in the record. The voting day is derived from the opening and closing times of the
-meeting, from suspensions and from time references in the statements ("yesterday morning",
-"tomorrow, 7 September"). If the meeting ran past midnight, these indications are used to tell
+meeting, from suspensions and from time references in the statements (“yesterday morning”,
+“tomorrow, 7 September”). If the meeting ran past midnight, these indications are used to tell
 on which day the vote took place, and this is noted. The record identifier (V-<DHL date>-n)
 does not change even if the date is corrected. Lines that are identical in the DHL list are
 assigned in the order of the votes at the meeting. Every finding is kept in `duzeltmeler.csv`
 with the meeting record and the PDF page number (`oy_esle`, `tarih_dogrula`). Where a value
 conflicts with the reference table, the meeting record prevails and the conflict is written into
 the record. If the record cannot be reached, or does not give a definite result, no guess is
-made: the record is left as "could not be verified" with the reason, and the "Under
-verification" label stays in the interface. Access barriers such as CAPTCHAs or bot checks are
+made: the record is left as “could not be verified” with the reason, and the “Under
+verification” label stays in the interface. Access barriers such as CAPTCHAs or bot checks are
 not circumvented.
 
-**Citation rule.** Where the meeting record has paragraph numbers, the primary citation is the
-paragraph number; the PDF page stays beside it in parentheses ("S/PV.704, para. 54 (PDF p. 13)").
+Where the meeting record has paragraph numbers, the primary citation is the
+paragraph number; the PDF page stays beside it in parentheses (“S/PV.704, para. 54 (PDF p. 13)”).
 Records without paragraph numbers are cited by PDF page; where the printed page differs from the
-PDF page, the difference is stated. Documents that are not in the document system or whose
-automated access is blocked are kept locally (`kaynaklar/.belgeler/`, `kaynaklar/KAYNAKLAR.md`,
-"Yerel belgeler") and do not enter the repository.
+PDF page, the difference is stated.
+Page numbers in the record notes are PDF pages. In S/PV.704 and S/PV.1662 the printed page is the PDF
+page minus 2. For documents that are not in the document system or whose
+automated access is blocked, the reference, download address and SHA-256 digest are in
+`kaynaklar/KAYNAKLAR.md` (“[Yerel belgeler]{lang=tr}”); the documents themselves are not in the repository.
 
-**AI output is never a source.** A summary, translation, transcript or list produced by a language
+AI output is not treated as a source. A summary, translation, transcript or list produced by a language
 model is not used in place of the source itself and is not placed in the repository as a source.
 Every piece of information is taken from the document itself (meeting record, draft resolution,
 official list) and cited to that document.
@@ -164,19 +168,19 @@ checked by `tests/test_belge_kodlari.py`; no requests are sent to the links.
 
 ### 2.3. Date and identifier rules
 
-**Rule 1: The date of a veto is the calendar day on which the vote actually took place.** For
+Rule 1. The date of a veto is the calendar day on which the vote actually took place. For
 meetings that ran past midnight, this day can differ from the date in the heading of the meeting
 record (the day the meeting opened). Examples: 3/4 December 1960, 20/21 February 1961,
 22/23 August 1968. Both dates are kept in the record. The voting day is in the `tarih` field.
-The date given by the source is in `tarih_ham`, the reference table's in `referans_tarih`. The
+The date given by the source is in `tarih_ham`, the reference table’s in `referans_tarih`. The
 heading date of the meeting record and how the voting day was determined are written, with
 page numbers, in the notes and in the `toplanti_dogrulamasi` field.
 
-**Rule 2: Record identifiers are permanent keys and carry no date information.** The identifier
+Rule 2. Record identifiers are permanent keys and carry no date information. The identifier
 (`V-YYYY-MM-DD-n`) is generated when the record is first created, from the DHL date and the
 order within the day. The date part shows only that initial moment; it is not read as a date,
-and the date is taken only from the `tarih` field. If a record's date is later corrected, its
-identifier does not change. For example, the date of V-1950-09-05-1 is 1950-09-06. Because
+and the date is taken only from the `tarih` field. If a record’s date is later corrected, its
+identifier does not change. For example, record V-1950-09-05-1 is dated 6 September 1950. Because
 correction files, topic corrections and external links depend on the identifier, changing it
 would break these links.
 
@@ -192,9 +196,9 @@ The assignment has two layers. `kaynaklar/gundem_sozlugu.csv` gives, for each of
 agenda titles in the dataset, a faithful Turkish translation, a topic and a region. No
 interpretation is added to the translation; date, sender and document number are rendered as
 they are. Where the title alone is not enough, the topic comes record by record from
-`kaynaklar/konu_duzeltmeleri.csv`. For example, vetoes under the general title "The situation in
-the Middle East" may concern Lebanon, Syria or Palestine. The reason for each line in this file
-is the subject given to that veto in scprocedure Table 4. For vetoes outside the table's
+`kaynaklar/konu_duzeltmeleri.csv`. For example, vetoes under the general title “The situation in
+the Middle East” may concern Lebanon, Syria or Palestine. The reason for each line in this file
+is the subject given to that veto in scprocedure Table 4. For vetoes outside the table’s
 coverage, the reason is the subject of the draft and the meeting record.
 
 If a veto touches more than one topic, the topics other than the main one are written into the
@@ -205,7 +209,7 @@ only the main topic and always add up to 266 proposals. In the interface, second
 shown in a separate note.
 
 When a new title arrives that is not in the dictionary, the data pipeline issues a warning and
-sets the record's topic to "Unclassified"; no topic is assigned by guesswork. The record appears
+sets the record’s topic to “Unclassified”; no topic is assigned by guesswork. The record appears
 with this label until a dictionary line is added.
 
 ### 2.5. General Assembly debates (A/RES/76/262)
@@ -219,47 +223,47 @@ this section; no General Assembly section is shown for them in the interface.
 A/RES/76/262 was adopted without a vote at the 69th plenary meeting of the General Assembly on 26 April
 2022 (A/76/PV.69, p. 8). Under the resolution, the permanent member or members that cast the veto are given
 precedence in the list of speakers; the Security Council is invited to submit a special report to the General
-Assembly at least 72 hours before the debate; and an item entitled "Use of the veto" is included in the
-Assembly's agenda (paras. 1–4). The draft had 57 sponsors, and 27 more delegations became sponsors at the
+Assembly at least 72 hours before the debate; and an item entitled “Use of the veto” is included in the
+Assembly’s agenda (paras. 1–4). The draft had 57 sponsors, and 27 more delegations became sponsors at the
 adoption meeting; as Timor-Leste appears on both lists, the total number of sponsors is 83 (A/76/L.52;
 A/76/PV.69, pp. 7–8). Among the permanent members, the United States was one of the original sponsors, and
 France and the United Kingdom joined later; China and the Russian Federation are on neither list. Türkiye is
-one of the original sponsors (listed as "Turkey"), and in its statement after the adoption its representative
+one of the original sponsors (listed as “Turkey”), and in its statement after the adoption its representative
 said that Türkiye had been in the core group of the initiative since its start two years earlier (A/76/PV.69,
 p. 20). Page numbers are PDF pages of the documents.
 
 Debates are kept separately from vetoes in `kaynaklar/genel_kurul_tartismalari.csv`. One debate
-can cover several vetoes, and one veto can be covered by several debates. The Council's special
+can cover several vetoes, and one veto can be covered by several debates. The Council’s special
 reports are in `kaynaklar/ozel_raporlar.csv`. There are two kinds of debate: `veto_girisimi`
-(the debate under the agenda item "Use of the veto") and `olaganustu_ozel_oturum` (ES-10,
+(the debate under the agenda item “Use of the veto”) and `olaganustu_ozel_oturum` (ES-10,
 ES-11). Speakers are not counted for emergency special sessions; only the meeting records and
 the resolutions adopted are listed.
 
-**Record status.** One of three values is used for each meeting record. `resmi`: verbatim record
+One of three values is used for each meeting record. `resmi`: verbatim record
 published in the UN document system (A/…/PV.…). `gayriresmi_transkript`: verbatim record not
-published, but the UN's automatic speech-recognition transcript (transcripts.un.org) exists.
+published, but the UN’s automatic speech-recognition transcript (transcripts.un.org) exists.
 `yayimlanmadi`: neither exists. Every piece of information taken from an unofficial transcript
 is flagged separately in the `gayriresmi_alanlar` column. Pending records are checked with
 `scripts/05_bekleyen_kayitlar.py`; a record that is published is processed by hand, and if
 necessary the count is redone from the verbatim record.
 
-**Verification.** The date and agenda of each debate are verified from an official source: the
+The date and agenda of each debate are verified from an official source: the
 verbatim record or the Journal of the United Nations (journal.un.org). If the Journal shows that
 the meeting took up an agenda linked to the veto in question (the agenda item, the special
 report or the letter reconvening the session), the record becomes `dogrulandi` and the basis is
 written in the `dogrulama_kaynagi` column.
 
-**Speaker counting rules** (veto initiative debates only):
+Speakers are counted as follows, in veto initiative debates only:
 - Only statements under the veto agenda item are counted. Other items taken up at the same
   meeting, and continuation meetings of the debate, are separated by the agenda item headings
   in the verbatim record.
 - Each delegation is counted once. The President and the Secretariat are not counted.
 - A delegation speaking on behalf of a group counts as one speaker. That it spoke on behalf of a
-  group is marked, with the group's name, in the `grup_adina_konusanlar` column. The group mark
-  comes from two sources: the Journal's "on behalf of" note and the speaker's own statement in
-  the verbatim record ("I speak on behalf of …"). Aligning with or supporting another
-  delegation's group statement, speaking on behalf of one's own country, and general phrases
-  such as "on behalf of all Member States" are not counted as group statements.
+  group is marked, with the group’s name, in the `grup_adina_konusanlar` column. The group mark
+  comes from two sources: the Journal’s “on behalf of” note and the speaker’s own statement in
+  the verbatim record (“I speak on behalf of …”). Aligning with or supporting another
+  delegation’s group statement, speaking on behalf of one’s own country, and general phrases
+  such as “on behalf of all Member States” are not counted as group statements.
 - Observers (European Union, State of Palestine, Sovereign Order of Malta, etc.) are counted in
   a column separate from Member States.
 - Rights of reply are kept separate from statements.
@@ -271,7 +275,7 @@ written in the `dogrulama_kaynagi` column.
   this. The debate summaries published by the Office of the President are used for cross-checks.
   Every figure that does not match is written in the `capraz_kontrol` column.
 - Control figure: in the debate of 6 March 2025 (A/79/PV.60), 35 delegations made statements
-  (34 Member States and the European Union). This figure is the same as in the President's
+  (34 Member States and the European Union). This figure is the same as in the President’s
   summary.
 
 ### 2.6. English version and translations
@@ -286,26 +290,26 @@ original English wording has not been verified is given in quotation marks in th
 rendered without quotation marks in English, so as not to create an invented quotation. If the
 English of a note is missing, `04_web_verisi.py` issues a warning and the English version of the
 interface shows the Turkish original of that note. In the English version, agenda titles are
-given in their original UN wording. The English text of this document is in `METODOLOJI_EN.md`;
+given in their original UN wording; the Turkish version shows the original title below the translation. The English text of this document is in `METODOLOJI_EN.md`;
 the page `web/metodoloji.html` is generated from both each time `04_web_verisi.py` runs.
 
 ### 2.7. Quotation bank and the Word and Record page
 
-`kaynaklar/alintilar.csv` holds quotations from President Recep Tayyip Erdoğan's addresses to the UN
-General Assembly in 2019 and 2022-2026 and from the book *A Fairer World is Possible* ([*Daha Adil Bir Dünya Mümkün*]{lang=tr}). The sources
+`kaynaklar/alintilar.csv` holds quotations from President Recep Tayyip Erdoğan’s addresses to the UN
+General Assembly in 2019 and 2022–2026 and from the book *A Fairer World is Possible* ([*Daha Adil Bir Dünya Mümkün*]{lang=tr}). The sources
 are not in the repository; their bibliographic details and SHA-256 values are in
 `kaynaklar/KAYNAKLAR.md`. Quotations are cut from the PDF text layer, and each is searched for word
 for word, with whitespace normalised, on the page given. For the addresses, the printed page and
-the PDF page are both kept. Because the Turkish PDF of the book carries no printed page numbers, no
-page number is given for the Turkish text of book quotations; they are attributed by chapter title. If a
+the PDF page are both kept. Book quotations carry no page number in either language;
+they are attributed by chapter title. The Turkish PDF of the book has no printed page numbers in any case. If a
 quotation cannot be verified, `04_web_verisi.py` stops. When a quotation is shortened with an ellipsis (…),
 each part separated by the ellipsis is searched for separately and word for word in the source; the parts
-must come in the source's order and from the same passage. The quotation bank keeps the full text; the
-shortened form is used only in the story (the opening quotation and step 7). The story's opening quotation
+must come in the source’s order and from the same passage. The quotation bank keeps the full text; the
+shortened form is used only in the story (the opening quotation and step 7). The story’s opening quotation
 comes from the 2019 address: in Turkish, the sentence [“Dünya 5’ten Büyüktür.”]{lang=tr} from the Turkish
-booklet; in English, "The world is bigger than five!" from the English booklet.
+booklet; in English, “The world is bigger than five!” from the English booklet.
 
-The English pages use the official English text of each quotation; the atlas does not translate quotations.
+The English pages use the official English text of each quotation.
 The official English text follows the same rule as the Turkish text: it is searched for word for word on the
 page given in its own source, `04_web_verisi.py` stops if it cannot be verified, and the tests
 (`tests/test_alintilar.py`) check every English text whose source is available locally against that source.
@@ -313,28 +317,28 @@ The sources are:
 - 2022–2026 addresses: the English section of the compilation.
 - 2019 address: the English booklet of the Directorate of Communications. The booklet is the prepared text of
   the speech. For the passage added at the rostrum that is not in the booklet (2019-2), the English is taken
-  from the UN's English meeting record (A/74/PV.3). The speech was delivered in Turkish; the English in the
+  from the UN’s English meeting record (A/74/PV.3). The speech was delivered in Turkish; the English in the
   record is the interpretation provided by the delegation.
-- The book: the English edition, *A Fairer World is Possible* (Turkuvaz Kitap, 2021), with printed page
-  numbers and English chapter titles. The PDF of the English edition is a scan with an OCR text layer, so the
+- The book: the English edition, *A Fairer World is Possible* (Turkuvaz Kitap, 2021), with the English chapter
+  title. The PDF of the English edition is a scan with an OCR text layer, so the
   pages holding the quotations were compared with the page images. The single place where the OCR differs
   from the image (an en dash on p. 32) is corrected to match the image before the search
   (`kaynaklar/KAYNAKLAR.md`).
 
 Where no official English text can be found, the English page keeps the Turkish original and adds below it a
-translation labelled "Unofficial translation by Veto Atlas". Such a translation is not verified against a
+translation labelled “Unofficial translation by Veto Atlas”. Such a translation is not verified against a
 source. At present every quotation has an official English text.
 
 The Word and Record page (`web/vizyon.html`) places next to each quotation a corresponding figure computed from the dataset.
 Figures are computed when the page loads; no causal link is drawn between a quotation and a
-figure. "Vetoes related to Gaza since October 2023" are vetoes with a voting day on or after
-7 October 2023 whose draft text contains the word "Gaza" (`kaynaklar/gazze_taslaklari.md`). In this list, the veto of 22 December 2023 concerned not the draft
-itself but an oral amendment to it; the `veto_hedefi` column records this, and 04 checks the flag
-against the "oral amendment" note in the record. In "The model in the book" section, quotations are kept short
+figure. “Vetoes related to Gaza since October 2023” are vetoes with a voting day on or after
+7 October 2023 whose draft text contains the word “Gaza” (`kaynaklar/gazze_taslaklari.md`). In this list, the veto of 22 December 2023 concerned not the draft
+itself but an oral amendment to it; the `veto_hedefi` column records this, and the data script `04_web_verisi.py` checks the flag
+against the “oral amendment” note in the record. In “The model in the book” section, quotations are kept short
 and the rest of each element is summarised.
 
 The regional distribution uses the region field of the agenda dictionary: Middle East and North
-Africa, Europe, Africa, Asia and the Pacific, Latin America and the Caribbean, and Global. "Global"
+Africa, Europe, Africa, Asia and the Pacific, Latin America and the Caribbean, and Global. “Global”
 covers agenda items not tied to a particular region (general membership applications,
 disarmament, appointment of the Secretary-General, thematic issues). The region is assigned from
 the agenda title and is independent of the topic classification. The numbers of delegations in
@@ -344,15 +348,14 @@ together; rights of reply excluded).
 ### 2.8. Reform models
 
 The Reform models page (`web/reform.html`) sets four models for Security Council reform side by side against
-the same four criteria: total membership, new permanent members, who holds the veto, and the relationship with
-the General Assembly. The models are the Ezulwini Consensus (Ext/EX.CL/2 (VII); A/59/L.67), the G4
+the same six criteria: who put the model forward, total membership, new permanent members, who holds the veto,
+the votes needed for a decision, and the relationship with the General Assembly. The models are the Ezulwini Consensus (Ext/EX.CL/2 (VII); A/59/L.67), the G4
 (A/59/L.64), Uniting for Consensus (A/59/L.68) and the book *A Fairer World is Possible*; they are given in
 the date order of the documents. The comparison is taken from the primary documents
-(`kaynaklar/reform_modelleri.csv`): each cell summarises the document's own provision, and the paragraph
+(`kaynaklar/reform_modelleri.csv`): each cell summarises the document’s own provision, and the paragraph
 relied on is given under it. Every phrase quoted from the book is found word for word in a verified quotation
-in the quotation bank (tested). Because the Turkish PDF of the book carries no page numbers, Turkish quotations are
-cited by chapter title and those taken from the English edition by page number; the basis given in the table is the
-chapter title. The page makes no evaluative statement about the models.
+in the quotation bank. An automated test checks this. Book quotations are cited by chapter title in
+both languages, and the basis given in the table is the chapter title as well. The page makes no evaluative statement about the models.
 
 ### 2.9. Representation index
 
@@ -367,75 +370,77 @@ Nothing is added to the veto dataset; there is no composite score or ranking.
 - The population data are the WPP 2024 estimates as of 1 January, in thousands; years 2023 (last estimate year) and 1963
   (the year of A/RES/1991 (XVIII)). There is no WPP series for 1945; it is not computed. The 2023 share is
   within the total of the 193 members (non-member countries and areas, e.g. Palestine, Taiwan, Kosovo, Western Sahara and Puerto Rico, are not in the
-  denominator). Cyprus: WPP's data cover the whole island ("Refers to the whole country"); the population of the Turkish
+  denominator). Cyprus: WPP’s data cover the whole island (“Refers to the whole country”); the population of the Turkish
   Republic of Northern Cyprus (TRNC Statistical Institute, Population Projections 2019–2023, 11 November 2024; end-2022
-  projection 462,747, the same moment as WPP's 1 January 2023 estimate) is subtracted, and as the TRNC is not a UN Member
-  State it is not in the denominator. This is the only non-UN population source in the data (user decision, 19 October
-  2026; `kaynaklar/temsil/kktc_nufus.csv`). The 1963 values are unchanged. The
+  projection 462,747, the same moment as WPP’s 1 January 2023 estimate) is subtracted, and as the TRNC is not a UN Member
+  State it is not in the denominator. This is the only non-UN population source in the data; the figures are in
+  `kaynaklar/temsil/kktc_nufus.csv`. The 1963 values are unchanged. The
   1963 share is computed with the 113 members at the end of 1963 and their countries of that time: states
-  that dissolved as the sum of their successors' series (USSR 13 republics, Ukraine and Byelorussia separate
+  that dissolved as the sum of their successors’ series (USSR 13 republics, Ukraine and Byelorussia separate
   members; Yugoslavia 7 series; Czechoslovakia 2), states that were larger in 1963 with their borders of
   that time (Pakistan + Bangladesh, Malaysia + Singapore, Ethiopia + Eritrea, Sudan + South Sudan); with the
-  China seat held by the Republic of China, the population is "China" + "China, Taiwan Province of China".
-  Every successor rule is noted in the JSON; no series is counted twice (tested).
+  China seat held by the Republic of China, the population is “China” + “China, Taiwan Province of China”.
+  Every successor rule is noted in the JSON; no series is counted twice. An automated test checks this.
 - Membership share is members in the group / 193. Budget share is the sum of the 2025–2027 regular budget
   scale percentages / 100 (A/RES/79/249; Committee on Contributions Excel). Personnel share is
-  peacekeeping uniformed personnel (troops, police, experts, staff officers), country ranking as of
-  28 February 2026 / grand total.
+  peacekeeping uniformed personnel (troops, police, experts, staff officers), country totals as of
+  31 July 2026 / grand total.
 - Permanent seat share = permanent / 5; total seat share = (permanent + elected) / 15, current
   term (UN Council members page, 2026). Distribution of elected seats: A/RES/1991 (XVIII) A para. 3
   (African and Asian 5, Eastern European 1, Latin American 2, Western European and other 2); the Africa 3 /
   Asia-Pacific 2 split is current practice. For each indicator the seat/indicator ratio = total seat share /
-  indicator share; a ratio of 1 means the group's seat share equals its indicator share, above 1 the seat share
+  indicator share; a ratio of 1 means the group’s seat share equals its indicator share, above 1 the seat share
   is higher, below 1 it is lower.
 - The sets are the five permanent members and the OIC members (of 57, Palestine is not a UN member; 56
-  members). As the OIC was founded in 1969, the 1963 value is the sum of today's members that were UN
+  members). As the OIC was founded in 1969, the 1963 value is the sum of today’s members that were UN
   members at that time, with their 1963 borders.
 - Sources: population: United Nations, Department of Economic and Social Affairs, Population Division (2024),
   World Population Prospects 2024, Online Edition, `WPP2024_GEN_F01_DEMOGRAPHIC_INDICATORS_COMPACT.xlsx`, licence
   CC BY 3.0 IGO; Member States and dates of admission: un.org/en/about-us/member-states; regional groups: DGACM,
   Regional groups of Member States, un.org/dgacm/en/content/regional-groups; scale of assessments: Committee on
   Contributions, `Scale of Assessments for RB 1946-2027.xlsx` (A/RES/79/249, 24 December 2024); peacekeeping: UN
-  Peacekeeping, Uniformed Personnel Contributing Countries by Ranking, As of: 28/02/2026
-  (`02_country_ranking_95_february_2026.pdf`); OIC members: oic-oci.org/en/members (57 members); Council members:
+  Peace and Security Data Hub, Latest Uniformed Personnel Contribution By Country (DPO-UCLATEST), 31 July 2026,
+  psdata.un.org (the monthly ranking PDF on peacekeeping.un.org has not been updated since 28 February 2026; the
+  data hub’s values for 28 February 2026 match that PDF country by country); OIC members: oic-oci.org/en/members (57 members); Council members:
   UN Security Council, Current Members, main.un.org/securitycouncil/en/content/current-members; distribution of
-  elected seats: A/RES/1991 (XVIII), 17 December 1963. All accessed 10 October 2026; references and SHA-256 values
+  elected seats: A/RES/1991 (XVIII), 17 December 1963. Peacekeeping data accessed 21 October 2026, all others
+  10 October 2026; references and SHA-256 values
   are in `kaynaklar/KAYNAKLAR.md`.
 - The map at the top of the page shows the members of the selected regional group and their Security Council
   seats (2026); the same information is in the list of countries below the map. Borders are from Natural Earth 1:50m
   5.1.2 (public domain), in the Equal Earth projection; computed by `scripts/13_harita.py`. Each of the 193 members is
   matched to its own country; countries and areas that are not UN Member States (Western Sahara, the Turkish Republic of
-  Northern Cyprus, Taiwan, Kosovo, Palestine and dependent territories) are drawn empty. Natural Earth's default depiction is de facto;
+  Northern Cyprus, Taiwan, Kosovo, Palestine and dependent territories) are drawn empty. Natural Earth’s default depiction is de facto;
   disputed areas are drawn by the rules in `kaynaklar/temsil/harita_kurallari.csv`: Crimea as part of Ukraine
   (A/RES/68/262), the Golan as part of Syria (S/RES/497 (1981)); all of Western Sahara as an area that is not a UN
   Member State (UN list of Non-Self-Governing Territories); Somaliland as part of Somalia; Åland, a separate area in Natural Earth, as part of Finland; the
   Ashmore and Cartier Islands, not a separate area in the UN list of countries and areas (M49), and Christmas Island, the
-  Cocos (Keeling) Islands and Norfolk Island, included in Australia's data in WPP 2024, as part of Australia. Populations
+  Cocos (Keeling) Islands and Norfolk Island, included in Australia’s data in WPP 2024, as part of Australia. Populations
   on the map follow the separate counts of UN statistics (WPP 2024 notes): the data for China do not include Hong Kong and
   Macao, those for France do not include French Guiana, Guadeloupe, Martinique, Mayotte and Réunion, and those for the
-  Netherlands do not include Bonaire, Sint Eustatius and Saba. These areas are shown in the Member State's colour but with
+  Netherlands do not include Bonaire, Sint Eustatius and Saba. These areas are shown in the Member State’s colour but with
   their own names and populations, which are not added to the Member State (`kaynaklar/temsil/ayri_sayilan_bolgeler.csv`).
-  The population of the TRNC has been subtracted from that of Cyprus (see the population item above); the TRNC's tooltip shows it. Hovering over an area that is not a UN Member State shows its name and status (not
+  The population of the TRNC has been subtracted from that of Cyprus (see the population item above); the TRNC’s tooltip shows it. Hovering over an area that is not a UN Member State shows its name and status (not
   a Member State, observer State, Non-Self-Governing Territory); names are those used by the UN (WPP 2024; M49 where WPP
   has none); States recognised by Türkiye (the Turkish Republic of Northern Cyprus, Kosovo, Palestine, Vatican City) are
-  named as the Ministry of Foreign Affairs of Türkiye names them (the Ministry's list of missions). The State an area belongs to and disputes
-  are not stated; the Siachen Glacier, disputed between two Members, has no name (`kaynaklar/temsil/uye_olmayan_alanlar.csv`). In the population circles, the area of each circle is proportional to the country's 2023
+  named as the Ministry of Foreign Affairs of Türkiye names them (the Ministry’s list of missions). The State an area belongs to and disputes
+  are not stated; the Siachen Glacier, disputed between two Members, has no name (`kaynaklar/temsil/uye_olmayan_alanlar.csv`). In the population circles, the area of each circle is proportional to the country’s 2023
   population (WPP 2024). The map shows UN
   membership; the depiction of borders and names does not express a view on sovereignty.
 - The page gives shares; it makes no comparative or evaluative statement.
 
-### 2.10. The "What if there were no veto?" page
+### 2.10. The “What if there were no veto?” page
 
 `web/simulasyon.html` counts the recorded votes of a veto record under two systems; no vote is
 changed, added or guessed. Only records in the dataset can be selected; no hypothetical proposal can be
 entered, and the page does not favour any model. When the 20-member Council of the book is selected, the computation still
 relies only on the recorded votes, and the ratio of the selected threshold is kept: the current
 majority rule of 9 out of 15 becomes 12 out of 20, two thirds 14 and a simple majority 11. If the
-recorded yes votes alone meet this threshold, the outcome is "would have been adopted"; if not, the
-outcome is given as "depends on the new members' votes", together with the minimum number of yes
+recorded yes votes alone meet this threshold, the outcome is “would have been adopted”; if not, the
+outcome is given as “depends on the new members’ votes”, together with the minimum number of yes
 votes needed from the 5 (before 1966, 9) members not on record. The votes of these members are not
 guessed; a record that would not reach the threshold even if all of them voted yes is counted as
-"would not have been adopted". The figures in the aggregate view are computed from the dataset when
+“would not have been adopted”. The figures in the aggregate view are computed from the dataset when
 the page loads. The box comparing the other models uses the provisions of the documents in 2.8; the paragraph
 relied on for each is given in the box.
 
@@ -448,27 +453,27 @@ page makes no assumption about that process.
 
 ## 3. Language of causation
 
-The atlas does not claim that a veto "led to" particular outcomes. Case studies are presented
-in the frame of "what happened in the period following the blocking of the draft" and contain no
-counterfactual certainty. Humanitarian data (casualties, displacement, access to aid) are taken
-only from published figures of UN agencies and recognised independent institutions; where a
-range is given, the range is shown.
+It is not claimed that a veto caused what followed. The record and the figure are given side by side.
 
 ## 4. Scope and selection
 
-The dataset includes every veto in the source without exception; no selection is made by
-vetoing country or by topic. Vetoes taken up for in-depth case studies are selected by the
-following criteria, and the criterion is stated for each selected case: the scale of the
-humanitarian dimension, the number of votes the draft received, and repeated vetoes on the same
-file.
+The dataset includes every veto in the source; no selection is made by vetoing country or by topic.
 
-## 5. The vetoing party's reasons
+## 5. The vetoing party’s reasons
 
-In each case study, the vetoing member's own statement in the meeting record is summarised. For
-vetoes after 2022, the record of the mandatory General Assembly debate is linked.
+The vetoing member’s statement is in the meeting record, and each record links to that document. For
+vetoes after 26 April 2022, the records of the General Assembly debate are linked as well.
 
 ## 6. Reproducibility
 
-Every data version includes a dated raw copy of the downloaded source and its SHA-256 digest. The
-parsing code is open; anyone can produce the same result from the same source. Error reports
-are accepted, and corrections are entered in the change log.
+Every data version records the source address, the download date and the SHA-256 digest
+(`kaynaklar/KAYNAKLAR.md`). The raw copy is not in the public repository; it can be downloaded from
+the same address and checked against the digest. The parsing code is open; anyone can produce the same result from the same source. Error reports
+are accepted. Data corrections are written to `kaynaklar/duzeltmeler.csv` with their reasons; every change
+can be seen in the history of the public repository.
+
+## 7. Next stage
+
+Case studies of selected vetoes and humanitarian data (casualties, displacement, access to aid) have not
+been added yet. When they are, the selection criterion is stated for each case, and humanitarian data are
+taken only from figures published by UN agencies and recognised independent institutions.

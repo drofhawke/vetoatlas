@@ -3,7 +3,8 @@
 
 Site sunucuda açıldığında web/cubuk.js bu betiği kaydeder (tek dosyada ve dosya olarak açılışta kaydetmez). Strateji önce
 ağdır: internet varken her istek her zamanki gibi sunucudan gelir; internet yokken sayfalar ve onların kullandığı dosyalar
-(betikler, stiller, yazı tipleri, veri, logolar, ikonlar) kayıtlı kopyadan sunulur. Kaydedilecek dosyaların listesi sayfaların
+(betikler, stiller, yazı tipleri, veri, logolar, ikonlar) kayıtlı kopyadan sunulur; ağ 4 saniyede yanıt vermezse de kayıtlı
+kopya verilir. Kaydı olmayan bir sayfa adresinde internetsizken 404 sayfası açılır. Kaydedilecek dosyaların listesi sayfaların
 kendisinden çıkarılır; sürüm, bu dosyaların içeriğinin SHA-256 özetidir: biri değişince tarayıcı yeni sürümü indirir ve eski
 kopyayı siler. Paylaşım kartları, indirme dosyaları (web/veri/) ve tek dosya kaydedilmez. Betik yalnızca site içi isteklere
 karışır; dış adres içermez.
@@ -15,7 +16,8 @@ import json
 import re
 from pathlib import Path
 
-SAYFALAR = ["hikaye", "vetolar", "vizyon", "reform", "simulasyon", "temsil", "hakkinda", "metodoloji"]
+SAYFALAR = ["hikaye", "vetolar", "vizyon", "temsil", "reform", "simulasyon", "hakkinda", "metodoloji"]  # üst çubuktaki sekme sırası (web/cubuk.js)
+YEDEK_SAYFA = "404"  # internetsizken kaydı olmayan sayfa adresinde sunulur; dosyaları da kaydedilir
 _ETIKET = re.compile(r"<(?:script|link)\b[^>]*>", re.I)
 _ADRES = re.compile(r'\b(?:src|href)="([^"]+)"')
 _CSS_URL = re.compile(r"url\(\s*['\"]?([^'\")]+)")
@@ -24,24 +26,27 @@ _CUBUK_GORSEL = re.compile(r'gorsel\("[^"]+", "([^"]+)"')
 SABLON = """/*
  * Veto Atlası – internetsiz çalışma (service worker). veto_atlasi/cevrimdisi.py üretir; elle düzenlenmez.
  * Önce ağ: internet varken istekler sunucudan gelir; internet yokken sayfalar ve kullandıkları dosyalar kayıtlı kopyadan
- * sunulur. Yalnızca site içi GET isteklerine karışır.
+ * sunulur. Ağ 4 saniyede yanıt vermezse kayıtlı kopya verilir; internet yokken kaydı olmayan bir sayfa adresinde 404 sayfası
+ * açılır. Yalnızca site içi GET isteklerine karışır.
  */
 "use strict";
 const SURUM = "veto-atlasi-__SURUM__";
 const SAYFALAR = __SAYFALAR__;
 const DOSYALAR = __DOSYALAR__;
+const YEDEK = "/404";
+const BEKLEME = 4000;
 
 self.addEventListener("install", (olay) => {
   olay.waitUntil((async () => {
     const depo = await caches.open(SURUM);
     await Promise.all(DOSYALAR.map(async (yol) => {
-      const yanit = await fetch(yol, { cache: "reload" });
+      const yanit = await fetch(yol, { cache: "no-cache" });
       if (!yanit.ok) throw new Error(yol + " " + yanit.status);
       await depo.put(yol, yanit);
     }));
     // Sayfalar uzantısız adresten alınır (sunucu .html adresini oraya yönlendirir); kopya iki adla ve hikâye kök adla da saklanır
     await Promise.all(SAYFALAR.map(async (yol) => {
-      const yanit = await fetch(yol, { cache: "reload" });
+      const yanit = await fetch(yol, { cache: "no-cache" });
       if (!yanit.ok) throw new Error(yol + " " + yanit.status);
       const govde = await yanit.blob();
       const kopya = () => new Response(govde, { status: 200, headers: yanit.headers });
@@ -49,6 +54,12 @@ self.addEventListener("install", (olay) => {
       await depo.put(yol + ".html", kopya());
       if (yol === "/hikaye") await depo.put("/", kopya());
     }));
+    // 404 sayfası alınamazsa kurulum yine tamamlanır; internetsizken bilinmeyen adres tarayıcı hatası verir
+    try {
+      const yanit = await fetch(YEDEK, { cache: "no-cache" });
+      const govde = await yanit.blob();
+      await depo.put(YEDEK, new Response(govde, { status: 404, headers: yanit.headers }));
+    } catch (hata) { /* yedek sayfa yok */ }
     await self.skipWaiting();
   })());
 });
@@ -66,10 +77,20 @@ self.addEventListener("fetch", (olay) => {
   const istek = olay.request;
   const adres = new URL(istek.url);
   if (istek.method !== "GET" || adres.origin !== self.location.origin) return;
-  olay.respondWith(fetch(istek).catch(async () => {
-    const kayitli = await (await caches.open(SURUM)).match(adres.pathname);
-    return kayitli || Response.error();
-  }));
+  olay.respondWith((async () => {
+    const depo = await caches.open(SURUM);
+    const ag = fetch(istek);
+    ag.catch(() => {});
+    const sure = new Promise((coz) => setTimeout(coz, BEKLEME));
+    try {
+      return await Promise.race([ag, sure.then(async () => (await depo.match(adres.pathname)) || ag)]);
+    } catch (hata) {
+      const kayitli = await depo.match(adres.pathname);
+      if (kayitli) return kayitli;
+      const yedek = istek.mode === "navigate" ? await depo.match(YEDEK) : undefined;
+      return yedek || Response.error();
+    }
+  })());
 });
 """
 
@@ -84,7 +105,7 @@ def _yerel(adres: str) -> str | None:
 def listeler(web: Path) -> tuple[list[str], list[str]]:
     """(sayfalar, dosyalar): uzantısız sayfa yolları ve sayfaların kullandığı yerel dosyalar (sıralı, tekrarsız)."""
     dosyalar: set[str] = set()
-    for ad in SAYFALAR:
+    for ad in [*SAYFALAR, YEDEK_SAYFA]:
         s = (web / f"{ad}.html").read_text(encoding="utf-8")
         for etiket in _ETIKET.findall(s):
             if re.search(r'\brel="(?:canonical|alternate)"', etiket):
@@ -117,7 +138,7 @@ def metin(kok: Path) -> str:
     web = kok / "web"
     sayfalar, dosyalar = listeler(web)
     ozet = hashlib.sha256(SABLON.encode("utf-8"))
-    for yol in [f"{s}.html" for s in sayfalar] + dosyalar:
+    for yol in [f"{s}.html" for s in sayfalar] + [f"/{YEDEK_SAYFA}.html"] + dosyalar:
         veri = (web / yol.lstrip("/")).read_bytes()
         # Metin dosyalarında satır sonu git'teki gibi LF sayılır: CRLF'li bir Windows çalışma ağacı da aynı sürümü verir
         if Path(yol).suffix in METIN_UZANTILARI:

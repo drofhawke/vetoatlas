@@ -1,5 +1,5 @@
 """
-Tek dosyalık inceleme sürümü: web/ altındaki sekiz sayfa (hikâye, atlas, Söz ve Kayıt, reform modelleri,
+Tek dosyalık çevrimdışı sürüm: web/ altındaki sekiz sayfa (hikâye, atlas, Söz ve Kayıt, reform modelleri,
 simülasyon, temsil endeksi, hakkında, metodoloji) yedi sekmede tek bir HTML dosyasında (web/veto-atlasi-tek-dosya.html);
 hakkında ve metodoloji "Nasıl yaptık?" sekmesinde alt alta.
 
@@ -20,9 +20,9 @@ SAYFALAR = [  # dosya, sekme adı (tr, en); hakkinda ve metodoloji son sekmede a
     ("hikaye.html", "Hikâye", "Story"),
     ("vetolar.html", "Vetolar", "Vetoes"),
     ("vizyon.html", "Söz ve Kayıt", "Word and Record"),
+    ("temsil.html", "Kim temsil ediliyor?", "Who is represented?"),
     ("reform.html", "Reform modelleri", "Reform models"),
     ("simulasyon.html", "Ya veto olmasaydı?", "What if there were no veto?"),
-    ("temsil.html", "Kim temsil ediliyor?", "Who is represented?"),
     ("hakkinda.html", "Nasıl yaptık?", "How we did it"),
     ("metodoloji.html", "Nasıl yaptık?", "How we did it"),
 ]
@@ -30,13 +30,14 @@ SEKMELER = [  # sekme kodu, (tr, en), içerdiği sayfalar
     ("hikaye", ("Hikâye", "Story"), ["hikaye"]),
     ("vetolar", ("Vetolar", "Vetoes"), ["vetolar"]),
     ("vizyon", ("Söz ve Kayıt", "Word and Record"), ["vizyon"]),
+    ("temsil", ("Kim temsil ediliyor?", "Who is represented?"), ["temsil"]),
     ("reform", ("Reform modelleri", "Reform models"), ["reform"]),
     ("simulasyon", ("Ya veto olmasaydı?", "What if there were no veto?"), ["simulasyon"]),
-    ("temsil", ("Kim temsil ediliyor?", "Who is represented?"), ["temsil"]),
     ("nasil", ("Nasıl yaptık?", "How we did it"), ["hakkinda", "metodoloji"]),
 ]
 SAYFA_SEKME = {s: kod for kod, _, sayfalar in SEKMELER for s in sayfalar}
 CIKTI = "veto-atlasi-tek-dosya.html"
+ADRES = "https://vetoatlas.com/"  # dosyada olmayan göreli bağlantıların (LICENSE-DATA.txt, veri/) gideceği yayın adresi
 
 # Her sayfanın sonuna eklenen köprü betiği: bağlantı tıklamalarını üst belgeye iletir, üst belgeden gelen
 # bölüm (hash) isteğini uygular.
@@ -54,7 +55,10 @@ KOPRU = r"""
     if (m) {
       e.preventDefault();
       parent.postMessage({ tur: "sayfa", sayfa: m[1], hash: m[3] || "" }, "*");
+      return;
     }
+    // Dosyada olmayan göreli bağlantı (betikle yazılan veri/ indirmeleri): yayın adresine gider
+    if (href && !/^([a-z][a-z0-9+.-]*:|\/\/|\$\{)/i.test(href)) a.href = new URL(href, "__ADRES__").href;
   });
   const git = (hash) => {
     if (!hash || hash === "#") return;
@@ -107,7 +111,9 @@ def sayfa_hazirla(html: str, fonts_css: str, cubuk_js: str, suzgec_js: str = "",
     s = s.replace('new URLSearchParams(location.search).get("lang")', "window.__DIL")
     # Dil ve bölüm bilgisi üst belge tarafından baş etikete yazılır
     s = s.replace("<head>", "<head>\n<script>window.__DIL = \"__DIL__\"; window.__TEMA = \"__TEMA__\"; window.__HASH = \"__HASH__\"; window.__SAYFA = \"__SAYFA__\"; window.__YIGIN = __YIGIN__; window.__CUBUK_GIZLI = true;</script>", 1)
-    s = s.replace("</body>", KOPRU + "</body>", 1)
+    # Dosyada olmayan göreli bağlantılar (lisans, açık veri) yayın adresine; tıklamada köprü betiği aynısını yapar
+    s = re.sub(r'href="((?:LICENSE-DATA\.txt|veri/)[^"]*)"', lambda m: f'href="{ADRES}{m[1]}"', s)
+    s = s.replace("</body>", KOPRU.replace("__ADRES__", ADRES) + "</body>", 1)
     return s
 
 
@@ -169,7 +175,7 @@ def uret(kok: Path) -> Path:
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Veto Atlası · tek dosya / Veto Atlas · single file</title>
-<meta name="description" content="Veto Atlası'nın sekiz sayfası yedi sekmede, tek dosyada; inceleme sürümü. / The eight pages of the Veto Atlas in seven tabs, in one file; review version.">
+<meta name="description" content="Veto Atlası’nın sekiz sayfası yedi sekmede, tek dosyada; çevrimdışı sürüm. / The eight pages of the Veto Atlas in seven tabs, in one file; offline version.">
 <meta name="veto-atlasi-girdi-sha256" content="{ozet}">
 <link rel="icon" href="{varliklar['favicon.ico']}" sizes="32x32">
 <link rel="icon" href="{varliklar['favicon.svg']}" type="image/svg+xml">

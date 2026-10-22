@@ -18,10 +18,15 @@ def test_yayin_adresi_etiketleri():
         s = (WEB / f"{ad}.html").read_text(encoding="utf-8")
         bas = s[:s.index("</head>")]
         u = f"{ADRES}/{ad}"  # uzantısız (Cloudflare Pages .html adresini uzantısıza yönlendirir); sayfa içi bağlantılar .html
+        # Söz ve Kayıt ile Ya veto olmasaydı? sayfaya özel önizleme taşır (K11; görseller kökte, 08 üretir), ötekiler ortak önizleme
+        onizleme = {"vizyon": "onizleme-vizyon.png", "simulasyon": "onizleme-simulasyon.png"}.get(ad, "onizleme.png")
+        assert (WEB / onizleme).is_file(), onizleme
         for etiket in (f'<meta property="og:url" content="{u}">', f'<link rel="canonical" href="{u}">',
                        f'<link rel="alternate" hreflang="tr" href="{u}">', f'<link rel="alternate" hreflang="en" href="{u}?lang=en">',
-                       f'<link rel="alternate" hreflang="x-default" href="{u}">', f'<meta property="og:image" content="{ADRES}/onizleme.png">'):
+                       f'<link rel="alternate" hreflang="x-default" href="{u}">', f'<meta property="og:image" content="{ADRES}/{onizleme}">'):
             assert bas.count(etiket) == 1, (ad, etiket)
+        # Önizlemenin metin karşılığı iki etikette de (og ve twitter)
+        assert re.search(r'<meta property="og:image:alt" content="[^"]+">', bas) and re.search(r'<meta name="twitter:image:alt" content="[^"]+">', bas), ad
         assert not re.search(r"vetoatlas\.com/[a-z]+\.html", bas), ad
     assert f'<link rel="canonical" href="{ADRES}/hikaye">' in (WEB / "index.html").read_text(encoding="utf-8")
     c = (WEB / "cubuk.js").read_text(encoding="utf-8")
@@ -35,11 +40,11 @@ def test_alt_bilgi_notu():
     """20 Ekim 2026: beta şeridi yerine her sayfanın altında tek satırlık not; sayfanın alt bilgisi (footer#alt) varsa ona eklenir,
     yoksa oluşturulur; tek dosyada her çerçeve kendi notunu taşır."""
     c = (WEB / "cubuk.js").read_text(encoding="utf-8")
-    assert 'altNot: "Beta sürümü. Hata bildirmek için", altSon: " adresine yazın.",' in c and 'altNot: "Beta. To report an error, write to", altSon: ".",' in c
+    assert 'altNot: "Beta sürümü. Hata bildirmek için", altSon: " adresine yazın.",' in c and 'altNot: "Beta version. To report an error, write to", altSon: ".",' in c
     assert 'var ILETISIM = "iletisim@vetoatlas.com";' in c and """<a href="mailto:' + ILETISIM + '">' + ILETISIM""" in c
     assert "function altBilgi(dil) {" in c and 'if (alt && alt.tagName === "FOOTER") { alt.appendChild(p); return; }' in c
     assert "if (!tek) altBilgi(dil);" in c and "altBilgi(gecerliDil()); return; }" in c
-    assert "beta" not in c.lower().replace("alt-bilgi", "").replace("beta sürümü", "").replace("beta.", "").replace("beta şeridi", "")
+    assert "beta" not in c.lower().replace("alt-bilgi", "").replace("beta sürümü", "").replace("beta version", "").replace("beta şeridi", "")
     assert '"@media print { .cubuk { display: none; } }",' in c
 
 
@@ -52,12 +57,14 @@ def test_hakkinda_iletisim_ve_lisans_satiri():
     for eski in ('data-yer="indir"', 'class="atif"', 'class="lisans"', "orcid.org", "Nuh Mehmet", "Yayımlayan", "Published by"):
         assert eski not in h, eski
     posta = '<a href="mailto:iletisim@vetoatlas.com">iletisim@vetoatlas.com</a>'
-    assert f"<p>Hata bildirimi ve sorular için {posta}. Düzeltmeleri değişiklik günlüğüne işliyoruz.</p>" in h
-    assert f"<p>For error reports and questions, {posta}. We enter corrections in the change log.</p>" in h
+    assert f"<p>Hata bildirimi ve sorular için {posta}. Her düzeltmeyi gerekçesiyle düzeltme dosyasına yazıyoruz.</p>" in h
+    assert f"<p>For error reports and questions, {posta}. Each correction goes into the corrections file with its reason.</p>" in h
     doi = f'<a href="https://doi.org/{DOI}">{DOI}</a>'
     ld = '<a href="LICENSE-DATA.txt">LICENSE-DATA</a>'
-    assert f"<p>Kod MIT, veri derlemesi CC BY 4.0 lisansıyla ({ld}). Veri setinin arşivi Zenodo'da, DOI {doi}.</p>" in h
-    assert f"<p>Code under MIT, the data compilation under CC BY 4.0 ({ld}). The dataset is archived on Zenodo, DOI {doi}.</p>" in h
+    # Zenodo cümlesi arşivlenen sürümü ve tarihini söyler (sitedeki veri sonradan değişebilir)
+    assert f"<p>Kod MIT, veri derlemesi CC BY 4.0 lisansıyla ({ld}). Veri setinin 12 Ekim 2026 tarihli 1.0.0 sürümü Zenodo’da arşivli, DOI {doi}.</p>" in h
+    assert (f"<p>The code is under the MIT licence and the data compilation under CC BY 4.0 ({ld}). Version 1.0.0 of the dataset, "
+            f"dated 12 October 2026, is archived on Zenodo, DOI {doi}.</p>") in h
     assert "[DOI]" not in h and "yer-tutucu" not in h
 
 
@@ -66,12 +73,13 @@ def test_lisans_ve_atif_dosyalari():
     assert mit.startswith("MIT License\n\nCopyright (c) 2026 Nuh Mehmet Yıldız\n") and "THE SOFTWARE IS PROVIDED \"AS IS\"" in mit
     veri = (KOK / "LICENSE-DATA").read_text(encoding="utf-8")
     assert "https://creativecommons.org/licenses/by/4.0/" in veri and veri.count("CC BY 4.0") == 2
+    tek = " ".join(veri.split())  # adlar satır sonunda bölünebilir ("Daha Adil Bir" / "Dünya Mümkün")
     for s in ("Daha Adil Bir Dünya Mümkün", "World Population Prospects", "CC BY 3.0 IGO", "Sievers", "Tablo 4", "Table 4",
               "SIL Open Font License 1.1", "Source Serif 4", "Source Sans 3",
               "5. Birleşmiş Milletler belgeleri.", "5. United Nations documents.", "veto listesi; BM'nin kendi kullanım koşullarına tabidir",
               "6. Test kesiti. tests/fixtures/veto_ornek.html, DHL veto listesi sayfasından alınmış 13 satırlık bir test kesitidir",
               "6. Test excerpt. tests/fixtures/veto_ornek.html is a 13-row test excerpt taken from the DHL veto list page"):
-        assert s in veri, s
+        assert s in tek, s
     # Sitedeki kopya (Hakkında bağlantısı) depodaki dosyayla aynı
     assert (WEB / "LICENSE-DATA.txt").read_bytes() == (KOK / "LICENSE-DATA").read_bytes()
     cff = (KOK / "CITATION.cff").read_text(encoding="utf-8")

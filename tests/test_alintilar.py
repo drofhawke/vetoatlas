@@ -202,20 +202,27 @@ def test_atlama_isaretiyle_ayrilan_parcalar_ayri_ayri_aranir():
 
 
 HIKAYE = (KOK / "web/hikaye.html").read_text(encoding="utf-8")
-KISA = json.loads(re.search(r"const KISA = (\{.*?\});", HIKAYE)[1])
+_KISA = re.search(r"const KISA = (\{.*?\});", HIKAYE)
+# K3a: Hikâye alıntıları tam metinle gösteriyor; kısaltılmış biçim (KISA) yeniden eklenirse aşağıdaki test onu da denetler.
+KISA = json.loads(_KISA[1]) if _KISA else {}
 
 
-@pytest.mark.parametrize("kimlik", sorted(KISA))
-def test_hikayedeki_kisaltilmis_alinti_kaynakta_parca_parca(kimlik, calisma_metni):
+def test_hikayedeki_kisaltilmis_alinti_kaynakta_parca_parca(calisma_metni):
     """Hikâyedeki kısa biçim: atlama işaretiyle ayrılan her parça kaynakta ayrı ayrı, kelimesi kelimesine, sırasıyla ve
-    aynı pasajda; bölüm başlığı da tutar. Bir harfi değişen ya da sırası bozulan biçim reddedilir."""
-    a = next(x for x in ALINTILAR if x["id"] == kimlik)
-    sayfalar = [""] + calisma_metni(a["kaynak"], ham=True).split("\f")
-    kisa = dict(a, metin_tr=KISA[kimlik])
-    assert A.kaynakta_dogrula(kisa, sayfalar) == []
-    son = A.parcalar(KISA[kimlik])[-1]
-    assert A.kaynakta_dogrula(dict(a, metin_tr=KISA[kimlik].replace(son, son[:-2] + "x.")), sayfalar)
-    assert A.kaynakta_dogrula(dict(a, metin_tr=" … ".join(reversed(KISA[kimlik].split(" … ")))), sayfalar)
+    aynı pasajda; bölüm başlığı da tutar. Bir harfi değişen ya da sırası bozulan biçim reddedilir. Kısa biçim yoksa
+    Hikâye alıntıyı kayıttaki tam metinle göstermeli (kaynakla birebir denetlenen metin)."""
+    if not KISA:
+        assert "esc(ingilizce ? a.metin_en : a.metin_tr)" in HIKAYE
+        assert "…" not in re.sub(r"//.*", "", HIKAYE[HIKAYE.index("const alintiBul"):])
+        return
+    for kimlik in sorted(KISA):
+        a = next(x for x in ALINTILAR if x["id"] == kimlik)
+        sayfalar = [""] + calisma_metni(a["kaynak"], ham=True).split("")
+        kisa = dict(a, metin_tr=KISA[kimlik])
+        assert A.kaynakta_dogrula(kisa, sayfalar) == [], kimlik
+        son = A.parcalar(KISA[kimlik])[-1]
+        assert A.kaynakta_dogrula(dict(a, metin_tr=KISA[kimlik].replace(son, son[:-2] + "x.")), sayfalar)
+        assert A.kaynakta_dogrula(dict(a, metin_tr=" … ".join(reversed(KISA[kimlik].split(" … ")))), sayfalar)
 
 
 def test_metinde_olmayan_alinti_reddedilir(calisma_metni):
@@ -266,7 +273,7 @@ def test_reform_tablosundaki_kitap_ifadeleri_dogrulanmis_alintilardan():
     import re
     with open(KOK / "kaynaklar/reform_modelleri.csv", encoding="utf-8", newline="") as f:
         satirlar = [s for s in csv.DictReader(f) if s["model"] == "Daha Adil Bir Dünya Mümkün"]
-    assert {s["olcut"] for s in satirlar} == {"toplam", "yeni_daimi", "veto", "genel_kurul"}
+    assert {s["olcut"] for s in satirlar} == {"sunan", "toplam", "yeni_daimi", "veto", "esik", "genel_kurul"}
     alintilar = " ".join(A.normalize(a["metin_tr"]) for a in KITAP)
     for s in satirlar:
         for ifade in re.findall(r"“(.+?)”", s["tr"]):
@@ -281,7 +288,8 @@ def test_hitaplar_arasinda_donemleri_yalnizca_hitaplardan():
     24 Eylül 2019 – 20 Eylül 2022 (8 öneri, 12 ret oyu)."""
     sayfa = (KOK / "web/vizyon.html").read_text(encoding="utf-8")
     assert "const hitaplar = [...new Set(konusmalar.filter((a) => !a.bolum).map((a) => a.tarih))].sort();" in sayfa
-    assert "2020 ve 2021 hitapları kaynaklarda bulunmadığı için ilk dönem 2019 ile 2022 hitapları arasıdır." in sayfa
+    assert "2020 ve 2021 hitaplarından alıntı olmadığı için ilk dönem 2019 hitabından 2022 hitabına uzanır." in sayfa
+    assert "so the first period runs from the 2019 address to the 2022 address." in sayfa
     s = (KOK / "web/veri.js").read_text(encoding="utf-8")
     V = json.loads(s[s.index("{"):s.rstrip().rindex(";")])
     konusmalar = [a for a in V["alintilar"] if a["iliskili_veri"] not in ("model", "giris")]

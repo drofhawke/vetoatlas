@@ -1,11 +1,11 @@
 """
-Genel Kurul'un vetolardan sonra yaptığı tartışmalar (A/RES/76/262, 26 Nisan 2022).
+Genel Kurulun vetolardan sonra yaptığı tartışmalar (A/RES/76/262, 26 Nisan 2022).
 
 İki kaynak dosya, ikisi de kaynaklar/ altında:
   genel_kurul_tartismalari.csv -> her tartışma bir satır (veto girişimi tartışması ya da
                                   olağanüstü özel oturum); bir tartışma birden fazla vetoyu,
                                   bir veto birden fazla tartışmayı kapsayabilir
-  ozel_raporlar.csv            -> her veto için Güvenlik Konseyi'nin özel raporu
+  ozel_raporlar.csv            -> her veto için Güvenlik Konseyinin özel raporu
 
 Kurallar METODOLOJI.md 2.5'te.
 """

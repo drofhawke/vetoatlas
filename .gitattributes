@@ -6,3 +6,5 @@ web/veri/** -text
 kaynaklar/temsil/*.csv -text
 # 04 açık veri dosyasını bu kaynaktan başına BOM ekleyerek kopyalar (Excel); checkout satır sonlarını değiştirmesin.
 kaynaklar/genel_kurul_tartismalari.csv -text
+# Veri sözlüğü de 04'te aynı yolla (BOM eklenerek) web/veri/'ye kopyalanır.
+kaynaklar/veri_sozlugu.csv -text

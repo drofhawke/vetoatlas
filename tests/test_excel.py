@@ -35,12 +35,33 @@ def test_xlsx_csv_ile_hucre_hucre_ayni():
         assert ws.freeze_panes == "A2" and all(h.font.b for h in ws[1])
 
 
+def _sozluk(ad: str) -> list[list[str]]:
+    """Veri sözlüğünün başlığı ve bu dosyanın satırları (04'ün XLSX'e "sozluk" sayfası olarak eklediği)."""
+    satirlar = excel.csv_satirlari((VERI / "veri_sozlugu.csv").read_bytes())
+    i = satirlar[0].index("dosya")
+    return [satirlar[0]] + [s for s in satirlar[1:] if s[i] == f"{ad}.csv"]
+
+
 def test_xlsx_belirlenimli_ve_guncel():
-    """04 her çalıştığında aynı baytlar: diskteki XLSX, CSV'den yeniden üretilenle bayt bayt aynı."""
+    """04 her çalıştığında aynı baytlar: diskteki XLSX, CSV'den ve veri sözlüğünden yeniden üretilenle bayt bayt aynı."""
     for ad in ADLAR:
-        yeni = excel.xlsx(excel.csv_satirlari((VERI / f"{ad}.csv").read_bytes()), ad)
+        yeni = excel.xlsx(excel.csv_satirlari((VERI / f"{ad}.csv").read_bytes()), ad, _sozluk(ad))
         assert yeni == (VERI / f"{ad}.xlsx").read_bytes(), ad
-        assert yeni == excel.xlsx(excel.csv_satirlari((VERI / f"{ad}.csv").read_bytes()), ad)
+        assert yeni == excel.xlsx(excel.csv_satirlari((VERI / f"{ad}.csv").read_bytes()), ad, _sozluk(ad))
+
+
+def test_veri_sozlugu_csv_basliklariyla_birebir_ve_xlsx_ikinci_sayfasi():
+    """K10: veri sözlüğü her açık veri CSV'sinin sütunlarını sırasıyla tanımlar; açık veri kopyası kaynağın BOM'lu hâli;
+    XLSX'lerin ikinci sayfası "sozluk" bu satırları taşır, ilk sayfa etkin kalır."""
+    kaynak = (KOK / "kaynaklar/veri_sozlugu.csv").read_bytes()
+    assert not kaynak.startswith(b"\xef\xbb\xbf") and (VERI / "veri_sozlugu.csv").read_bytes() == b"\xef\xbb\xbf" + kaynak
+    for ad in ADLAR:
+        sozluk = _sozluk(ad)
+        i = sozluk[0].index("sutun")
+        assert [s[i] for s in sozluk[1:]] == excel.csv_satirlari((VERI / f"{ad}.csv").read_bytes())[0], ad
+        wb = load_workbook(VERI / f"{ad}.xlsx")
+        assert wb.sheetnames == [ad, "sozluk"] and wb.active.title == ad
+        assert [["" if h.value is None else str(h.value) for h in r] for r in wb["sozluk"].iter_rows()] == sozluk, ad
 
 
 def test_hucre_turleri_ve_formul_yok():

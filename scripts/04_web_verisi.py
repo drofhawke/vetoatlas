@@ -16,6 +16,8 @@ Genel Kurul tartışmaları (A/RES/76/262) da burada eklenir:
 
 Açık veri (her çalıştırmada yeniden yazılır; SHA-256 değerleri veri.js'e girer):
   web/veri/vetolar.json, web/veri/vetolar.csv, web/veri/genel_kurul_tartismalari.csv
+Veri sözlüğü: kaynaklar/veri_sozlugu.csv -> web/veri/veri_sozlugu.csv ve iki XLSX dosyasının "sozluk" sayfası.
+Sözlükteki sütun listesi CSV başlıklarıyla birebir aynı değilse betik durur.
 """
 import copy
 import csv
@@ -114,7 +116,7 @@ def reform_oku() -> list[dict]:
     """Reform modelleri karşılaştırması (birincil belgeler, kaynaklar/KAYNAKLAR.md)."""
     with open(KOK / "kaynaklar/reform_modelleri.csv", encoding="utf-8", newline="") as f:
         satirlar = list(csv.DictReader(f))
-    olcutler = {"toplam", "yeni_daimi", "veto", "genel_kurul"}
+    olcutler = {"sunan", "toplam", "yeni_daimi", "veto", "esik", "genel_kurul"}  # web/reform.html OLCUTLER ile aynı
     for model in {s["model"] for s in satirlar}:
         if {s["olcut"] for s in satirlar if s["model"] == model} != olcutler:
             raise ValueError(f"reform_modelleri.csv: {model} için ölçütler eksik")
@@ -280,6 +282,32 @@ def acik_kayit(k: dict) -> dict:
     return k
 
 
+VERI_SOZLUGU = KOK / "kaynaklar/veri_sozlugu.csv"
+
+
+def veri_sozlugu(icerik: dict[str, bytes]) -> dict[str, list[list[str]]]:
+    """
+    kaynaklar/veri_sozlugu.csv'yi okur ve her açık veri CSV'sinin başlığıyla karşılaştırır.
+    Döndürür: {"vetolar.csv": [başlık, satırlar...], ...}. Eksik, fazla ya da sırası farklı sütun ValueError verir.
+    """
+    satirlar = excel.csv_satirlari(VERI_SOZLUGU.read_bytes())
+    baslik, govde = satirlar[0], satirlar[1:]
+    i_dosya, i_sutun = baslik.index("dosya"), baslik.index("sutun")
+    sonuc = {}
+    for ad in ("vetolar.csv", "genel_kurul_tartismalari.csv"):
+        csv_basligi = excel.csv_satirlari(icerik[ad])[0]
+        bu = [s for s in govde if s[i_dosya] == ad]
+        if [s[i_sutun] for s in bu] != csv_basligi:
+            eksik = [c for c in csv_basligi if c not in {s[i_sutun] for s in bu}]
+            fazla = [s[i_sutun] for s in bu if s[i_sutun] not in csv_basligi]
+            raise ValueError(f"veri_sozlugu.csv {ad} sütunlarıyla uyuşmuyor; eksik {eksik}, fazla {fazla} (sıra da aynı olmalı)")
+        sonuc[ad] = [baslik] + bu
+    bilinmeyen = sorted({s[i_dosya] for s in govde} - set(sonuc))
+    if bilinmeyen:
+        raise ValueError(f"veri_sozlugu.csv: bilinmeyen dosya {bilinmeyen}")
+    return sonuc
+
+
 def kaynak_kaydi() -> dict:
     """data/raw/KAYNAK.md tablosu: Adres, İndirme zamanı, SHA-256 (Hakkında sayfasındaki kaynak maddesi için)."""
     s = (KOK / "data/raw/KAYNAK.md").read_text(encoding="utf-8")
@@ -306,9 +334,12 @@ def acik_veri_yaz(kayitlar: list[dict], meta: dict) -> list[dict]:
     for k in sorted(kayitlar, key=lambda k: (k["tarih"], k["id"])):
         w.writerow(csv_satiri(k))
     icerik["vetolar.csv"] = ("\ufeff" + tampon.getvalue()).encode("utf-8")  # BOM: Excel Türkçe karakterleri doğru açsın
+    # Veri sözlüğü: kaynak BOM'suz, açık veri kopyası öteki CSV'ler gibi BOM'lu; sütun listesi CSV başlıklarıyla aynı olmalı
+    sozluk = veri_sozlugu(icerik)
+    (ACIK_VERI / "veri_sozlugu.csv").write_bytes("\ufeff".encode("utf-8") + VERI_SOZLUGU.read_bytes())
     # Excel kopyaları: Türkçe ayarlı Excel çift tıklamada CSV'yi ";" ile böler, sütunlar ayrılmaz (veto_atlasi/excel.py)
     for ad in ("vetolar", "genel_kurul_tartismalari"):
-        icerik[f"{ad}.xlsx"] = excel.xlsx(excel.csv_satirlari(icerik[f"{ad}.csv"]), ad)
+        icerik[f"{ad}.xlsx"] = excel.xlsx(excel.csv_satirlari(icerik[f"{ad}.csv"]), ad, sozluk[f"{ad}.csv"])
     dosyalar = []
     for ad in ("vetolar.csv", "vetolar.xlsx", "vetolar.json", "genel_kurul_tartismalari.csv", "genel_kurul_tartismalari.xlsx"):
         (ACIK_VERI / ad).write_bytes(icerik[ad])

@@ -2,16 +2,16 @@
 
 ## Ham DHL dosyası
 
-**Kanonik kaynak:** `data/raw/veto_dhl_2026-10-10.html` (73.235 bayt), SHA-256
-`b92d1fe1db9abe42dd8d864c3c88ea6a0fc8074dba39f596f4b544b93e147083`.
+Kanonik kaynak `data/raw/veto_dhl_2026-10-10.html` dosyasıdır (73.235 bayt), SHA-256
+`b92d1fe1db9abe42dd8d864c3c88ea6a0fc8074dba39f596f4b544b93e147083`. Dosya
 https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm adresinden 10 Ekim 2026'da
 indirilmiştir. Sunucudan gelen baytlar çözülmeden ve satır sonları değiştirilmeden yazılmıştır.
 01, 03 ve 04 betikleri özeti bu dosyanın diskteki baytlarından hesaplar; üçü de aynı değeri
 gösterir, değer tutmazsa 03 ve 04 durur.
 
-**Internet Archive kopyası:**
+Sayfanın Internet Archive kopyası
 https://web.archive.org/web/20260912160946/https://www.un.org/depts/dhl/resguide/scact_veto_table_en.htm
-Bu kopyanın ham baytları kanonik dosyayla aynıdır (SHA-256 `b92d1fe1…7083`, 10 Ekim 2026'da
+adresindedir. Bu kopyanın ham baytları kanonik dosyayla aynıdır (SHA-256 `b92d1fe1…7083`, 10 Ekim 2026'da
 karşılaştırıldı). 10 Ekim'de yeni bir kayıt alınamadı, çünkü un.org arşivin tarayıcısını 403 ile
 engelledi. Ayrıntılar `data/raw/KAYNAK.md` dosyasındadır.
 
@@ -31,8 +31,8 @@ yazmaz. `.gitattributes` da git'in `data/raw/` altındaki satır sonlarına doku
 
 ## Referans tablo
 
-**scprocedure_tablo4.csv** — Sievers & Daws, *The Procedure of the UN Security Council*,
-Tablo 4: "Vetoes of draft resolutions and proposed amendments cast in formal Security
+`scprocedure_tablo4.csv`, Sievers & Daws'ın *The Procedure of the UN Security Council* çalışmasındaki
+Tablo 4'tür: "Vetoes of draft resolutions and proposed amendments cast in formal Security
 Council meetings, 1946 to present", 18 Eylül 2025 sürümü.
 https://www.scprocedure.org/_files/ugd/54a569_8c1ef1fee8ca4d6ab09b7fb516b55a22.pdf
 
@@ -78,15 +78,17 @@ indirme kaydından (Windows Zone.Identifier) ya da indiren komuttan alındı.
 |---|---|---|---|---|---|
 | `S_PV.704.pdf` | Güvenlik Konseyi 704. toplantı kaydı, 13 Aralık 1955 (S/PV.704), İngilizce ve Fransızca, Resmî Kayıtlar baskısı. Taranmış; metin katmanı OCR ve hatalı, yalnızca oylamaların yerini bulmak için kullanıldı, bulgular sayfa görüntülerinden okundu. Basılı sayfa = PDF sayfası − 2. Dayanak olduğu kayıtlar: 13 Aralık 1955'teki 16 veto (`duzeltmeler.csv`). Elle indirildi (10 Ekim 2026); aynı adres betikle de aynı özeti veriyor. | https://documents.un.org/doc/undoc/gen/n56/090/32/pdf/n5609032.pdf | 24 | 2758833 | `a1324a62702f399a40bd8a952aafe581c49121dca554c038d21c217a69d7cdf6` |
 | `S_PV.1662.pdf` | Güvenlik Konseyi 1662. toplantı kaydı, 10 Eylül 1972 (S/PV.1662), İngilizce. Taranmış; metin katmanı OCR, bulgular sayfa görüntülerinden okundu. Basılı sayfa = PDF sayfası − 2. Dayanak olduğu kayıt: 10 Eylül 1972 Çin–SSCB değişiklik vetosu (`duzeltmeler.csv`). Elle indirildi (10 Ekim 2026). | https://documents.un.org/doc/undoc/gen/n75/821/91/pdf/n7582191.pdf | 22 | 3369638 | `c03dfb154c41c11149967b4c09804bee6a8d2bc4385edb0281ff5fee8646c29c` |
-| `S_PV.2191_Add.1.pdf` | Güvenlik Konseyi 2191. toplantı kaydı ve Add.1, 11 ve 13 Ocak 1980 (S/PV.2191 and Add.1), İngilizce. documents.un.org'da bulunmadığı için BM Dijital Kütüphanesi'nden elle indirildi (10 Ekim 2026; kayıt sayfası https://digitallibrary.un.org/record/549704). Dijital Kütüphane otomatik isteğe boş yanıt (202) veriyor; betik bunu bildirir. Taranmış; metin katmanı güvenilir değil, bulgular sayfa görüntülerinden okundu. Basılı sayfa = PDF sayfası − 2. Dayanak olduğu kayıt: V-1980-01-11-1. | https://digitallibrary.un.org/nanna/record/549704/files/S_PV.2191ANDAdd.1--S_PV.2191--S_PV.2191_Add.1-EN.pdf | 19 | 2851748 | `dde22974f924d2591cfec51bb4233792e4654f2ec6ba2d6e898d309df72884c0` |
-| `A_58_47.pdf` | Genel Kurul, 58. oturum, Ek No. 47 (A/58/47): Güvenlik Konseyi'nde adil temsil ve üye sayısının artırılması konulu açık uçlu çalışma grubunun raporu, 2004. Annex III "Negative votes of permanent members at public meetings of the Security Council": Part I karar taslakları, Part II "Paragraphs of draft resolutions or amendments thereto not adopted owing to the negative vote of a permanent member". DHL veto listesi 1946–2004 verisinin kaynağı olarak bu eki gösterir. Betikle indirildi (10 Ekim 2026). | https://documents.un.org/api/symbol/access?s=A/58/47(SUPP)&l=en&t=pdf | 38 | 166799 | `61b7c1f6d88d4adf3fd76065f972ede8d78bdb916299ed1cc8d18eded63fc607` |
+| `S_PV.2191_Add.1.pdf` | Güvenlik Konseyi 2191. toplantı kaydı ve Add.1, 11 ve 13 Ocak 1980 (S/PV.2191 and Add.1), İngilizce. documents.un.org'da bulunmadığı için BM Dijital Kütüphanesinden elle indirildi (10 Ekim 2026; kayıt sayfası https://digitallibrary.un.org/record/549704). Dijital Kütüphane otomatik isteğe boş yanıt (202) veriyor; betik bunu bildirir. Taranmış; metin katmanı güvenilir değil, bulgular sayfa görüntülerinden okundu. Basılı sayfa = PDF sayfası − 2. Dayanak olduğu kayıt: V-1980-01-11-1. | https://digitallibrary.un.org/nanna/record/549704/files/S_PV.2191ANDAdd.1--S_PV.2191--S_PV.2191_Add.1-EN.pdf | 19 | 2851748 | `dde22974f924d2591cfec51bb4233792e4654f2ec6ba2d6e898d309df72884c0` |
+| `A_58_47.pdf` | Genel Kurul, 58. oturum, Ek No. 47 (A/58/47): Güvenlik Konseyinde adil temsil ve üye sayısının artırılması konulu açık uçlu çalışma grubunun raporu, 2004. Annex III "Negative votes of permanent members at public meetings of the Security Council": Part I karar taslakları, Part II "Paragraphs of draft resolutions or amendments thereto not adopted owing to the negative vote of a permanent member". DHL veto listesi 1946–2004 verisinin kaynağı olarak bu eki gösterir. Betikle indirildi (10 Ekim 2026). | https://documents.un.org/api/symbol/access?s=A/58/47(SUPP)&l=en&t=pdf | 38 | 166799 | `61b7c1f6d88d4adf3fd76065f972ede8d78bdb916299ed1cc8d18eded63fc607` |
 | `WPP2024_GEN_F01_DEMOGRAPHIC_INDICATORS_COMPACT.xlsx` | BM Dünya Nüfus Beklentileri 2024 (WPP 2024), demografik göstergeler, kompakt dosya (POP/DB/WPP/Rev.2024/GEN/F01/Rev.1); sayfalar "Estimates" (1950–2023), "Medium variant", "NOTES". Lisans CC BY 3.0 IGO; atıf (dosyadaki metin): "United Nations, Department of Economic and Social Affairs, Population Division (2024). World Population Prospects 2024, Online Edition." Kullanılan sütun: "Total Population, as of 1 January (thousands)", yıllar 1963 ve 2023. Erişim 10 Ekim 2026. | https://population.un.org/wpp/assets/Excel%20Files/1_Indicator%20(Standard)/EXCEL_FILES/1_General/WPP2024_GEN_F01_DEMOGRAPHIC_INDICATORS_COMPACT.xlsx | – | 26142942 | `98e34d9b65b53858cd08a57a566e45050b08093ad85ba5714fe6fbd78055ae6d` |
 | `Scale_of_Assessments_for_RB_1946-2027.xlsx` | Katkılar Komitesi, "United Nations Scale of assessments for the Regular budget 1946-2027" (Excel); 2025–2027 sütunu A/RES/79/249 (24 Aralık 2024) ölçeğidir, toplam 100. Erişim 10 Ekim 2026. A/RES/79/249 PDF'inden pdftotext ile okuma sütun kaydırdığı için (ör. Türkiye 0,018 görünür, doğru değer 0,685) Excel esas alındı. | https://www.un.org/en/ga/contributions/Scale%20of%20Assessments%20for%20RB%201946-2027.xlsx | – | 78130 | `737d0d78b0225ad10c3f42328799fe28842634ac0d697eba5e023cb2e1edbbd8` |
 | `02_country_ranking_95_february_2026.pdf` | BM Barış Gücü, "Uniformed Personnel Contributing Countries by Ranking: Experts on Mission, Formed Police Units, Individual Police, Staff Officer, and Troops, As of: 28/02/2026" (aylık rapor 95); 119 ülke, genel toplam 47 298. Sayfa https://peacekeeping.un.org/en/troop-and-police-contributors (dosya adresi sayfa betiğinden). Erişim 10 Ekim 2026. | https://peacekeeping.un.org/sites/default/files/2026-03/02_country_ranking_95_february_2026.pdf | 4 | 189126 | `f5896fe44e71a204fa4e37f05de482c898e158d523e3dc4d7e6c0146d0cc9e3a` |
 | `A_74_PV.3.pdf` | Genel Kurul, 74. oturum, 3. genel kurul toplantısının kaydı, 24 Eylül 2019 (A/74/PV.3), İngilizce, Resmî Kayıtlar. Cumhurbaşkanı Erdoğan'ın konuşması s. 19–24; kayıttaki not: "spoke in Turkish; English interpretation provided by the delegation". Metin katmanı dijitaldir (taranmamış). Sayfa numarası = PDF sayfası ("22/60"). Dayanak olduğu kayıt: alıntı 2019-2'nin İngilizcesi (2019 İngilizce kitapçığında bu pasaj yok). Betikle indirildi (14 Ekim 2026, 08:14 UTC). | https://documents.un.org/api/symbol/access?s=A/74/PV.3&l=en&t=pdf | 60 | 969653 | `6be031612fdcc26dc8f49904bf83cb7ee8841b53bbb6bfeeba635c72d13836ce` |
-| `A_RES_1991_XVIII.pdf` | Genel Kurul kararı 1991 (XVIII) A ve B, 17 Aralık 1963: Güvenlik Konseyi ve Ekonomik ve Sosyal Konsey'de adil temsil; A par. 3: on seçilmiş üyenin dağılımı (Afrika ve Asya 5, Doğu Avrupa 1, Latin Amerika 2, Batı Avrupa ve diğerleri 2). Taranmış, OCR metin katmanı. | https://documents.un.org/api/symbol/access?s=A/RES/1991(XVIII)&l=en&t=pdf | 2 | 158586 | `245d9b915f14104fed7109f5f7b5a1eff3654e186cdde35ab6a95418e97a0aef` |
+| `A_RES_1991_XVIII.pdf` | Genel Kurul kararı 1991 (XVIII) A ve B, 17 Aralık 1963: Güvenlik Konseyi ve Ekonomik ve Sosyal Konseyde adil temsil; A par. 3: on seçilmiş üyenin dağılımı (Afrika ve Asya 5, Doğu Avrupa 1, Latin Amerika 2, Batı Avrupa ve diğerleri 2). Taranmış, OCR metin katmanı. | https://documents.un.org/api/symbol/access?s=A/RES/1991(XVIII)&l=en&t=pdf | 2 | 158586 | `245d9b915f14104fed7109f5f7b5a1eff3654e186cdde35ab6a95418e97a0aef` |
 
-**DHL listesinin kapsamı.** DHL veto listesi, 1946–2004 verisini A/58/47 Annex III'ten aldığını
+### DHL listesinin kapsamı
+
+DHL veto listesi, 1946–2004 verisini A/58/47 Annex III'ten aldığını
 yazar ve yıldızlı satırlar için "most are veto of paragraphs or amendments" der. Liste, Annex III
 Part II'deki paragraf ve değişiklik önergesi vetolarının birçoğunu içerir (ör. 24 Kasım 1961 ve
 21 Şubat 1961'de ikişer satır, 14 Aralık 1955, 13 Aralık 1949'da iki satır, 25 Ağustos 1947,
@@ -104,7 +106,9 @@ Listede "13 December 1955" tarihli satır yok (Aralık 1955 için yalnızca 14 v
 "10 September 1972" için tek satır var, S/10784 (ABD); S/10786, S/3502, S/3506 ve S/PV.704
 hiç geçmiyor. 17 vetonun 17'si bu listede de yok; 8. madde iki liste için geçerli.
 
-**Referans tablonun gün içi sırası.** scprocedure Tablo 4 ters kronolojiktir; aynı gün içindeki
+### Referans tablonun gün içi sırası
+
+scprocedure Tablo 4 ters kronolojiktir; aynı gün içindeki
 satırların hangi kurala göre sıralandığını belirtmez. 13 Aralık 1955 ve 10 Eylül 1972'de tablonun
 sırası toplantıdaki oylama sırasından farklıdır (Moğolistan vetosu #76, toplantıda 16 vetonun
 3.'sü; #119 değişiklik vetosu #118 ABD vetosundan önce oylandı). Tablo kronolojik sıra iddia
@@ -125,14 +129,14 @@ kullanım koşulu belirtmez. Veri setine (vetolar) hiçbir şey eklenmez; çıkt
 | `bolgesel_gruplar.csv` | DGACM, Regional groups of Member States (Afrika 54, Asya-Pasifik 55, Doğu Avrupa 23, GRULAC 33, WEOG 29; Türkiye iki listede) | https://www.un.org/dgacm/en/content/regional-groups | 2026-10-10 | BM kullanım koşulları | `bolgesel_gruplar_2026-10-10.html` `b431e7cf508847e60d8ccce954f9c936c681947a964144256447dc7ac49408c4` |
 | `iit_uyeleri.csv` | İslam İşbirliği Teşkilatı üye devletleri (57, üyelik yılıyla); sayfa JavaScript'le dolduğu için tarayıcıda işlenmiş kopya | https://www.oic-oci.org/en/members | 2026-10-10 | belirtilmemiş | `iit_uyeler_2026-10-10.html` `66a7d8f69922a756114ff3e4a96bae3c4181e1bb4d53b00eac4c2bc6298f9e1a` |
 | `butce_olcegi_2025_2027.csv` | Olağan bütçe katkı ölçeği 2025–2027 (A/RES/79/249) | yukarıdaki Excel | 2026-10-10 | BM kullanım koşulları | `737d0d78…` (Excel) |
-| `baris_gucu_2026-02.csv` | Üniformalı personel, ülke sıralaması, 28 Şubat 2026 | yukarıdaki PDF | 2026-10-10 | BM kullanım koşulları | `f5896fe4…` (PDF) |
+| `baris_gucu_2026-07.csv` | Üniformalı personel, ülke toplamları ve sıralama, 31 Temmuz 2026 (114 ülke, genel toplam 44 819). BM Barış ve Güvenlik Veri Merkezi (UN Peace and Security Data Hub, psdata.un.org), "Latest Uniformed Personnel Contribution By Country" (DPO-UCLATEST), aylık; üst veri dosyasında "Last Update Date": 2026-07-31. peacekeeping.un.org'daki aylık sıralama PDF'i 28 Şubat 2026'dan sonra güncellenmedi (yukarıdaki PDF, rapor 95). Veri merkezinin aylık serisinin (DPO-UCHISTORICAL, https://api.psdata.un.org/public/data/DPO-UCHISTORICAL/csv) 28 Şubat 2026 değerleri o PDF'le ülke ülke aynıdır (genel toplam 47 298); PDF'teki iki sıfır satırı (Angola, Kongo DC) veri merkezinde yoktur. Sıfır personelli ülkeler dosyada yer almaz. Bu adres her ay son ayı verir; dosya veri ayının adıyla saklandı. | https://api.psdata.un.org/public/data/DPO-UCLATEST/csv (üst veri: https://api.psdata.un.org/public/metadata/DPO-UCLATEST) | 2026-10-21 | BM kullanım koşulları | `kaynaklar/.belgeler/baris_gucu/DPO-UCLATEST_2026-07-31.csv` (5845 bayt) `653173f22f2ec17a9008daec992a6a95e3865525d5095476f630ff1776a7d7bd`; `kaynaklar/.belgeler/baris_gucu/DPO-UCLATEST_metadata_2026-10-21.json` (2939 bayt) `1384a92f8b252ce5e105a9e6fab7ad75a34389a8471a5f7c6c88bd8366a2406b` |
 | `gk_uyeleri_2026.csv` | Güvenlik Konseyi mevcut üyeleri (5 daimî; seçilmiş: Bahreyn, Kolombiya, Kongo DC, Letonya, Liberya 2027; Danimarka, Yunanistan, Pakistan, Panama, Somali 2026) | https://main.un.org/securitycouncil/en/content/current-members | 2026-10-10 | BM kullanım koşulları | `gk_uyeler_2026-10-10.html` `9a7b20e88ab64610f0c0e63803417a17794fce244a5275ec95a54a72cc949caa` |
 
 Seçilmiş koltuk dağılımının dayanağı A/RES/1991 (XVIII) A par. 3 (yukarıdaki tablo) ve mevcut dönem
 üyeliğidir (Afrika 3, Asya-Pasifik 2, Doğu Avrupa 1, GRULAC 2, WEOG 2). Madde 23 ve 27 değişikliği
 31 Ağustos 1965'te yürürlüğe girdi (BM Şart değişiklikleri sayfası: https://www.un.org/en/node/125739).
 Bütçe ölçeği PDF'ini (A/RES/79/249) pdftotext ile okumak sütunları kaydırdığından Excel esas alındı.
-Barış gücü sayfası yalnızca PDF sunar; dosya adı her ay değişir, adres sayfa betiğinden alınır.
+Barış gücü sayfası (peacekeeping.un.org) yalnızca PDF sunar ve Şubat 2026'dan sonra güncellenmedi; 31 Temmuz 2026 verisi BM Barış ve Güvenlik Veri Merkezinin CSV'sinden alındı (yukarıdaki satır).
 
 ### Temsil haritası (`scripts/13_harita.py`, `web/harita_veri.js`)
 
@@ -144,7 +148,7 @@ altına indirir ve özetlerini doğrular. Natural Earth'ün varsayılan çizimi 
 Kongo Demokratik Cumhuriyeti; İngilizcede "&" yerine "and"). BM üyesi olmayan alanların adları
 `kaynaklar/temsil/uye_olmayan_alanlar.csv`'de: BM'nin kullandığı ad (WPP 2024 dosyasındaki ad, yoksa aşağıdaki M49
 sayfasındaki ad); Türkiye'nin tanıdığı devletler (Kuzey Kıbrıs Türk Cumhuriyeti, Kosova, Filistin, Vatikan) T.C. Dışişleri
-Bakanlığı'nın temsilcilik listesindeki adla. Tanıma dayanağı Bakanlığın kendi kaynakları: Lefkoşa, Priştine ve Vatikan
+Bakanlığının temsilcilik listesindeki adla. Tanıma dayanağı Bakanlığın kendi kaynakları: Lefkoşa, Priştine ve Vatikan
 büyükelçilikleri, Kudüs Başkonsolosluğu; Filistin sayfasında "Filistin Devleti'ni ilk gün tanıyan ülkeler arasında", Vatikan
 sayfasında "11 Nisan 1960 tarihinde diplomatik ilişkiler kurulmuştur". Erişim 19 Ekim 2026.
 
@@ -173,11 +177,13 @@ yeniden indirildi; aynı özeti veriyor.
 |---|---|---|---|---|
 | `Birlesmis_milletler_konuşması2019.pdf` | Türkiye Cumhuriyeti Cumhurbaşkanı Recep Tayyip Erdoğan, *Birleşmiş Milletler 74. Genel Kurulu Konuşması*, 24 Eylül 2019, New York. Cumhurbaşkanlığı İletişim Başkanlığı yayını, 36 sayfa. | https://yayinlar.iletisim.gov.tr/uploads/Birlesmis_milletler_konu%C5%9Fmas%C4%B1.pdf (yayın sayfası: https://yayinlar.iletisim.gov.tr/detay/cumhurbaskani-recep-tayyip-erdoganin-birlesmis-milletler-74-genel-kurulu-konusmasi) | 984189 | `7560e5dae69d5794beb9b365ecde136688b5c894239c4dac30c163b5025f21f8` |
 | `BM2026-2022-web.pdf` | *Cumhurbaşkanı Recep Tayyip Erdoğan'ın BM Genel Kurulu Hitapları (2022-2026)* / *President Recep Tayyip Erdoğan's Addresses at the UN General Assembly (2022–2026)*, Türkçe, İngilizce ve Arapça. Cumhurbaşkanlığı İletişim Başkanlığı Yayınları, 1. baskı, Eylül 2026, ISBN 978-625-8937-23-7, 292 sayfa. | https://yayinlar.iletisim.gov.tr/uploads/BM2026-2022-web.pdf (yayın sayfası: https://yayinlar.iletisim.gov.tr/detay/cumhurbaskanimiz-recep-tayyip-erdoganin-bm-genel-kurulu-hitaplari) | 78253223 | `95a411fc27a712d09a4e67037ad87e5c93117813b9468907b7752ad42df732ed` |
-| `DahaAdilBirDünyaMümkün.pdf` | Recep Tayyip Erdoğan, *Daha Adil Bir Dünya Mümkün: Birleşmiş Milletler Reformu İçin Bir Model Önerisi*, Turkuvaz Kitap, 1. baskı, Eylül 2021, ISBN 978-625-7548-08-3, 132 sayfa. Hakları Turkuvaz Medya Grubu'na aittir. | Resmî indirme adresi yok; yerel kopya bir paylaşım sitesinden (pdfkitapoku.org, Yandex Disk) indirildi. PDF basılı baskının sayfa numaralarını içermez: alıntılara sayfa numarası yazılmaz, atıf yalnızca bölüm başlığıyla yapılır. | 1375541 | `8cc02a625387f855980f2c960e53fffb9a9ec2a9c0a0ac7e7f9856046c9aac9e` |
+| `DahaAdilBirDünyaMümkün.pdf` | Recep Tayyip Erdoğan, *Daha Adil Bir Dünya Mümkün: Birleşmiş Milletler Reformu İçin Bir Model Önerisi*, Turkuvaz Kitap, 1. baskı, Eylül 2021, ISBN 978-625-7548-08-3, 132 sayfa. Hakları Turkuvaz Medya Grubuna aittir. | Resmî indirme adresi yok; yerel kopya bir paylaşım sitesinden (pdfkitapoku.org, Yandex Disk) indirildi. PDF basılı baskının sayfa numaralarını içermez: alıntılara sayfa numarası yazılmaz, atıf yalnızca bölüm başlığıyla yapılır. | 1375541 | `8cc02a625387f855980f2c960e53fffb9a9ec2a9c0a0ac7e7f9856046c9aac9e` |
 | `Birlesmis_Milletler_EN_2019.pdf` | President of the Republic of Turkey Recep Tayyip Erdoğan's *Address to the 74th Session of the United Nations General Assembly*, 24 September 2019, New York. Cumhurbaşkanlığı İletişim Başkanlığı yayını; Türkçe kitapçıkla aynı yayın sayfasındaki İngilizce sürüm, 24 sayfa. Konuşmanın hazırlanmış metnidir: kürsüde eklenen bazı cümleler (ör. alıntı 2019-2) bu kitapçıkta yoktur. Erişim 14 Ekim 2026. | https://yayinlar.iletisim.gov.tr/uploads/Birles%CC%A7mis%CC%A7_Milletler_EN.pdf (yayın sayfası: https://yayinlar.iletisim.gov.tr/detay/cumhurbaskani-recep-tayyip-erdoganin-birlesmis-milletler-74-genel-kurulu-konusmasi) | 953956 | `3da12fb7d63c00fca759a2a33c0016e39e2590262593bc9c63882f76047a174c` |
 | `A_Fairer_World_is_Possible_EN.pdf` | Recep Tayyip Erdoğan, *A Fairer World is Possible: A Proposed Model for a United Nations Reform*, çeviren Doğan Eşkinat, Turkuvaz Kitap, 1. baskı (First Printing), Eylül 2021, ISBN 978-625-7548-19-9. Hakları Turkuvaz Haberleşme ve Yayıncılık A.Ş.'ye aittir. *Daha Adil Bir Dünya Mümkün*'ün İngilizce baskısı. Künye, PDF s. 4'teki künye sayfasının görüntüsünden okundu. | Resmî indirme adresi yok; yerel kopya basılı baskının Internet Archive taramasıdır (https://archive.org/details/isbn_9786257548199, 2022) ve bir paylaşım sitesinden indirildi (https://dokumen.pub/download/a-fairer-world-is-possible-a-proposed-model-for-a-united-nations-reform-1nbsped-9786257548199.html). Taranmıştır, metin katmanı OCR'dır: alıntılar sayfa görüntüleriyle karşılaştırıldı (aşağıda "OCR düzeltmesi"). 220 PDF sayfası; basılı sayfa = PDF sayfası − 2. | 8789570 | `a6e6f0ef6feb74ac947a7d46b666a6be6c26c035ccf39f010ec81d1524bdcb53` |
 
-**Sayfa numaraları.** Alıntı bankasında (`kaynaklar/alintilar.csv`) basılı sayfa ve PDF sayfası
+### Sayfa numaraları
+
+Alıntı bankasında (`kaynaklar/alintilar.csv`) basılı sayfa ve PDF sayfası
 birlikte tutulur. 2019 kitapçığında basılı sayfa = PDF sayfası − 2 (kapak ve iç kapak
 numarasız). 2022–2026 derlemesinde basılı sayfa = PDF sayfası − 1. Bu fark, Türkçe ve İngilizce
 bölümlerin numaralı 206 sayfasının tamamında sayfa başlığındaki numarayla doğrulandı; istisna
@@ -188,13 +194,16 @@ sayfası − 2. Sayfa numarası metin katmanında 164 sayfada okunuyor; 162'sind
 okumasıdır, ikisi de görüntüden okundu: PDF s. 139'da basılı "137" "iL37", PDF s. 155'te basılı "153" "133" olarak
 okunuyor. A/74/PV.3'te sayfa numarası PDF sayfasıdır ("22/60").
 
-**İngilizce metinler.** Resmî İngilizce metin şu sırayla aranır: kaynağın resmî İngilizce sürümü
+### İngilizce metinler
+
+Resmî İngilizce metin şu sırayla aranır: kaynağın resmî İngilizce sürümü
 (2022–2026 derlemesinin İngilizce bölümü, 2019 İngilizce kitapçığı, kitabın İngilizce baskısı); orada
 yoksa BM'nin İngilizce toplantı kaydı. Alıntı 2019-2'nin İngilizcesi 2019 İngilizce kitapçığında yok
 (kitapçık konuşmanın hazırlanmış metnidir; Türkçe kitapçık kürsüde söyleneni verir); İngilizcesi
 A/74/PV.3'ten alındı (s. 22; kayıtta "spoke in Turkish; English interpretation provided by the
 delegation"). Kitap alıntılarının İngilizcesi İngilizce baskıdan, basılı sayfa numarası ve İngilizce bölüm
-başlığıyla (Introduction; Part II: A United Nations Reform) alındı. Kitap-7 iki sayfaya yayılır (s. 184–185).
+başlığıyla (Introduction; Part II: A United Nations Reform) alındı. Basılı sayfa numarası `alintilar.csv`'de
+(`basili_sayfa_en`) doğrulama için tutulur, sitede gösterilmez; künye yalnızca bölüm başlığını verir. Kitap-7 iki sayfaya yayılır (s. 184–185).
 Alıntının başı birinci sayfanın gövdesinin tam sonunda, devamı ikinci sayfanın gövdesinin tam başında aranır. Gövde,
 sayfa başlığı ve sayfa numarası çıkarılmış metindir. pdftotext'in iki uygulaması sayfa kenarını farklı verir: xpdf
 (Git Bash ile gelir) hecelenmiş sözcüğü ve numarayı ayrı satırlarda verir, Poppler (PowerShell'de varsayılan) numarayı
@@ -202,18 +211,24 @@ sözcüğe yapıştırır ("Secu184"). Bu yüzden doğrulama ikisiyle de sınand
 İngilizcesi bulunamayan alıntıda Türkçe özgün metin kalır ve altına "Unofficial translation by Veto Atlas"
 etiketli çeviri eklenir (`ceviri_en`); şu an böyle bir alıntı yok.
 
-**OCR düzeltmesi.** İngilizce kitabın metin katmanı OCR'dır. Alıntıların geçtiği yedi sayfa
+### OCR düzeltmesi
+
+İngilizce kitabın metin katmanı OCR'dır. Alıntıların geçtiği yedi sayfa
 (PDF s. 33, 34, 139, 140, 182, 186, 187) sayfa görüntüsüyle karşılaştırıldı. Tek fark PDF s. 34'te (basılı 32):
 basılı sayfadaki boşluklu kısa tireyi (–) OCR uzun tire (—) okuyor. Doğrulama bu yeri görüntüdeki gibi düzeltip
 arar (`veto_atlasi/alinti.py`, `OCR_DUZELTMELERI`). Düzeltme sayfada tam bir kez geçmezse doğrulama durur.
 Bunun dışında metin katmanına dokunulmaz.
 
-**Dizgi sorunu.** Derlemenin 2025 Türkçe bölümünün son sayfasında (PDF s. 50, basılı 49) metin
+### Dizgi sorunu
+
+Derlemenin 2025 Türkçe bölümünün son sayfasında (PDF s. 50, basılı 49) metin
 katmanında konuşmanın son satırlarına önsözün metni karışıyor. Sayfa görüntüsünde yalnızca
 konuşma var. Bu sayfadan alınan alıntı, karışmanın başladığı yerden önce bitiyor; sayfa
 görüntüsüyle karşılaştırıldı (`tests/test_alintilar.py`).
 
-**Alıntı doğrulaması.** Her alıntı, kaynağın metin katmanında belirtilen sayfada kelimesi
+### Alıntı doğrulaması
+
+Her alıntı, kaynağın metin katmanında belirtilen sayfada kelimesi
 kelimesine geçmelidir (boşluk, satır sonu ve satır sonu hecelemesi normalize edilir).
 Türkçe metin Türkçe kaynakta, İngilizce metin İngilizce kaynakta ayrı ayrı aranır.
 Doğrulama sonucu `kaynaklar/alintilar_dogrulama.csv` dosyasına alıntı metinlerinin ve kaynakların
@@ -234,7 +249,7 @@ dosyalar depoda değil, özetleri burada). Her hücrenin dayanağı (paragraf) d
 | Ezulwini Uzlaşısı | Ext/EX.CL/2 (VII), Afrika Birliği Yürütme Konseyi 7. Olağanüstü Oturumu, 7-8 Mart 2005 | https://old.centerforunreform.org/sites/default/files/Ezulwini%20Consensus.pdf | 167134 | `becbc792e1135b3fb2a312f15745a93cb033debb642053dd85d479a48e2978d0` |
 
 Ezulwini Uzlaşısı'nın BM'deki kopyası (un.org/en/africa/osaa) 403 döndürdü; engel aşılmadı.
-Afrika Birliği'nin kendi belge arşivinde metnin kendisi bulunamadı. Kullanılan kopya, Center for
+Afrika Birliğinin kendi belge arşivinde metnin kendisi bulunamadı. Kullanılan kopya, Center for
 UN Reform Education'ın yayımladığı, Afrika Birliği antetli ve belge numaralı (Ext/EX.CL/2 (VII))
 8 sayfalık metindir.
 
@@ -248,14 +263,17 @@ UN Reform Education'ın yayımladığı, Afrika Birliği antetli ve belge numara
   (https://press.un.org/en/2026/sc16455.doc.htm). Kanonik ham dosyada (DHL'nin statik sayfası)
   yok; DHL araştırma rehberindeki güncel listede (research.un.org, 23 Eylül 2026 güncellemesi) var.
 
-**DHL'nin iki listesi.** Statik sayfa (scact_veto_table_en.htm) ile araştırma rehberindeki
+### DHL'nin iki listesi
+
+Statik sayfa (scact_veto_table_en.htm) ile araştırma rehberindeki
 güncel liste (https://research.un.org/en/docs/sc/quick/veto) 10 Ekim 2026'da karşılaştırıldı.
 Güncel listede 251 kayıt, statik sayfada 247 kayıt var. Güncel listenin fazlası 17 Eylül 2026
 vetosu ile üç tarih aralığının iki satıra bölünmesinden geliyor: 3/4 Aralık 1960, 7/9 Ocak 1980 ve
 11/13 Ocak 1980. Bu bölünme aynı vetoyu iki kez saydırır; 1960 için S/PV.911'de tek oylama var.
 Kanonik kaynak bu yüzden şimdilik statik sayfa olarak kalıyor.
 
-**Genel toplamlar için:** scprocedure.org "Overview of vetoes cast from 1946 to present", 7 Nisan 2026.
+Genel toplamları scprocedure.org'un 7 Nisan 2026 tarihli "Overview of vetoes cast from 1946 to present" tablosuyla
+karşılaştırdık.
 
 Doğrulanan hatalar için kaynak sahiplerine gönderilecek bildirim taslağı:
 `kaynaklar/hata_bildirimi.md` (henüz gönderilmedi).

@@ -40,6 +40,8 @@ REF_URL = "https://www.scprocedure.org/_files/ugd/54a569_8c1ef1fee8ca4d6ab09b7fb
 REF_SON_TARIH = "2025-09-18"  # Tablo 4 sürümünün kapsadığı son veto
 # scprocedure Tablo 4 referans tablosu açık depoda dağıtılmaz (künyesi kaynaklar/KAYNAKLAR.md)
 REFERANS = KOK / "kaynaklar/scprocedure_tablo4.csv"
+# Ayrıştırıcının tarih aralığı notu (veto_atlasi/parser.py); oylama günü doğrulanınca kayıttan çıkar
+TARIH_ARALIGI_NOTU = "DHL listesi bu oylamanın tarihini bir aralık olarak veriyor"
 
 
 def oku_csv(yol):
@@ -193,12 +195,16 @@ def main():
                 sys.exit(f"oy_esle {d['hedef']}: {taslak} bu kaydın taslakları arasında yok {k['taslak_belgeler']}")
             if d.get("oy"):
                 dogrudan_oy[d["hedef"]] = d["oy"]
-                not_ekle(k, f"Oy dağılımı {d['oy']}: {d['aciklama']}", ing(d, f"Vote breakdown {d['oy']}: {{}}"))
+                # Okur notu yalnızca panelde olmayanı söyler (aleyhte ve çekimser kalanlar, oylanan bölüm);
+                # oy sayısı, belge ve sayfa panelin "Genel oy" ve "Doğrulama kaynağı" satırlarındadır.
+                not_ekle(k, d["aciklama"], ing(d, "{}"))
                 no = d["scprocedure_no"]
                 if no and ref_no[no]["oy_lehte_aleyhte_cekimser"] != d["oy"]:
                     ref_oy = ref_no[no]["oy_lehte_aleyhte_cekimser"]
-                    not_ekle(k, f"Referans tablo (Tablo 4, #{no}) oy dağılımını {ref_oy} veriyor; toplantı kaydı esas alındı.",
-                             f"The reference table (Table 4, #{no}) gives the vote breakdown as {ref_oy}; the meeting record was followed.")
+                    not_ekle(k, f"Referans tablo oyu {ref_oy} veriyor; biz toplantı kaydındaki {d['oy']} sonucunu aldık "
+                                f"(Tablo 4, #{no}).",
+                             f"The reference table gives {ref_oy}; we follow the meeting record, which gives {d['oy']} "
+                             f"(Table 4, #{no}).")
                 if not k["duzeltme"]:
                     duzeltme_yaz(k, f"oy eklendi: toplantı kaydı ({d['toplanti']})",
                                  f"vote added: meeting record ({d['toplanti']})")
@@ -208,29 +214,22 @@ def main():
                 # Okur notunda iç ad yok: referans tablo numarası "(Tablo 4, #N)" olarak, açıklama numarayı zaten veriyorsa eksiz
                 ek = "" if f"#{d['scprocedure_no']}" in d["aciklama"] else f" (Tablo 4, #{d['scprocedure_no']})"
                 ek_en = "" if f"#{d['scprocedure_no']}" in (d.get("aciklama_en") or "") else f" (Table 4, #{d['scprocedure_no']})"
-                not_ekle(k, f"Oy dağılımı: {d['aciklama']}{ek}.", ing(d, f"Vote breakdown: {{}}{ek_en}."))
+                not_ekle(k, f"{d['aciklama']}{ek}.", ing(d, f"{{}}{ek_en}."))
         elif tur == "tarih_farki":
+            # Okur notu yok: tarih farkını tarih_dogrula satırının açıklaması tek notta anlatır
+            # (aciklama sütunu burada yalnızca kayıt içindir).
             k = idx[d["hedef"]]
             k["referans_tarih"] = d["tarih"]
-            not_ekle(k, f"scprocedure tarihi {d['tarih']}. {d['aciklama']}", ing(d, f"scprocedure date {d['tarih']}. {{}}"))
         elif tur == "tarih_dogrula":
             k = idx[d["hedef"]]
             if not d["tarih"]:
                 not_ekle(k, d["aciklama"], ing(d, "{}"))
                 dogrulama_isle(k, "tarih", d, "dogrulanamadi")
                 continue
-            eski = k["tarih"]
-            if d["tarih"] != eski:
-                # Kimlik (V-<DHL tarihi>-n) değişmez; yalnızca oylama günü düzeltilir.
-                not_ekle(k, f"DHL listesindeki tarih {eski}; oylama günü toplantı kaydına göre {d['tarih']}.",
-                         f"Date in the DHL list {eski}; voting day according to the meeting record {d['tarih']}.")
-                k["tarih"] = d["tarih"]
-            elif k.get("referans_tarih"):
-                not_ekle(k, f"Referans tablodaki tarih {k['referans_tarih']}; oylama günü toplantı kaydına "
-                            f"göre {eski}, DHL ile aynı.",
-                         f"Date in the reference table {k['referans_tarih']}; voting day according to the meeting "
-                         f"record {eski}, the same as DHL.")
-            kalan = [(n, e) for n, e in zip(k["notlar"], k["notlar_en"]) if not n.startswith("Kaynakta tarih aralığı var")]
+            # Kimlik (V-<DHL tarihi>-n) değişmez; yalnızca oylama günü düzeltilir. İki kaynağın tarihini ve
+            # doğru günü açıklama sütunu yazıyla, tek notta verir (ISO tarih okur notuna yazılmaz).
+            k["tarih"] = d["tarih"]
+            kalan = [(n, e) for n, e in zip(k["notlar"], k["notlar_en"]) if not n.startswith(TARIH_ARALIGI_NOTU)]
             k["notlar"], k["notlar_en"] = [n for n, _ in kalan], [e for _, e in kalan]
             not_ekle(k, d["aciklama"], ing(d, "{}"))
             dogrulama_isle(k, "tarih", d)

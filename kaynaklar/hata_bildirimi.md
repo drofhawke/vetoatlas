@@ -1,6 +1,6 @@
 # Kaynak hataları bildirimi
 
-İki ayrı İngilizce ileti: biri Dag Hammarskjöld Kütüphanesi'ne (veto listesi), biri
+İki ayrı İngilizce ileti: biri Dag Hammarskjöld Kütüphanesine (veto listesi), biri
 scprocedure.org'a (Tablo 4). Her madde yalnızca toplantı kaydından (S/PV) doğrulanmış bulgulara
 dayanır; kayıtta paragraf numarası varsa birincil atıf odur, PDF sayfası yanında verilir; paragraf
 numarası olmayan kayıtlarda documents.un.org PDF sayfası kullanılır (basılı sayfa değil). Tarihler

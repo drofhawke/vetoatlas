@@ -25,13 +25,38 @@
     try { return window.localStorage.getItem(ANAHTAR) === "koyu" ? "koyu" : "kagit"; } catch (e) { return "kagit"; }
   }
   function temaYaz(v) { try { window.localStorage.setItem(ANAHTAR, v); } catch (e) { /* özel pencere ya da engelli depolama: seçim yalnızca bu sayfada geçerli */ } }
-  function temaUygula(v) { if (v === "koyu") KOK.setAttribute("data-theme", "dark"); else KOK.removeAttribute("data-theme"); }
+  // Tarayıcı çubuğunun rengi (theme-color) temayla birlikte değişir: kâğıt #FBF8F1, koyu kâğıt #1C1A17
+  function temaUygula(v) {
+    if (v === "koyu") KOK.setAttribute("data-theme", "dark"); else KOK.removeAttribute("data-theme");
+    var renk = document.querySelector('meta[name="theme-color"]');
+    if (renk) renk.setAttribute("content", v === "koyu" ? "#1C1A17" : "#FBF8F1");
+  }
   var tema = temaOku();
   temaUygula(tema);
   window.addEventListener("message", function (e) {
     var m = e.data || {};
     if (m.tur === "tema" && (m.tema === "koyu" || m.tema === "kagit")) { tema = m.tema; temaUygula(tema); }
   });
+
+  // ---------- Dil ----------
+  // Seçilen dil tema gibi localStorage'da hatırlanır. Adres parametresi her zaman önce gelir: ?lang=en ile açılan sayfa "en"
+  // kaydeder, TR bağlantısına tıklamak "tr" kaydeder. Adreste ?lang yoksa ve kayıt "en" ise adrese ?lang=en yazılır
+  // (history.replaceState; sayfa yeniden yüklenmez). Bu betik her sayfada ilk betiktir, sayfa betikleri dili adresten
+  // okurken parametre yerindedir; adres yazılamazsa sayfa ?lang=en ile yeniden açılır. Ana ekrandan açılış /hikaye
+  // adresine gider. Tek dosya ve sayfa çerçeveleri bu adıma karışmaz.
+  var DIL_ANAHTAR = "veto-atlasi-dil";
+  function dilYaz(v) { try { window.localStorage.setItem(DIL_ANAHTAR, v); } catch (e) { /* depolama yok: dil yalnızca adresten */ } }
+  (function () {
+    if (window.__DIL || window.__CUBUK_GIZLI || window.__CUBUK_ELLE || window.self !== window.top) return;
+    var u = new URL(location.href), q = u.searchParams.get("lang");
+    if (q === "en") { dilYaz("en"); return; }
+    if (q) return;
+    var kayit = null;
+    try { kayit = window.localStorage.getItem(DIL_ANAHTAR); } catch (e) { return; }
+    if (kayit !== "en") return;
+    u.searchParams.set("lang", "en");
+    try { history.replaceState(history.state, "", u.href); } catch (e) { location.replace(u.href); }
+  })();
 
   // ---------- Stil (bir kez, sayfanın kendi stilinden önce) ----------
   var CSS = [
@@ -43,6 +68,10 @@
     "footer.alt-bilgi { border-top: 1px solid var(--cizgi); margin: 64px 0 0; padding: 32px 0 0; }",
     ".cubuk-ic { max-width: 1180px; margin: 0 auto; padding: 12px 24px; display: flex; align-items: center; gap: 24px; min-height: 76px; }",
     ".cubuk a { color: inherit; }",
+    "/* İçeriğe atlama bağlantısı: ilk odak durağı; odaklanınca çubuğun solunda ikincil düğme olarak görünür */",
+    ".cubuk .c-atla { position: absolute; left: 24px; top: -64px; z-index: 30; display: inline-flex; align-items: center; min-height: 48px; padding: 0 24px; background: var(--yuzey, var(--zemin)); color: var(--murekkep); border: 1px solid var(--cizgi); border-radius: 6px; font-family: var(--sans); font-size: var(--yz-govde); line-height: var(--sa-govde); font-weight: 600; text-decoration: none; }",
+    ".cubuk .c-atla:focus { top: 16px; }",
+    "[data-atla]:focus { outline: none; }",
     "/* Logo: işaret (isaret.svg, 40 px) + canlı logo yazısı. Ölçüler logo-cubuk-b.svg'nin 40 px'e ölçeklenmiş değerleridir: yazı 52/76,19 × 40 = 27,3 px,",
     "   işaretle arası 26,83 birim = 14 px, taban çizgisi işaretin üstünden 54,1 birim = 28,4 px (40 px satır kutusunda 1 px aşağı). Yazı SVG dış çizgisi",
     "   değil canlı metin olduğu için hinting ve ClearType alır; harfler logo paketindeki kesimle aynıdır (Veto Atlası Logo, KILAVUZ bölüm 3) */",
@@ -60,9 +89,9 @@
     ".cubuk .c-sayfalar a { display: block; text-decoration: none; color: var(--murekkep); white-space: nowrap; padding: 8px 0; border-bottom: 2px solid transparent; }",
     ".cubuk .c-sayfalar a:hover { border-bottom-color: var(--cizgi); }",
     ".cubuk .c-sayfalar a[aria-current=\"page\"] { color: var(--murekkep); border-bottom-color: var(--murekkep); font-weight: 600; }",
-    ".cubuk .c-araclar { display: inline-flex; gap: 8px; align-items: center; flex: none; margin-left: 8px; }",
+    ".cubuk .c-araclar { display: inline-flex; gap: 8px; align-items: center; flex: none; }",
     ".cubuk .c-dil { display: inline-flex; gap: 8px; }",
-    ".cubuk .c-dil a, .cubuk .c-tema, .cubuk .c-menu { font: inherit; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); padding: 4px 8px; border: 1px solid var(--cizgi); border-radius: 6px; background: transparent; color: var(--murekkep); text-decoration: none; cursor: pointer; white-space: nowrap; }",
+    ".cubuk .c-dil a, .cubuk .c-tema, .cubuk .c-menu { font: inherit; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); min-height: 40px; display: inline-flex; align-items: center; padding: 0 8px; border: 1px solid var(--cizgi); border-radius: 6px; background: transparent; color: var(--murekkep); text-decoration: none; cursor: pointer; white-space: nowrap; }",
     ".cubuk .c-dil a[aria-current=\"true\"] { background: var(--murekkep); color: var(--zemin); border-color: var(--murekkep); }",
     ".cubuk .c-tema[aria-pressed=\"true\"] { border-color: var(--murekkep); box-shadow: inset 0 0 0 1px var(--murekkep); }",
     ".cubuk .c-tema::before { content: \"\"; display: inline-block; width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid currentColor; background: linear-gradient(90deg, currentColor 50%, transparent 50%); margin-right: 8px; vertical-align: -1px; }",
@@ -72,7 +101,7 @@
     ".cubuk.c-dar .c-araclar { margin-left: 0; }",
     ".cubuk.c-notsuz .c-not { display: none; }",
     "@media all {",
-    "  .cubuk.c-dar .c-menu { display: inline-block; }",
+    "  .cubuk.c-dar .c-menu { display: inline-flex; }",
     "  .cubuk.c-dar .c-sayfalar { display: none; position: absolute; top: 100%; left: 0; right: 0; margin: 0; background: var(--zemin); border-bottom: 1px solid var(--cizgi); box-shadow: 0 6px 14px rgba(0, 0, 0, .08); }",
     "  .cubuk.c-dar.c-menu-acik .c-sayfalar { display: block; }",
     "  .cubuk.c-dar .c-sayfalar ul { flex-direction: column; gap: 0; max-width: 1180px; margin: 0 auto; padding: 8px 24px 12px; }",
@@ -82,6 +111,7 @@
     "}",
     "@media (max-width: 760px) {",
     "  .cubuk-ic { padding: 12px 16px; gap: 12px; }",
+    "  .cubuk .c-atla { left: 16px; }",
     "  .cubuk.c-dar .c-sayfalar ul { padding: 4px 16px 8px; }",
     "  .cubuk .c-not { display: none; }",
     "}",
@@ -89,12 +119,13 @@
     "  .cubuk { min-height: 64px; }",
     "  .cubuk-ic { min-height: 64px; }",
     "  .c-cubuklu { scroll-padding-top: 72px; }",
-    "  .cubuk .c-logo { height: 34px; }",
+    "  .cubuk .c-logo { height: 40px; min-width: 40px; align-items: center; justify-content: center; }",
     "  .cubuk .c-logo img { height: 34px; }",
     "  .cubuk .c-logo .c-yazi { font-size: 23.2px; line-height: 34px; letter-spacing: .17px; margin-left: 12px; }",
     "  .cubuk .c-araclar { gap: 8px; }",
-    "  .cubuk .c-dil a, .cubuk .c-tema, .cubuk .c-menu { padding: 4px 8px; }",
     "  .cubuk .c-araclar { margin-left: 0; }",
+    "  /* Telefonda düğmeler 34 px (WCAG 2.2 AA en az 24 px): 40 px'lik masaüstü düğmeleriyle logo yazısı 360–390 px'te sığmıyordu */",
+    "  .cubuk .c-dil a, .cubuk .c-tema, .cubuk .c-menu { min-height: 34px; padding: 0 8px; }",
     "  .cubuk .c-tema .c-tema-metin { display: none; }",
     "  .cubuk .c-tema { min-width: 34px; min-height: 34px; padding: 0; display: inline-flex; align-items: center; justify-content: center; }",
     "  .cubuk .c-tema::before { margin-right: 0; width: 10px; height: 10px; }",
@@ -117,16 +148,16 @@
     ["hikaye", "Hikâye", "Story"],
     ["vetolar", "Vetolar", "Vetoes"],
     ["vizyon", "Söz ve Kayıt", "Word and Record"],
+    ["temsil", "Kim temsil ediliyor?", "Who is represented?"],
     ["reform", "Reform modelleri", "Reform models"],
     ["simulasyon", "Ya veto olmasaydı?", "What if there were no veto?"],
-    ["temsil", "Kim temsil ediliyor?", "Who is represented?"],
     ["hakkinda", "Nasıl yaptık?", "How we did it"],
   ];
   var YAZI = {
-    tr: { logo: "Veto Atlası", ana: "Veto Atlası, ana sayfa", sayfalar: "Sayfalar", dil: "Dil", menu: "Menü", altNot: "Beta sürümü. Hata bildirmek için", altSon: " adresine yazın.",
-          tema: "Koyu", temaUzun: "Koyu kâğıt teması", not: "İnceleme sürümü", notUzun: "İnceleme sürümü: sekiz sayfa yedi sekmede, tek dosyada. Paylaşım kartları bu dosyada yer almaz (web/kartlar/)." },
-    en: { logo: "Veto Atlas", ana: "Veto Atlas, home", sayfalar: "Pages", dil: "Language", menu: "Menu", altNot: "Beta. To report an error, write to", altSon: ".",
-          tema: "Dark", temaUzun: "Dark paper theme", not: "Review version", notUzun: "Review version: eight pages in seven tabs, in one file. Share cards are not included (web/kartlar/)." },
+    tr: { logo: "Veto Atlası", ana: "Veto Atlası, ana sayfa", sayfalar: "Sayfalar", dil: "Dil", menu: "Menü", atla: "İçeriğe geç", altNot: "Beta sürümü. Hata bildirmek için", altSon: " adresine yazın.",
+          tema: "Koyu", temaUzun: "Koyu kâğıt teması", not: "Çevrimdışı sürüm", notUzun: "Çevrimdışı sürüm. Bütün sayfalar bu dosyada." },
+    en: { logo: "Veto Atlas", ana: "Veto Atlas, home", sayfalar: "Pages", dil: "Language", menu: "Menu", atla: "Skip to content", altNot: "Beta version. To report an error, write to", altSon: ".",
+          tema: "Dark", temaUzun: "Dark paper theme", not: "Offline version", notUzun: "Offline version. All pages are in this file." },
   };
   var SAYFA_GRUBU = { metodoloji: "hakkinda", index: "hikaye" };
   var ILETISIM = "iletisim@vetoatlas.com";
@@ -147,6 +178,17 @@
     if (d === "tr") u.searchParams.delete("lang"); else u.searchParams.set("lang", d);
     var q = u.searchParams.toString();
     return (u.pathname.split("/").pop() || "hikaye.html") + (q ? "?" + q : "") + u.hash;
+  }
+  // Atlama bağlantısının hedefi: görünen <main> (TR ve EN ayrı main taşıyan sayfalarda görünen dilinki). Kimliği yoksa
+  // "icerik" verilir; adres çubuğundaki #… değişmez (Vetolar paylaşılan görünümü orada tutar)
+  function anaIcerik() {
+    var gorunen = function (e) { return !e.hidden && e.getClientRects().length; };
+    // <main> taşımayan sayfada (Vetolar) sayfa kabı
+    var m = Array.prototype.filter.call(document.querySelectorAll("main"), gorunen)[0] || document.querySelector("body > .kap");
+    if (!m) return null;
+    if (!m.id) m.id = "icerik";
+    if (!m.hasAttribute("tabindex")) { m.setAttribute("tabindex", "-1"); m.setAttribute("data-atla", ""); }
+    return m;
   }
   function gorsel(sinif, ad, en, boy, alt) {
     var i = document.createElement("img");
@@ -185,6 +227,7 @@
       if (og) og.setAttribute("content", og.getAttribute("content").split("?")[0] + "?lang=en");
     }
     yer.innerHTML =
+      (tek ? "" : '<a class="c-atla" href="#icerik">' + esc(Y.atla) + "</a>") +
       '<div class="cubuk-ic">' +
         '<a class="c-logo" href="hikaye.html' + ek + '" data-sayfa="hikaye" aria-label="' + esc(Y.ana) + '"></a>' +
         (tek ? '<span class="c-not" title="' + esc(Y.notUzun) + '">' + esc(Y.not) + "</span>" : "") +
@@ -208,6 +251,13 @@
     logo.appendChild(gorsel("c-isaret", "isaret.svg", 37, 40, ""));
     logo.appendChild(gorsel("c-isaret-koyu", "isaret-koyu.svg", 37, 40, ""));
     var yazi = document.createElement("span"); yazi.className = "c-yazi"; yazi.textContent = "Veto Atlası"; logo.appendChild(yazi);
+
+    var atla = yer.querySelector(".c-atla");
+    if (atla) {
+      var hedefle = function () { var m = anaIcerik(); if (m) atla.setAttribute("href", "#" + m.id); return m; };
+      atla.addEventListener("focus", hedefle);
+      atla.addEventListener("click", function (e) { e.preventDefault(); var m = hedefle(); if (m) m.focus(); });
+    }
 
     var menu = yer.querySelector(".c-menu");
     function menuKapat() { yer.classList.remove("c-menu-acik"); menu.setAttribute("aria-expanded", "false"); }
@@ -235,7 +285,7 @@
         e.preventDefault();
         var d = a.getAttribute("data-dil");
         if (d === dil) return;
-        if (tek) tek.dil(d); else location.href = dilAdresi(d);
+        if (tek) tek.dil(d); else { dilYaz(d); location.href = dilAdresi(d); }
       });
     });
     KOK.classList.add("c-cubuklu");
@@ -249,13 +299,21 @@
     });
   }
 
-  // Bağlantılar çubuğa tek satırda sığmıyorsa önce inceleme notu (tek dosya) gizlenir, yine sığmıyorsa menü kipine
-  // geçilir; menü kipinde not yeniden görünür (dil ve yazı tipine göre genişlik değişir)
+  // Bağlantılar çubuğa tek satırda sığmıyorsa önce tek dosya notu gizlenir, yine sığmıyorsa menü kipine
+  // geçilir; menü kipinde not yeniden görünür (dil ve yazı tipine göre genişlik değişir). Taşma iki yoldan ölçülür:
+  // kabın kaydırma genişliği ve dil ile tema düğmelerinin sağ kenar boşluğuna girip girmediği (İngilizce "Dark" düğmesi
+  // kaydırma genişliğini büyütmeden kenar boşluğuna 14 px taşıyordu, 21 Ekim 2026)
   function sigdir() {
     var c = document.getElementById("cubuk"); if (!c) return;
     var ic = c.querySelector(".cubuk-ic"); if (!ic) return;
     var acikti = c.classList.contains("c-menu-acik");
-    var tasiyor = function () { return ic.scrollWidth > ic.clientWidth + 1; };
+    var araclar = c.querySelector(".c-araclar");
+    var tasiyor = function () {
+      if (ic.scrollWidth > ic.clientWidth + 1) return true;
+      if (!araclar) return false;
+      var sinir = ic.getBoundingClientRect().right - parseFloat(getComputedStyle(ic).paddingRight);
+      return araclar.getBoundingClientRect().right > sinir + 1;
+    };
     c.classList.remove("c-dar", "c-notsuz");
     var dar = false;
     if (tasiyor() && c.querySelector(".c-not")) { c.classList.add("c-notsuz"); }
@@ -271,9 +329,10 @@
     if (window.__CUBUK_GIZLI) { var c = document.getElementById("cubuk"); if (c) c.remove(); altBilgi(gecerliDil()); return; }
     if (!window.__CUBUK_ELLE) kur();
     // İnternetsiz çalışma (web/cevrimdisi.js; veto_atlasi/cevrimdisi.py): yalnızca sunucudaki sayfalarda; tek dosya ve dosya
-    // olarak açılış kaydetmez
+    // olarak açılış kaydetmez. Veri tasarrufu açıksa (navigator.connection.saveData) sekiz sayfa önceden indirilmez
     if (!window.__CUBUK_ELLE && window.isSecureContext && location.protocol !== "file:" && "serviceWorker" in navigator) {
-      var kaydet = function () { navigator.serviceWorker.register("cevrimdisi.js").catch(function () { /* desteklenmiyor: site yine çalışır */ }); };
+      var tasarruf = navigator.connection && navigator.connection.saveData;
+      var kaydet = function () { if (tasarruf) return; navigator.serviceWorker.register("cevrimdisi.js").catch(function () { /* desteklenmiyor: site yine çalışır */ }); };
       if (document.readyState === "complete") kaydet(); else window.addEventListener("load", kaydet);
     }
   }

@@ -18,7 +18,11 @@ def test_servis_iscisi_guncel():
 
 def test_kayitli_dosyalar_ve_strateji():
     sayfalar, dosyalar = cevrimdisi.listeler(WEB)
-    assert sayfalar == ["/hikaye", "/vetolar", "/vizyon", "/reform", "/simulasyon", "/temsil", "/hakkinda", "/metodoloji"]
+    # Sıra üst çubuğun sekme sırası (K4), ardından çubukta olmayan Metodoloji
+    assert sayfalar == ["/hikaye", "/vetolar", "/vizyon", "/temsil", "/reform", "/simulasyon", "/hakkinda", "/metodoloji"]
+    cubuk = (WEB / "cubuk.js").read_text(encoding="utf-8")
+    sekmeler = re.findall(r'^    \["(\w+)", "', cubuk[cubuk.index("var SAYFALAR = ["):], re.M)
+    assert ["/" + s for s in sekmeler[:7]] == sayfalar[:7]
     for yol in dosyalar:
         assert (WEB / yol.lstrip("/")).is_file(), yol
     assert not any(y.startswith(("/kartlar/", "/veri/")) or "tek-dosya" in y or y.endswith(".html") for y in dosyalar)
@@ -31,9 +35,14 @@ def test_kayitli_dosyalar_ve_strateji():
     css = (WEB / "fonts/fonts.css").read_text(encoding="utf-8")
     assert {"/fonts/" + f for f in re.findall(r"url\(\s*['\"]?([^'\")]+\.woff2)", css)} <= set(dosyalar)
     js = (WEB / "cevrimdisi.js").read_text(encoding="utf-8")
-    # Yalnızca site içi GET; önce ağ, internet yokken kayıtlı kopya; eski sürümler silinir
+    # Yalnızca site içi GET; önce ağ, ağ 4 saniyede yanıt vermezse ya da internet yokken kayıtlı kopya; kaydı olmayan sayfa
+    # adresinde 404 yedeği; eski sürümler silinir
     assert "http" not in js and 'if (istek.method !== "GET" || adres.origin !== self.location.origin) return;' in js
-    assert "olay.respondWith(fetch(istek).catch(async () => {" in js and '(await caches.open(SURUM)).match(adres.pathname)' in js
+    assert "const BEKLEME = 4000;" in js and 'const YEDEK = "/404";' in js
+    assert "olay.respondWith((async () => {" in js and "const ag = fetch(istek);" in js
+    assert "return await Promise.race([ag, sure.then(async () => (await depo.match(adres.pathname)) || ag)]);" in js
+    assert "const kayitli = await depo.match(adres.pathname);" in js and 'istek.mode === "navigate" ? await depo.match(YEDEK) : undefined;' in js
+    assert "await depo.put(YEDEK, new Response(govde, { status: 404, headers: yanit.headers }));" in js
     assert 'if (ad.startsWith("veto-atlasi-") && ad !== SURUM) await caches.delete(ad);' in js
     assert re.search(r'const SURUM = "veto-atlasi-[0-9a-f]{16}";', js)
 

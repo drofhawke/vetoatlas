@@ -416,7 +416,8 @@ def main():
         png_kaydet(png(ikon_svg(b, m, kz, ra, kose_orani=0.22, olcek=0.0905)), web / f"icon-{b}.png")
         png_kaydet(png(ikon_svg(b, m, kz, ra, olcek=0.072)), web / f"icon-maskable-{b}.png", opak=True)
     manifest = {
-        "name": AD, "short_name": AD, "lang": "tr", "id": BASLANGIC, "start_url": BASLANGIC, "display": "standalone",
+        "name": AD, "short_name": AD, "description": "1946’dan bu yana BM Güvenlik Konseyinde kullanılan vetolar, kaynaklarıyla.",
+        "lang": "tr", "id": BASLANGIC, "start_url": BASLANGIC, "scope": "/", "display": "standalone",
         "theme_color": RENK["kagit"], "background_color": RENK["kagit"],
         "icons": [
             {"src": "/icon-192.png", "sizes": "192x192", "type": "image/png"},

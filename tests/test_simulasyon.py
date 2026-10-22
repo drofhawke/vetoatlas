@@ -56,8 +56,8 @@ def test_sayfa_veriden_okur_ve_sabit_sayi_icermez():
     # Kitabın unsurları alıntı bankasından (bölüm başlığıyla); kitabın belirtmediği parametreler "Ayarlar" kutusunda (ADIM 44)
     for kimlik in ("kitap-3", "kitap-4", "kitap-6", "kitap-7"):
         assert kimlik in betik
-    assert "Kitap karar eşiğini ve üye sayısını belirtmiyor. Bu iki seçenek bizim varsayımımız." in SAYFA
-    assert "The book does not specify the decision threshold or the number of members. These two settings are our assumption." in SAYFA
+    assert '"ayar.cumle": "Kitap 20 üyeli bir Konsey önerir ama karar eşiğini yazmaz. Eşik ve sayımın kaç üyeyle yapılacağı bizim varsayımımız.",' in SAYFA
+    assert '"ayar.cumle": "The book proposes a 20-member Council but gives no decision threshold. The threshold and the number of members in the count are our assumption.",' in SAYFA
     # Diğer modellerin dayanakları belge ve paragrafla
     for dayanak in ("A/59/L.64", "5 (b)", "6 (b)", "A/59/L.68", "dipnot 5", "Ext/EX.CL/2 (VII)", "A/59/L.67"):
         assert dayanak in SAYFA, dayanak
@@ -242,7 +242,17 @@ def test_tumuye_donus_ve_bildirim(tmp_path):
     assert sur[3] == [["yil", "1990"]] and sur[1] == 18
     # Sayfa modülü kullanır; bildirim metinleri ve sıfır eşleşme yedeği yerinde
     assert '<script src="suzgec.js"></script>' in SAYFA and "const SZ = window.VetoSuzgec;" in BETIK
-    assert "SZ.secenekler(kayitlar, filtre, ad, SIRALAR[ad])" in BETIK and "const r = SZ.sec(kayitlar, filtre, ad, deger);" in BETIK
+    assert "SZ.secenekler(suzgecKayitlari, filtre, ad, SIRALAR[ad])" in BETIK and "const r = SZ.sec(suzgecKayitlari, filtre, ad, deger);" in BETIK
+    # Üye süzgeci yalnızca kayıtlı ret oylarını sayar: kapalı oturum kayıtları üye seçeneklerine girmez, üye seçeneklerinin
+    # sayıları Söz ve Kayıt'taki ret oyu toplamlarıyla aynıdır (SSCB 114, RUS 43, USA 94, GBR 30, FRA 18, CHN 23; toplam 322)
+    assert "const suzgecKayitlari = kayitlar.map((k) => (k.kapali ? Object.assign({}, k, { uyeler: [] }) : k));" in BETIK
+    s = (KOK / "web/veri.js").read_text(encoding="utf-8")
+    VK = json.loads(s[s.index("{"):s.rstrip().rindex(";")])["kayitlar"]
+    say = {}
+    for k in VK:
+        for u in ([] if k["kapali"] else k["uyeler"]):
+            say[u] = say.get(u, 0) + 1
+    assert say == {"SSCB": 114, "RUS": 43, "USA": 94, "GBR": 30, "FRA": 18, "CHN": 23} and sum(say.values()) == 322
     for anahtar in ('"sifir.yilBaslar"', '"sifir.yilBiter"', '"sifir.yilYok"', '"sifir.uye"', "yıl seçimi kaldırıldı.", "the year filter was reset.", "Filtreleri temizle", "Clear the filters"):
         assert anahtar in BETIK, anahtar
     # Eski kaydın sayıları ekranda kalmaz: her gösterimde paneller önce temizlenir (ADIM 49: şeritten yeniden sayımda yalnızca
@@ -272,7 +282,10 @@ def test_hazir_ornekler_veri_setinde():
 def test_adres_cubugu_ve_akis():
     assert 'new URLSearchParams(location.search).get("kayit")' in BETIK and 'u.searchParams.set("kayit", id)' in BETIK and "history.replaceState" in BETIK
     assert BETIK.count('new URLSearchParams(location.search).get("lang")') == 1  # tek dosya üretimi bu satırı değiştirir
-    for anahtar in ("Kaydı seç", "Oyları say", "Karşılaştır", '"p.unsurBaslik": "Kitaptan"', "Aynı ${n} oy. Mevcut sistemde", "kayıtta sonuç", "(oy dağılımı kayıtlı değil)"):
+    # Üç adım göstergesi kalktı ("Karşılaştır" adımı yok); bölüm başlıkları yerinde
+    assert '"adimlar"' not in BETIK and 'class="adimlar"' not in SAYFA
+    for anahtar in ('"h.secim": "Kaydı seçin"', '"h.paneller": "Oyları sayın ve karşılaştırın"', '"p.unsurBaslik": "Kitaptan"',
+                    "fark: ({ m }) => `Oylar aynı. Mevcut sistemde", "kayıtta sonuç", "(oy dağılımı kayıtlı değil)"):
         assert anahtar in BETIK, anahtar
     # Renk kuralı: mevcut sistemde daimî üyenin ret oyu kırmızı (veto), önerilen sistemde mürekkep (aleyhte)
     assert ".oy.veto { background: var(--vurgu);" in SAYFA and ".oy.aleyhte { background: var(--aleyhte);" in SAYFA
@@ -359,16 +372,17 @@ def test_hesaplanamaz_yok_ve_yirmi_uyeli_metinler():
     for eski in ("Hesaplanamaz", "Cannot be computed", "r.hesaplanamaz", "a.oneriKitap20"):
         assert eski not in SAYFA, eski
     for metin in (
-        '"r.bagli": "Yeni üyelerin oyuna bağlı"',
-        '"a.kabul20": ({ lehte, esik }) => `Kayıtlı ${lehte} evet oyu 20 üyeli Konsey’in eşiğini (${esik}) tek başına karşılıyor. Yeni üyelerin oyuna bakmaya gerek yok.`',
-        '"a.bagli20": ({ lehte, esik, yeni, k, ek }) => `Kayıtlı ${lehte} evet oyu var, 20 üyeli Konsey’de ${esik} gerekir. Kayıtta olmayan ${yeni} üyeden en az ${k}’${ek} evet derse kabul edilirdi.`',
+        '"r.bagli": "Kayıtta olmayan üyelere bağlı"',
+        '"a.kabul20": ({ lehte, esik }) => `Kayıtlı ${lehte} evet oyu 20 üyeli Konseyin eşiğini (${esik}) tek başına karşılıyor. Kayıtta olmayan üyelerin oyu sonucu değiştirmez.`',
+        '"a.bagli20": ({ lehte, esik, yeni, k, ek }) => `Kayıtlı ${lehte} evet oyu var, 20 üyeli Konseyde ${esik} gerekir. Kayıtta olmayan ${yeni} üyeden en az ${k}’${ek} evet derse kabul edilirdi.`',
         '"yeni.not": ({ yeni }) => `Kesikli kareler kayıtta olmayan ${yeni} üye.`',
-        '"serit.bagli": ({ k }) => `Yeni üyelerin oyuna bağlı: en az ${k} evet`',
-        "20 üyeli Konsey’de sonuç yeni üyelerin oyuna bağlı, en az ${k} evet.",
-        '"t.kesin": "Kayıtlı oylarla kesin kabul", "t.bagli": "Yeni üyelerin oyuna bağlı"',
-        '"r.bagli": "Depends on the new members’ votes"',
+        '"serit.bagli": ({ k }) => `Kayıtta olmayan üyelere bağlı, en az ${k} evet`',
+        '"fark.bagli": ({ m, k }) => `${t("fark", { m })} 20 üyeli Konseyde kayıtta olmayan üyelerden en az ${k} evet gerekir.`',
+        '"t.kesin": "Kayıtlı oylarla kesin kabul", "t.bagli": "Kayıtta olmayan üyelere bağlı"',
+        '"r.bagli": "Depends on members not on record"',
         "The dashed squares are the ${yeni} members not on record.",
-        '"serit.bagli": ({ k }) => `Depends on the new members’ votes: at least ${k} yes`',
+        '"serit.bagli": ({ k }) => `Depends on members not on record, at least ${k} in favour`',
+        '"fark.bagli": ({ m, k }) => `${t("fark", { m })} In the 20-member Council at least ${k} ${k === "1" ? "vote in favour is" : "votes in favour are"} needed from the members not on record.`',
     ):
         assert metin in SAYFA, metin
     # Görsel: kayıtta olmayan üyeler kesikli boş kare, yalnızca önerilen sistem panelinde; sayaç yalnızca kayıtlı oyları sayar
@@ -377,12 +391,44 @@ def test_hesaplanamaz_yok_ve_yirmi_uyeli_metinler():
     assert 'const sayacMetni = t("sayac", { lehte: oy.lehte, aleyhte: oy.aleyhte, cekimser: oy.cekimser, katilmadi });' in BETIK
     # Yapışkan şerit ve fark cümlesi üçüncü sonuç türünü taşır; toplu görünüm üye seçimi değişince yenilenir
     assert 'const seritOneri = sonucOneri === "bagli" ? t("serit.bagli", { k: sayi(s20.k) }) : so.textContent;' in BETIK
-    assert 'sonucOneri === "bagli" ? t("fark.bagli", { n, k: sayi(s20.k) }) : t("fark", { n })' in BETIK
+    assert 'sonucOneri === "bagli" ? t("fark.bagli", { m: k.uyeler.length, k: sayi(s20.k) }) : t("fark", { m: k.uyeler.length })' in BETIK
     assert 'durum.uye = e.target.value; esikEtiketleri(); ayarNotu(); goster(false); topluYaz();' in BETIK
     # Metodoloji 2.10 (ADIM 45'ten önce 2i)
-    for yol, ifade in (("METODOLOJI.md", "### 2.10. \"Ya veto olmasaydı?\" sayfası"), ("METODOLOJI_EN.md", "### 2.10. The \"What if there were no veto?\" page")):
+    for yol, ifade in (("METODOLOJI.md", "### 2.10. “Ya veto olmasaydı?” sayfası"), ("METODOLOJI_EN.md", "### 2.10. The “What if there were no veto?” page")):
         md = (KOK / yol).read_text(encoding="utf-8")
         assert ifade in md and ("tahmin edilmez" in md or "not\nguessed" in md or "not guessed" in md), yol
+
+
+TEKIL_BETIGI = r"""
+const fs = require("fs");
+const sayfa = fs.readFileSync(process.argv[2] + "/web/simulasyon.html", "utf8").split(/\r?\n/);
+// İngilizce sözlükteki satırlar (ikinci geçiş); t() yalnızca "fark" cümlesini döndürür
+const satir = (ad) => sayfa.filter((x) => x.trimStart().startsWith('"' + ad + '": ('))[1].trim().replace(/,$/, "");
+const t = () => "The votes are the same.";
+const S = new Function("t", "return {" + satir("fark.bagli") + ", " + satir("toplu.ozet20") + "};")(t);
+const ozet = (bagli) => S["toplu.ozet20"]({ kesin: "28", bagli, n: "266", esik: "14 of 20", oran: "two thirds", kapali: "2" });
+process.stdout.write(JSON.stringify({ bir: S["fark.bagli"]({ m: 1, k: "1" }), iki: S["fark.bagli"]({ m: 1, k: "2" }),
+  ozet1: ozet("1"), ozet2: ozet("236") }));
+"""
+
+
+def test_ingilizce_yirmi_uyeli_cumleler_tekil_ve_cogul(tmp_path):
+    """H-sim-1: 20 üyeli Konsey'de eksik evet 1 iken (ör. V-2024-02-20-1, üçte iki eşik) İngilizce fark cümlesi tekildir;
+    toplu özette 1 kayıt da tekildir. Sayfanın kendi sözlük satırları Node ile çalıştırılır."""
+    k = next(x for x in K if x["id"] == "V-2024-02-20-1")
+    esik_eksigi = ESIK20["ucteiki"] - k["oy_dagilimi"]["lehte"]
+    assert esik_eksigi == 1 and sonuc20(k["oy_dagilimi"]["lehte"], boyut(k), ESIK20["ucteiki"]) == "bagli"
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("Node.js kurulu değil; sözlük satırları çalıştırılamadı")
+    betik = tmp_path / "tekil.js"
+    betik.write_text(TEKIL_BETIGI, encoding="utf-8")
+    r = subprocess.run([node, str(betik), str(KOK)], capture_output=True, text=True, encoding="utf-8", check=True)
+    c = json.loads(r.stdout)
+    assert c["bir"].endswith("at least 1 vote in favour is needed from the members not on record."), c["bir"]
+    assert c["iki"].endswith("at least 2 votes in favour are needed from the members not on record."), c["iki"]
+    assert " In 1 record the outcome depends on members not on record." in c["ozet1"], c["ozet1"]
+    assert " In 236 records the outcome depends on members not on record." in c["ozet2"], c["ozet2"]
 
 
 def test_ayarlar_kutusu_adim44():
@@ -404,9 +450,11 @@ def test_ayarlar_kutusu_adim44():
     sablon = BETIK[BETIK.index('$("#parametre").innerHTML = `'):BETIK.index("</select></div>`;")]
     assert sablon.index('<p class="ayar-cumle">${t("ayar.cumle")}</p>') < sablon.index('<select id="pr-esik">') < sablon.index('<select id="pr-uye">')
     assert 'class="etiket"' not in sablon
-    # Not: yalnızca varsayılandan farklı ayarlar
-    assert '"ayar.not": ({ p }) => `${p} ile sayıldı`, "ayar.ucteiki": "üçte iki eşiği", "ayar.salt": "salt çoğunluk eşiği", "ayar.kitap20": "20 üyeli Konsey",' in SAYFA
-    assert '"ayar.not": ({ p }) => `Counted with ${p}`, "ayar.ucteiki": "two-thirds threshold", "ayar.salt": "simple-majority threshold", "ayar.kitap20": "20-member Council",' in SAYFA
+    # Not: yalnızca varsayılandan farklı ayarlar, tek cümle ("Üçte iki eşiğiyle ve 20 üyeli Konseyle sayıldı."; G-sim-3)
+    assert ('"ayar.not": ({ p }) => { const c = p.join(" ve "); return `${c.charAt(0).toLocaleUpperCase("tr")}${c.slice(1)} sayıldı.`; }, '
+            '"ayar.ucteiki": "üçte iki eşiğiyle", "ayar.salt": "salt çoğunluk eşiğiyle", "ayar.kitap20": "20 üyeli Konseyle",') in SAYFA
+    assert ('"ayar.not": ({ p }) => `Counted with ${p.join(" and ")}.`, "ayar.ucteiki": "a two-thirds threshold", '
+            '"ayar.salt": "a simple-majority threshold", "ayar.kitap20": "a 20-member Council",') in SAYFA
     assert 'const p = [durum.esik !== "cogunluk" ? t("ayar." + durum.esik) : "", durum.uye !== "kayitli" ? t("ayar." + durum.uye) : ""].filter(Boolean);' in BETIK
     assert "ayarNotu(); goster(false); topluYaz(); });" in BETIK and BETIK.count("ayarNotu();") == 2
 
@@ -465,7 +513,7 @@ def test_sonuc_kartlari_adim51():
     sonucu taşır, ayar notu önerilen sistem kartında tek satır."""
     g = SAYFA[SAYFA.index("<body"):SAYFA.index('<script src="veri.js">')]
     blok = g[g.index('<div class="sonuc-blok kutu" id="sonuc-blok">'):g.index('<div class="serit kutu" id="serit" hidden>')]
-    sira = ['<h2 class="sonuc-baslik" id="h-sonuc"></h2>', '<div class="sonuc-kartlar" id="sonuc-kartlar">',
+    sira = ['<h3 class="sonuc-baslik" id="h-sonuc"></h3>', '<div class="sonuc-kartlar" id="sonuc-kartlar">',
             '<div class="sonuc-kart" id="kart-oneri"><p class="sistem-adi" id="sistem-oneri"></p><p class="sonuc" id="sonuc-oneri" aria-live="polite"></p><p class="neden" id="aciklama-oneri"></p><p class="ayar-notu" id="ayar-notu" hidden></p></div>',
             '<div class="sonuc-kart" id="kart-mevcut"><p class="sistem-adi" id="sistem-mevcut"></p><p class="sonuc" id="sonuc-mevcut" aria-live="polite"></p><p class="neden" id="aciklama-mevcut"></p></div>',
             '<p class="fark" id="fark" hidden></p>', '<div class="dugmeler">']
@@ -476,21 +524,25 @@ def test_sonuc_kartlari_adim51():
     # Sınırlar: kutusuz iki cümle, paneller bölümünün sonunda (20 Ekim 2026)
     assert '<p class="sinirlar-not" data-t="sinirlar"></p>' in g[g.index('id="paneller-bolum"'):g.index("</section>", g.index('id="paneller-bolum"'))] and "<aside" not in g
     for kural in (".sonuc-kartlar { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }",
-                  ".sonuc-kart { padding: 16px 24px; background: var(--zemin); border: 1px solid var(--cizgi); border-radius: 6px;",
+                  # İç sonuç kartlarında çerçeve ve zemin yok: iki sütun arasında 2 px çizgi, ilk kart başlıkla hizalı
+                  ".sonuc-kart { padding: 0 24px; background: none; border: 0; border-radius: 0; display: grid; gap: 8px; align-content: start; }",
+                  ".sonuc-kart:first-child { padding-left: 0; }", ".sonuc-kart + .sonuc-kart { border-left: 2px solid var(--cizgi); }",
+                  "  .sonuc-kart + .sonuc-kart { border-left: 0; border-top: 2px solid var(--cizgi); padding: 16px 0 0; }",
                   ".sonuc.kabul { color: var(--kabul); }", ".sonuc.dustu { color: var(--vurgu); }", ".sonuc.bagli { color: var(--murekkep-2); }",
                   ".sonuc.yok { color: var(--murekkep); }", ".serit .kabul { color: var(--kabul); }", ".serit .dustu { color: var(--vurgu); }",
                   ".serit .bagli { color: var(--murekkep-2); }", ".serit .yok { color: var(--murekkep); }",
                   "  .sonuc-kartlar { grid-template-columns: 1fr; }", "--kabul: #2D6A4F;", "--kabul: #6FBF8E;"):
         assert kural in SAYFA, kural
     assert ".serit { position: sticky; bottom: 0; margin: 16px 0 0; padding: 8px 16px; background: var(--zemin);" in SAYFA
-    for parca in ('"sonuc.baslik": ({ tarih, belge }) => `Sonuç: ${tarih}${belge ? `, ${belge}` : ""}`,',
-                  '"sonuc.baslik": ({ tarih, belge }) => `Result: ${tarih}${belge ? `, ${belge}` : ""}`,',
+    for parca in ('"sonuc.baslik": ({ tarih, belge }) => `${tarih} oylaması${belge ? `, ${belge}` : ""}`,',
+                  '"sonuc.baslik": ({ tarih, belge }) => `The vote of ${tarih}${belge ? `, ${belge}` : ""}`,',
                   '"kart.oneri": ({ boy, esik }) => `veto yok, ${boy}’${sayiEki(boy, "de")} ${esik}`, "kart.mevcut": "Madde 27/3",',
                   '"kart.oneri": ({ boy, esik }) => `no veto, ${esik} of ${boy}`, "kart.mevcut": "Article 27 (3)",',
-                  '"serit.oneri": "Önerilen:", "serit.mevcut": "Mevcut:",', '"serit.oneri": "Proposed:", "serit.mevcut": "Current:",',
+                  '"serit.oneri": "Önerilen", "serit.mevcut": "Mevcut",', '"serit.oneri": "Proposed", "serit.mevcut": "Current",',
+                  '<span class="serit-ad">${t("serit.oneri")}</span>', '<span class="serit-ad">${t("serit.mevcut")}</span>',
                   'const belge = (k.belgeler.find((b) => b.tur === "taslak") || k.belgeler[0] || {}).kod;',
                   '$("#h-sonuc").textContent = t("sonuc.baslik", { tarih: tarihUzun(k.tarih), belge });',
-                  '$("#sistem-oneri").textContent = `${t("p.oneri")}: ${t("kart.oneri", { boy: yirmi ? 20 : boy, esik })}`;',
+                  '$("#sistem-oneri").textContent = `${t("p.oneri")}, ${t("kart.oneri", { boy: yirmi ? 20 : boy, esik })}`;',
                   'so.className = "sonuc " + (sonucOneri === "kabul" ? "kabul" : sonucOneri === "bagli" ? "bagli" : "yok");',
                   'const seritGuncelle = () => { $("#serit").hidden = !seritDolu || kartlarGorunur; };',
                   'new IntersectionObserver((g) => { kartlarGorunur = g[g.length - 1].isIntersecting; seritGuncelle(); }).observe($("#sonuc-kartlar"));',

@@ -68,9 +68,12 @@ def test_kirmizi_yalnizca_ret_ve_veto():
     s = (WEB / "simulasyon.html").read_text(encoding="utf-8")
     assert ".etiket { display: inline-block; font-size: var(--yz-kucuk); color: var(--murekkep-2);" in s and "--lehte: #9AA3B2" in s and "--aleyhte: #13213A" in s
     h = (WEB / "hikaye.html").read_text(encoding="utf-8")
-    # Hikâye (taslaktaki stil): daimî koltuk mürekkep, içinde küçük kırmızı kare (veto yetkisi); ret noktası kırmızı
+    # Hikâye (taslaktaki stil): daimî koltuk mürekkep, içinde küçük kırmızı kare (veto yetkisi); 4. adımda ret noktası dolu
+    # kırmızı (21 Ekim 2026'da yayındaki hâl). Renk tek başına kalmaz: noktaların yanındaki sonuç satırı oyları yazıyla söyler
     assert ".koltuk.daimi { background: var(--murekkep); }" in h and ".koltuk.daimi::after {" in h and "background: var(--vurgu); }  /* veto yetkisi" in h
-    assert ".nokta.ret { background: var(--vurgu); }" in h and h.count("var(--vurgu)") == 2  # yalnızca koltuk karesi ve ret noktası
+    assert ".nokta.ret { background: var(--vurgu); }" in h
+    assert '<span class="sonuc" aria-hidden="true">${esc(t("4.sonuc"))}</span>' in h and 'role="img" aria-label="${esc(t("4.sonuc"))}"' in h
+    assert h.count("var(--vurgu)") == 2  # yalnızca koltuk karesi ve ret noktası
     assert ".cubuklar .cb span.koltuk-payi { background: var(--murekkep); }" in h and ".koltuk.gorusuldu { background: var(--murekkep); }" in h
 
 
@@ -146,8 +149,11 @@ def test_logo_ikon_ve_bildirim():
     assert "tam-logo" not in (WEB / "hakkinda.html").read_text(encoding="utf-8")
     assert "slogan" not in cubuk.replace("slogansız", "").replace("sloganlı", "") and ".c-alt" not in cubuk
     h = (WEB / "hakkinda.html").read_text(encoding="utf-8")
-    assert "Çıkış noktamız Cumhurbaşkanı Recep Tayyip Erdoğan’ın\n    “Dünya 5’ten büyüktür” çağrısı." in h
-    assert "Our starting point is President Recep Tayyip Erdoğan’s call that “the world\n    is bigger than five”." in h
+    # Slogan giriş paragrafında 2019 Genel Kurul sözü olarak (TR "Büyüktür" büyük harfle, EN ünlemle)
+    duz = " ".join(h.split())
+    assert "Çıkış noktamız Cumhurbaşkanı Recep Tayyip Erdoğan’ın 2019’da BM Genel Kurulunda söylediği “Dünya 5’ten Büyüktür” sözü." in duz
+    assert ("Our starting point is a line from President Recep Tayyip Erdoğan’s address to the UN General Assembly in 2019: "
+            "“The world is bigger than five!”") in duz
     assert 'EPIGRAF = { tr: ["2019-1", "“Dünya 5’ten Büyüktür.”"]' in (WEB / "hikaye.html").read_text(encoding="utf-8")
     # Köşede işaret: eski dosyadaki gibi 44 × 44 px kutu, çizim ortalanmış 34 px yükseklikte (eski kutudaki halkayla aynı görünür
     # boyut; alt bilgi satırı değişmez: 13 Ekim'de 44 kartın hepsi canlıdakiyle yalnızca işaretin 32 × 34 px'lik alanında farklı);
@@ -220,19 +226,23 @@ def test_varsayilan_tema_kagit():
 
 def test_ortak_ust_cubuk():
     cubuk = (WEB / "cubuk.js").read_text(encoding="utf-8")
-    sira = ["Hikâye", "Vetolar", "Söz ve Kayıt", "Reform modelleri", "Ya veto olmasaydı?", "Kim temsil ediliyor?", "Nasıl yaptık?"]
+    # Sekme sırası (K4): Temsil, Reform'dan önce
+    sira = ["Hikâye", "Vetolar", "Söz ve Kayıt", "Kim temsil ediliyor?", "Reform modelleri", "Ya veto olmasaydı?", "Nasıl yaptık?"]
     konum = [cubuk.index(f'"{a}"') for a in sira]
     assert konum == sorted(konum)
     assert '["reform", "Reform modelleri", "Reform models"],' in cubuk
     # Yedi bağlantı iki dilde 1180 px'lik çubuğa tek satırda sığsın: bağlantı arası 12 px (tarayıcıda ölçüldü)
     assert '".cubuk .c-sayfalar ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 12px; }",' in cubuk
     assert 'SAYFA_GRUBU = { metodoloji: "hakkinda", index: "hikaye" }' in cubuk
-    # Bağlantılar sığmadığında menü (ölçülerek); taslaktaki gibi yapışkan çubuk
-    assert "var tasiyor = function () { return ic.scrollWidth > ic.clientWidth + 1; };" in cubuk and 'class="c-menu" aria-expanded="false"' in cubuk
+    # Bağlantılar sığmadığında menü (ölçülerek); taslaktaki gibi yapışkan çubuk. Taşma iki yoldan ölçülür: kabın kaydırma
+    # genişliği ve araç grubunun (dil, tema) sağ kenarının çubuk içeriğinin sağ kenarını aşması (İngilizce "Dark", 21 Ekim 2026)
+    assert "if (ic.scrollWidth > ic.clientWidth + 1) return true;" in cubuk and 'class="c-menu" aria-expanded="false"' in cubuk
+    assert 'var sinir = ic.getBoundingClientRect().right - parseFloat(getComputedStyle(ic).paddingRight);' in cubuk
+    assert "return araclar.getBoundingClientRect().right > sinir + 1;" in cubuk
     # Sığmazsa önce inceleme notu (tek dosya) gizlenir, yine sığmazsa menü kipi
     assert 'if (tasiyor() && c.querySelector(".c-not")) { c.classList.add("c-notsuz"); }' in cubuk and '".cubuk.c-notsuz .c-not { display: none; }",' in cubuk
     assert ".cubuk { display: block; position: sticky; top: 0;" in cubuk
-    assert '"İnceleme sürümü"' in cubuk  # tek dosya notu kısa
+    assert 'not: "Çevrimdışı sürüm"' in cubuk and 'not: "Offline version"' in cubuk  # tek dosya notu kısa
     for ad in SAYFALAR:
         s = (WEB / ad).read_text(encoding="utf-8")
         # Eski gezinme satırları ve sayfa içi dil seçicileri yok

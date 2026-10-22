@@ -67,7 +67,7 @@ def test_tartismali_alanlar_kural_tablosundaki_gibi():
     assert {a["k"] for a in H["alanlar"] if a.get("ust")} == {k["ne_kodu"] for k in kurallar if k["katman"] == "ayrik" and k["atama"] == "-"}
     # Sayfadaki not kural tablosuyla aynı şeyi söyler
     sayfa = (WEB / "temsil.html").read_text(encoding="utf-8")
-    assert "Kırım Ukrayna'nın, Golan Suriye'nin parçası olarak gösterilir" in sayfa
+    assert "Kırım Ukrayna’nın, Golan Suriye’nin parçası olarak gösterilir" in sayfa
     assert "Crimea is shown as part of Ukraine and the Golan as part of Syria" in sayfa
     assert "Üye olmayan ülke ve alanlar boş çizilir." in sayfa and "Countries and areas that are not UN Member States are drawn empty." in sayfa
     assert atama["Ashmore and Cartier Islands"] == "AUS"  # BM'nin M49 listesinde ayrı alan değil
@@ -241,7 +241,7 @@ def test_uye_olmayan_alanlar_adli():
     s = (WEB / "temsil.html").read_text(encoding="utf-8")
     for parca in ("const alanAdi = (a) => a[DIL];", '${a.durum === "sessiz" ? "" : ` data-a="${a.k}"`}',
                   'const o = e.target.closest("[data-k], [data-a]");', "if (!L.length && LA.length === 1) return alanBul(LA[0]);",
-                  "\"a.gozlemci\": \"BM'de üye olmayan gözlemci devlet\"", '"a.gozlemci": "Non-member observer State at the UN"'):
+                  "\"a.gozlemci\": \"BM’de üye olmayan gözlemci devlet\"", '"a.gozlemci": "Non-member observer State at the UN"'):
         assert parca in s, parca
     assert not re.search(r"\ba\.(bagli|not)\b", s)  # bağlı devlet ve not alanları kalktı
 

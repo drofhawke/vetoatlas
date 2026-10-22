@@ -24,15 +24,16 @@ Aşağıdakiler bu lisansın dışındadır; her biri kendi lisans ve koşullar�
    kaynağın koşulları.
 4. Yazı tipleri. Source Serif 4 ve Source Sans 3 (web/fonts/); SIL Open Font License 1.1 (web/fonts/OFL-*.txt).
 5. Birleşmiş Milletler belgeleri. Toplantı kayıtları (S/PV, A/PV), karar taslakları, kararlar ve BM Dag Hammarskjöld
-   Kütüphanesi'nin (DHL) veto listesi; BM'nin kendi kullanım koşullarına tabidir. Atlas bu belgelere belge simgesi ve
-   bağlantıyla atıf yapar.
+   Kütüphanesinin (DHL) veto listesi; BM'nin kendi kullanım koşullarına tabidir. Atlas bu belgelere belge simgesi ve
+   bağlantıyla atıf yapar. Temsil sayfasındaki üye devlet, bölgesel grup, bütçe ölçeği, barış gücü ve Konsey üyeleri
+   verileri de BM sayfalarından alınmıştır ve aynı koşullara tabidir.
 6. Test kesiti. tests/fixtures/veto_ornek.html, DHL veto listesi sayfasından alınmış 13 satırlık bir test kesitidir;
    yalnızca ayrıştırıcının testleri için kullanılır ve DHL sayfasının koşullarına tabidir.
 7. Harita sınırları. Natural Earth 1:50m Cultural Vectors 5.1.2 (web/harita_veri.js); kamu malı
    (https://www.naturalearthdata.com/about/terms-of-use/).
 8. Ülke ve alan adları. Ülkelerin Türkçe ve İngilizce kısa adları Unicode CLDR verisinden türetilmiş ve düzeltilmiştir;
    Unicode Lisansı v3 (https://www.unicode.org/license.txt). BM üyesi olmayan alanların adları BM'nin (WPP 2024, M49) ve
-   T.C. Dışişleri Bakanlığı'nın kullandığı adlardır.
+   T.C. Dışişleri Bakanlığının kullandığı adlardır.
 9. Kuzey Kıbrıs Türk Cumhuriyeti nüfusu. KKTC İstatistik Kurumu, Nüfus Projeksiyonları 2019–2023 (11 Kasım 2024);
    kaynağın koşulları.
 10. İslam İşbirliği Teşkilatı üye listesi (https://www.oic-oci.org/en/members); kaynağın koşulları.
@@ -50,10 +51,9 @@ texts and page texts; the share cards and the preview image.
 
 The following are outside this licence; each remains subject to its own licence and terms:
 
-1. Quotations. Quotations from President Recep Tayyip Erdoğan's speeches to the UN General Assembly and from the
-   book "A Fairer World is Possible" (Turkuvaz Kitap, 2021; Turkish original: "Daha Adil Bir Dünya Mümkün",
-   Turkuvaz Kitap, 2021), in its English and Turkish editions. They appear in the atlas unaltered, with their
-   citations.
+1. Quotations. Quotations from President Recep Tayyip Erdoğan's speeches to the UN General Assembly, and from the
+   book "A Fairer World is Possible" and its Turkish original (both Turkuvaz Kitap, 2021). They appear in the atlas
+   unaltered, with their citations.
 2. Population data. UN Department of Economic and Social Affairs, Population Division, World Population Prospects
    2024 (WPP 2024); UN DESA's terms, CC BY 3.0 IGO.
 3. Vote breakdowns. Vote breakdowns taken from Sievers and Daws, The Procedure of the UN Security Council, Table 4;
@@ -61,7 +61,8 @@ The following are outside this licence; each remains subject to its own licence 
 4. Fonts. Source Serif 4 and Source Sans 3 (web/fonts/); SIL Open Font License 1.1 (web/fonts/OFL-*.txt).
 5. United Nations documents. Meeting records (S/PV, A/PV), draft resolutions, resolutions and the veto list of the
    UN Dag Hammarskjöld Library (DHL); subject to the UN's own terms of use. The atlas refers to these documents by
-   document symbol and link.
+   document symbol and link. The Member State, regional group, scale of assessments, peacekeeping and Council
+   membership data on the representation page are also taken from UN pages and are subject to the same terms.
 6. Test excerpt. tests/fixtures/veto_ornek.html is a 13-row test excerpt taken from the DHL veto list page; it is used
    only for the parser tests and is subject to the terms of the DHL page.
 7. Map borders. Natural Earth 1:50m Cultural Vectors 5.1.2 (web/harita_veri.js); public domain

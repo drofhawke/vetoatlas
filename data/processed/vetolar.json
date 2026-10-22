@@ -396,7 +396,7 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
       "notlar": [
-        "Kaynakta 'oral amendment': veto, taslağa toplantıda sözlü olarak önerilen değişikliğe yöneliktir."
+        "Veto, toplantıda taslağa sözlü olarak önerilen bir değişikliğe karşı kullanıldı."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
@@ -1997,7 +1997,7 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
       "notlar": [
-        "Kaynakta tarih aralığı var; oylama günü toplantı kaydından doğrulanmalı."
+        "DHL listesi bu oylamanın tarihini bir aralık olarak veriyor."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
@@ -2032,7 +2032,7 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
       "notlar": [
-        "Kaynakta tarih aralığı var; oylama günü toplantı kaydından doğrulanmalı."
+        "DHL listesi bu oylamanın tarihini bir aralık olarak veriyor."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
@@ -2199,7 +2199,7 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": true,
       "notlar": [
-        "Kapalı oturum: veto eden üye resmi bildiride yok, kaynak tarafından atfedilmiş."
+        "Oturum kapalıydı. Resmî bildiri veto eden üyeyi adlandırmıyor; adı DHL listesi veriyor."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
@@ -3401,9 +3401,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/16351/Rev.2",
@@ -3437,7 +3435,7 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
       "notlar": [
-        "Kaynakta tarih aralığı var; oylama günü toplantı kaydından doğrulanmalı."
+        "DHL listesi bu oylamanın tarihini bir aralık olarak veriyor."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
@@ -3471,9 +3469,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/15966/Rev.1",
@@ -4011,8 +4007,7 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
       "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.",
-        "Kaynakta tarih aralığı var; oylama günü toplantı kaydından doğrulanmalı."
+        "DHL listesi bu oylamanın tarihini bir aralık olarak veriyor."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
@@ -4047,8 +4042,7 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
       "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.",
-        "Kaynakta tarih aralığı var; oylama günü toplantı kaydından doğrulanmalı."
+        "DHL listesi bu oylamanın tarihini bir aralık olarak veriyor."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
@@ -4082,9 +4076,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/13162",
@@ -4117,9 +4109,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/13027",
@@ -4725,9 +4715,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/11400 as amended",
@@ -5025,9 +5013,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/10446/Rev.1",
@@ -5060,9 +5046,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/10423",
@@ -5095,9 +5079,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/10416",
@@ -5197,9 +5179,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/8761",
@@ -5232,9 +5212,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/7575/Rev.1",
@@ -5267,9 +5245,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/6113 as amended",
@@ -5302,9 +5278,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/5973",
@@ -5370,9 +5344,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/5407",
@@ -5405,9 +5377,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/5134",
@@ -5440,9 +5410,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/5033",
@@ -5475,9 +5443,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/5006",
@@ -5510,9 +5476,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/4985/Rev.1",
@@ -5545,9 +5509,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/4985/Rev.1",
@@ -5580,9 +5542,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/4855",
@@ -5615,9 +5575,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/4733/Rev.1",
@@ -5650,9 +5608,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/4733/Rev.1",
@@ -5685,9 +5641,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/4578/Rev.1",
@@ -5721,8 +5675,7 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
       "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.",
-        "Kaynakta tarih aralığı var; oylama günü toplantı kaydından doğrulanmalı."
+        "DHL listesi bu oylamanın tarihini bir aralık olarak veriyor."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
@@ -5756,9 +5709,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/4523",
@@ -5791,9 +5742,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/4409/Rev.1",
@@ -5826,9 +5775,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/4411",
@@ -5861,9 +5808,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/4130/Rev.1",
@@ -5896,9 +5841,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/4129/Rev.1",
@@ -5931,9 +5874,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/4055/Rev.1",
@@ -5966,9 +5907,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/4050/Rev.1",
@@ -6002,9 +5941,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/3995",
@@ -6038,9 +5975,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/3885",
@@ -6073,9 +6008,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/3884",
@@ -6108,9 +6041,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/3787",
@@ -6143,9 +6074,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/3730/Rev.1",
@@ -6246,9 +6175,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/3671",
@@ -6281,9 +6208,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/3510",
@@ -6316,9 +6241,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/3509",
@@ -6351,9 +6274,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/3236/Rev.1",
@@ -6386,9 +6307,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/3229",
@@ -6421,9 +6340,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/3188/Corr.1",
@@ -6456,9 +6373,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/3151/Rev.2",
@@ -6491,9 +6406,8 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": true,
       "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.",
         "Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.",
-        "Kapalı oturum: veto eden üye resmi bildiride yok, kaynak tarafından atfedilmiş."
+        "Oturum kapalıydı. Resmî bildiri veto eden üyeyi adlandırmıyor; adı DHL listesi veriyor."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
@@ -6527,9 +6441,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/2760",
@@ -6562,9 +6474,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/2759",
@@ -6597,9 +6507,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/2758",
@@ -6632,9 +6540,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/2754",
@@ -6667,9 +6573,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/2483",
@@ -6702,9 +6606,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/2688",
@@ -6737,9 +6639,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/2671",
@@ -6772,9 +6672,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/2443",
@@ -6807,9 +6705,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/1894",
@@ -6842,9 +6738,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/1752",
@@ -6877,9 +6771,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/1653",
@@ -6912,9 +6804,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/1431",
@@ -6947,9 +6837,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/1431",
@@ -6982,9 +6870,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/1408/Rev.1",
@@ -7017,9 +6903,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/1399/Rev.1",
@@ -7052,9 +6936,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/1398",
@@ -7087,9 +6969,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/1337",
@@ -7122,9 +7002,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/1336",
@@ -7157,9 +7035,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/1335",
@@ -7192,9 +7068,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/1334",
@@ -7227,9 +7101,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/1333",
@@ -7262,9 +7134,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/1332",
@@ -7297,9 +7167,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/1331",
@@ -7332,9 +7200,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/1385",
@@ -7367,9 +7233,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/1305",
@@ -7402,7 +7266,6 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
       "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.",
         "Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
@@ -7437,9 +7300,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/1048",
@@ -7472,7 +7333,6 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
       "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.",
         "Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
@@ -7507,9 +7367,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/836",
@@ -7542,7 +7400,6 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
       "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.",
         "Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
@@ -7577,9 +7434,8 @@
       "on_soru_vetosu": true,
       "atif_belirsiz": false,
       "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.",
         "Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.",
-        "Ön soru vetosu: konunun usul meselesi sayılıp sayılmayacağına dair oylama (çifte veto)."
+        "Veto, konunun usul meselesi sayılıp sayılmayacağına ilişkin ön oylamada kullanıldı; buna çifte veto denir."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
@@ -7613,7 +7469,6 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
       "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.",
         "Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
@@ -7648,7 +7503,6 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
       "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.",
         "Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
@@ -7683,7 +7537,6 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
       "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.",
         "Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
@@ -7719,8 +7572,7 @@
       "on_soru_vetosu": true,
       "atif_belirsiz": false,
       "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.",
-        "Ön soru vetosu: konunun usul meselesi sayılıp sayılmayacağına dair oylama (çifte veto)."
+        "Veto, konunun usul meselesi sayılıp sayılmayacağına ilişkin ön oylamada kullanıldı; buna çifte veto denir."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
@@ -7755,9 +7607,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/552",
@@ -7825,7 +7675,6 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
       "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.",
         "Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
@@ -7860,7 +7709,6 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
       "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.",
         "Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
@@ -7895,9 +7743,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/486",
@@ -7930,9 +7776,7 @@
       "taslak_kaynagi": "belge",
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
-      "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-      ],
+      "notlar": [],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
         "https://undocs.org/en/S/471",
@@ -7966,7 +7810,6 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
       "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.",
         "Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
@@ -8001,7 +7844,6 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
       "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.",
         "Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
@@ -8036,7 +7878,6 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
       "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.",
         "Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
@@ -8071,7 +7912,6 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
       "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.",
         "Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
@@ -8106,7 +7946,6 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
       "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.",
         "Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
@@ -8141,7 +7980,6 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
       "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.",
         "Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
@@ -8176,7 +8014,6 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
       "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.",
         "Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
@@ -8211,7 +8048,6 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
       "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.",
         "Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
@@ -8246,7 +8082,6 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
       "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.",
         "Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
@@ -8281,7 +8116,6 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
       "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.",
         "Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
@@ -8316,9 +8150,8 @@
       "on_soru_vetosu": true,
       "atif_belirsiz": false,
       "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.",
         "Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.",
-        "Ön soru vetosu: konunun usul meselesi sayılıp sayılmayacağına dair oylama (çifte veto)."
+        "Veto, konunun usul meselesi sayılıp sayılmayacağına ilişkin ön oylamada kullanıldı; buna çifte veto denir."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
       "belge_linkleri": [
@@ -8352,7 +8185,6 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
       "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.",
         "Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
@@ -8387,7 +8219,6 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
       "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.",
         "Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",
@@ -8422,7 +8253,6 @@
       "on_soru_vetosu": false,
       "atif_belirsiz": false,
       "notlar": [
-        "SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.",
         "Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
       ],
       "kaynak_url": "https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm",

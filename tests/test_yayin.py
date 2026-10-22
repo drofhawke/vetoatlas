@@ -95,8 +95,11 @@ def test_tek_dosya_surumu_guncel_ve_kendine_yeter():
         assert f'"{kod}":' in s
     for ad in ("Hikâye", "Vetolar", "Reform modelleri", "Reform models", "Kim temsil ediliyor?", "Nasıl yaptık?", "Who is represented?", "How we did it"):
         assert ad in s, ad
-    for ad in ("Söz ve Kayıt", "Word and Record", "web/kartlar/"):
+    for ad in ("Söz ve Kayıt", "Word and Record"):
         assert ad in s
+    # Çubuktaki not: "Çevrimdışı sürüm"; görünen metinde dosya yolu yok (yöntem notu yalnızca "Nasıl yaptık?"ta)
+    assert "Çevrimdışı sürüm. Bütün sayfalar bu dosyada." in s and "Offline version. All pages are in this file." in s
+    assert "web/kartlar/" not in s and "İnceleme sürümü" not in s
 
 
 def test_tek_dosya_satir_sonundan_bagimsiz(tmp_path):
@@ -183,3 +186,50 @@ def test_yazi_tipleri_yerel_ozetli_ve_gomulu():
     # Alt yazılar Source Sans 3 (400) italik: gerçek kesimi kullanır
     h = (WEB / "hikaye.html").read_text(encoding="utf-8")
     assert "font-style: italic; }" in h[h.index(".istat-alt {"):h.index("}", h.index(".istat-alt {")) + 2]
+
+
+def test_metodoloji_ve_hakkinda_sayili_parcalar_baglanir():
+    """KILAVUZ bölüm 2, "Satır sonu" (H-belge-2, -3, -4): Metodoloji üreticisi aralıkta yarım çizginin iki yanına U+2060,
+    kısaltma ya da gönderme ile sayı, sayı ile ad arasına U+00A0 koyar; kod parçalarına ve başlıklara dokunmaz. Hakkında'da
+    aynı bağlamayı sayfa betiği görünen metinde yapar."""
+    _, g = metodoloji.md_html("## 3. Yıllar 1946–2004\n\nYıllar 1946–2004, Kural 2, para. 54, No. 119, 57 üye ve 27 delegasyon; "
+                              "Madde 27 (3); `1946–2004 57 üye` ile 3 ve 4.\n")
+    assert "<h2" in g and "1946–2004</h2>" in g  # başlık bağlanmaz
+    for parca in ("1946\u2060–\u20602004,", "Kural\u00a02", "para.\u00a054", "No.\u00a0119", "57\u00a0üye", "27\u00a0delegasyon",
+                  "Madde\u00a027\u00a0(3)"):
+        assert parca in g, parca
+    assert ">1946–2004 57 üye</code>" in g and "3 ve 4" in g  # kod ve bağlaç bağlanmaz
+    sayfa = (WEB / "metodoloji.html").read_text(encoding="utf-8")
+    for parca in ("1946\u2060–\u20602004", "57\u2060–\u206072", "Kural\u00a02", "para.\u00a054", "57\u00a0üye",
+                  "27\u00a0delegasyon", "No.\u00a0119", "Rule\u00a02"):
+        assert parca in sayfa, parca
+    for kod in re.findall(r"<code[^>]*>(.*?)</code>", sayfa, re.S):
+        assert "\u00a0" not in kod and "\u2060" not in kod, kod
+    for baslik in re.findall(r"<h[23][^>]*>(.*?)</h[23]>", sayfa, re.S):
+        assert "\u2060" not in baslik, baslik
+    h = (WEB / "hakkinda.html").read_text(encoding="utf-8")
+    assert "const satirBagla = () => {" in h and "if (!V) { satirBagla(); return; }" in h
+    assert h.count("satirBagla();") == 2 and 'if (n.parentElement.closest("code, script, style")) continue;' in h
+
+
+def test_metodoloji_satir_sonu_kisa_kod_ve_ceviri_notu():
+    """KILAVUZ bölüm 2 (metin sayfaları ve "Satır sonu"): üretici tarihte gün, ay ve yılı bölünmez boşlukla bağlar (kod içinde
+    ve .md kaynağında değil); 24 karakterden kısa, tire, eğik çizgi ya da boşluk taşıyan kod `code.kisa` alır, uzun yol
+    almaz; `>` ile başlayan satır (METODOLOJI_EN.md'nin çeviri notu) sayfaya taşınmaz (G-belge-3, -5, -6)."""
+    _, g = metodoloji.md_html("# B\n\n> Depo notu.\n\nTarih 30 Kasım 1950, `30 Kasım 1950` ve `V-1946-06-26-1` ile "
+                              "`kaynaklar/temsil/harita_kurallari.csv` ve `kod_x`.\n")
+    assert "Depo notu" not in g
+    assert "Tarih 30\u00a0Kasım\u00a01950," in g and '<code class="kisa">30 Kasım 1950</code>' in g
+    assert '<code class="kisa">V-1946-06-26-1</code>' in g
+    assert "<code>kaynaklar/temsil/harita_kurallari.csv</code>" in g and "<code>kod_x</code>" in g
+    sayfa = (WEB / "metodoloji.html").read_text(encoding="utf-8")
+    assert "30\u00a0Kasım\u00a01950" in sayfa and "30\u00a0November\u00a01950" in sayfa
+    assert "30 Kasım 1950" not in sayfa and "30 November 1950" not in sayfa
+    assert "30 Kasım 1950" in (KOK / "METODOLOJI.md").read_text(encoding="utf-8")  # kaynak değişmez
+    # Çeviri notu sitede bir kez: girişin altındaki küçük satırda
+    assert (KOK / "METODOLOJI_EN.md").read_text(encoding="utf-8").count("This is a translation") == 1
+    assert sayfa.count("This is a translation") == 1 and '<p class="ikincil">Last changed' in sayfa
+    # Kod kutusu kuralı ortak stilde (Hakkında ile aynı): çok küçük yatay iç boşluk (H-belge-1), kısa kod bölünmez
+    css = (WEB / "temel.css").read_text(encoding="utf-8")
+    assert ".duz-yazi code { font-size: var(--yz-kucuk); padding: 0 0.12em;" in css and ".duz-yazi code.kisa { white-space: nowrap; }" in css
+    assert ".duz-yazi code {{" not in (KOK / "veto_atlasi/metodoloji.py").read_text(encoding="utf-8")

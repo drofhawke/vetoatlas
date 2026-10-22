@@ -85,7 +85,7 @@ def test_oranlar_ve_girdi_ozetleri():
     for x in V["gruplar"] + V["kumeler"]:
         for g in ("nufus_2023", "uye", "butce", "personel"):
             if x["paylar"][g]:
-                assert abs(x["oranlar"][g] - round(x["koltuk"]["toplam_payi"] / x["paylar"][g], 3)) < 1e-9
+                assert abs(x["oranlar"][g] - round(x["koltuk"]["toplam_payi"] / x["paylar"][g], 6)) < 1e-9  # 09: altı ondalık
     import hashlib
     for ad, sha in V["meta"]["girdi_sha256"].items():
         assert hashlib.sha256((GIRDI / ad).read_bytes()).hexdigest() == sha, ad
@@ -96,15 +96,17 @@ def test_oranlar_ve_girdi_ozetleri():
 def test_sayfa_ve_baglantilar():
     sayfa = (KOK / "web/temsil.html").read_text(encoding="utf-8")
     assert 'src="temsil_veri.js"' in sayfa and "TEMSIL_VERISI" in sayfa
-    for s in ("DGACM", "2025–2027", "28 Şubat 2026", "prefers-reduced-motion"):
+    # Barış gücü personeli: BM Barış ve Güvenlik Veri Merkezi, 31 Temmuz 2026 (K14)
+    for s in ("DGACM", "2025–2027", "31 Temmuz 2026", "prefers-reduced-motion"):
         assert s in sayfa, s
+    assert "28 Şubat 2026" not in sayfa and V["meta"]["personel_tarihi"] == "2026-07-31"
     # ADIM 46: nüfus payı BM üyelerinin toplamı içinde (payda 193 üye; dünya toplamına göre pay ayrı alan)
-    assert "beş payı yan yana gösterir: BM üyelerinin toplam nüfusundaki pay," in sayfa and "share of the total population of UN Member States" in sayfa
+    assert "Temsil endeksinde ${g}nun BM üyelerinin nüfusundaki payı ${nufus}" in sayfa and "of the population of UN Member States" in sayfa
     assert "dünya nüfusundaki pay" not in sayfa and "share of world population" not in sayfa
     # ADIM 45: tanımlar ve kaynak listesi (künyeler, lisans) "Nasıl yaptık?"ta, Metodoloji 2.9'da; sayfada değil
     for md in ("METODOLOJI.md", "METODOLOJI_EN.md"):
         m = (KOK / md).read_text(encoding="utf-8")
-        for s in ("A/RES/1991", "CC BY 3.0 IGO", "DGACM", "28/02/2026", "A/RES/79/249", "WPP2024_GEN_F01_DEMOGRAPHIC_INDICATORS_COMPACT.xlsx",
+        for s in ("A/RES/1991", "CC BY 3.0 IGO", "DGACM", "31 Temmuz 2026" if md == "METODOLOJI.md" else "31 July 2026", "DPO-UCLATEST", "A/RES/79/249", "WPP2024_GEN_F01_DEMOGRAPHIC_INDICATORS_COMPACT.xlsx",
                   "oic-oci.org/en/members", "main.un.org/securitycouncil/en/content/current-members", "Porto Riko" if md == "METODOLOJI.md" else "Puerto Rico"):
             assert s in m, (md, s)
     for s in ("CC BY 3.0 IGO", "WPP2024_GEN_F01", "scripts/09_temsil.py", 'id="tanimlar"', 'id="alt"'):

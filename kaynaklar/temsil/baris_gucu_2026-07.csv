@@ -1,0 +1,115 @@
+iso3,ad_rapor,sira,erkek,kadin,toplam
+NPL,Nepal,1,3935,350,4285
+IND,India,2,4102,158,4260
+RWA,Rwanda,3,3485,531,4016
+BGD,Bangladesh,4,3712,291,4003
+PAK,Pakistan,5,1960,125,2085
+IDN,Indonesia,6,1809,163,1972
+GHA,Ghana,7,1589,340,1929
+CHN,China,8,1581,70,1651
+MAR,Morocco,9,1252,80,1332
+EGY,Egypt,10,920,99,1019
+TZA,United Republic of Tanzania,11,890,114,1004
+ETH,Ethiopia,12,791,130,921
+URY,Uruguay,13,782,52,834
+SEN,Senegal,14,684,144,828
+CMR,Cameroon,15,667,116,783
+ITA,Italy,16,724,51,775
+MWI,Malawi,17,678,83,761
+TUN,Tunisia,18,621,55,676
+ESP,Spain,19,623,48,671
+UGA,Uganda,20,559,88,647
+ZMB,Zambia,21,490,138,628
+FRA,France,22,571,46,617
+BDI,Burundi,23,560,51,611
+MNG,Mongolia,24,465,83,548
+MYS,Malaysia,25,473,66,539
+KHM,Cambodia,26,377,81,458
+KEN,Kenya,27,365,71,436
+KOR,Republic of Korea,28,405,25,430
+LKA,Sri Lanka,29,278,37,315
+IRL,Ireland,30,283,19,302
+MRT,Mauritania,31,281,7,288
+THA,Thailand,32,242,45,287
+VNM,Viet Nam,33,237,40,277
+ARG,Argentina,34,208,50,258
+GBR,United Kingdom of Great Britain and Northern Ireland,35,220,28,248
+SVK,Slovakia,36,202,18,220
+PER,Peru,37,177,32,209
+DEU,Germany,38,183,25,208
+NGA,Nigeria,39,162,34,196
+GTM,Guatemala,40,179,14,193
+BTN,Bhutan,41,162,21,183
+JOR,Jordan,42,171,11,182
+SRB,Serbia,42,173,9,182
+CIV,Côte d’Ivoire,44,159,22,181
+AUT,Austria,45,166,8,174
+FIN,Finland,45,163,11,174
+DJI,Djibouti,47,143,23,166
+KAZ,Kazakhstan,47,162,4,166
+PRT,Portugal,47,151,15,166
+FJI,Fiji,50,140,18,158
+POL,Poland,51,130,17,147
+COG,Congo,52,118,23,141
+ZAF,South Africa,53,44,29,73
+BRA,Brazil,54,64,7,71
+BFA,Burkina Faso,55,45,22,67
+GMB,Gambia,56,41,17,58
+RUS,Russian Federation,57,42,15,57
+TGO,Togo,58,31,23,54
+NER,Niger,59,29,12,41
+NOR,Norway,60,25,11,36
+SLV,El Salvador,61,35,0,35
+ARM,Armenia,62,33,0,33
+ZWE,Zimbabwe,63,16,16,32
+HUN,Hungary,64,29,1,30
+AUS,Australia,65,20,8,28
+PHL,Philippines,66,12,15,27
+CHE,Switzerland,67,22,3,25
+SLE,Sierra Leone,68,17,7,24
+BRN,Brunei Darussalam,69,19,2,21
+CAN,Canada,69,16,5,21
+PRY,Paraguay,69,17,4,21
+GIN,Guinea,72,16,1,17
+USA,United States of America,72,17,0,17
+BIH,Bosnia and Herzegovina,74,11,5,16
+CHL,Chile,74,12,4,16
+LBR,Liberia,76,8,7,15
+BEN,Benin,77,11,3,14
+BOL,Bolivia (Plurinational State of),78,11,2,13
+TCD,Chad,78,12,1,13
+NLD,Netherlands,78,9,4,13
+HRV,Croatia,81,9,3,12
+MEX,Mexico,81,6,6,12
+HND,Honduras,83,8,2,10
+NZL,New Zealand,83,8,2,10
+SWE,Sweden,83,8,2,10
+TUR,Türkiye,83,9,1,10
+DNK,Denmark,87,9,0,9
+ECU,Ecuador,87,8,1,9
+KGZ,Kyrgyzstan,87,7,2,9
+WSM,Samoa,90,6,2,8
+SVN,Slovenia,90,8,0,8
+SLB,Solomon Islands,90,5,3,8
+KIR,Kiribati,93,4,3,7
+NAM,Namibia,93,3,4,7
+MLI,Mali,95,4,2,6
+MDA,Republic of Moldova,95,5,1,6
+CZE,Czechia,97,2,3,5
+LVA,Latvia,97,2,3,5
+COL,Colombia,99,4,0,4
+DOM,Dominican Republic,99,2,2,4
+JPN,Japan,99,3,1,4
+ROU,Romania,99,3,1,4
+VUT,Vanuatu,99,2,2,4
+EST,Estonia,104,2,1,3
+MNE,Montenegro,104,2,1,3
+ALB,Albania,106,0,2,2
+DZA,Algeria,106,2,0,2
+AZE,Azerbaijan,106,2,0,2
+CYP,Cyprus,106,2,0,2
+MKD,North Macedonia,106,1,1,2
+BEL,Belgium,111,1,0,1
+BWA,Botswana,111,0,1,1
+GRC,Greece,111,1,0,1
+QAT,Qatar,111,1,0,1

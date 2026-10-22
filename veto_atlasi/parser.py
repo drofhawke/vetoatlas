@@ -2,7 +2,7 @@
 Dag Hammarskjöld Kütüphanesi (DHL) veto listesini ayrıştırır.
 
 Kaynak: https://www.un.org/Depts/dhl/resguide/scact_veto_table_en.htm
-Tablo sütunları (soldan sağa): Tarih | Karar taslağı | Toplantı kaydı | Gündem maddesi | Ret oyu veren daimi üye
+Tablo sütunları (soldan sağa): Tarih | Karar taslağı | Toplantı kaydı | Gündem maddesi | Ret oyu veren daimî üye
 
 İlke: Hiçbir satır sessizce atılmaz. Ayrıştırılamayan her satır
 "inceleme" listesine düşer ve elle kontrol edilir.
@@ -119,9 +119,8 @@ def uyeleri_bul(metin: str) -> list[str]:
 def _uye_notlari(uyeler: list[str], iso_tarih: str | None) -> list[str]:
     notlar = []
     if "CHN" in uyeler and iso_tarih and date.fromisoformat(iso_tarih) < CIN_KOLTUK_DEGISIMI:
-        notlar.append("Çin koltuğu bu tarihte Çin Cumhuriyeti'ndeydi (Tayvan), ÇHC değil.")
-    if "SSCB" in uyeler:
-        notlar.append("SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.")
+        notlar.append("Çin koltuğu bu tarihte Çin Cumhuriyeti’ndeydi (Tayvan), ÇHC değil.")
+    # SSCB ile Rusya Federasyonu ayrımı kayıt notunda değil, Metodoloji'de ve grafik lejantındadır.
     return notlar
 
 
@@ -178,13 +177,13 @@ def tablo_ayristir(html: str) -> tuple[list[VetoKaydi], list[dict]]:
         if taslak_kaynagi == "toplanti_kaydi":
             notlar.append("Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.")
         if atif_belirsiz:
-            notlar.append("Kapalı oturum: veto eden üye resmi bildiride yok, kaynak tarafından atfedilmiş.")
+            notlar.append("Oturum kapalıydı. Resmî bildiri veto eden üyeyi adlandırmıyor; adı DHL listesi veriyor.")
         if on_soru:
-            notlar.append("Ön soru vetosu: konunun usul meselesi sayılıp sayılmayacağına dair oylama (çifte veto).")
+            notlar.append("Veto, konunun usul meselesi sayılıp sayılmayacağına ilişkin ön oylamada kullanıldı; buna çifte veto denir.")
         if aralik:
-            notlar.append("Kaynakta tarih aralığı var; oylama günü toplantı kaydından doğrulanmalı.")
+            notlar.append("DHL listesi bu oylamanın tarihini bir aralık olarak veriyor.")
         if sozlu_degisiklik:
-            notlar.append("Kaynakta 'oral amendment': veto, taslağa toplantıda sözlü olarak önerilen değişikliğe yöneliktir.")
+            notlar.append("Veto, toplantıda taslağa sözlü olarak önerilen bir değişikliğe karşı kullanıldı.")
 
         sorunlar = []
         if not taslaklar and taslak_kaynagi != "toplanti_kaydi":

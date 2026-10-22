@@ -11,6 +11,14 @@ authors:
     orcid: "https://orcid.org/0000-0002-0921-1256"
     affiliation: "Bağımsız araştırmacı / Independent researcher"
 url: "https://vetoatlas.com"
+repository-code: "https://github.com/drofhawke/vetoatlas"
+abstract: "Veto Atlas collects the vetoes cast in the UN Security Council since 1946, with their sources: 266 proposals and 322 negative votes. The site is in Turkish and English; the open data is in CSV, XLSX and JSON."
+keywords:
+  - "United Nations Security Council"
+  - "veto"
+  - "United Nations reform"
+  - "General Assembly"
+  - "open data"
 license:
   - MIT
   - CC-BY-4.0

@@ -51,23 +51,31 @@ def test_temel_dosya_her_sayfada_ve_tek_dosyada():
 
 
 def test_dort_yazi_boyutu():
-    """Dört boyut belirteci; dar ekranda yalnızca başlık ve gösterge küçülür. Bütün yazı boyutları belirteçten gelir."""
+    """Dört boyut belirteci ve yalnızca metin sayfasının bölüm başlığı için beşincisi (--yz-bolum 24/32, dar ekranda 22/28;
+    K12a); dar ekranda yalnızca bölüm başlığı, başlık ve gösterge küçülür. Bütün yazı boyutları belirteçten gelir."""
     kok = TEMEL[TEMEL.index(":root {"):TEMEL.index("}")]
-    assert re.findall(r"--yz-([\w-]+):\s*(\d+)px", kok) == [("kucuk", "15"), ("govde", "18"), ("baslik", "40"), ("gosterge", "96")]
+    assert re.findall(r"--yz-([\w-]+):\s*(\d+)px", kok) == [("kucuk", "15"), ("govde", "18"), ("bolum", "24"), ("baslik", "40"), ("gosterge", "96")]
+    assert re.findall(r"--sa-([\w-]+):\s*(\d+)px", kok) == [("kucuk", "24"), ("govde", "28"), ("bolum", "32"), ("baslik", "48"), ("gosterge", "96")]
     dar = TEMEL[TEMEL.index("@media (max-width: 760px)"):]
     dar = dar[:dar.index("}\n}") + 1]
-    assert re.findall(r"--yz-([\w-]+):\s*(\d+)px", dar) == [("baslik", "32"), ("gosterge", "56")]
+    assert re.findall(r"--yz-([\w-]+):\s*(\d+)px", dar) == [("bolum", "22"), ("baslik", "32"), ("gosterge", "56")]
+    assert re.findall(r"--sa-([\w-]+):\s*(\d+)px", dar) == [("bolum", "28"), ("baslik", "40"), ("gosterge", "56")]
+    bolum_kullanan = []
     for ad, css in stil_kaynaklari():
         for d in bildirimler(css, "font-size"):
-            assert d == "inherit" or re.fullmatch(r"var\(--yz-(kucuk|govde|baslik|gosterge)\)", d), (ad, d)
+            assert d == "inherit" or re.fullmatch(r"var\(--yz-(kucuk|govde|bolum|baslik|gosterge)\)", d), (ad, d)
+            if d == "var(--yz-bolum)":
+                bolum_kullanan.append(ad)
         for d in bildirimler(css, "font"):
             assert d == "inherit" or re.search(r"var\(--yz-(kucuk|govde|baslik|gosterge)\)/var\(--sa-\1\)", d), (ad, d)
+    # Beşinci boyut yalnızca metin sayfasının bölüm başlığında (temel.css .duz-yazi h2)
+    assert bolum_kullanan == ["temel.css"] and "font-size: var(--yz-bolum); line-height: var(--sa-bolum); }" in TEMEL
 
 
 def test_satir_yuksekligi_ve_boyutlar_izgarada():
     for ad, css in stil_kaynaklari():
         for d in bildirimler(css, "line-height"):
-            assert re.fullmatch(r"var\(--sa-(kucuk|govde|baslik|gosterge)\)", d), (ad, d)
+            assert re.fullmatch(r"var\(--sa-(kucuk|govde|bolum|baslik|gosterge)\)", d), (ad, d)
     for ad, deger in re.findall(r"--(sa-[\w]+|b\d+|kenar|olcu|kap):\s*(\d+)px", TEMEL):
         assert int(deger) % 4 == 0, (ad, deger)
 
@@ -83,9 +91,15 @@ def test_iki_yazi_tipi():
 
 
 def test_bosluklar_basamaklardan():
-    """Bütün boşluklar 4 px'in katı ve 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 basamaklarından; em/rem boşluk yok."""
+    """Bütün boşluklar 4 px'in katı ve 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 basamaklarından; em/rem boşluk yok.
+    Tek istisna okuma metnindeki kod kutusunun yatay iç boşluğudur (temel.css, .duz-yazi code: 0 0.12em; H-belge-1)."""
+    assert ".duz-yazi code { font-size: var(--yz-kucuk); padding: 0 0.12em;" in TEMEL and TEMEL.count("0.12em") == 1
+    kilavuz = (KOK / "kaynaklar/kimlik/KILAVUZ.md").read_text(encoding="utf-8")
+    assert "Tek istisna okuma metnindeki kod kutusunun yatay iç boşluğudur (0.12em" in kilavuz
     for ad, css in stil_kaynaklari():
         for d in bildirimler(css, BOSLUK):
+            if ad == "temel.css" and d == "0 0.12em":
+                continue
             dis = re.sub(r"\([^()]*\)", "", d)  # env(), calc(), var() içi hariç
             for sayi, birim in re.findall(r"(-?\d*\.?\d+)(px|rem|em)\b", dis):
                 assert birim == "px" and abs(float(sayi)) in BASAMAK, (ad, d)
@@ -146,7 +160,8 @@ def test_bolum_ayrimi():
     assert "main > :is(section, aside) + section { margin-top: var(--b16); padding-top: var(--b8); border-top: 1px solid var(--cizgi); }" in TEMEL
     # ADIM 50, metin sayfalarında dikey ritim: bölümler arası 32 px, ayırıcı çizgi ile bölüm başlığı arası 24 px, başlığın
     # altı 12 px; alt bölüm başlığı çizgisiz, üstü 24 px, altı 12 px (tarayıcıda ölçüldü: 32 / 1 px çizgi / 24 / 12; h3 24 / 12)
-    assert ".duz-yazi h2 { margin: var(--b8) 0 var(--b3); padding-top: var(--b6); border-top: 1px solid var(--cizgi); }" in TEMEL
+    assert (".duz-yazi h2 { margin: var(--b8) 0 var(--b3); padding-top: var(--b6); border-top: 1px solid var(--cizgi); "
+            "font-size: var(--yz-bolum); line-height: var(--sa-bolum); }") in TEMEL
     assert ".duz-yazi h3 { margin: var(--b6) 0 var(--b3); }" in TEMEL
     assert ".duz-yazi :is(p, ul, ol, dl, blockquote, table, pre) { margin-bottom: var(--b4); }" in TEMEL
     assert (WEB / "hakkinda.html").read_text(encoding="utf-8").count('class="icerik duz-yazi metin-duzen"') == 2
@@ -253,17 +268,23 @@ def test_cubuk_ve_alt_bilgi_notu_izgarada():
 def test_koseler_ve_ok_isaretleri():
     """20 Ekim 2026: düğmeler, seçim düğmeleri, etiketler ve üst çubuğun dil/tema düğmeleri 6 px köşeli; hap biçimi
     (999 px) yok. Ok işareti bağlantı metninde yok; yalnızca yön düğmelerinde (Önceki, Sonraki) ve Hikâye 4. adımın sonuç
-    satırında. Ya veto olmasaydı?'nın adım göstergesi rozetsiz, sıra numaralı düz metin."""
+    satırında. Ya veto olmasaydı?'nın üç adım göstergesi kalktı (bölüm başlıkları yeter). Üst çubuğun dil, tema ve menü
+    düğmeleri masaüstünde 40 px yükseklik (dokunma hedefi) ve 8 px yatay iç boşluk (21 Ekim 2026: İngilizce "Dark" düğmesi
+    12 px ile kenara taşıyordu), telefonda 34 px ve 8 px."""
     for ad, css in stil_kaynaklari():
         assert "999px" not in css, ad
-    assert ".cubuk .c-dil a, .cubuk .c-tema, .cubuk .c-menu { font: inherit; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); padding: 4px 8px; border: 1px solid var(--cizgi); border-radius: 6px;" in (WEB / "cubuk.js").read_text(encoding="utf-8")
+    c = (WEB / "cubuk.js").read_text(encoding="utf-8")
+    assert (".cubuk .c-dil a, .cubuk .c-tema, .cubuk .c-menu { font: inherit; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); "
+            "min-height: 40px; display: inline-flex; align-items: center; padding: 0 8px; border: 1px solid var(--cizgi); border-radius: 6px;") in c
+    assert '"  .cubuk .c-dil a, .cubuk .c-tema, .cubuk .c-menu { min-height: 34px; padding: 0 8px; }",' in c
+    # İçeriğe atlama bağlantısı: odaklanınca görünür, 48 px
+    assert ".cubuk .c-atla { position: absolute; left: 24px; top: -64px;" in c and '".cubuk .c-atla:focus { top: 16px; }",' in c
     oklu = set()
     for yol in [*(WEB / f"{ad}.html" for ad in SAYFALAR), WEB / "cubuk.js", WEB / "metin.js", WEB / "suzgec.js"]:
         oklu |= set(re.findall(r'"[^"\n]*[→↓←↑][^"\n]*"', yol.read_text(encoding="utf-8")))
     assert oklu == {'"14 evet, 1 hayır → düştü"', '"14 yes, 1 no → failed"', '"← Önceki"', '"Sonraki →"', '"← Previous"', '"Next →"'}
     s = (WEB / "simulasyon.html").read_text(encoding="utf-8")
-    assert '.adimlar .no::after { content: "."; }' in s and ".adimlar .no { width: 28px" not in s
-    assert '.adimlar li[aria-current="step"] { color: var(--murekkep); font-weight: 600; border-bottom-color: var(--murekkep); }' in s
+    assert ".adimlar" not in s and 'aria-current="step"' not in s
     assert '"h.secim": "Kaydı seçin"' in s and '"h.secim": "Choose a record"' in s
     kilavuz = (KOK / "kaynaklar/kimlik/KILAVUZ.md").read_text(encoding="utf-8")
     assert "**Köşeler ve oklar (20 Ekim 2026).**" in kilavuz

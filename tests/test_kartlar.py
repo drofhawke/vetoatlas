@@ -4,6 +4,7 @@ kartlar.json ile karşılaştırılır; kartlar veri setinin güncel SHA-256'sı
 değerlendirme içeren dil bulunmaz.
 """
 import hashlib
+import importlib.util
 import json
 import re
 from collections import Counter
@@ -83,7 +84,7 @@ def test_gorseller_kartin_verisini_gosteriyor():
             assert h.count('<rect class="k"') == 264 and h.count('<rect class="k bos"') == 2
             assert "stroke-dasharray" in h  # kapalı oturum: kesikli çerçeve (ana grafikle aynı)
             h = _html("kart-02-tek-ret", dil, boyut)
-            assert h.count('<circle class="n"') == 14 and h.count('<circle class="n ret"') == 1 and "27" in h
+            assert h.count('<rect class="n"') == 14 and h.count('<rect class="n ret"') == 1 and "27" in h  # 16 px oy kareleri, ret sonda
             h = _html("kart-03-genel-kurul", dil, boyut)
             assert h.count('<rect class="k"') == 22 + 15 and h.count('<rect class="k bos"') == 0
             h = _html("kart-04-besi-de", dil, boyut)
@@ -109,7 +110,12 @@ def test_temsil_kartlari_temsil_json_ile_ayni():
     k = {x["id"]: x for x in MANIFEST["kartlar"]}
     y = lambda p: "%" + f"{100 * p:.1f}".replace(".", ",")
     assert y(g["ASP"]["paylar"]["nufus_2023"]) in k["kart-09-asya-pasifik"]["metin"]["tr"] and y(g["ASP"]["koltuk"]["toplam_payi"]) in k["kart-09-asya-pasifik"]["metin"]["tr"]
-    assert y(g["AFR"]["paylar"]["personel"]) in k["kart-10-afrika"]["metin"]["tr"] and y(g["AFR"]["paylar"]["butce"]) in k["kart-10-afrika"]["metin"]["tr"]
+    # Kart 10 tek ölçüyü anlatır: barış gücü personeli (bütçe payı karttan çıktı); ilk çubuk da o ölçü
+    assert y(g["AFR"]["paylar"]["personel"]) in k["kart-10-afrika"]["metin"]["tr"] and "bütçe" not in k["kart-10-afrika"]["metin"]["tr"]
+    for dil, et in (("tr", "Barış gücü personeli payı"), ("en", "Share of peacekeeping personnel")):
+        h = _html("kart-10-afrika", dil, "1200x630")
+        pay = y(g["AFR"]["paylar"]["personel"]) if dil == "tr" else f'{100 * g["AFR"]["paylar"]["personel"]:.1f}%'
+        assert et in h and f">{pay}</span>" in h, dil
     assert y(g["P5"]["paylar"]["nufus_2023"]) in k["kart-11-p5"]["metin"]["tr"] and y(g["P5"]["paylar"]["butce"]) in k["kart-11-p5"]["metin"]["tr"]
     assert k["kart-10-afrika"]["buyuk"]["tr"] == "0 / 5" and k["kart-11-p5"]["buyuk"]["tr"] == "5 / 5"
     assert round(g["P5"]["paylar"]["nufus_2023"], 3) == 0.256 and g["ASP"]["koltuk"]["daimi"] == 1 and g["AFR"]["koltuk"]["daimi"] == 0
@@ -117,6 +123,23 @@ def test_temsil_kartlari_temsil_json_ile_ayni():
         for dil in ("tr", "en"):
             h = _html(kart, dil, "1200x630")
             assert h.count('<div class="cs ustte"') == 2 and "Koltuk" in h or "Seat" in h
+
+
+def test_kart_metinlerinde_sayi_ekleri_okunusa_uyar_ve_kesme_kivrik():
+    """Sayı veriden geldiği için ek de okunuştan üretilir (%39,1’ini ama %37,9’unu); görünen metinde kesme kıvrık (’)."""
+    spec = importlib.util.spec_from_file_location("paylasim_kartlari", KOK / "scripts/08_paylasim_kartlari.py")
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    for sayi, tur, beklenen in ((264, "i", "264’ü"), (27, "i", "27’si"), (1946, "den", "1946’dan"), (2022, "den", "2022’den"),
+                                ("%39,1", "ini", "%39,1’ini"), ("%37,9", "ini", "%37,9’unu"), ("%25,6", "ini", "%25,6’sını"),
+                                ("%51,9", "ini", "%51,9’unu"), (5, "ini", "5’ini"), (15, "inde", "15’inde"), (3, "i", "3’ü"),
+                                (10, "i", "10’u"), (40, "i", "40’ı"), (100, "i", "100’ü"), ("%47,0", "ini", "%47,0’ını")):
+        assert m.ek(sayi, tur) == beklenen, (sayi, tur)
+    for k in MANIFEST["kartlar"]:
+        if k["tur"] == "alinti":
+            continue
+        for dil in ("tr", "en"):
+            assert "'" not in k["metin"][dil] + k["buyuk"][dil] + k["kaynak"][dil], (k["id"], dil)
 
 
 def test_kart_metinlerinde_degerlendirme_yok_ve_en_fazla_iki_cumle():
@@ -130,3 +153,21 @@ def test_kart_metinlerinde_degerlendirme_yok_ve_en_fazla_iki_cumle():
     katalog = (KOK / "kaynaklar/kart_katalogu.md").read_text(encoding="utf-8")
     for k in MANIFEST["kartlar"]:
         assert k["id"] in katalog, k["id"]
+
+
+def test_soz_ve_kayit_onizlemesi_iki_sirada():
+    """KILAVUZ "Önizleme görseli": Söz ve Kayıt önizlemesinde 22 kare iki sırada (11 + 11), 15 küçük kare altta tek sırada;
+    sözcük yoktur, sağ üstte yalnız "22 / 22" (G-kart-1)."""
+    spec = importlib.util.spec_from_file_location("paylasim_kartlari", KOK / "scripts/08_paylasim_kartlari.py")
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    S = m.sayilar(m.veri_oku())
+    h = m.onizleme_html("onizleme-vizyon", S)
+    svg = re.findall(r'<svg width="[\d.]+" height="[\d.]+" viewBox="0 0 [\d.]+ [\d.]+" role="img">(.*?)</svg>', h, re.S)
+    assert len(svg) == 2
+    buyuk_x = sorted({x for x in re.findall(r'<rect class="k[^"]*" x="([\d.]+)"', svg[0])}, key=float)
+    buyuk_y = {y for y in re.findall(r'<rect class="k[^"]*" x="[\d.]+" y="([\d.]+)"', svg[0])}
+    assert S["gk_sonrasi"] == 22 and len(buyuk_x) == 11 and len(buyuk_y) == 2
+    kucuk_y = {y for y in re.findall(r'<rect class="k[^"]*" x="[\d.]+" y="([\d.]+)"', svg[1])}
+    assert svg[1].count("<rect") == S["vg_tartisma"] and len(kucuk_y) == 1
+    assert f'{S["gk_gorusulen"]} / {S["gk_sonrasi"]}' in h

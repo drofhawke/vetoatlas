@@ -10,7 +10,7 @@ V-2024-04-18-1,2024-04-18,18 April 2024,S/2024/312,S/PV.9609,Admission of new me
 V-2024-03-28-1,2024-03-28,28 March 2024,S/2024/255,S/PV.9591,Non-proliferation/Democratic People's Republic of Korea,RUS,False,
 V-2024-03-22-1,2024-03-22,22 March 2024,S/2024/239,S/PV.9584,"The situation in the Middle East, including the Palestinian question",RUS; CHN,False,
 V-2024-02-20-1,2024-02-20,20 February 2024,S/2024/173,S/PV.9552,"The situation in the Middle East, including the Palestinian question",USA,False,
-V-2023-12-22-1,2023-12-22,22 December 2023,S/2023/1029,S/PV.9520,"The situation in the Middle East, including the Palestinian question",USA,True,"Kaynakta 'oral amendment': veto, taslağa toplantıda sözlü olarak önerilen değişikliğe yöneliktir."
+V-2023-12-22-1,2023-12-22,22 December 2023,S/2023/1029,S/PV.9520,"The situation in the Middle East, including the Palestinian question",USA,True,"Veto, toplantıda taslağa sözlü olarak önerilen bir değişikliğe karşı kullanıldı."
 V-2023-12-08-1,2023-12-08,8 December 2023,S/2023/970,S/PV.9499,"The situation in the Middle East, including the Palestinian question",USA,False,
 V-2023-10-25-1,2023-10-25,25 October 2023,S/2023/792,S/PV.9453,"The situation in the Middle East, including the Palestinian question",RUS; CHN,False,
 V-2023-10-18-1,2023-10-18,18 October 2023,S/2023/773,S/PV.9442,"The situation in the Middle East, including the Palestinian question",USA,False,
@@ -58,13 +58,13 @@ V-2003-10-14-1,2003-10-14,14 October 2003,S/2003/980,S/PV.4842,"The situation in
 V-2003-09-16-1,2003-09-16,16 September 2003,S/2003/891,S/PV.4828,"The situation in the Middle East, including the Palestinian question",USA,False,
 V-2002-12-20-1,2002-12-20,20 December 2002,S/2002/1385,S/PV.4681,"The situation in the Middle East, including the Palestinian question",USA,False,
 V-2002-06-30-1,2002-06-30,30 June 2002,S/2002/712,S/PV.4563,The situation in Bosnia and Herzegovina,USA,False,
-V-2001-12-14-1,2001-12-14,14-15 December 2001,S/2001/1199,S/PV.4438,"The situation in the Middle East, including the Palestinian question",USA,False,Kaynakta tarih aralığı var; oylama günü toplantı kaydından doğrulanmalı.
-V-2001-03-27-1,2001-03-27,27-28 March 2001,S/2001/270,S/PV.4305,"The situation in the Middle East, including the Palestinian question",USA,False,Kaynakta tarih aralığı var; oylama günü toplantı kaydından doğrulanmalı.
+V-2001-12-14-1,2001-12-14,14-15 December 2001,S/2001/1199,S/PV.4438,"The situation in the Middle East, including the Palestinian question",USA,False,DHL listesi bu oylamanın tarihini bir aralık olarak veriyor.
+V-2001-03-27-1,2001-03-27,27-28 March 2001,S/2001/270,S/PV.4305,"The situation in the Middle East, including the Palestinian question",USA,False,DHL listesi bu oylamanın tarihini bir aralık olarak veriyor.
 V-1999-02-25-1,1999-02-25,25 February 1999,S/1999/201,S/PV.3982,The situation in the former Yugoslav Republic of Macedonia,CHN,False,
 V-1997-03-21-1,1997-03-21,21 March 1997,S/1997/241,S/PV.3756,The situation in the occupied Arab territories,USA,False,
 V-1997-03-07-1,1997-03-07,07 March 1997,S/1997/199,S/PV.3747,The situation in the occupied Arab territories,USA,False,
 V-1997-01-10-1,1997-01-10,10 January 1997,S/1997/18,S/PV.3730,Central America: efforts towards peace,CHN,False,
-V-1996-11-19-1,1996-11-19,19 November 1996,S/1996/952,S/PV.3714,Appointment of Secretary-General,USA,False,"Kapalı oturum: veto eden üye resmi bildiride yok, kaynak tarafından atfedilmiş."
+V-1996-11-19-1,1996-11-19,19 November 1996,S/1996/952,S/PV.3714,Appointment of Secretary-General,USA,False,Oturum kapalıydı. Resmî bildiri veto eden üyeyi adlandırmıyor; adı DHL listesi veriyor.
 V-1995-05-17-1,1995-05-17,17 May 1995,S/1995/394,S/PV.3538,The situation in the occupied Arab territories,USA,False,
 V-1994-12-02-1,1994-12-02,02 December 1994,S/1994/1358,S/PV.3475,The situation in the Republic of Bosnia and Herzegovina,RUS,False,
 V-1993-05-11-1,1993-05-11,11 May 1993,S/25693,S/PV.3211,The situation in Cyprus,RUS,False,
@@ -100,9 +100,9 @@ V-1985-05-10-3,1985-05-10,10 May 1985,S/17172,S/PV.2580,Letter dated 6 May 1985 
 V-1985-03-12-1,1985-03-12,12 March 1985,S/17000,S/PV.2573,The situation in the Middle East,USA,False,
 V-1984-09-06-1,1984-09-06,06 September 1984,S/16732,S/PV.2556,The situation in the Middle East,USA,False,
 V-1984-04-04-1,1984-04-04,04 April 1984,S/16463,S/PV.2529,Letter dated 29 March 1984 from Nicaragua to the President of the Security Council,USA,False,
-V-1984-02-29-1,1984-02-29,29 February 1984,S/16351/Rev.2,S/PV.2519,The situation in the Middle East,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1983-10-27-1,1983-10-27,27-28 October 1983,S/16077/Rev.1,S/PV.2491,The situation in Grenada,USA,False,Kaynakta tarih aralığı var; oylama günü toplantı kaydından doğrulanmalı.
-V-1983-09-12-1,1983-09-12,12 September 1983,S/15966/Rev.1,S/PV.2476,"Letters dated 1 September 1983 from the USA, the Republic of Korea, Canada and Japan to the President of the Security Council and Letter dated 2 September 1983 from Australia to the President of the Security Council",SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
+V-1984-02-29-1,1984-02-29,29 February 1984,S/16351/Rev.2,S/PV.2519,The situation in the Middle East,SSCB,False,
+V-1983-10-27-1,1983-10-27,27-28 October 1983,S/16077/Rev.1,S/PV.2491,The situation in Grenada,USA,False,DHL listesi bu oylamanın tarihini bir aralık olarak veriyor.
+V-1983-09-12-1,1983-09-12,12 September 1983,S/15966/Rev.1,S/PV.2476,"Letters dated 1 September 1983 from the USA, the Republic of Korea, Canada and Japan to the President of the Security Council and Letter dated 2 September 1983 from Australia to the President of the Security Council",SSCB,False,
 V-1983-08-02-1,1983-08-02,02 August 1983,S/15895,S/PV.2461,The situation in the occupied Arab territories,USA,False,
 V-1982-08-06-1,1982-08-06,06 August 1982,S/15347/Rev.1,S/PV.2391,The situation in the Middle East,USA,False,
 V-1982-06-26-1,1982-06-26,26 June 1982,S/15255/Rev.2,S/PV.2381,The situation in the Middle East,USA,False,
@@ -118,10 +118,10 @@ V-1981-04-30-2,1981-04-30,30 April 1981,S/14461,S/PV.2277,The situation in Namib
 V-1981-04-30-3,1981-04-30,30 April 1981,S/14460/Rev.1,S/PV.2277,The situation in Namibia,GBR; USA; FRA,False,
 V-1981-04-30-4,1981-04-30,30 April 1981,S/14459,S/PV.2277,The situation in Namibia,GBR; USA; FRA,False,
 V-1980-04-30-1,1980-04-30,30 April 1980,S/13911,S/PV.2220,The question of the exercise by the Palestinian people of its inalienable rights,USA,False,
-V-1980-01-11-1,1980-01-11,11-13 January 1980,S/13735,S/PV.2191,Letters dated 22 December 1979 from the USA to the President of the Security Council US and Iran hostage question,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.; Kaynakta tarih aralığı var; oylama günü toplantı kaydından doğrulanmalı."
-V-1980-01-07-1,1980-01-07,7-9 January 1980,S/13729,S/PV.2190,Letter dated 3 January 1980 from 52 countries to the President of the Security Council,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.; Kaynakta tarih aralığı var; oylama günü toplantı kaydından doğrulanmalı."
-V-1979-03-16-1,1979-03-16,16 March 1979,S/13162,S/PV.2129,The situation in South-East Asia and its implications for international peace and security China and Viet Nam border dispute,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1979-01-15-1,1979-01-15,15 January 1979,S/13027,S/PV.2112,Telegram dated 3 January 1979 from Democratic Kampuchea to the President of the Security Council,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
+V-1980-01-11-1,1980-01-11,11-13 January 1980,S/13735,S/PV.2191,Letters dated 22 December 1979 from the USA to the President of the Security Council US and Iran hostage question,SSCB,False,DHL listesi bu oylamanın tarihini bir aralık olarak veriyor.
+V-1980-01-07-1,1980-01-07,7-9 January 1980,S/13729,S/PV.2190,Letter dated 3 January 1980 from 52 countries to the President of the Security Council,SSCB,False,DHL listesi bu oylamanın tarihini bir aralık olarak veriyor.
+V-1979-03-16-1,1979-03-16,16 March 1979,S/13162,S/PV.2129,The situation in South-East Asia and its implications for international peace and security China and Viet Nam border dispute,SSCB,False,
+V-1979-01-15-1,1979-01-15,15 January 1979,S/13027,S/PV.2112,Telegram dated 3 January 1979 from Democratic Kampuchea to the President of the Security Council,SSCB,False,
 V-1977-10-31-1,1977-10-31,31 October 1977,S/12312/Rev.1,S/PV.2045,The question of South Africa,GBR; USA; FRA,False,
 V-1977-10-31-2,1977-10-31,31 October 1977,S/12311/Rev.1,S/PV.2045,The question of South Africa,GBR; USA; FRA,False,
 V-1977-10-31-3,1977-10-31,31 October 1977,S/12310/Rev.1,S/PV.2045,The question of South Africa,GBR; USA; FRA,False,
@@ -139,7 +139,7 @@ V-1975-08-11-1,1975-08-11,11 August 1975,S/11796,S/PV.1836,Admission of new Memb
 V-1975-08-11-2,1975-08-11,11 August 1975,S/11795,S/PV.1836,Admission of new Members Republic of South Viet-Nam,USA,False,
 V-1975-06-06-1,1975-06-06,06 June 1975,S/11713,S/PV.1829,The situation in Namibia,GBR; USA; FRA,False,
 V-1974-10-30-1,1974-10-30,30 October 1974,S/11543,S/PV.1808,Relationship between the UN and South Africa,GBR; USA; FRA,False,
-V-1974-07-31-1,1974-07-31,31 July 1974,S/11400,S/PV.1788,The situation in Cyprus,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
+V-1974-07-31-1,1974-07-31,31 July 1974,S/11400,S/PV.1788,The situation in Cyprus,SSCB,False,
 V-1973-07-26-1,1973-07-26,26 July 1973,S/10974,S/PV.1735,The situation in the Middle East,USA,False,
 V-1973-05-22-1,1973-05-22,22 May 1973,S/10928,S/PV.1716,Question concerning the situation in Southern Rhodesia,GBR; USA,False,
 V-1973-03-21-1,1973-03-21,21 March 1973,S/10931/Rev.1,S/PV.1704,Consideration of measures for the maintenance and strengthening of peace and security in Latin America,USA,False,
@@ -148,101 +148,101 @@ V-1972-09-10-1,1972-09-10,10 September 1972,S/10784,S/PV.1662,The situation in t
 V-1972-08-25-1,1972-08-25,25 August 1972,S/10771,S/PV.1660,Admission of new Members Bangladesh,CHN,False,
 V-1972-02-04-1,1972-02-04,04 February 1972,S/10606,S/PV.1639,Consideration of questions relating to Africa of which the Security Council is currently seized and implementation of the Council's relevant resolutions the situation in Southern Rhodesia,GBR,False,
 V-1971-12-30-1,1971-12-30,30 December 1971,S/10489,S/PV.1623,Question concerning the situation in Southern Rhodesia,GBR,False,
-V-1971-12-13-1,1971-12-13,13 December 1971,S/10446/Rev.1,S/PV.1613,Letter dated 12 December 1971 from the USA to the President of the Security Council concerning the India-Pakistan question,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1971-12-05-1,1971-12-05,05 December 1971,S/10423,S/PV.1607,"Letter dated 4 December 1971 from Argentina, Belgium, Burundi, Italy, Japan, Nicaragua, Somalia, the UK and the USA to the President of the Security Council concerning the IndiaPakistan question",SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1971-12-04-1,1971-12-04,04 December 1971,S/10416,S/PV.1606,"Letter dated 4 December 1971 from Argentina, Belgium, Burundi, Italy, Japan, Nicaragua, Somalia, the UK and the USA to the President of the Security Council concerning the India-Pakistan question",SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
+V-1971-12-13-1,1971-12-13,13 December 1971,S/10446/Rev.1,S/PV.1613,Letter dated 12 December 1971 from the USA to the President of the Security Council concerning the India-Pakistan question,SSCB,False,
+V-1971-12-05-1,1971-12-05,05 December 1971,S/10423,S/PV.1607,"Letter dated 4 December 1971 from Argentina, Belgium, Burundi, Italy, Japan, Nicaragua, Somalia, the UK and the USA to the President of the Security Council concerning the IndiaPakistan question",SSCB,False,
+V-1971-12-04-1,1971-12-04,04 December 1971,S/10416,S/PV.1606,"Letter dated 4 December 1971 from Argentina, Belgium, Burundi, Italy, Japan, Nicaragua, Somalia, the UK and the USA to the President of the Security Council concerning the India-Pakistan question",SSCB,False,
 V-1970-11-10-1,1970-11-10,10 November 1970,S/9976,S/PV.1556,Question concerning the situation in Southern Rhodesia,GBR,False,
 V-1970-03-17-1,1970-03-17,17 March 1970,S/9696,S/PV.1534,Question concerning the situation in Southern Rhodesia,GBR; USA,False,
-V-1968-08-22-1,1968-08-22,22 August 1968,S/8761,S/PV.1443,"Letter dated 21 August 1968 from Canada, Denmark, France, Paraguay, the UK and the USA to the President of the Security Council concerning the situation in Czechoslovakia",SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1966-11-04-1,1966-11-04,04 November 1966,S/7575/Rev.1,S/PV.1319,The Palestine question,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1964-12-21-1,1964-12-21,21 December 1964,S/6113,S/PV.1182,The Palestine question,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1964-09-17-1,1964-09-17,17 September 1964,S/5973,S/PV.1152,Letter dated 3 September 1964 from Malaysia to the President of the Security Council,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
+V-1968-08-22-1,1968-08-22,22 August 1968,S/8761,S/PV.1443,"Letter dated 21 August 1968 from Canada, Denmark, France, Paraguay, the UK and the USA to the President of the Security Council concerning the situation in Czechoslovakia",SSCB,False,
+V-1966-11-04-1,1966-11-04,04 November 1966,S/7575/Rev.1,S/PV.1319,The Palestine question,SSCB,False,
+V-1964-12-21-1,1964-12-21,21 December 1964,S/6113,S/PV.1182,The Palestine question,SSCB,False,
+V-1964-09-17-1,1964-09-17,17 September 1964,S/5973,S/PV.1152,Letter dated 3 September 1964 from Malaysia to the President of the Security Council,SSCB,False,
 V-1963-09-13-1,1963-09-13,13 September 1963,S/5425/Rev.1,S/PV.1069,The situation in Southern Rhodesia,GBR,False,
-V-1963-09-03-1,1963-09-03,03 September 1963,S/5407,S/PV.1063,The Palestine question,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1962-06-22-1,1962-06-22,22 June 1962,S/5134,S/PV.1016,The India-Pakistan question,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1961-12-18-1,1961-12-18,18 December 1961,S/5033,S/PV.988,Letter dated 18 December 1961 from Portugal to the President of the Security Council concerning Goa,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1961-11-30-1,1961-11-30,30 November 1961,S/5006,S/PV.985,Applications for Membership Kuwait,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1961-11-24-1,1961-11-24,24 November 1961,S/4985/Rev.1,S/PV.982,Situation in the Republic of the Congo,SSCB,True,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1961-11-24-2,1961-11-24,24 November 1961,S/4985/Rev.1,S/PV.982,Situation in the Republic of the Congo,SSCB,True,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1961-07-07-1,1961-07-07,07 July 1961,S/4855,S/PV.960,Complaints by Kuwait in respect of the situation arising from the threat by Iraq to the territorial integrity of Kuwait,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1961-02-21-1,1961-02-21,21 February 1961,S/4733/Rev.1,S/PV.942,Situation in the Republic of the Congo,SSCB,True,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1961-02-21-2,1961-02-21,21 February 1961,S/4733/Rev.1,S/PV.942,Situation in the Republic of the Congo,SSCB,True,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1960-12-13-1,1960-12-13,13 December 1960,S/4578/Rev.1,S/PV.920,Letter dated 13 July 1960 from the Secretary-General to the President of the Security Council the situation in the Congo,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1960-12-03-1,1960-12-03,3-4 December 1960,S/4567/Rev.1,S/PV.911,Applications for membership Mauritania,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.; Kaynakta tarih aralığı var; oylama günü toplantı kaydından doğrulanmalı."
-V-1960-09-17-1,1960-09-17,17 September 1960,S/4523,S/PV.906,Letter dated 13 July 1960 from the Secretary-General to the President of the Security Council concerning the situation in the Congo,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1960-07-26-1,1960-07-26,26 July 1960,S/4409/Rev.1,S/PV.883,Telegrams dated 13 July 1960 from the USSR to the Secretary-General,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1960-07-26-2,1960-07-26,26 July 1960,S/4411,S/PV.883,Telegrams dated 13 July 1960 from the USSR to the Secretary-General,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1958-12-09-1,1958-12-09,09 December 1958,S/4130/Rev.1,S/PV.843,Admission of new Members Viet-Nam,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1958-12-09-2,1958-12-09,09 December 1958,S/4129/Rev.1,S/PV.843,Admission of new Members Republic of Korea,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1958-07-22-1,1958-07-22,22 July 1958,S/4055/Rev.1,S/PV.837,Letter dated 22 May 1958 from Lebanon and Letter dated 17 July 1958 from Jordan to the President of the Security Council Complaints by Lebanon and Jordan concerning the interference in their internal affairs by the United Arab Republic,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1958-07-18-1,1958-07-18,18 July 1958,S/4050/Rev.1,S/PV.834,Letter dated 22 May 1958 from Lebanon and Letter dated 17 July 1958 from Jordan to the President of the Security Council Complaints by Lebanon and Jordan concerning the interference in their internal affairs by the United Arab Republic,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1958-05-02-1,1958-05-02,02 May 1958,S/3995; S/3998,S/PV.817,Complaint by USSR in a letter to the President of the Security Council dated 18 April 1958 entitled Urgent measures to put an end to flights by US military aircraft armed with atomic and hydrogen bombs in the direction of the frontiers of the Soviet Union,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1957-09-09-1,1957-09-09,09 September 1957,S/3885,S/PV.790,Admission of new Members Viet-Nam,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1957-09-09-2,1957-09-09,09 September 1957,S/3884,S/PV.790,Admission of new Members Republic of Korea,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1957-02-20-1,1957-02-20,20 February 1957,S/3787,S/PV.773,The India-Pakistan question,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1956-11-04-1,1956-11-04,04 November 1956,S/3730/Rev.1,S/PV.754,"Letter dated 27 October 1956 from France, the UK and the USA to the President of the Security Council concerning the situation in Hungary",SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
+V-1963-09-03-1,1963-09-03,03 September 1963,S/5407,S/PV.1063,The Palestine question,SSCB,False,
+V-1962-06-22-1,1962-06-22,22 June 1962,S/5134,S/PV.1016,The India-Pakistan question,SSCB,False,
+V-1961-12-18-1,1961-12-18,18 December 1961,S/5033,S/PV.988,Letter dated 18 December 1961 from Portugal to the President of the Security Council concerning Goa,SSCB,False,
+V-1961-11-30-1,1961-11-30,30 November 1961,S/5006,S/PV.985,Applications for Membership Kuwait,SSCB,False,
+V-1961-11-24-1,1961-11-24,24 November 1961,S/4985/Rev.1,S/PV.982,Situation in the Republic of the Congo,SSCB,True,
+V-1961-11-24-2,1961-11-24,24 November 1961,S/4985/Rev.1,S/PV.982,Situation in the Republic of the Congo,SSCB,True,
+V-1961-07-07-1,1961-07-07,07 July 1961,S/4855,S/PV.960,Complaints by Kuwait in respect of the situation arising from the threat by Iraq to the territorial integrity of Kuwait,SSCB,False,
+V-1961-02-21-1,1961-02-21,21 February 1961,S/4733/Rev.1,S/PV.942,Situation in the Republic of the Congo,SSCB,True,
+V-1961-02-21-2,1961-02-21,21 February 1961,S/4733/Rev.1,S/PV.942,Situation in the Republic of the Congo,SSCB,True,
+V-1960-12-13-1,1960-12-13,13 December 1960,S/4578/Rev.1,S/PV.920,Letter dated 13 July 1960 from the Secretary-General to the President of the Security Council the situation in the Congo,SSCB,False,
+V-1960-12-03-1,1960-12-03,3-4 December 1960,S/4567/Rev.1,S/PV.911,Applications for membership Mauritania,SSCB,False,DHL listesi bu oylamanın tarihini bir aralık olarak veriyor.
+V-1960-09-17-1,1960-09-17,17 September 1960,S/4523,S/PV.906,Letter dated 13 July 1960 from the Secretary-General to the President of the Security Council concerning the situation in the Congo,SSCB,False,
+V-1960-07-26-1,1960-07-26,26 July 1960,S/4409/Rev.1,S/PV.883,Telegrams dated 13 July 1960 from the USSR to the Secretary-General,SSCB,False,
+V-1960-07-26-2,1960-07-26,26 July 1960,S/4411,S/PV.883,Telegrams dated 13 July 1960 from the USSR to the Secretary-General,SSCB,False,
+V-1958-12-09-1,1958-12-09,09 December 1958,S/4130/Rev.1,S/PV.843,Admission of new Members Viet-Nam,SSCB,False,
+V-1958-12-09-2,1958-12-09,09 December 1958,S/4129/Rev.1,S/PV.843,Admission of new Members Republic of Korea,SSCB,False,
+V-1958-07-22-1,1958-07-22,22 July 1958,S/4055/Rev.1,S/PV.837,Letter dated 22 May 1958 from Lebanon and Letter dated 17 July 1958 from Jordan to the President of the Security Council Complaints by Lebanon and Jordan concerning the interference in their internal affairs by the United Arab Republic,SSCB,False,
+V-1958-07-18-1,1958-07-18,18 July 1958,S/4050/Rev.1,S/PV.834,Letter dated 22 May 1958 from Lebanon and Letter dated 17 July 1958 from Jordan to the President of the Security Council Complaints by Lebanon and Jordan concerning the interference in their internal affairs by the United Arab Republic,SSCB,False,
+V-1958-05-02-1,1958-05-02,02 May 1958,S/3995; S/3998,S/PV.817,Complaint by USSR in a letter to the President of the Security Council dated 18 April 1958 entitled Urgent measures to put an end to flights by US military aircraft armed with atomic and hydrogen bombs in the direction of the frontiers of the Soviet Union,SSCB,False,
+V-1957-09-09-1,1957-09-09,09 September 1957,S/3885,S/PV.790,Admission of new Members Viet-Nam,SSCB,False,
+V-1957-09-09-2,1957-09-09,09 September 1957,S/3884,S/PV.790,Admission of new Members Republic of Korea,SSCB,False,
+V-1957-02-20-1,1957-02-20,20 February 1957,S/3787,S/PV.773,The India-Pakistan question,SSCB,False,
+V-1956-11-04-1,1956-11-04,04 November 1956,S/3730/Rev.1,S/PV.754,"Letter dated 27 October 1956 from France, the UK and the USA to the President of the Security Council concerning the situation in Hungary",SSCB,False,
 V-1956-10-30-1,1956-10-30,30 October 1956,S/3713/Rev.1,S/PV.750,Letter dated 29 October 1956 from the USA to the President of the Security Council concerning the Palestine question,GBR; FRA,False,
 V-1956-10-30-2,1956-10-30,30 October 1956,S/3710,S/PV.749,Letter dated 29 October 1956 from the USA to the President of the Security Council concerning the Palestine question,GBR; FRA,False,
-V-1956-10-13-1,1956-10-13,13 October 1956,S/3671,S/PV.743,"Situation created by the unilateral action of the Egyptian Government in bringing to an end the system of international operation of the Suez Canal, which was confirmed and completed by the Suez Canal Convention of 1888",SSCB,True,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1955-12-15-1,1955-12-15,15 December 1955,S/3510,S/PV.706,Admission of new Members Japan,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1955-12-14-1,1955-12-14,14 December 1955,S/3509,S/PV.705,Admission of new Members,SSCB,True,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1954-06-20-1,1954-06-20,20 June 1954,S/3236/Rev.1,S/PV.675,Cablegram dated 19 June 1954 from Guatemala to the President of the Security Council,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1954-06-18-1,1954-06-18,18 June 1954,S/3229,S/PV.674,Letter dated 29 May 1954 from Thailand to the President of the Security Council,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1954-03-29-1,1954-03-29,29 March 1954,S/3188,S/PV.664,The Palestine question,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1954-01-22-1,1954-01-22,22 January 1954,S/3151/Rev.2,S/PV.656,The Palestine question,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1953-03-13-1,1953-03-13,13 March 1953,,S/PV.613; S/PV.613,Appointment of Secretary-General,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.; Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.; Kapalı oturum: veto eden üye resmi bildiride yok, kaynak tarafından atfedilmiş."
-V-1952-09-19-1,1952-09-19,19 September 1952,S/2760,S/PV.603,Admission of new Members Cambodia,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1952-09-19-2,1952-09-19,19 September 1952,S/2759,S/PV.603,Admission of new Members Laos,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1952-09-19-3,1952-09-19,19 September 1952,S/2758,S/PV.603,Admission of new Members Vietnam,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1952-09-18-1,1952-09-18,18 September 1952,S/2754,S/PV.602,Admission of new Members Japan,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1952-09-16-1,1952-09-16,16 September 1952,S/2483,S/PV.600,Admission of new Members Libya,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1952-07-09-1,1952-07-09,09 July 1952,S/2688,S/PV.590,Question of a request for investigation of alleged bacterial warfare,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1952-07-03-1,1952-07-03,03 July 1952,S/2671,S/PV.587,Question of a request for investigation of alleged bacterial warfare,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1952-02-06-1,1952-02-06,06 February 1952,S/2443,S/PV.573,Admission of new Members Italy,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1950-11-30-1,1950-11-30,30 November 1950,S/1894,S/PV.530,Complaint of armed invasion of Taiwan (Formosa); Complaint of aggression upon the Republic of Korea,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1950-09-12-1,1950-09-12,12 September 1950,S/1752,S/PV.501,Complaint of bombing by air forces of the territory of China,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1950-09-05-1,1950-09-05,05 September 1950,S/1653,S/PV.496,Complaint of aggression upon the Republic of Korea,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1949-12-13-1,1949-12-13,13 December 1949,S/1431,S/PV.456,The Indonesian question,SSCB,True,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1949-12-13-2,1949-12-13,13 December 1949,S/1431,S/PV.456,The Indonesian question,SSCB,True,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1949-10-18-1,1949-10-18,18 October 1949,S/1408/Rev.1,S/PV.452,Regulation and reduction of armaments and armed forces,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1949-10-18-2,1949-10-18,18 October 1949,S/1399/Rev.1,S/PV.452,Regulation and reduction of armaments and armed forces,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1949-10-11-1,1949-10-11,11 October 1949,S/1398,S/PV.450,Regulation and reduction of armaments and armed forces,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1949-09-13-1,1949-09-13,13 September 1949,S/1337,S/PV.443,Application for Membership Ceylon,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1949-09-13-2,1949-09-13,13 September 1949,S/1336,S/PV.443,Application for Membership Austria,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1949-09-13-3,1949-09-13,13 September 1949,S/1335,S/PV.443,Application for Membership Ireland,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1949-09-13-4,1949-09-13,13 September 1949,S/1334,S/PV.443,Application for Membership Finland,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1949-09-13-5,1949-09-13,13 September 1949,S/1333,S/PV.443,Application for Membership Italy,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1949-09-13-6,1949-09-13,13 September 1949,S/1332,S/PV.443,Application for Membership Transjordan,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1949-09-13-7,1949-09-13,13 September 1949,S/1331,S/PV.443,Application for Membership Portugal,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1949-09-07-1,1949-09-07,07 September 1949,S/1385,S/PV.439,Application for Membership Nepal,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1949-04-08-1,1949-04-08,08 April 1949,S/1305,S/PV.423,Application for Membership Republic of Korea,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1948-12-15-1,1948-12-15,15 December 1948,,S/PV.384; S/PV.384,Application for Membership Ceylon,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.; Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
-V-1948-10-25-1,1948-10-25,25 October 1948,S/1048,S/PV.372,"Identical notifications dated 29 September 1948 from France, the UK and the USA to the Secretary-General Berlin blockade",SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1948-08-18-1,1948-08-18,18 August 1948,,S/PV.351; S/PV.351,Application for Membership Ceylon,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.; Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
-V-1948-06-22-1,1948-06-22,22 June 1948,S/836,S/PV.325,Letter dated 26 May 1948 from the Chairman of the Atomic Energy Commission to the President of the Security Council transmitting the Third Report of the Commission,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1948-05-24-1,1948-05-24,24 May 1948,,S/PV.303; S/PV.303,Letter dated 12 Mar 1948 from Chile to the Secretary-General events in Czechoslovakia,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.; Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
-V-1948-05-24-2,1948-05-24,24 May 1948,,S/PV.303; S/PV.303,Letter dated 12 Mar 1948 from Chile to the Secretary-General events in Czechoslovakia preliminary question,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.; Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.; Ön soru vetosu: konunun usul meselesi sayılıp sayılmayacağına dair oylama (çifte veto)."
-V-1948-04-10-1,1948-04-10,10 April 1948,,S/PV.279; S/PV.279,Application for Membership Italy,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.; Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
-V-1947-10-01-1,1947-10-01,01 October 1947,,S/PV.206; S/PV.206,Application for Membership Italy,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.; Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
-V-1947-10-01-2,1947-10-01,01 October 1947,,S/PV.206; S/PV.206,Application for Membership Finland,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.; Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
-V-1947-09-15-1,1947-09-15,15 September 1947,S/552,S/PV.202,"The Greek question concerning the situation in northern, Greece preliminary question",SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.; Ön soru vetosu: konunun usul meselesi sayılıp sayılmayacağına dair oylama (çifte veto)."
-V-1947-09-15-2,1947-09-15,15 September 1947,S/552,S/PV.202; S/PV.202,The Greek question concerning the situation in northern Greece,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
+V-1956-10-13-1,1956-10-13,13 October 1956,S/3671,S/PV.743,"Situation created by the unilateral action of the Egyptian Government in bringing to an end the system of international operation of the Suez Canal, which was confirmed and completed by the Suez Canal Convention of 1888",SSCB,True,
+V-1955-12-15-1,1955-12-15,15 December 1955,S/3510,S/PV.706,Admission of new Members Japan,SSCB,False,
+V-1955-12-14-1,1955-12-14,14 December 1955,S/3509,S/PV.705,Admission of new Members,SSCB,True,
+V-1954-06-20-1,1954-06-20,20 June 1954,S/3236/Rev.1,S/PV.675,Cablegram dated 19 June 1954 from Guatemala to the President of the Security Council,SSCB,False,
+V-1954-06-18-1,1954-06-18,18 June 1954,S/3229,S/PV.674,Letter dated 29 May 1954 from Thailand to the President of the Security Council,SSCB,False,
+V-1954-03-29-1,1954-03-29,29 March 1954,S/3188,S/PV.664,The Palestine question,SSCB,False,
+V-1954-01-22-1,1954-01-22,22 January 1954,S/3151/Rev.2,S/PV.656,The Palestine question,SSCB,False,
+V-1953-03-13-1,1953-03-13,13 March 1953,,S/PV.613; S/PV.613,Appointment of Secretary-General,SSCB,False,Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.; Oturum kapalıydı. Resmî bildiri veto eden üyeyi adlandırmıyor; adı DHL listesi veriyor.
+V-1952-09-19-1,1952-09-19,19 September 1952,S/2760,S/PV.603,Admission of new Members Cambodia,SSCB,False,
+V-1952-09-19-2,1952-09-19,19 September 1952,S/2759,S/PV.603,Admission of new Members Laos,SSCB,False,
+V-1952-09-19-3,1952-09-19,19 September 1952,S/2758,S/PV.603,Admission of new Members Vietnam,SSCB,False,
+V-1952-09-18-1,1952-09-18,18 September 1952,S/2754,S/PV.602,Admission of new Members Japan,SSCB,False,
+V-1952-09-16-1,1952-09-16,16 September 1952,S/2483,S/PV.600,Admission of new Members Libya,SSCB,False,
+V-1952-07-09-1,1952-07-09,09 July 1952,S/2688,S/PV.590,Question of a request for investigation of alleged bacterial warfare,SSCB,False,
+V-1952-07-03-1,1952-07-03,03 July 1952,S/2671,S/PV.587,Question of a request for investigation of alleged bacterial warfare,SSCB,False,
+V-1952-02-06-1,1952-02-06,06 February 1952,S/2443,S/PV.573,Admission of new Members Italy,SSCB,False,
+V-1950-11-30-1,1950-11-30,30 November 1950,S/1894,S/PV.530,Complaint of armed invasion of Taiwan (Formosa); Complaint of aggression upon the Republic of Korea,SSCB,False,
+V-1950-09-12-1,1950-09-12,12 September 1950,S/1752,S/PV.501,Complaint of bombing by air forces of the territory of China,SSCB,False,
+V-1950-09-05-1,1950-09-05,05 September 1950,S/1653,S/PV.496,Complaint of aggression upon the Republic of Korea,SSCB,False,
+V-1949-12-13-1,1949-12-13,13 December 1949,S/1431,S/PV.456,The Indonesian question,SSCB,True,
+V-1949-12-13-2,1949-12-13,13 December 1949,S/1431,S/PV.456,The Indonesian question,SSCB,True,
+V-1949-10-18-1,1949-10-18,18 October 1949,S/1408/Rev.1,S/PV.452,Regulation and reduction of armaments and armed forces,SSCB,False,
+V-1949-10-18-2,1949-10-18,18 October 1949,S/1399/Rev.1,S/PV.452,Regulation and reduction of armaments and armed forces,SSCB,False,
+V-1949-10-11-1,1949-10-11,11 October 1949,S/1398,S/PV.450,Regulation and reduction of armaments and armed forces,SSCB,False,
+V-1949-09-13-1,1949-09-13,13 September 1949,S/1337,S/PV.443,Application for Membership Ceylon,SSCB,False,
+V-1949-09-13-2,1949-09-13,13 September 1949,S/1336,S/PV.443,Application for Membership Austria,SSCB,False,
+V-1949-09-13-3,1949-09-13,13 September 1949,S/1335,S/PV.443,Application for Membership Ireland,SSCB,False,
+V-1949-09-13-4,1949-09-13,13 September 1949,S/1334,S/PV.443,Application for Membership Finland,SSCB,False,
+V-1949-09-13-5,1949-09-13,13 September 1949,S/1333,S/PV.443,Application for Membership Italy,SSCB,False,
+V-1949-09-13-6,1949-09-13,13 September 1949,S/1332,S/PV.443,Application for Membership Transjordan,SSCB,False,
+V-1949-09-13-7,1949-09-13,13 September 1949,S/1331,S/PV.443,Application for Membership Portugal,SSCB,False,
+V-1949-09-07-1,1949-09-07,07 September 1949,S/1385,S/PV.439,Application for Membership Nepal,SSCB,False,
+V-1949-04-08-1,1949-04-08,08 April 1949,S/1305,S/PV.423,Application for Membership Republic of Korea,SSCB,False,
+V-1948-12-15-1,1948-12-15,15 December 1948,,S/PV.384; S/PV.384,Application for Membership Ceylon,SSCB,False,Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.
+V-1948-10-25-1,1948-10-25,25 October 1948,S/1048,S/PV.372,"Identical notifications dated 29 September 1948 from France, the UK and the USA to the Secretary-General Berlin blockade",SSCB,False,
+V-1948-08-18-1,1948-08-18,18 August 1948,,S/PV.351; S/PV.351,Application for Membership Ceylon,SSCB,False,Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.
+V-1948-06-22-1,1948-06-22,22 June 1948,S/836,S/PV.325,Letter dated 26 May 1948 from the Chairman of the Atomic Energy Commission to the President of the Security Council transmitting the Third Report of the Commission,SSCB,False,
+V-1948-05-24-1,1948-05-24,24 May 1948,,S/PV.303; S/PV.303,Letter dated 12 Mar 1948 from Chile to the Secretary-General events in Czechoslovakia,SSCB,False,Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.
+V-1948-05-24-2,1948-05-24,24 May 1948,,S/PV.303; S/PV.303,Letter dated 12 Mar 1948 from Chile to the Secretary-General events in Czechoslovakia preliminary question,SSCB,False,"Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.; Veto, konunun usul meselesi sayılıp sayılmayacağına ilişkin ön oylamada kullanıldı; buna çifte veto denir."
+V-1948-04-10-1,1948-04-10,10 April 1948,,S/PV.279; S/PV.279,Application for Membership Italy,SSCB,False,Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.
+V-1947-10-01-1,1947-10-01,01 October 1947,,S/PV.206; S/PV.206,Application for Membership Italy,SSCB,False,Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.
+V-1947-10-01-2,1947-10-01,01 October 1947,,S/PV.206; S/PV.206,Application for Membership Finland,SSCB,False,Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.
+V-1947-09-15-1,1947-09-15,15 September 1947,S/552,S/PV.202,"The Greek question concerning the situation in northern, Greece preliminary question",SSCB,False,"Veto, konunun usul meselesi sayılıp sayılmayacağına ilişkin ön oylamada kullanıldı; buna çifte veto denir."
+V-1947-09-15-2,1947-09-15,15 September 1947,S/552,S/PV.202; S/PV.202,The Greek question concerning the situation in northern Greece,SSCB,False,
 V-1947-08-25-1,1947-08-25,25 August 1947,,S/PV.194; S/PV.194,The Indonesian question,FRA,True,Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.
-V-1947-08-21-1,1947-08-21,21 August 1947,,S/PV.190; S/PV.190,Application for Membership Austria,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.; Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
-V-1947-08-21-2,1947-08-21,21 August 1947,,S/PV.190; S/PV.190,Application for Membership Italy,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.; Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
-V-1947-08-19-1,1947-08-19,19 August 1947,S/486,S/PV.188,The Greek question Greek frontier incidents,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1947-08-19-2,1947-08-19,19 August 1947,S/471,S/PV.188,The Greek question Greek frontier incidents,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur."
-V-1947-08-18-1,1947-08-18,18 August 1947,,S/PV.186; S/PV.186,Application for Membership Portugal,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.; Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
-V-1947-08-18-2,1947-08-18,18 August 1947,,S/PV.186; S/PV.186,Application for Membership Ireland,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.; Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
-V-1947-08-18-3,1947-08-18,18 August 1947,,S/PV.186; S/PV.186,Application for Membership Transjordan,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.; Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
-V-1947-07-29-1,1947-07-29,29 July 1947,,S/PV.170; S/PV.170,The Greek question Greek frontier incidents,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.; Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
-V-1947-03-25-1,1947-03-25,25 March 1947,,S/PV.122; S/PV.122,Incidents in the Corfu Channel,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.; Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
-V-1946-09-20-1,1946-09-20,20 September 1946,,S/PV.70; S/PV.70,Telegram dated 24 August 1946 from the Ukrainian Soviet Socialist Republic to the Secretary-General,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.; Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
-V-1946-08-29-1,1946-08-29,29 August 1946,,S/PV.57; S/PV.57,Application for Membership Portugal,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.; Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
-V-1946-08-29-2,1946-08-29,29 August 1946,,S/PV.57; S/PV.57,Application for Membership Ireland,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.; Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
-V-1946-08-29-3,1946-08-29,29 August 1946,,S/PV.57; S/PV.57,Application for Membership Transjordan,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.; Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
-V-1946-06-26-1,1946-06-26,26 June 1946,,S/PV.49; S/PV.49,The Spanish question,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.; Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
-V-1946-06-26-2,1946-06-26,26 June 1946,,S/PV.49; S/PV.49,The Spanish question preliminary question,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.; Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.; Ön soru vetosu: konunun usul meselesi sayılıp sayılmayacağına dair oylama (çifte veto)."
-V-1946-06-26-3,1946-06-26,26 June 1946,,S/PV.49; S/PV.49,The Spanish question,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.; Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
-V-1946-06-18-1,1946-06-18,18 June 1946,,S/PV.47; S/PV.45,The Spanish question,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.; Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
-V-1946-02-16-1,1946-02-16,16 February 1946,,S/PV.23; S/PV.23,Letter from the Heads of the Lebanese and Syrian delegations to the Secretary-General dated 4 February 1946,SSCB,False,"SSCB vetosu; Rusya Federasyonu koltuğun halefidir, analizde ayrı tutulur.; Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor."
+V-1947-08-21-1,1947-08-21,21 August 1947,,S/PV.190; S/PV.190,Application for Membership Austria,SSCB,False,Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.
+V-1947-08-21-2,1947-08-21,21 August 1947,,S/PV.190; S/PV.190,Application for Membership Italy,SSCB,False,Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.
+V-1947-08-19-1,1947-08-19,19 August 1947,S/486,S/PV.188,The Greek question Greek frontier incidents,SSCB,False,
+V-1947-08-19-2,1947-08-19,19 August 1947,S/471,S/PV.188,The Greek question Greek frontier incidents,SSCB,False,
+V-1947-08-18-1,1947-08-18,18 August 1947,,S/PV.186; S/PV.186,Application for Membership Portugal,SSCB,False,Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.
+V-1947-08-18-2,1947-08-18,18 August 1947,,S/PV.186; S/PV.186,Application for Membership Ireland,SSCB,False,Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.
+V-1947-08-18-3,1947-08-18,18 August 1947,,S/PV.186; S/PV.186,Application for Membership Transjordan,SSCB,False,Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.
+V-1947-07-29-1,1947-07-29,29 July 1947,,S/PV.170; S/PV.170,The Greek question Greek frontier incidents,SSCB,False,Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.
+V-1947-03-25-1,1947-03-25,25 March 1947,,S/PV.122; S/PV.122,Incidents in the Corfu Channel,SSCB,False,Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.
+V-1946-09-20-1,1946-09-20,20 September 1946,,S/PV.70; S/PV.70,Telegram dated 24 August 1946 from the Ukrainian Soviet Socialist Republic to the Secretary-General,SSCB,False,Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.
+V-1946-08-29-1,1946-08-29,29 August 1946,,S/PV.57; S/PV.57,Application for Membership Portugal,SSCB,False,Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.
+V-1946-08-29-2,1946-08-29,29 August 1946,,S/PV.57; S/PV.57,Application for Membership Ireland,SSCB,False,Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.
+V-1946-08-29-3,1946-08-29,29 August 1946,,S/PV.57; S/PV.57,Application for Membership Transjordan,SSCB,False,Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.
+V-1946-06-26-1,1946-06-26,26 June 1946,,S/PV.49; S/PV.49,The Spanish question,SSCB,False,Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.
+V-1946-06-26-2,1946-06-26,26 June 1946,,S/PV.49; S/PV.49,The Spanish question preliminary question,SSCB,False,"Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.; Veto, konunun usul meselesi sayılıp sayılmayacağına ilişkin ön oylamada kullanıldı; buna çifte veto denir."
+V-1946-06-26-3,1946-06-26,26 June 1946,,S/PV.49; S/PV.49,The Spanish question,SSCB,False,Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.
+V-1946-06-18-1,1946-06-18,18 June 1946,,S/PV.47; S/PV.45,The Spanish question,SSCB,False,Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.
+V-1946-02-16-1,1946-02-16,16 February 1946,,S/PV.23; S/PV.23,Letter from the Heads of the Lebanese and Syrian delegations to the Secretary-General dated 4 February 1946,SSCB,False,Taslak ayrı belge olarak yayımlanmamış; öneri toplantı kaydında yer alıyor.

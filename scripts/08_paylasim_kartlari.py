@@ -6,12 +6,15 @@ Adım 8: Paylaşım kartları.
 
 Her kartın sayısı web/veri.js'teki veri setinden, alıntısı alıntı bankasından (veri.js içindeki
 doğrulanmış alıntılar) gelir; kartta sabit yazılmış sayı yoktur. Sayı kartlarının görseli (kare
-ızgarası, nokta dizisi, çubuklar) ana grafiğin diliyle SVG/HTML olarak aynı sayılardan çizilir;
+ızgarası, oy kareleri, çubuklar) ana grafiğin diliyle SVG/HTML olarak aynı sayılardan çizilir;
 alıntı kartlarında görsel yoktur. Kartlar önce HTML olarak yazılır
 (atlasın yazı tipleri ve renkleriyle, web/kartlar/*.html), sonra PNG'ye çevrilir. PNG için yeni bir
 Python bağımlılığı yoktur: 06 betiği gibi standart kütüphaneyle çalışır; metin dizgisi için
 makinedeki Chromium tabanlı tarayıcı (Edge ya da Chrome) başsız modda ekran görüntüsü alır.
 Tarayıcı bulunamazsa HTML'ler ve kartlar.json yine yazılır, PNG atlanır ve durum bildirilir.
+
+Ayrıca iki sayfaya özel, sözcüksüz paylaşım önizlemesi yazar: web/onizleme-simulasyon.png (kart-01'in
+kare ızgarası) ve web/onizleme-vizyon.png (kart-03'ün kareleri); çerçeve web/onizleme.png ile aynıdır (06 betiği).
 
 web/kartlar/kartlar.json: her kartın kimliği, sayıları, metinleri ve dayandığı veri setinin
 SHA-256'sı. tests/test_kartlar.py sayıları veri setinden yeniden hesaplar ve bu dosyayla
@@ -96,6 +99,38 @@ def yuzde(p: float, dil: str) -> str:
     return ("%" + s.replace(".", ",")) if dil == "tr" else (s + "%")
 
 
+_BIRLER = ["", "bir", "iki", "üç", "dört", "beş", "altı", "yedi", "sekiz", "dokuz"]
+_ONLAR = ["", "on", "yirmi", "otuz", "kırk", "elli", "altmış", "yetmiş", "seksen", "doksan"]
+_UNLU = "aeıioöuü"
+
+
+def _son_kelime(sayi: str) -> str:
+    """Sayının (1946, 264, %37,9) Türkçe okunuşundaki son kelime: ekin uyumu buna bakar (%37,9: "virgül dokuz")."""
+    tam, _, kesir = re.sub(r"[^0-9,]", "", sayi).partition(",")
+    n = int(kesir or tam)
+    if n == 0:
+        return "sıfır"
+    if n % 10:
+        return _BIRLER[n % 10]
+    if n % 100:
+        return _ONLAR[n % 100 // 10]
+    return "yüz" if n % 1000 else "bin"
+
+
+def ek(sayi, tur: str = "i") -> str:
+    """Sayı, kıvrık kesme ve okunuşuna uyan Türkçe ek. tur: "i" iyelik (264’ü, 27’si), "ini" iyelik ve belirtme
+    (%39,1’ini, %37,9’unu), "inde" iyelik ve bulunma (15’inde), "den" çıkma (1946’dan, 2022’den). Sayı veriden
+    geldiği için ek sabit yazılmaz: değer değişince ek de değişir."""
+    s = str(sayi)
+    k = _son_kelime(s)
+    u = [c for c in k if c in _UNLU][-1]
+    kalin, yuvarlak = u in "aıou", u in "oöuü"
+    if tur == "den":
+        return f"{s}’" + ("t" if k[-1] in "çfhkpsşt" else "d") + ("an" if kalin else "en")
+    v = ("u" if yuvarlak else "ı") if kalin else ("ü" if yuvarlak else "i")
+    return f"{s}’" + ("s" if k[-1] in _UNLU else "") + v + {"i": "", "ini": "n" + v, "inde": "nd" + ("a" if kalin else "e")}[tur]
+
+
 def temsil_sayilari(T: dict) -> dict:
     """Kart 09–11'in sayıları temsil.json'dan; tests/test_kartlar.py aynı hesabı bağımsız yapar."""
     g = {x["kod"]: x for x in T["gruplar"] + T["kumeler"]}
@@ -130,38 +165,39 @@ def hitap_kunyesi(a: dict, dil: str) -> str:
 def kartlar(V: dict, S: dict) -> list[dict]:
     """Kart listesi: her kart iki dilde başlık/sayı, en fazla iki cümle ve kaynak satırı taşır."""
     k2026, k2025, k2019 = alinti(V, "2026-1"), alinti(V, "2025-1"), alinti(V, "2019-1")
-    konu = S["konu"]
-    konu_tr = ", ".join(f"{ad.split(' ve ')[0] if ad.startswith('Filistin') else ad.split(',')[0] if ad.startswith('Güney') else ad} – {UYE_AD[v['uye']]['tr']} {v['oy']}" for ad, v in konu.items())
-    konu_en = ", ".join(f"{v['en'].split(' and ')[0] if ad.startswith('Filistin') else v['en'].split(',')[0] if ad.startswith('Güney') else v['en']} – {UYE_AD[v['uye']]['en']} {v['oy']}" for ad, v in konu.items())
     # Alt bilgi tek satırdır: kaynak ve veri tarihi solda, atlasın adı ve adresi sağda (orta nokta yalnızca künyede).
     veri_kaynak = {"tr": f"DHL veto listesi ve S/PV kayıtları, {tarih_uzun(S['son_tarih'], 'tr')}",
                    "en": f"DHL veto list and S/PV records, {tarih_uzun(S['son_tarih'], 'en')}"}
     return [
         {"id": "kart-01-vetosuz", "tur": "sayi",
          "buyuk": {"tr": f"{S['vetosuz_kabul']} / {S['toplam']}", "en": f"{S['vetosuz_kabul']} / {S['toplam']}"},
-         "metin": {"tr": f"Veto ile düşen {S['toplam']} önerinin {S['vetosuz_kabul']}'ü, veto olmasaydı kayıtlı oylarla kabul edilmiş olurdu. Oy dağılımı kayıtlı olmayan {S['kapali']} kapalı oturum vetosu hariç.",
-                   "en": f"Of the {S['toplam']} vetoed proposals, {S['vetosuz_kabul']} would have been adopted on the recorded votes had there been no veto. Excluding {S['kapali']} private-meeting vetoes with no recorded vote breakdown."},
+         "metin": {"tr": f"Veto ile düşen {S['toplam']} önerinin {ek(S['vetosuz_kabul'])}, veto olmasaydı kayıtlı oylarla kabul edilmiş olurdu. Kalan {S['kapali']} veto kapalı oturumda verildi, oyları kayıtlı değil.",
+                   "en": f"Of the {S['toplam']} vetoed proposals, {S['vetosuz_kabul']} would have been adopted on the recorded votes had there been no veto. The other {S['kapali']} were cast in private meetings, and their votes are not on record."},
          "kaynak": veri_kaynak},
         {"id": "kart-02-tek-ret", "tur": "sayi",
          "buyuk": {"tr": str(S["tek_ret"]), "en": str(S["tek_ret"])},
-         "metin": {"tr": f"{S['tek_ret']} öneri, Konsey'in öbür bütün üyeleri lehte oy verirken tek bir ret oyuyla düştü. {S['tek_ret_1966_oncesi']}'si 11 üyeli Konsey'de (1966 öncesi) oylandı.",
-                   "en": f"{S['tek_ret']} proposals failed on a single negative vote while every other member of the Council voted in favour. {S['tek_ret_1966_oncesi']} of them were voted on in the 11-member Council (before 1966)."},
+         "metin": {"tr": f"{S['tek_ret']} öneri, Konseyin öbür bütün üyeleri evet oyu verirken tek bir ret oyuyla düştü.",
+                   "en": f"{S['tek_ret']} proposals failed on a single negative vote while every other member of the Council voted in favour."},
          "kaynak": veri_kaynak},
         {"id": "kart-03-genel-kurul", "tur": "sayi",
          "buyuk": {"tr": f"{S['gk_gorusulen']} / {S['gk_sonrasi']}", "en": f"{S['gk_gorusulen']} / {S['gk_sonrasi']}"},
-         "metin": {"tr": f"Nisan 2022'den bu yana veto ile düşen {S['gk_sonrasi']} önerinin {S['gk_gorusulen']}'si Genel Kurul'da görüşüldü. Veto eden ülke {S['vg_tartisma']} veto girişimi tartışmasının {S['vg_soz_alan']}'inde söz aldı.",
-                   "en": f"Since April 2022, {S['gk_gorusulen']} of the {S['gk_sonrasi']} vetoed proposals have been debated in the General Assembly. The vetoing country took the floor in {S['vg_soz_alan']} of the {S['vg_tartisma']} veto initiative debates."},
+         # Pay paydaya eşitse "hepsi" / "all"; tartışma sayısı görselin notunda
+         "metin": {"tr": f"Nisan {ek(2022, 'den')} bu yana veto ile düşen {S['gk_sonrasi']} önerinin "
+                         + ("hepsi" if S["gk_gorusulen"] == S["gk_sonrasi"] else ek(S['gk_gorusulen'])) + " Genel Kurulda görüşüldü.",
+                   "en": (f"All {S['gk_sonrasi']} proposals vetoed since April 2022 have" if S["gk_gorusulen"] == S["gk_sonrasi"]
+                          else f"Since April 2022, {S['gk_gorusulen']} of the {S['gk_sonrasi']} vetoed proposals have") + " been debated in the General Assembly."},
          "kaynak": {"tr": f"A/RES/76/262, A/…/PV kayıtları ve BM Günlüğü, {tarih_uzun(S['son_tarih'], 'tr')}",
                     "en": f"A/RES/76/262, A/…/PV records and UN Journal, {tarih_uzun(S['son_tarih'], 'en')}"}},
         {"id": "kart-04-besi-de", "tur": "uyeler",
          "buyuk": {"tr": str(S["ret_toplam"]), "en": str(S["ret_toplam"])},
-         "metin": {"tr": f"1946'dan bu yana {S['ret_toplam']} ret oyu; beş daimî üyenin hepsi veto kullandı. Kapalı oturumdaki {S['kapali']} veto üye toplamına girmez.",
+         "metin": {"tr": f"{ek(1946, 'den')} bu yana {S['ret_toplam']} ret oyu; beş daimî üyenin hepsi veto kullandı. Kapalı oturumdaki {S['kapali']} veto üye toplamına girmez.",
                    "en": f"{S['ret_toplam']} negative votes since 1946; all five permanent members have used the veto. The {S['kapali']} private-meeting vetoes are not included in the member totals."},
          "kaynak": veri_kaynak},
         {"id": "kart-05-konular", "tur": "sayi",
          "buyuk": {"tr": "4 konu", "en": "4 topics"},
-         "metin": {"tr": f"Dört konuda en çok ret oyu kullanan üyeler: {konu_tr}. Yalnızca kaydın ana konusu sayılır.",
-                   "en": f"The members with the most negative votes on four topics: {konu_en}. Only the main topic of each record is counted."},
+         # Çiftler ve sayılar çubuklarda; gri izin ucunda konunun bütün ret oyları
+         "metin": {"tr": "Dört konuda en çok ret oyu kullanan üye ve konudaki bütün ret oyları. Yalnızca kaydın ana konusu sayılır.",
+                   "en": "The member with the most negative votes on each of four topics, against all negative votes on that topic. Only the main topic of each record is counted."},
          "kaynak": {"tr": f"Gündem sözlüğü (ana konu), {tarih_uzun(S['son_tarih'], 'tr')}",
                     "en": f"Agenda glossary (main topic), {tarih_uzun(S['son_tarih'], 'en')}"}},
         *temsil_kartlari(S["temsil"]),
@@ -183,25 +219,33 @@ def kartlar(V: dict, S: dict) -> list[dict]:
 def temsil_kartlari(R: dict) -> list[dict]:
     """Temsil endeksinden üç kart: nüfus ve koltuk çubukları yan yana; sayılar temsil.json'dan."""
     a, f, p = R["ASP"], R["AFR"], R["P5"]
-    kaynak = {"tr": "WPP 2024, bütçe ölçeği 2025–27, barış gücü Şubat 2026, Konsey 2026",
-              "en": "WPP 2024, budget scale 2025–27, peacekeeping February 2026, Council 2026"}
-    gorsel = lambda x: {"nufus": x["nufus"], "koltuk": x["koltuk"], "daimi": x["daimi"], "secilmis": x["secilmis"]}
+    # Tarih ve kaynak yalnızca alt bilgide, tek biçimde (cümlede değil); her kart yalnız gösterdiği ölçülerin kaynağını sayar
+    # (alt bilgi kare kartta da tek satıra sığsın diye barış gücü tarihi ay ve yılla, nüfus kaynağı yalnız WPP adıyla)
+    ay_yil = {d: tarih_uzun(R['personel_tarihi'], d).split(' ', 1)[1] for d in ("tr", "en")}
+    parca = {"nufus": {"tr": "WPP 2024", "en": "WPP 2024"},
+             "butce": {"tr": f"bütçe ölçeği {R['olcek_donemi']}", "en": f"budget scale {R['olcek_donemi']}"},
+             "personel": {"tr": f"barış gücü {ay_yil['tr']}", "en": f"peacekeeping {ay_yil['en']}"},
+             "koltuk": {"tr": "Konsey 2026", "en": "Council 2026"}}
+    kaynak = lambda *olculer: {d: (lambda s: s[0].upper() + s[1:])(", ".join(parca[o][d] for o in olculer)) for d in ("tr", "en")}
+    gorsel = lambda x, ilk="nufus": {"ilk": ilk, ilk: x[ilk], "koltuk": x["koltuk"], "daimi": x["daimi"], "secilmis": x["secilmis"],
+                                     **({"personel_tarihi": ay_yil} if ilk == "personel" else {})}
     return [
         {"id": "kart-09-asya-pasifik", "tur": "temsil", "gorsel": gorsel(a),
          "buyuk": {"tr": yuzde(a["nufus"], "tr"), "en": yuzde(a["nufus"], "en")},
-         "metin": {"tr": f"Asya-Pasifik Grubu'nun {a['uye']} üyesi BM üyeleri nüfusunun {yuzde(a['nufus'], 'tr')}'ini oluşturuyor; Güvenlik Konseyi'nin {R['koltuk_toplam']} koltuğundan {a['toplam']}'ü ({yuzde(a['koltuk'], 'tr')}) bu grupta, bunun {a['daimi']}'i daimî. Nüfus 2023 tahmini (WPP 2024), koltuklar mevcut dönem (2026).",
-                   "en": f"The {a['uye']} members of the Asia-Pacific Group make up {yuzde(a['nufus'], 'en')} of the population of UN Member States; {a['toplam']} of the Security Council's {R['koltuk_toplam']} seats ({yuzde(a['koltuk'], 'en')}) are in this group, {a['daimi']} of them permanent. Population: 2023 estimate (WPP 2024); seats: current term (2026)."},
-         "kaynak": kaynak},
-        {"id": "kart-10-afrika", "tur": "temsil", "gorsel": gorsel(f),
+         "metin": {"tr": f"Asya-Pasifik Grubunun {a['uye']} üyesi BM üyeleri nüfusunun {ek(yuzde(a['nufus'], 'tr'), 'ini')} oluşturuyor; Güvenlik Konseyinin {R['koltuk_toplam']} koltuğundan {ek(a['toplam'])} ({yuzde(a['koltuk'], 'tr')}) bu grupta, bunun {ek(a['daimi'])} daimî.",
+                   "en": f"The {a['uye']} members of the Asia-Pacific Group make up {yuzde(a['nufus'], 'en')} of the population of UN Member States; {a['toplam']} of the Security Council’s {R['koltuk_toplam']} seats ({yuzde(a['koltuk'], 'en')}) are in this group, {a['daimi']} of them permanent."},
+         "kaynak": kaynak("nufus", "koltuk")},
+        # Cümle tek ölçüyü (barış gücü personeli) anlatır; ilk çubuk da o ölçüdür
+        {"id": "kart-10-afrika", "tur": "temsil", "gorsel": gorsel(f, "personel"),
          "buyuk": {"tr": f"{f['daimi']} / {R['daimi_toplam']}", "en": f"{f['daimi']} / {R['daimi_toplam']}"},
-         "metin": {"tr": f"Afrika Grubu'nun {f['uye']} üyesi barış gücü üniformalı personelinin {yuzde(f['personel'], 'tr')}'ini sağlıyor ve olağan bütçe ölçeğinin {yuzde(f['butce'], 'tr')}'ini ödüyor; Konsey'de {f['secilmis']} seçilmiş koltuğu ({yuzde(f['koltuk'], 'tr')}) var, daimî koltuğu yok. Personel 28 Şubat 2026, ölçek 2025–2027, nüfus 2023.",
-                   "en": f"The {f['uye']} members of the African Group provide {yuzde(f['personel'], 'en')} of peacekeeping uniformed personnel and pay {yuzde(f['butce'], 'en')} of the regular budget scale; the group holds {f['secilmis']} elected seats on the Council ({yuzde(f['koltuk'], 'en')}) and no permanent seat. Personnel 28 February 2026, scale 2025–2027, population 2023."},
-         "kaynak": kaynak},
+         "metin": {"tr": f"Afrika Grubunun {f['uye']} üyesi barış gücü üniformalı personelinin {ek(yuzde(f['personel'], 'tr'), 'ini')} sağlıyor. Konseyde {f['secilmis']} seçilmiş koltuğu var, daimî koltuğu yok.",
+                   "en": f"The {f['uye']} members of the African Group provide {yuzde(f['personel'], 'en')} of uniformed peacekeeping personnel. The group holds {f['secilmis']} elected seats on the Council and no permanent seat."},
+         "kaynak": kaynak("personel", "koltuk")},
         {"id": "kart-11-p5", "tur": "temsil", "gorsel": gorsel(p),
          "buyuk": {"tr": f"{p['daimi']} / {R['daimi_toplam']}", "en": f"{p['daimi']} / {R['daimi_toplam']}"},
-         "metin": {"tr": f"Beş daimî üye BM üyeleri nüfusunun {yuzde(p['nufus'], 'tr')}'sını oluşturuyor, olağan bütçe ölçeğinin {yuzde(p['butce'], 'tr')}'unu ödüyor ve {R['koltuk_toplam']} koltuğun {p['toplam']}'ini ({yuzde(p['koltuk'], 'tr')}) tutuyor; daimî koltukların tamamı bu beş üyede. Nüfus 2023 tahmini (WPP 2024), ölçek 2025–2027.",
-                   "en": f"The five permanent members make up {yuzde(p['nufus'], 'en')} of the population of UN Member States, pay {yuzde(p['butce'], 'en')} of the regular budget scale and hold {p['toplam']} of the {R['koltuk_toplam']} seats ({yuzde(p['koltuk'], 'en')}); all permanent seats are theirs. Population: 2023 estimate (WPP 2024); scale 2025–2027."},
-         "kaynak": kaynak},
+         "metin": {"tr": f"Beş daimî üye BM üyeleri nüfusunun {ek(yuzde(p['nufus'], 'tr'), 'ini')} oluşturuyor, olağan bütçenin {ek(yuzde(p['butce'], 'tr'), 'ini')} ödüyor ve Konseyin {R['koltuk_toplam']} koltuğundan {ek(p['toplam'], 'ini')} tutuyor.",
+                   "en": f"The five permanent members make up {yuzde(p['nufus'], 'en')} of the population of UN Member States, pay {yuzde(p['butce'], 'en')} of the regular budget and hold {p['toplam']} of the Council’s {R['koltuk_toplam']} seats."},
+         "kaynak": kaynak("nufus", "butce", "koltuk")},
     ]
 
 
@@ -210,6 +254,7 @@ def esc(s: str) -> str:
 
 
 LEHTE, MUREKKEP, MUREKKEP2, VURGU, CIZGI, BOS = "#9AA3B2", "#13213A", "#5A6578", "#A4262C", "#E1DBCF", "#EDE7DA"
+PERSONEL = "#5E4E9A"  # web/temsil.html --g-personel (açık tema)
 
 
 def kare_izgarasi(n: int, dolu: int, sutun: int, adim: float, kare: float, renk: str = LEHTE) -> str:
@@ -227,21 +272,25 @@ def kare_izgarasi(n: int, dolu: int, sutun: int, adim: float, kare: float, renk:
     return f'<svg width="{sutun * adim:.0f}" height="{satir * adim:.0f}" viewBox="0 0 {sutun * adim:.0f} {satir * adim:.0f}" role="img">' + "".join(parcalar) + "</svg>"
 
 
-def nokta_dizisi(n: int, vurgulu: int, adim: float) -> str:
-    """Bir sıra nokta: `vurgulu` tanesi vurgu renginde (ret), kalanı lehte."""
-    cap = adim * 0.72
-    parcalar = [f'<circle class="n{" ret" if i >= n - vurgulu else ""}" cx="{i * adim + adim / 2:.1f}" cy="{adim / 2:.1f}" r="{cap / 2:.1f}" '
+def oy_kareleri(n: int, vurgulu: int, kare: int = 16, ara: int = 6) -> str:
+    """Bir sıra oy karesi (sitedeki gibi kare): `vurgulu` tanesi vurgu renginde (ret), kalanı lehte."""
+    g = n * kare + (n - 1) * ara
+    parcalar = [f'<rect class="n{" ret" if i >= n - vurgulu else ""}" x="{i * (kare + ara)}" y="0" width="{kare}" height="{kare}" rx="{kare * 0.14:.1f}" '
                 f'fill="{VURGU if i >= n - vurgulu else LEHTE}"/>' for i in range(n)]
-    return f'<svg width="{n * adim:.0f}" height="{adim:.0f}" viewBox="0 0 {n * adim:.0f} {adim:.0f}" role="img">' + "".join(parcalar) + "</svg>"
+    return f'<svg width="{g}" height="{kare}" viewBox="0 0 {g} {kare}" role="img">' + "".join(parcalar) + "</svg>"
 
 
 def cubuklar(satirlar: list[tuple[str, int, str, int | None]], genislik: int, punto: int, etiket_g: int = 0) -> str:
     """Yatay çubuklar: (etiket, değer, renk, arka plan toplamı ya da None). Uzunluk en büyük değere ya da toplama göre.
     etiket_g > 0: etiket solda sabit genişlikte; 0: etiket çubuğun üstünde."""
     azami = max(max(v, t or 0) for _, v, _, t in satirlar)
+    if any(t for *_, t in satirlar):
+        azami /= 0.86  # en uzun izin ucunda "/ N" yazısına yer
     parcalar = []
     for etiket, deger, renk, toplam in satirlar:
-        arka = f'<span class="arka" style="width:{100 * toplam / azami:.1f}%"></span>' if toplam else ""
+        # Gri iz arka plan toplamıdır; ucunda toplam ikincil renkte ("/ N")
+        arka = (f'<span class="arka" style="width:{100 * toplam / azami:.1f}%"></span>'
+                f'<span class="ct" style="left:calc({100 * toplam / azami:.1f}% + 10px);font-size:{punto}px">/ {toplam}</span>') if toplam else ""
         parcalar.append(f'<div class="cs{" ustte" if not etiket_g else ""}" style="grid-template-columns:{f"{etiket_g}px 1fr" if etiket_g else "1fr"}">'
                         f'<div class="ce" style="font-size:{punto}px">{etiket}</div>'
                         f'<div class="cb">{arka}<span class="on" style="width:{100 * deger / azami:.1f}%;background:{renk}"></span>'
@@ -257,27 +306,30 @@ def gorsel(kart: dict, dil: str, S: dict, genislik: int, yukseklik: int) -> str:
         adim = min(genislik / sutun, yukseklik / -(-S["toplam"] // sutun))
         return kare_izgarasi(S["toplam"], S["vetosuz_kabul"], sutun, adim, adim * 0.78)
     if kimlik == "kart-02-tek-ret":
-        n = 15
-        adim = min(genislik / n, 64)
-        not_ = {"tr": f"1966 öncesi 11 üyeli Konsey'de ona karşı bir: {S['tek_ret_1966_oncesi']} öneri",
-                "en": f"Before 1966, in the 11-member Council, ten to one: {S['tek_ret_1966_oncesi']} proposals"}[dil]
-        return nokta_dizisi(n, 1, adim) + f'<div class="not">{not_}</div>'
+        not_ = {"tr": f"Bunların {ek(S['tek_ret_1966_oncesi'])} {ek(1966, 'den')} önce, Konsey 11 üyeliyken ona karşı bir oyla düştü.",
+                "en": f"{S['tek_ret_1966_oncesi']} of them failed ten to one before 1966, when the Council had 11 members."}[dil]
+        return oy_kareleri(15, 1) + f'<div class="not">{not_}</div>'
     if kimlik == "kart-03-genel-kurul":
         sutun = 11
         adim = min(genislik / sutun, 48)
-        etiket = {"tr": f"{S['vg_soz_alan']} / {S['vg_tartisma']} tartışmada veto eden söz aldı",
-                  "en": f"vetoing country spoke in {S['vg_soz_alan']} / {S['vg_tartisma']} debates"}[dil]
+        hepsi = S["vg_soz_alan"] == S["vg_tartisma"]
+        etiket = {"tr": f"Veto eden ülke {S['vg_tartisma']} tartışmanın " + ("hepsinde" if hepsi else ek(S['vg_soz_alan'], 'inde')) + " söz aldı.",
+                  "en": "The vetoing country spoke in " + (f"all {S['vg_tartisma']}" if hepsi else f"{S['vg_soz_alan']} of the {S['vg_tartisma']}") + " debates."}[dil]
         return (kare_izgarasi(S["gk_sonrasi"], S["gk_gorusulen"], sutun, adim, adim * 0.78)
                 + '<div class="isaretler">' + kare_izgarasi(S["vg_tartisma"], S["vg_soz_alan"], 15, adim * 0.5, adim * 0.36, MUREKKEP)
                 + f'<div class="not">{etiket}</div></div>')
     if kart["tur"] == "temsil":
         g = kart["gorsel"]
-        et = {"tr": ("Nüfus payı 2023", "Koltuk payı"), "en": ("Population share 2023", "Seat share")}[dil]
-        ayrim = {"tr": f"{g['daimi']} daimî + {g['secilmis']} seçilmiş", "en": f"{g['daimi']} permanent + {g['secilmis']} elected"}[dil]
+        ilk = g["ilk"]
+        pt = g.get("personel_tarihi", {})
+        et = {"tr": ({"nufus": "Nüfus payı 2023", "personel": f"Barış gücü personeli payı, {pt.get('tr')}"}[ilk], "Koltuk payı"),
+              "en": ({"nufus": "Population share 2023", "personel": f"Share of peacekeeping personnel, {pt.get('en')}"}[ilk], "Seat share")}[dil]
+        renk = {"nufus": LEHTE, "personel": PERSONEL}[ilk]  # Kim temsil ediliyor? sayfasındaki göstergenin rengi
+        ayrim = {"tr": f"{g['daimi']} daimî ve {g['secilmis']} seçilmiş", "en": f"{g['daimi']} permanent and {g['secilmis']} elected"}[dil]
         return (f'<div class="cubuklar" style="width:{genislik}px">'
                 f'<div class="cs ustte" style="grid-template-columns:1fr"><div class="ce" style="font-size:22px">{et[0]}</div>'
-                f'<div class="cb"><span class="arka" style="width:100%"></span><span class="on" style="width:{100 * g["nufus"]:.1f}%;background:{LEHTE}"></span><span class="cd" style="font-size:22px">{yuzde(g["nufus"], dil)}</span></div></div>'
-                f'<div class="cs ustte" style="grid-template-columns:1fr"><div class="ce" style="font-size:22px">{et[1]} · {ayrim}</div>'
+                f'<div class="cb"><span class="arka" style="width:100%"></span><span class="on" style="width:{100 * g[ilk]:.1f}%;background:{renk}"></span><span class="cd" style="font-size:22px">{yuzde(g[ilk], dil)}</span></div></div>'
+                f'<div class="cs ustte" style="grid-template-columns:1fr"><div class="ce" style="font-size:22px">{et[1]}, {ayrim}</div>'
                 f'<div class="cb"><span class="arka" style="width:100%"></span><span class="on" style="width:{100 * g["koltuk"]:.1f}%;background:{MUREKKEP}"></span><span class="cd" style="font-size:22px">{yuzde(g["koltuk"], dil)}</span></div></div>'
                 "</div>")
     if kimlik == "kart-04-besi-de":
@@ -297,7 +349,7 @@ def html(kart: dict, dil: str, boyut: str, S: dict) -> str:
     kare = g == y
     alinti = kart["tur"] == "alinti"
     uzunluk = len(kart["buyuk"][dil])
-    ust_bosluk, yan = (48, 72) if kare else (36, 72)
+    ust_bosluk, yan = 48, 72  # üst bant yok; kimlik alt bilgideki işaret ve çizgiyle
     ic_g = g - 2 * yan
     if alinti:
         punto = 56 if uzunluk < 90 else 46 if uzunluk < 160 else 38
@@ -310,7 +362,7 @@ def html(kart: dict, dil: str, boyut: str, S: dict) -> str:
     elif kare:
         gorsel_html = gorsel(kart, dil, S, ic_g, 500)
     else:
-        gorsel_html = gorsel(kart, dil, S, (ic_g - 48) // 2, y - 12 - ust_bosluk - 44 - 40 - 72)
+        gorsel_html = gorsel(kart, dil, S, (ic_g - 48) // 2, y - ust_bosluk - 44 - 40 - 72)
     yer = {"tr": "Veto Atlası · vetoatlas.com", "en": "Veto Atlas · vetoatlas.com"}[dil]
     # Köşedeki işaret (web/isaret.svg, boşluksuz kırpılmış): eski dosyadaki gibi 44 × 44 px kutu, çizim içinde ortalanmış 34 px
     # yükseklikte (eski kutudaki halka 33,9 px görünüyordu). Kutu aynı kaldığı için alt bilgi satırının yüksekliği ve yeri değişmez.
@@ -323,7 +375,10 @@ def html(kart: dict, dil: str, boyut: str, S: dict) -> str:
     isaret = re.sub(r"<title>[^<]*</title>", "", re.sub(r' role="img" aria-label="[^"]*"', ' aria-hidden="true"', isaret, count=1), count=1)
     # Sol üst etiket yalnızca alıntı kartlarında ("Söz ve Kayıt"); sayı kartlarında atlasın adı alt bilgide zaten var
     baslik = ("Söz ve Kayıt" if dil == "tr" else "Word and Record") if alinti else ""
-    buyuk = f'<div class="buyuk{" alinti" if alinti else ""}" lang="{"tr" if alinti and not kart["buyuk"].get("en") else dil}">{esc(kart["buyuk"][dil])}</div>'
+    buyuk_metin = kart["buyuk"][dil]
+    if alinti:  # kart alıntıyı “ ” içine alır: alıntının içindeki çift tırnak tek tırnak olur (kaynak metin değişmez)
+        buyuk_metin = buyuk_metin.replace("“", "‘").replace("”", "’")
+    buyuk = f'<div class="buyuk{" alinti" if alinti else ""}" lang="{"tr" if alinti and not kart["buyuk"].get("en") else dil}">{esc(buyuk_metin)}</div>'
     metin = f'<div class="metin">{esc(kart["metin"][dil])}</div>'
     if alinti:
         govde = f'<div class="govde dikey">{buyuk}{metin}</div>'
@@ -336,7 +391,7 @@ def html(kart: dict, dil: str, boyut: str, S: dict) -> str:
 <link rel="stylesheet" href="../fonts/fonts.css">
 <style>
 html, body {{ margin: 0; width: {g}px; height: {y}px; overflow: hidden; background: #FBF8F1; color: {MUREKKEP}; }}
-.kart {{ box-sizing: border-box; width: {g}px; height: {y}px; padding: {ust_bosluk}px {yan}px 36px; display: flex; flex-direction: column; border-top: 12px solid {MUREKKEP}; }}
+.kart {{ box-sizing: border-box; width: {g}px; height: {y}px; padding: {ust_bosluk}px {yan}px 36px; display: flex; flex-direction: column; }}
 .ust {{ font-family: "Source Sans 3", "Segoe UI", sans-serif; font-weight: 600; font-size: 22px; color: {MUREKKEP2}; }}
 .govde {{ flex: 1; min-height: 0; display: flex; }}
 .govde.dikey {{ flex-direction: column; justify-content: center; gap: {26 if kare else 20}px; }}
@@ -357,6 +412,7 @@ html, body {{ margin: 0; width: {g}px; height: {y}px; overflow: hidden; backgrou
 .cb .arka {{ position: absolute; left: 0; top: 0; height: 100%; background: {BOS}; border-radius: 3px; }}
 .cb .on {{ position: relative; display: block; height: 100%; border-radius: 3px; }}
 .cb .cd {{ position: relative; margin-left: 10px; font-variant-numeric: tabular-nums; color: {MUREKKEP}; }}
+.cb .ct {{ position: absolute; white-space: nowrap; font-variant-numeric: tabular-nums; color: {MUREKKEP2}; }}
 .alt {{ font-family: "Source Sans 3", "Segoe UI", sans-serif; font-size: {19 if not kare else 18}px; color: {MUREKKEP2}; display: flex; justify-content: space-between; gap: 32px; align-items: baseline; border-top: 1px solid {CIZGI}; padding-top: 12px; margin-top: 16px; white-space: nowrap; }}
 .alt .kaynak {{ overflow: hidden; text-overflow: ellipsis; min-width: 0; }}
 .alt .ad {{ flex: none; color: {MUREKKEP}; display: inline-flex; align-items: center; gap: 12px; }}
@@ -367,6 +423,69 @@ html, body {{ margin: 0; width: {g}px; height: {y}px; overflow: hidden; backgrou
 <div class="alt"><div class="kaynak">{esc(kart['kaynak'][dil])}</div><div class="ad">{esc(yer)}{isaret}</div></div>
 </div></body></html>
 """
+
+
+ONIZLEMELER = ("onizleme-simulasyon", "onizleme-vizyon")  # web/ kökünde (kartlar klasörü robots.txt'de kapalı)
+
+
+def onizleme_html(ad: str, S: dict) -> str:
+    """Sayfaya özel paylaşım önizlemesi (1200 × 630, sözcüksüz): web/onizleme.png ile aynı çerçeve (sağ üstte büyük sayı, altta
+    çizgi ve adres; sol üstteki çubuk logosu PNG'ye logo_ekle ile çizilir); görsel kart-01 (Ya veto olmasaydı?) ve kart-03 (Söz ve
+    Kayıt) öğelerinden."""
+    g, y = BOYUTLAR["1200x630"]
+    sol, sag = 73, 74  # onizleme.png'deki grafiğin kenarları
+    genislik = g - sol - sag
+    sutun = 38  # 38 × 7 = 266
+    ust = round(430 - 7 * genislik / sutun)  # iki önizlemede grafik aynı yükseklikte başlar (büyük sayıyla arası aynı)
+    if ad == "onizleme-simulasyon":
+        adim = genislik / sutun
+        buyuk = f"{S['vetosuz_kabul']} / {S['toplam']}"
+        gorsel_html = f'<div class="gorsel" style="top:{ust}px">' + kare_izgarasi(S["toplam"], S["vetosuz_kabul"], sutun, adim, round(adim * 0.78, 1)) + "</div>"
+    else:
+        # Sözcüksüz görselde açıklamasız sayı yok: küçük karelerin anlamı sayfanın og:image:alt metnindedir.
+        # Kareler iki sırada (22 → 11 + 11): grafik simülasyon önizlemesindeki kareyle aynı yükseklikte başlar ve büyük sayı ile
+        # alt çizgi arasındaki alanı doldurur (tek sırada alt üçte biri boş kalıyordu).
+        # Görünen karelerin dış kenarı simülasyon önizlemesindekiyle aynı çizgide durur (sol, sağ ve üst).
+        sutun_v = -(-S["gk_sonrasi"] // 2)
+        adim_s = genislik / sutun
+        pay_s = (adim_s - round(adim_s * 0.78, 1)) / 2
+        adim = (genislik - 2 * pay_s) / (sutun_v - 0.22)
+        pay = (adim - round(adim * 0.78, 1)) / 2
+        ust += round(pay_s - pay)
+        buyuk = f"{S['gk_gorusulen']} / {S['gk_sonrasi']}"
+        gorsel_html = (f'<div class="gorsel" style="top:{ust}px; left:{sol + pay_s - pay:.1f}px; right:auto">'
+                       + kare_izgarasi(S["gk_sonrasi"], S["gk_gorusulen"], sutun_v, adim, round(adim * 0.78, 1))
+                       + f'<div class="isaretler" style="margin-left:{pay - (adim * 0.5 - round(adim * 0.36, 1)) / 2:.1f}px">'
+                       + kare_izgarasi(S["vg_tartisma"], S["vg_soz_alan"], S["vg_tartisma"], adim * 0.5, round(adim * 0.36, 1), MUREKKEP)
+                       + '</div></div>')
+    yazi = lambda s: f'"{s}", "Segoe UI", sans-serif'
+    return f"""<!doctype html>
+<html><head><meta charset="utf-8"><title>{ad}</title>
+<link rel="stylesheet" href="{(WEB / 'fonts/fonts.css').as_uri()}">
+<style>
+html, body {{ margin: 0; width: {g}px; height: {y}px; overflow: hidden; background: #FBF8F1; color: {MUREKKEP}; }}
+body > div {{ position: absolute; }}
+.sayi {{ top: 54px; right: {sag}px; font: 600 96px/1 "Source Serif 4", Georgia, serif; font-variant-numeric: tabular-nums; white-space: nowrap; }}
+.gorsel {{ left: {sol}px; right: {sag}px; display: flex; flex-direction: column; gap: 16px; }}
+.isaretler {{ display: flex; align-items: center; gap: 14px; font: 400 22px/1 {yazi("Source Sans 3")}; color: {MUREKKEP2}; font-variant-numeric: tabular-nums; }}
+.alt {{ left: {sol}px; right: {sag}px; bottom: 36px; border-top: 1px solid {CIZGI}; padding-top: 12px; text-align: right; font: 400 19px/1.2 {yazi("Source Sans 3")}; }}
+</style></head><body>
+<div class="sayi">{buyuk}</div>
+{gorsel_html}
+<div class="alt">vetoatlas.com</div>
+</body></html>
+"""
+
+
+def logo_ekle(kaynak: Path, hedef: Path) -> None:
+    """Çubuk logosunu 06 betiğinin çizicisiyle ekler: üç önizlemede logo aynı yerde (89, 74), 40 px ve piksel piksel aynı."""
+    import importlib.util
+    tanim = importlib.util.spec_from_file_location("onizleme06", KOK / "scripts/06_onizleme_gorseli.py")
+    m = importlib.util.module_from_spec(tanim)
+    tanim.loader.exec_module(m)
+    piksel = m.png_oku(kaynak.read_bytes())
+    m.svg_ciz(piksel, "web/logo-cubuk-b.svg", *m.LOGO_YERI, m.LOGO_BOYU)
+    m.png_yaz(hedef, piksel)
 
 
 def tarayici() -> str | None:
@@ -409,6 +528,17 @@ def main() -> int:
                     else:
                         eksik += 1
                 manifest["dosyalar"].append(kayit)
+    # Sayfaya özel önizlemeler: HTML geçici klasörde, PNG web/ kökünde
+    if exe:
+        gecici = Path(tempfile.mkdtemp(prefix="veto-onizleme-"))
+        for ad in ONIZLEMELER:
+            h = gecici / f"{ad}.html"
+            h.write_text(onizleme_html(ad, S), encoding="utf-8")
+            if png_uret(h, gecici / f"{ad}.png", *BOYUTLAR["1200x630"], exe, profil):
+                logo_ekle(gecici / f"{ad}.png", WEB / f"{ad}.png")
+            else:
+                eksik += 1
+        shutil.rmtree(gecici, ignore_errors=True)
     if profil:
         shutil.rmtree(profil, ignore_errors=True)
     (HEDEF / "kartlar.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")

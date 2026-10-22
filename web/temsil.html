@@ -12,6 +12,8 @@
 <meta property="og:image" content="https://vetoatlas.com/onizleme.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Veto Atlası: 1946’dan 2026’ya Güvenlik Konseyinde vetoyla düşen 266 öneri; her kare bir ret oyu, yıllara göre. / Veto Atlas: 266 proposals blocked by the veto in the Security Council, 1946–2026; each square is one negative vote, by year.">
+<meta name="twitter:image:alt" content="Veto Atlası: 1946’dan 2026’ya Güvenlik Konseyinde vetoyla düşen 266 öneri; her kare bir ret oyu, yıllara göre. / Veto Atlas: 266 proposals blocked by the veto in the Security Council, 1946–2026; each square is one negative vote, by year.">
 <meta property="og:locale" content="tr_TR">
 <meta property="og:locale:alternate" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
@@ -31,7 +33,7 @@
 <style>
 :root {
   --zemin: #FBF8F1; --yuzey: #FFFFFF; --murekkep: #13213A; --murekkep-2: #5A6578; --cizgi: #E1DBCF; --vurgu: #A4262C;
-  --g-nufus: #9AA3B2; --g-uye: #2F7A6E; --g-butce: #A8782A; --g-personel: #5E4E9A; --g-daimi: #13213A; --g-secilmis: #5A6578; --bos: #EDE7DA;
+  --g-nufus: #7A8596; --g-uye: #2F7A6E; --g-butce: #A8782A; --g-personel: #5E4E9A; --g-daimi: #13213A; --g-secilmis: #5A6578; --bos: #EDE7DA;
   --h-grup: #9AA3B2;
   --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
   --sans: "Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
@@ -56,9 +58,13 @@ h3 { font-family: var(--serif); font-weight: 600; font-size: var(--yz-govde); ma
 .aciklama { color: var(--murekkep-2); font-size: var(--yz-kucuk); max-width: var(--olcu); margin: 0 0 16px; line-height: var(--sa-kucuk); }
 .kutu { background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 6px; padding: 16px 16px; }
 .izgara { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(332px, 100%), 1fr)); gap: 16px; }
+#kumeler { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 760px) { #kumeler { grid-template-columns: minmax(0, 1fr); } }
+/* Geniş kartlarda etiket sütunu içeriğe göre genişler ("Barış gücü personeli" tek satır) */
+@media (min-width: 761px) { #kumeler .cubuklar { grid-template-columns: max-content minmax(0, 1fr) max-content; } }
 .grup .alt-bilgi { color: var(--murekkep-2); font-size: var(--yz-kucuk); margin: 0 0 12px; line-height: var(--sa-kucuk); }
-.cubuklar { display: grid; grid-template-columns: 136px 1fr 68px; gap: 8px 12px; align-items: center; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
-.cubuklar .et { color: var(--murekkep-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cubuklar { display: grid; grid-template-columns: 136px minmax(0, 1fr) max-content; gap: 8px 12px; align-items: center; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+.cubuklar .et { color: var(--murekkep-2); }
 .cubuklar .cb { position: relative; height: 16px; background: var(--bos); border-radius: 3px; overflow: hidden; }
 .cubuklar .cb span { position: absolute; top: 0; left: 0; height: 100%; transition: width .4s ease; }
 .cubuklar .cb .secilmis { background: var(--g-secilmis); }
@@ -66,7 +72,8 @@ h3 { font-family: var(--serif); font-weight: 600; font-size: var(--yz-govde); ma
 .cubuklar .deger { font-variant-numeric: tabular-nums; text-align: right; }
 /* Koltuk payının gösterge payına oranı: cümle değil dört küçük sütun (etiket üstte, sayı altta) */
 .oran-baslik { margin: 12px 0 0; font-size: var(--yz-kucuk); color: var(--murekkep-2); line-height: var(--sa-kucuk); }
-.oranlar { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 12px; margin: 4px 0 0; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+/* Etiket içeriği kadar, değer hemen yanında (12 px) */
+.oranlar { display: grid; grid-template-columns: max-content minmax(48px, 1fr) max-content minmax(48px, 1fr); gap: 0 12px; margin: 4px 0 0; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
 .oranlar dt { color: var(--murekkep-2); }
 .oranlar dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; }
 .koltuk-not { font-size: var(--yz-kucuk); color: var(--murekkep-2); margin: 8px 0 0; line-height: var(--sa-kucuk); }
@@ -77,23 +84,46 @@ table { border-collapse: collapse; width: 100%; font-size: var(--yz-kucuk); line
 th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--cizgi); vertical-align: top; }
 th { font-weight: 600; color: var(--murekkep-2); font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
 td.s, th.s { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+#harita-tablo td:first-child { white-space: nowrap; }
+/* Telefonda ülke adı ve sütun başlıkları kırılır, sütun arası 8 px, kenar sütunlar kutunun iç boşluğuna yaslanır: dört sütun 390 px'te iki dilde de kutuya sığar */
+@media (max-width: 520px) {
+  #harita-tablo td:first-child, #harita-tablo th.s { white-space: normal; }
+  #harita-tablo th, #harita-tablo td { padding: 8px 4px; }
+  #harita-tablo tr > :first-child { padding-left: 0; }
+  #harita-tablo tr > :last-child { padding-right: 0; }
+}
+/* 1963/2023 tablosu kaydırmasız sığar: sütun başlıkları ve grup adı gerekirse iki satıra kırılır; 520 px altında her grup bir blok */
+#nufus-tablo th.s { white-space: normal; }
+#nufus-tablo td:first-child { min-width: 9em; }
+@media (max-width: 520px) {
+  #nufus-tablo thead tr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  #nufus-tablo, #nufus-tablo tbody, #nufus-tablo tr { display: block; }
+  #nufus-tablo tr { padding: 8px 0; border-bottom: 1px solid var(--cizgi); }
+  #nufus-tablo td { display: grid; grid-template-columns: minmax(0, 1fr) max-content; gap: 12px; padding: 0 4px; border: 0; }
+  #nufus-tablo td:first-child { display: block; min-width: 0; font-weight: 600; padding-bottom: 4px; }
+  #nufus-tablo td.s::before { content: attr(data-l); text-align: left; color: var(--murekkep-2); font-variant-numeric: normal; }
+  #nufus-tablo td.s:not([data-l]) { display: none; }
+}
 /* Notlar: kalın başlıklı madde listesi değil, iki sütunlu tanım listesi (ad solda, açıklama sağda) */
 .not-liste { display: grid; grid-template-columns: minmax(120px, max-content) minmax(0, 1fr); gap: 4px 16px; font-size: var(--yz-kucuk); color: var(--murekkep-2); margin: 16px 0 0; line-height: var(--sa-kucuk); }
 .not-liste dt { color: var(--murekkep); }
 .not-liste dd { margin: 0; max-width: var(--olcu); grid-column: 2; }
+.not-satirlar { list-style: none; padding: 0; margin: 16px 0 0; font-size: var(--yz-kucuk); color: var(--murekkep-2); line-height: var(--sa-kucuk); }
+.not-satirlar li { margin: 0 0 4px; }
 @media (max-width: 560px) { .not-liste { grid-template-columns: minmax(0, 1fr); gap: 0; } .not-liste dd { margin: 0 0 8px; grid-column: auto; } }
 /* Harita: seçilen grubun üyeleri (orta ton) ve Konsey koltukları (daimî mürekkep, seçilmiş ikincil; koltuk çubuğuyla aynı);
    öteki üyeler açık ton, BM üyesi olmayan alanlar boş (yalnızca çizgi). Açıklık sırası iki temada da adım adım (OKLab ΔE ≥ 20). */
 /* Grup seçimi çerçevesiz sekme satırı: seçili grup 2 px alt çizgili; araç düğmeleri (balon, bağlantı) ikincil düğme gibi çerçeveli */
-.secimler { display: flex; flex-wrap: wrap; gap: 4px 24px; margin: 0 0 16px; }
+.secimler { display: flex; flex-wrap: wrap; gap: 4px 24px; margin: 0 0 16px; min-height: 36px; }
 .secim-dugme { display: inline-flex; align-items: center; gap: 8px; font: 500 var(--yz-kucuk)/var(--sa-kucuk) var(--sans); color: var(--murekkep);
-  background: transparent; border: 0; border-bottom: 2px solid transparent; padding: 4px 0; cursor: pointer; }
+  background: transparent; border: 0; border-bottom: 2px solid transparent; box-sizing: border-box; min-height: 40px; padding: 0; cursor: pointer; }  /* dokunma alanı 40 px */
 .secim-dugme .sayi { color: var(--murekkep-2); font-variant-numeric: tabular-nums; }
 .secim-dugme[aria-pressed="true"] { border-bottom-color: var(--murekkep); font-weight: 600; }
 .arac-dugme { display: inline-flex; align-items: center; gap: 8px; font: 500 var(--yz-kucuk)/var(--sa-kucuk) var(--sans); color: var(--murekkep);
-  background: transparent; border: 1px solid var(--cizgi); border-radius: 6px; padding: 8px 16px; cursor: pointer; }
+  background: transparent; border: 1px solid var(--cizgi); border-radius: 6px; box-sizing: border-box; min-height: 40px; padding: 0 16px; cursor: pointer; }
 .arac-dugme[aria-pressed="true"] { background: var(--murekkep); color: var(--zemin); border-color: var(--murekkep); }
-.harita { position: relative; margin: 0; }
+.gorunmez { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.harita { position: relative; margin: 0; aspect-ratio: 1000 / 438.9; }
 .harita svg { display: block; width: 100%; height: auto; touch-action: manipulation; }
 /* Yakınlaştırma: harita ve veri değişmez, yalnızca görünüm (viewBox) büyür. Düğmeler sol altta (açık okyanus); yakınken
    harita sürüklenir ve sayfa yerine harita kayar (touch-action: none). */
@@ -104,7 +134,7 @@ td.s, th.s { text-align: right; font-variant-numeric: tabular-nums; white-space:
   background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 6px; cursor: pointer; }
 .yakin-dugme:disabled { color: var(--murekkep-2); opacity: .5; cursor: default; }
 /* Araçlar: ülke arama, nüfus balonları, bağlantı paylaşma */
-.harita-araclar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: 0 0 16px; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
+.harita-araclar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: 0 0 16px; min-height: 40px; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
 .ulke-ara { display: inline-flex; align-items: center; gap: 8px; color: var(--murekkep-2); }
 .ulke-ara input { width: 224px; max-width: 100%; height: 40px; padding: 0 16px; font: 400 var(--yz-kucuk)/var(--sa-kucuk) var(--sans); color: var(--murekkep);
   background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 6px; }
@@ -112,7 +142,7 @@ td.s, th.s { text-align: right; font-variant-numeric: tabular-nums; white-space:
 /* Ülke kartı: tıklanan ya da aranan ülke; seçili ülke haritada mürekkep çizgiyle */
 .ulke-karti { margin: 16px 0 0; }
 .ulke-karti-bas { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; }
-.ulke-karti-bas .yakin-dugme { margin-left: auto; }
+.ulke-karti-bas #kart-kapat { margin-left: auto; }
 .ulke-karti h3 { margin: 0; }
 .ulke-karti-bas a { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
 .ulke-bilgi { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr)); gap: 12px 24px; margin: 12px 0 0; }
@@ -134,7 +164,7 @@ td.s, th.s { text-align: right; font-variant-numeric: tabular-nums; white-space:
 .harita-lejant .balon-olcek svg { vertical-align: middle; margin: 0 4px; }
 .harita-lejant .balon-olcek circle { fill: none; stroke: var(--murekkep-2); }
 .harita path, .harita circle { fill: var(--bos); stroke: var(--zemin); stroke-width: .5px; vector-effect: non-scaling-stroke; transition: fill .4s ease; }
-.harita .uye-degil { fill: var(--zemin); stroke: var(--cizgi); }
+.harita .uye-degil { fill: var(--zemin); stroke: var(--murekkep-2); stroke-opacity: .5; stroke-width: .75px; }
 .harita [data-k] { cursor: pointer; }
 .harita .h-grup { fill: var(--h-grup); }
 .harita .h-secilmis { fill: var(--g-secilmis); }
@@ -155,12 +185,15 @@ td.s, th.s { text-align: right; font-variant-numeric: tabular-nums; white-space:
 .ipucu strong { display: block; font-weight: 600; }
 @media (max-width: 760px) { .harita-alt { grid-template-columns: minmax(0, 1fr); } .harita-lejant { flex-direction: row; flex-wrap: wrap; gap: 4px 16px; } }
 @media (prefers-reduced-motion: reduce) { .cubuklar .cb span, .harita path, .harita circle, .ipucu { transition: none; } }
-@media (max-width: 560px) { .kap { padding: 0 16px 48px; } .cubuklar { grid-template-columns: 96px 1fr 60px; } table { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); } th, td { padding: 8px 8px; } }
+@media (max-width: 560px) { .secimler { min-height: 116px; } .harita-araclar { min-height: 88px; } }  /* veri gelmeden yer ayrılır, metin kaymaz */
+@media (max-width: 560px) { .kap { padding: 0 16px 48px; } .cubuklar { grid-template-columns: 112px 1fr 60px; } table { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); } th, td { padding: 8px 8px; } }
 
 
 details.tablo-ac > summary { cursor: pointer; font-size: var(--yz-kucuk); color: var(--murekkep-2); margin: 8px 0 8px; width: max-content; line-height: var(--sa-kucuk); }
 
 .kap p, .kap dd, .kap blockquote, .kap ul:not([class]) > li, .kap ol:not([class]) > li { max-width: var(--olcu); }
+/* Küçük yazıda satır 68 karakteri geçmesin */
+.kap .aciklama, .kap .harita-not, .kap .lejant-not, .kap .harita-ozet, .kap .not-liste dd, .kap .not-satirlar li { max-width: 68ch; }
 .giris { padding-top: 64px; }
 
 
@@ -173,15 +206,16 @@ details.tablo-ac > summary { cursor: pointer; font-size: var(--yz-kucuk); color:
 <body data-sayfa="temsil">
 <header id="cubuk" class="cubuk"></header>
 <div class="kap">
-  <header class="giris">
+  <div class="giris">
     <h1 data-t="baslik"></h1>
-    <p data-t="giris1"></p>
-  </header>
+    <p id="giris1"></p>
+  </div>
 
   <main>
     <section aria-labelledby="h-harita">
       <h2 id="h-harita" data-t="h.harita"></h2>
       <p class="aciklama" data-t="harita.aciklama"></p>
+      <p class="gorunmez" id="harita-etkilesim" data-t="harita.etkilesim"></p>
       <div class="secimler" id="harita-secim" role="group" aria-labelledby="h-harita"></div>
       <div class="harita-araclar">
         <label class="ulke-ara"><span data-t="ara.etiket"></span><input type="search" id="ulke-ara" list="ulke-listesi" autocomplete="off" spellcheck="false"></label>
@@ -194,7 +228,7 @@ details.tablo-ac > summary { cursor: pointer; font-size: var(--yz-kucuk); color:
       <div class="kutu ulke-karti" id="ulke-karti" hidden></div>
       <div class="harita-alt"><p class="harita-ozet" id="harita-ozet" aria-live="polite"></p><p class="harita-lejant" id="harita-lejant"></p></div>
       <p class="harita-not"><span data-t="harita.not"></span> <a id="harita-metodoloji" href="metodoloji.html#bolum-2-9" data-t="nufus.metodoloji"></a></p>
-      <details class="tablo-ac" id="harita-liste"><summary id="harita-liste-baslik"></summary><div class="kutu" style="overflow-x:auto"><table id="harita-tablo"></table></div></details>
+      <details class="tablo-ac" id="harita-liste"><summary id="harita-liste-baslik"></summary><div class="kutu" style="overflow-x:auto"><table id="harita-tablo" aria-labelledby="harita-liste-baslik"></table></div></details>
     </section>
 
     <section aria-labelledby="h-gruplar">
@@ -208,8 +242,8 @@ details.tablo-ac > summary { cursor: pointer; font-size: var(--yz-kucuk); color:
     <section aria-labelledby="h-nufus">
       <h2 id="h-nufus" data-t="h.nufus"></h2>
       <p class="aciklama"><span id="nufus-aciklama"></span> <a id="nufus-metodoloji" href="metodoloji.html#bolum-2-9" data-t="nufus.metodoloji"></a></p>
-      <details class="tablo-ac"><summary data-t="tabloGoster"></summary><div class="kutu" style="overflow-x:auto"><table id="nufus-tablo"></table></div></details>
-      <dl class="not-liste" id="nufus-notlar"></dl>
+      <details class="tablo-ac"><summary data-t="tabloGoster"></summary><div class="kutu" style="overflow-x:auto"><table id="nufus-tablo" aria-labelledby="h-nufus"></table></div></details>
+      <ul class="not-satirlar" id="nufus-notlar"></ul>
     </section>
 
     <section aria-labelledby="h-kumeler">
@@ -235,50 +269,52 @@ details.tablo-ac > summary { cursor: pointer; font-size: var(--yz-kucuk); color:
       sayfaBasligi: "Kim temsil ediliyor? · Veto Atlası",
       sayfaAciklamasi: "BM bölgesel gruplarının nüfus, üye sayısı, bütçe ve barış gücü payları ile Güvenlik Konseyi koltuk payları yan yana.",
       baslik: "Kim temsil ediliyor?",
-      giris1: "Temsil endeksi, her BM bölgesel grubu için beş payı yan yana gösterir: BM üyelerinin toplam nüfusundaki pay, BM üye sayısındaki pay, olağan bütçe ölçeğindeki pay, barış gücü personelindeki pay ve Güvenlik Konseyi koltuklarındaki pay.",
+      onizlemeAlt: "Veto Atlası: 1946’dan 2026’ya Güvenlik Konseyinde vetoyla düşen 266 öneri; her kare bir ret oyu, yıllara göre.",
+      giris1: ({ g, nufus, koltuk }) => `Temsil endeksinde ${g}nun BM üyelerinin nüfusundaki payı ${nufus}, Güvenlik Konseyi koltuklarındaki payı ${koltuk}; aşağıda beş grubun nüfus, üyelik, bütçe, barış gücü ve koltuk payları var.`,
       "h.gruplar": "Bölgesel gruplar",
-      "gruplar.aciklama": "Birim, DGACM listesindeki BM bölgesel gruplarıdır. Türkiye iki grupta listelenir ve seçimlerde yalnızca WEOG sayılır. ABD hiçbir grubun üyesi değildir ve seçimlerde WEOG sayılır. İkisini de burada WEOG'da saydık. Paylar BM üyelerinin toplamı içindedir. Koltuk çubuğunda koyu bölüm daimî, açık bölüm seçilmiş koltuklar. Kartların altındaki oran, koltuk payının gösterge payına bölümüdür: 1'den büyükse koltuk payı daha yüksek, küçükse daha düşük.",
+      "gruplar.aciklama": "Birim, BM Genel Kurul ve Konferans Yönetimi Dairesinin (DGACM) listesindeki bölgesel gruplardır. Türkiye’yi ve ABD’yi Batı Avrupa ve Diğerleri Grubunda (WEOG) saydık. Paylar BM üyelerinin toplamı içindedir. Kartların altındaki oran, koltuk payının gösterge payına bölümüdür: 1’den büyükse koltuk payı daha yüksek, küçükse daha düşük.",
       "l.nufus": "Nüfus", "l.uye": "Üye", "l.butce": "Bütçe", "l.personel": "Barış gücü personeli", "l.daimi": "Daimî koltuk", "l.secilmis": "Seçilmiş koltuk",
-      "lejant.not": "Nüfus 2023 (WPP 2024), olağan bütçe ölçeği 2025–2027, barış gücü üniformalı personeli 28 Şubat 2026 (asker, polis, uzman, karargâh subayı).",
-      "b.nufus": "Nüfus 2023", "b.uye": "Üye sayısı", "b.butce": "Bütçe 2025–27", "b.personel": "Üniformalı personel", "b.koltuk": "Koltuk",
+      "lejant.not": "Nüfus 2023 (BM Dünya Nüfus Beklentileri, WPP 2024), olağan bütçe ölçeği 2025–2027, barış gücü üniformalı personeli 31 Temmuz 2026 (asker, polis, uzman, karargâh subayı).",
+      "b.nufus": "Nüfus 2023", "b.uye": "Üye sayısı", "b.butce": "Bütçe 2025–27", "b.personel": "Barış gücü personeli", "b.koltuk": "Koltuk",
       uyeSayisi: ({ n }) => `${n} üye`,
-      koltukNot: ({ d, s, t }) => `${t} koltuk (${d} daimî, ${s} seçilmiş)`,
+      koltukNot: ({ d, s, t }) => !s ? `${t} koltuk, hepsi daimî` : !d ? `${t} koltuk, hepsi seçilmiş` : `${t} koltuk (${d} daimî, ${s} seçilmiş)`,
       oranBaslik: "Koltuk payının gösterge payına oranı",
       "o.nufus_2023": "Nüfus", "o.uye": "Üye", "o.butce": "Bütçe", "o.personel": "Personel",
-      "h.nufus": "Nüfus payı: 1963 ve 2023",
+      "h.nufus": "1963 ve 2023’te nüfus payı",
       "nufus.aciklama": ({ u63, u }) => `1963 payı 1963 sonundaki ${u63} BM üyesinin, 2023 payı bugünkü ${u} üyenin toplamı içindedir.`,
-      "nufus.metodoloji": "Ayrıntı: Metodoloji 2.9",
+      "nufus.metodoloji": "Metodoloji 2.9",
       "t.grup": "Grup", "t.uye63": "Üye 1963", "t.nufus63": "Nüfus 1963 (bin)", "t.pay63": "Pay 1963", "t.uye23": "Üye 2023", "t.nufus23": "Nüfus 2023 (bin)", "t.pay23": "Pay 2023", "t.fark": "Fark (puan)",
       "t.toplam": "Toplam", tabloGoster: "Tablo",
       "h.kumeler": "Beş daimî üye ve İslam İşbirliği Teşkilatı üyeleri",
-      "kumeler.aciklama": "Aynı beş pay iki küme için: Güvenlik Konseyi'nin beş daimî üyesi ve İİT'nin BM üyesi olan 56 üyesi. 1963 nüfus payı ayrıca verilir.",
+      "kumeler.aciklama": "Aynı beş pay iki küme için: Güvenlik Konseyinin beş daimî üyesi ve İİT’nin BM üyesi olan 56 üyesi. 1963 nüfus payı ayrıca verilir.",
       nufus63: ({ p }) => `1963 nüfus payı ${p}`,
       "h.harita": "BM üyeleri haritada",
-      "harita.aciklama": "Seçilen bölgesel grubun üyeleri ve Güvenlik Konseyi'ndeki koltukları (2026). Bir ülkeyi seçince ya da adını arayınca ülkenin kartı açılır ve grubu seçilir.",
+      "harita.aciklama": "Seçilen bölgesel grubun üyeleri ve Güvenlik Konseyindeki koltukları (2026).",
+      "harita.etkilesim": "Bir ülkeyi seçince ya da adını arayınca ülkenin kartı açılır ve grubu seçilir.",
       "y.grup": "Yakınlaştırma", "y.art": "Yakınlaştır", "y.azalt": "Uzaklaştır", "y.tum": "Tüm dünya",
       "ara.etiket": "Ülke ara", "ara.ornek": "ör. Türkiye", "ara.yok": "Bulunamadı.", "ara.coklu": ({ n, adlar }) => `${n} sonuç: ${adlar}`,
-      balon: "Nüfus balonları", paylas: "Bağlantıyı kopyala", "paylas.kopyalandi": "Bağlantı kopyalandı.", "paylas.elle": ({ url }) => `Bağlantı: ${url}`,
+      balon: "Nüfus daireleri", paylas: "Bağlantıyı kopyala", "paylas.kopyalandi": "Bağlantı kopyalandı.", "paylas.elle": ({ url }) => `Bağlantı: ${url}`,
       "l.balon": "Daire alanı nüfusla orantılı (2023):", "l.milyar": "1 milyar", "l.yuzmilyon": "100 milyon",
       "k.grup": "Bölgesel grup", "k.kabul": "BM üyeliğine kabul", "k.nufus": "Nüfus (2023)",
       "k.nufusDeger": ({ n, p }) => `${n}, BM üyelerinin nüfusunda ${p}`, "k.bin": ({ n }) => `${n} bin`, "k.kisi": ({ n }) => `${n} kişi`, "k.milyon": ({ n }) => `${n} milyon`,
-      "k.butce": "Olağan bütçe payı (2025–2027)", "k.personel": "Barış gücü üniformalı personeli (28 Şubat 2026)",
+      "k.butce": "Olağan bütçe payı (2025–2027)", "k.personel": "Barış gücü üniformalı personeli (31 Temmuz 2026)",
       "k.personelDeger": ({ n, p }) => `${n} (toplamın ${p})`, "k.iit": "İİT üyeliği", "k.evet": "Üye", "k.hayir": "Üye değil",
       "k.konsey": "Güvenlik Konseyi (2026)", "k.daimi": "Daimî üye", "k.secilmis": ({ y }) => `Seçilmiş üye, dönem sonu ${y}`, "k.degil": "Üye değil",
       "k.kapat": "Kapat",
-      "a.degil": "BM üyesi değil", "a.gozlemci": "BM'de üye olmayan gözlemci devlet", "a.kyt": "BM üyesi değil, kendi kendini yönetmeyen toprak",
+      "a.degil": "BM üyesi değil", "a.gozlemci": "BM’de üye olmayan gözlemci devlet", "a.kyt": "BM üyesi değil, kendi kendini yönetmeyen toprak",
       "a.kucuk": "Bu ölçekte haritada görünmeyecek kadar küçük.",
       "b.parca": ({ u }) => `${u} toprağı, nüfusu BM istatistiklerinde ayrı sayılır`, "i.nufus2": ({ n }) => `Nüfus (2023): ${n}`,
       "k.ayri": ({ liste }) => `BM istatistiklerinde ayrı sayılan, bu nüfusa dahil olmayan bölgeler: ${liste}.`,
-      "harita.not": "Harita BM üyeliğini gösterir, sınırlar hakkında görüş bildirmez. Üye olmayan ülke ve alanlar boş çizilir. Kırım Ukrayna'nın, Golan Suriye'nin parçası olarak gösterilir.",
+      "harita.not": "Harita BM üyeliğini gösterir, sınırlar hakkında görüş bildirmez. Üye olmayan ülke ve alanlar boş çizilir. Kırım Ukrayna’nın, Golan Suriye’nin parçası olarak gösterilir.",
       konsey: "Güvenlik Konseyi",
       "l.h.daimi": "Daimî üye", "l.h.secilmis": "Seçilmiş üye (2026)", "l.h.grup": ({ g }) => `${g} üyesi`, "l.h.diger": "Öteki BM üyeleri", "l.h.degil": "BM üyesi değil",
       "o.konsey": ({ d, s }) => `Güvenlik Konseyi (2026): ${d} daimî ve ${s} seçilmiş üye.`,
       "o.daimi": "Daimî", "o.secilmis": "Seçilmiş (dönem sonu)",
-      "o.grup": ({ g, n, nufus, uye }) => `${g}: ${n} üye, BM üyelerinin nüfusunda ${nufus}, üye sayısında ${uye}.`,
-      "o.koltuk": ({ d, s }) => `Konseydeki koltukları: ${d} daimî, ${s} seçilmiş`,
+      "o.grup": ({ g, n, nufus, uye }) => `${g}nun ${n} üyesi BM üyelerinin nüfusunda ${nufus}, üye sayısında ${uye} pay tutar.`,
+      "o.koltuk": ({ d, s, da, sa }) => (d || s) ? `Konseyde ${[d ? `${d} daimî (${da})` : "", s ? `${s} seçilmiş (${sa})` : ""].filter(Boolean).join(" ve ")} koltuğu var.` : "Konseyde koltuğu yok.",
       "o.kart": "Grubun kartı",
       "i.daimi": "Güvenlik Konseyi: daimî üye", "i.secilmis": ({ y }) => `Güvenlik Konseyi: seçilmiş üye (dönem sonu ${y})`,
-      "harita.etiket": ({ s }) => `Dünya haritası: ${s}. Aynı bilgi haritanın altındaki listede.`,
+      "harita.etiket": ({ s }) => `Dünya haritası. ${s} Aynı bilgi haritanın altındaki listede.`,
       "liste": ({ n }) => `Ülke listesi (${n})`,
       "t.ulke": "Ülke", "t.konsey": "Güvenlik Konseyi", "t.secilmis": "Seçilmiş",
     },
@@ -286,33 +322,35 @@ details.tablo-ac > summary { cursor: pointer; font-size: var(--yz-kucuk); color:
       sayfaBasligi: "Who is represented? · Veto Atlas",
       sayfaAciklamasi: "Population, membership, budget and peacekeeping shares of the UN regional groups next to their Security Council seat shares.",
       baslik: "Who is represented?",
-      giris1: "The representation index sets five shares side by side for each UN regional group: share of the total population of UN Member States, of UN membership, of the regular budget scale, of peacekeeping personnel and of Security Council seats.",
+      onizlemeAlt: "Veto Atlas: 266 proposals blocked by the veto in the Security Council, 1946–2026; each square is one negative vote, by year.",
+      giris1: ({ g, nufus, koltuk }) => `In the representation index, the ${g} holds ${nufus} of the population of UN Member States and ${koltuk} of Security Council seats; below are the population, membership, budget, peacekeeping and seat shares of all five groups.`,
       "h.gruplar": "Regional groups",
-      "gruplar.aciklama": "The unit is the UN regional group on the DGACM list. Türkiye is listed in two groups and is counted only in WEOG for electoral purposes. The United States is not a member of any group and is counted in WEOG for electoral purposes. We count both in WEOG here. Shares are within the total of UN Member States. In the seat bar the dark part is permanent seats, the lighter part elected seats. The ratio under each card is the seat share divided by the indicator share: above 1 the seat share is higher, below 1 it is lower.",
-      "l.nufus": "Population", "l.uye": "Members", "l.butce": "Budget", "l.personel": "Peacekeeping personnel", "l.daimi": "Permanent seat", "l.secilmis": "Elected seat",
-      "lejant.not": "Population 2023 (WPP 2024), regular budget scale 2025–2027, peacekeeping uniformed personnel as of 28 February 2026 (troops, police, experts, staff officers).",
-      "b.nufus": "Population 2023", "b.uye": "Members", "b.butce": "Budget 2025–27", "b.personel": "Uniformed personnel", "b.koltuk": "Seats",
+      "gruplar.aciklama": "The unit is the UN regional group as listed by the Department for General Assembly and Conference Management (DGACM). We count Türkiye and the United States in the Western European and Others Group (WEOG). Each share is out of the total for all UN Member States. The ratio under each card is the seat share divided by the indicator share: above 1 the seat share is higher, below 1 it is lower.",
+      "l.nufus": "Population", "l.uye": "Membership", "l.butce": "Budget", "l.personel": "Peacekeeping personnel", "l.daimi": "Permanent seat", "l.secilmis": "Elected seat",
+      "lejant.not": "Population 2023 (UN World Population Prospects, WPP 2024), regular budget scale 2025–2027, peacekeeping uniformed personnel as of 31 July 2026 (troops, police, experts, staff officers).",
+      "b.nufus": "Population 2023", "b.uye": "Membership", "b.butce": "Budget 2025–27", "b.personel": "Peacekeeping personnel", "b.koltuk": "Seats",
       uyeSayisi: ({ n }) => `${n} members`,
-      koltukNot: ({ d, s, t }) => `${t} seats (${d} permanent, ${s} elected)`,
+      koltukNot: ({ d, s, t }) => !s ? `${t} seats, all permanent` : !d ? `${t} seats, all elected` : `${t} seats (${d} permanent, ${s} elected)`,
       oranBaslik: "Seat share divided by indicator share",
-      "o.nufus_2023": "Population", "o.uye": "Members", "o.butce": "Budget", "o.personel": "Personnel",
-      "h.nufus": "Population share: 1963 and 2023",
-      "nufus.aciklama": ({ u63, u }) => `The 1963 share is within the total of the ${u63} UN Member States at the end of 1963, the 2023 share within the total of today's ${u} members.`,
-      "nufus.metodoloji": "Details: Methodology 2.9",
+      "o.nufus_2023": "Population", "o.uye": "Membership", "o.butce": "Budget", "o.personel": "Personnel",
+      "h.nufus": "Population share in 1963 and 2023",
+      "nufus.aciklama": ({ u63, u }) => `For 1963 the total is the ${u63} UN Member States at the end of 1963, and for 2023 today’s ${u} members.`,
+      "nufus.metodoloji": "Methodology 2.9",
       "t.grup": "Group", "t.uye63": "Members 1963", "t.nufus63": "Population 1963 (thousands)", "t.pay63": "Share 1963", "t.uye23": "Members 2023", "t.nufus23": "Population 2023 (thousands)", "t.pay23": "Share 2023", "t.fark": "Difference (points)",
       "t.toplam": "Total", tabloGoster: "Table",
       "h.kumeler": "Five permanent members and members of the Organisation of Islamic Cooperation",
       "kumeler.aciklama": "The same five shares for two sets: the five permanent members of the Security Council and the 56 OIC members that are UN Member States. The 1963 population share is given as well.",
       nufus63: ({ p }) => `1963 population share ${p}`,
       "h.harita": "UN Member States on the map",
-      "harita.aciklama": "The members of the selected regional group and their Security Council seats (2026). Select a country or search for its name to open its card and select its group.",
+      "harita.aciklama": "The members of the selected regional group and their Security Council seats (2026).",
+      "harita.etkilesim": "Selecting a country or searching for its name opens its card and selects its group.",
       "y.grup": "Zoom", "y.art": "Zoom in", "y.azalt": "Zoom out", "y.tum": "Whole world",
       "ara.etiket": "Find a country", "ara.ornek": "e.g. Türkiye", "ara.yok": "Not found.", "ara.coklu": ({ n, adlar }) => `${n} matches: ${adlar}`,
-      balon: "Population circles", paylas: "Copy the link", "paylas.kopyalandi": "Link copied.", "paylas.elle": ({ url }) => `Link: ${url}`,
+      balon: "Population circles", paylas: "Copy link", "paylas.kopyalandi": "Link copied.", "paylas.elle": ({ url }) => `Link: ${url}`,
       "l.balon": "Circle area proportional to population (2023):", "l.milyar": "1 billion", "l.yuzmilyon": "100 million",
       "k.grup": "Regional group", "k.kabul": "Admission to the UN", "k.nufus": "Population (2023)",
       "k.nufusDeger": ({ n, p }) => `${n}, ${p} of the population of UN Member States`, "k.bin": ({ n }) => `${n} thousand`, "k.kisi": ({ n }) => `${n} people`, "k.milyon": ({ n }) => `${n} million`,
-      "k.butce": "Regular budget share (2025–2027)", "k.personel": "Peacekeeping uniformed personnel (28 February 2026)",
+      "k.butce": "Regular budget share (2025–2027)", "k.personel": "Peacekeeping uniformed personnel (31 July 2026)",
       "k.personelDeger": ({ n, p }) => `${n} (${p} of the total)`, "k.iit": "OIC membership", "k.evet": "Member", "k.hayir": "Not a member",
       "k.konsey": "Security Council (2026)", "k.daimi": "Permanent member", "k.secilmis": ({ y }) => `Elected member, term ends ${y}`, "k.degil": "Not a member",
       "k.kapat": "Close",
@@ -325,16 +363,21 @@ details.tablo-ac > summary { cursor: pointer; font-size: var(--yz-kucuk); color:
       "l.h.daimi": "Permanent member", "l.h.secilmis": "Elected member (2026)", "l.h.grup": ({ g }) => `Member of the ${g}`, "l.h.diger": "Other UN Member States", "l.h.degil": "Not a UN Member State",
       "o.konsey": ({ d, s }) => `Security Council (2026): ${d} permanent and ${s} elected members.`,
       "o.daimi": "Permanent", "o.secilmis": "Elected (term ends)",
-      "o.grup": ({ g, n, nufus, uye }) => `${g}: ${n} members, ${nufus} of the population of UN Member States, ${uye} of the membership.`,
-      "o.koltuk": ({ d, s }) => `Council seats: ${d} permanent, ${s} elected`,
-      "o.kart": "The group's card",
+      "o.grup": ({ g, n, nufus, uye }) => `The ${g}’s ${n} members hold ${nufus} of the population of UN Member States and ${uye} of the membership.`,
+      "o.koltuk": ({ d, s, da, sa }) => (d || s) ? `On the Council it has ${[d ? `${d} permanent seat${d > 1 ? "s" : ""} (${da})` : "", s ? `${s} elected seat${s > 1 ? "s" : ""} (${sa})` : ""].filter(Boolean).join(" and ")}.` : "It has no seat on the Council.",
+      "o.kart": "The group’s card",
       "i.daimi": "Security Council: permanent member", "i.secilmis": ({ y }) => `Security Council: elected member (term ends ${y})`,
-      "harita.etiket": ({ s }) => `World map: ${s}. The same information is in the list below the map.`,
+      "harita.etiket": ({ s }) => `World map. ${s} The same information is in the list below the map.`,
       "liste": ({ n }) => `Country list (${n})`,
+      "sekme.AFR": "African", "sekme.ASP": "Asia-Pacific", "sekme.EEG": "Eastern European", "sekme.GRULAC": "Latin American and Caribbean", "sekme.WEOG": "Western European and Others",
       "t.ulke": "Country", "t.konsey": "Security Council", "t.secilmis": "Elected",
     },
   };
-  const t = (a, p) => { const v = SOZLUK[DIL][a] ?? SOZLUK.tr[a]; return typeof v === "function" ? v(p || {}) : v; };
+  // Tarih (31 Temmuz 2026) ve yıl aralığı (2025–2027) satır sonunda bölünmez
+  const AYLAR = "Ocak|Şubat|Mart|Nisan|Mayıs|Haziran|Temmuz|Ağustos|Eylül|Ekim|Kasım|Aralık|January|February|March|April|May|June|July|August|September|October|November|December";
+  const TARIH = new RegExp(`(\\d{1,2}) (${AYLAR}) (\\d{4})`, "g");
+  const bolunmez = (s) => typeof s === "string" ? s.replace(TARIH, "$1 $2 $3").replace(/(\d{4})–(\d{4})/g, "$1⁠–⁠$2") : s;
+  const t = (a, p) => { const v = SOZLUK[DIL][a] ?? SOZLUK.tr[a]; return bolunmez(typeof v === "function" ? v(p || {}) : v); };
   const ek = DIL === "tr" ? "" : "?lang=" + DIL;
   document.documentElement.lang = DIL;
   document.title = t("sayfaBasligi");
@@ -342,6 +385,8 @@ details.tablo-ac > summary { cursor: pointer; font-size: var(--yz-kucuk); color:
   metaYaz('meta[name="description"]', t("sayfaAciklamasi"));
   metaYaz('meta[property="og:title"]', t("sayfaBasligi"));
   metaYaz('meta[property="og:description"]', t("sayfaAciklamasi"));
+  metaYaz('meta[property="og:image:alt"]', t("onizlemeAlt"));
+  metaYaz('meta[name="twitter:image:alt"]', t("onizlemeAlt"));
   metaYaz('meta[property="og:locale"]', DIL === "tr" ? "tr_TR" : "en_GB");
   metaYaz('meta[property="og:locale:alternate"]', DIL === "tr" ? "en_GB" : "tr_TR");
   document.querySelectorAll("[data-t]").forEach((e) => { e.textContent = t(e.dataset.t); });
@@ -354,6 +399,9 @@ details.tablo-ac > summary { cursor: pointer; font-size: var(--yz-kucuk); color:
   const yuzde = (p, b = 1) => { const s = (100 * p).toLocaleString(YEREL, { minimumFractionDigits: b, maximumFractionDigits: b }); return DIL === "tr" ? "%" + s : s + "%"; };
   const sayi = (n, b = 0) => n.toLocaleString(YEREL, { minimumFractionDigits: b, maximumFractionDigits: b });
   const oran = (x) => x == null ? "–" : x.toLocaleString(YEREL, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  // Giriş: nüfus payı en büyük grubun nüfus ve koltuk payı (sayılar veriden)
+  const enBuyuk = V.gruplar.reduce((a, b) => (b.paylar.nufus_2023 > a.paylar.nufus_2023 ? b : a));
+  $("#giris1").textContent = t("giris1", { g: enBuyuk.ad[DIL], nufus: yuzde(enBuyuk.paylar.nufus_2023, 0), koltuk: yuzde(enBuyuk.koltuk.toplam_payi, 0) });
   // 1963 ve 2023 paylarının paydası tek cümlede; hesap ayrıntısı Metodoloji 2.9'da
   $("#nufus-aciklama").textContent = t("nufus.aciklama", { u63: sayi(V.meta.uye_sayisi_1963), u: sayi(V.meta.uye_sayisi) });
   $("#nufus-metodoloji").setAttribute("href", `metodoloji.html${ek}#${DIL === "tr" ? "" : "en-"}bolum-2-9`);
@@ -375,13 +423,16 @@ details.tablo-ac > summary { cursor: pointer; font-size: var(--yz-kucuk); color:
   $("#kumeler").innerHTML = V.kumeler.map((g) => kart(g, true)).join("");
 
   const T = V.meta.toplamlar;
-  const satir = (ad, u63, n63, p63, u23, n23, p23) => `<tr><td>${esc(ad)}</td><td class="s">${u63}</td><td class="s">${sayi(n63)}</td><td class="s">${yuzde(p63)}</td><td class="s">${u23}</td><td class="s">${sayi(n23)}</td><td class="s">${yuzde(p23)}</td><td class="s">${(100 * (p23 - p63)).toLocaleString(YEREL, { minimumFractionDigits: 1, maximumFractionDigits: 1, signDisplay: "always" })}</td></tr>`;
-  $("#nufus-tablo").innerHTML = `<thead><tr><th>${esc(t("t.grup"))}</th><th class="s">${esc(t("t.uye63"))}</th><th class="s">${esc(t("t.nufus63"))}</th><th class="s">${esc(t("t.pay63"))}</th><th class="s">${esc(t("t.uye23"))}</th><th class="s">${esc(t("t.nufus23"))}</th><th class="s">${esc(t("t.pay23"))}</th><th class="s">${esc(t("t.fark"))}</th></tr></thead><tbody>`
+  // Fark görünen (bir ondalıklı) paylardan; eksi işareti U+2212
+  const fark = (p23, p63) => ((Math.round(1000 * p23) - Math.round(1000 * p63)) / 10).toLocaleString(YEREL, { minimumFractionDigits: 1, maximumFractionDigits: 1, signDisplay: "always" }).replace("-", "−");
+  const hucre = (a) => `class="s" data-l="${esc(t(a))}"`;  // dar ekranda hücre etiketi (CSS ::before)
+  const satir = (ad, u63, n63, p63, u23, n23, p23) => `<tr><td>${esc(ad)}</td><td ${hucre("t.uye63")}>${u63}</td><td ${hucre("t.nufus63")}>${sayi(n63)}</td><td ${hucre("t.pay63")}>${yuzde(p63)}</td><td ${hucre("t.uye23")}>${u23}</td><td ${hucre("t.nufus23")}>${sayi(n23)}</td><td ${hucre("t.pay23")}>${yuzde(p23)}</td><td ${hucre("t.fark")}>${fark(p23, p63)}</td></tr>`;
+  $("#nufus-tablo").innerHTML = `<thead><tr><th scope="col">${esc(t("t.grup"))}</th><th scope="col" class="s">${esc(t("t.uye63"))}</th><th scope="col" class="s">${esc(t("t.nufus63"))}</th><th scope="col" class="s">${esc(t("t.pay63"))}</th><th scope="col" class="s">${esc(t("t.uye23"))}</th><th scope="col" class="s">${esc(t("t.nufus23"))}</th><th scope="col" class="s">${esc(t("t.pay23"))}</th><th scope="col" class="s">${esc(t("t.fark"))}</th></tr></thead><tbody>`
     + V.gruplar.map((g) => satir(g.ad[DIL], g.uye_sayisi_1963, g.nufus_1963_bin, g.paylar.nufus_1963, g.uye_sayisi, g.nufus_2023_bin, g.paylar.nufus_2023)).join("")
     + V.kumeler.map((g) => satir(g.ad[DIL], g.uye_sayisi_1963, g.nufus_1963_bin, g.paylar.nufus_1963, g.uye_sayisi, g.nufus_2023_bin, g.paylar.nufus_2023)).join("")
-    + `<tr><td><b>${esc(t("t.toplam"))}</b></td><td class="s">${V.meta.uye_sayisi_1963}</td><td class="s">${sayi(T.nufus_1963_bin)}</td><td class="s">${yuzde(1)}</td><td class="s">${V.meta.uye_sayisi}</td><td class="s">${sayi(T.nufus_2023_bin)}</td><td class="s">${yuzde(1)}</td><td class="s"></td></tr></tbody>`;
+    + `<tr><td><b>${esc(t("t.toplam"))}</b></td><td ${hucre("t.uye63")}>${V.meta.uye_sayisi_1963}</td><td ${hucre("t.nufus63")}>${sayi(T.nufus_1963_bin)}</td><td ${hucre("t.pay63")}>${yuzde(1)}</td><td ${hucre("t.uye23")}>${V.meta.uye_sayisi}</td><td ${hucre("t.nufus23")}>${sayi(T.nufus_2023_bin)}</td><td ${hucre("t.pay23")}>${yuzde(1)}</td><td class="s"></td></tr></tbody>`;
   harita();
-  const notlar63 = V.uyeler_1963.filter((x) => x.not).map((x) => `<dt>${esc(x.uye_1963)} (${esc(x.grup)})</dt><dd>${esc(x.not[DIL])}</dd>`);
+  const notlar63 = V.uyeler_1963.filter((x) => x.not).map((x) => `<li>${esc(x.not[DIL])}</li>`);  // not adla başlar; İngilizce ad ve grup kodu yazılmaz
   $("#nufus-notlar").innerHTML = notlar63.join("");
   $("#kume-notlar").innerHTML = V.kumeler.flatMap((k) => k.notlar.map((n, i) => `${i ? "" : `<dt>${esc(k.ad[DIL])}</dt>`}<dd>${esc(n[DIL])}</dd>`)).join("");
 
@@ -398,7 +449,7 @@ details.tablo-ac > summary { cursor: pointer; font-size: var(--yz-kucuk); color:
     const sirala = (a, b) => AD.get(a).localeCompare(AD.get(b), YEREL);
     let secim = "GK";
     const [x, y, w, h] = H.kutu;
-    $("#harita").innerHTML = `<svg viewBox="${x} ${y} ${w} ${h}" role="img" id="harita-svg">
+    $("#harita").innerHTML = `<svg viewBox="${x} ${y} ${w} ${h}" role="img" id="harita-svg" aria-describedby="harita-etkilesim">
       ${H.alanlar.filter((a) => a.d && !a.ust).map((a) => `<path class="uye-degil"${a.durum === "sessiz" ? "" : ` data-a="${a.k}"`} d="${a.d}"/>`).join("")}
       ${H.uyeler.filter((u) => u.d).map((u) => `<path data-k="${u.k}" d="${u.d}"/>`).join("")}
       ${H.bolgeler.filter((b) => b.d).map((b) => `<path data-k="${b.uye}" data-b="${b.k}" d="${b.d}"/>`).join("")}
@@ -469,7 +520,7 @@ details.tablo-ac > summary { cursor: pointer; font-size: var(--yz-kucuk); color:
       if (secim === "GK") return koltuk || "h-diger";
       return u.grup === secim ? koltuk || "h-grup" : "h-diger";
     };
-    const secimler = [["GK", t("konsey"), V.uyeler.filter((u) => u.gk).length], ...V.gruplar.map((g) => [g.kod, g.ad[DIL], g.uye_sayisi])];
+    const secimler = [["GK", t("konsey"), V.uyeler.filter((u) => u.gk).length], ...V.gruplar.map((g) => [g.kod, DIL === "en" ? t("sekme." + g.kod) : g.ad[DIL], g.uye_sayisi])];  // EN sekmede BM grup adı "Group" olmadan ("African 54")
     $("#harita-secim").innerHTML = secimler.map(([k, ad, n]) => `<button type="button" class="secim-dugme" data-secim="${k}" aria-pressed="false">${esc(ad)} <span class="sayi">${n}</span></button>`).join("");
     const kume = () => V.uyeler.filter((u) => (secim === "GK" ? u.gk : u.grup === secim)).map((u) => u.iso3).sort(sirala);
     const ciz = () => {
@@ -478,20 +529,21 @@ details.tablo-ac > summary { cursor: pointer; font-size: var(--yz-kucuk); color:
       const uyeler = kume().map((k) => UYE.get(k));
       const d = uyeler.filter((u) => u.gk && u.gk.tur === "daimi"), s = uyeler.filter((u) => u.gk && u.gk.tur === "secilmis");
       const adlar = (L) => L.map((u) => esc(AD.get(u.iso3))).join(", ");
+      const adHam = (L) => L.map((u) => AD.get(u.iso3)).join(", ");
       let ozet, etiket;
       if (secim === "GK") {
         ozet = `${esc(t("o.konsey", { d: d.length, s: s.length }))} ${esc(t("o.daimi"))}: ${adlar(d)}. ${esc(t("o.secilmis"))}: ${s.map((u) => `${esc(AD.get(u.iso3))} (${u.gk.donem_sonu})`).join(", ")}.`;
         etiket = t("o.konsey", { d: d.length, s: s.length });
       } else {
         const g = GRUP.get(secim);
-        ozet = `${esc(t("o.grup", { g: g.ad[DIL], n: g.uye_sayisi, nufus: yuzde(g.paylar.nufus_2023), uye: yuzde(g.paylar.uye) }))} ${esc(t("o.koltuk", { d: d.length, s: s.length }))}${d.length + s.length ? ` (${adlar([...d, ...s])})` : ""}. <a href="#grup-${secim}">${esc(t("o.kart"))}</a>`;
+        ozet = `${esc(t("o.grup", { g: g.ad[DIL], n: g.uye_sayisi, nufus: yuzde(g.paylar.nufus_2023), uye: yuzde(g.paylar.uye) }))} ${esc(t("o.koltuk", { d: d.length, s: s.length, da: adHam(d), sa: adHam(s) }))} <a href="#grup-${secim}">${esc(t("o.kart"))}</a>`;
         etiket = t("o.grup", { g: g.ad[DIL], n: g.uye_sayisi, nufus: yuzde(g.paylar.nufus_2023), uye: yuzde(g.paylar.uye) });
       }
       $("#harita-ozet").innerHTML = ozet;
       svg.setAttribute("aria-label", t("harita.etiket", { s: etiket }));
       lejantCiz();
       $("#harita-liste-baslik").textContent = t("liste", { n: uyeler.length });
-      $("#harita-tablo").innerHTML = `<thead><tr><th>${esc(t("t.ulke"))}</th><th>${esc(t("t.grup"))}</th><th class="s">${esc(t("t.nufus23"))}</th><th>${esc(t("t.konsey"))}</th></tr></thead><tbody>`
+      $("#harita-tablo").innerHTML = `<thead><tr><th scope="col">${esc(t("t.ulke"))}</th><th scope="col">${esc(t("t.grup"))}</th><th scope="col" class="s">${esc(t("t.nufus23"))}</th><th scope="col">${esc(t("t.konsey"))}</th></tr></thead><tbody>`
         + uyeler.map((u) => `<tr><td>${esc(AD.get(u.iso3))}</td><td>${esc(GRUP.get(u.grup).ad[DIL])}</td><td class="s">${sayi(u.nufus_2023)}</td><td>${u.gk ? esc(u.gk.tur === "daimi" ? t("o.daimi") : `${t("t.secilmis")} (${u.gk.donem_sonu})`) : ""}</td></tr>`).join("")
         + "</tbody>";
       durumYaz();
@@ -509,7 +561,7 @@ details.tablo-ac > summary { cursor: pointer; font-size: var(--yz-kucuk); color:
         + (balon ? `<span class="balon-olcek">${esc(t("l.balon"))} ${daire(1e6)}${esc(t("l.milyar"))} ${daire(1e5)}${esc(t("l.yuzmilyon"))}</span>` : "");
     }
     $("#harita-secim").addEventListener("click", (e) => { const d = e.target.closest(".secim-dugme"); if (d) { secim = d.dataset.secim; ciz(); } });
-    // BM üyesi olmayan alanlar: BM'nin kullandığı adla (Türkiye'nin tanıdığı devletler Dışişleri Bakanlığı'nın adıyla), altında durumu (üye değil, gözlemci
+    // BM üyesi olmayan alanlar: BM'nin kullandığı adla (Türkiye'nin tanıdığı devletler Dışişleri Bakanlığının adıyla), altında durumu (üye değil, gözlemci
     // devlet, kendi kendini yönetmeyen toprak). Bağlı olunan devlet ve anlaşmazlıklar yazılmaz; "sessiz" alanın adı gösterilmez.
     const AL = new Map(H.alanlar.map((a) => [a.k, a]));
     const alanAdi = (a) => a[DIL];
@@ -638,7 +690,7 @@ details.tablo-ac > summary { cursor: pointer; font-size: var(--yz-kucuk); color:
     // Ülke kartı: grup, kabul tarihi, nüfus, bütçe ve barış gücü payı, İİT üyeliği, Konsey durumu; seçili ülke haritada çizgiyle
     const kart = $("#ulke-karti"), secili = $("#harita-secili");
     let ulke = null;
-    const tarihYaz = (x) => new Intl.DateTimeFormat(YEREL, { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(x + "T00:00:00Z"));
+    const tarihYaz = (x) => new Intl.DateTimeFormat(YEREL, { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(x + "T00:00:00Z")).replace(/ /g, " ");
     const payYaz = (p) => {
       if (p >= 0.01) return yuzde(p);
       const s = (100 * p).toLocaleString(YEREL, { maximumSignificantDigits: 2 });
@@ -651,7 +703,7 @@ details.tablo-ac > summary { cursor: pointer; font-size: var(--yz-kucuk); color:
       const n = nufusMetni(u.nufus_2023);
       const satir = (a, d) => `<div><dt>${esc(a)}</dt><dd>${esc(d)}</dd></div>`;
       kart.innerHTML = `<div class="ulke-karti-bas"><h3>${esc(AD.get(k))}</h3><a href="#grup-${esc(u.grup)}">${esc(t("o.kart"))}</a>
-          <button type="button" class="yakin-dugme" id="kart-kapat">${esc(t("k.kapat"))}</button></div>
+          <button type="button" class="arac-dugme" id="kart-kapat">${esc(t("k.kapat"))}</button></div>
         <dl class="ulke-bilgi">${[
           satir(t("k.grup"), g.ad[DIL]), satir(t("k.kabul"), tarihYaz(u.kabul_tarihi)),
           satir(t("k.nufus"), t("k.nufusDeger", { n, p: payYaz(u.nufus_2023 / T.nufus_2023_bin) })),

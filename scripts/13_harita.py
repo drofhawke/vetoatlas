@@ -171,7 +171,7 @@ def main() -> None:
     kurallar = list(csv.DictReader(open(GIRDI / "harita_kurallari.csv", encoding="utf-8")))
     ulke_kurali = {k["ne_kodu"]: k["atama"] for k in kurallar if k["katman"] == "ulke"}
     # BM üyesi olmayan alanların adları (BM'nin kullandığı biçim: WPP 2024, yoksa M49; Türkiye'nin tanıdığı devletler Dışişleri
-    # Bakanlığı'nın kullandığı adla) ve
+    # Bakanlığının kullandığı adla) ve
     # durumu (üye değil, gözlemci devlet, kendi kendini yönetmeyen toprak; "sessiz": adı gösterilmez); her çizilen alan listede
     olmayan = {r["ne_kodu"]: r for r in csv.DictReader(open(GIRDI / "uye_olmayan_alanlar.csv", encoding="utf-8"))}
     assert all(r["durum"] in ("uye_degil", "gozlemci", "kyt", "sessiz") for r in olmayan.values())

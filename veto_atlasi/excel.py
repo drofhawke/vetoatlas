@@ -34,11 +34,7 @@ def csv_satirlari(veri: bytes) -> list[list[str]]:
     return list(csv.reader(io.StringIO(veri.decode("utf-8-sig"), newline="")))
 
 
-def xlsx(satirlar: list[list[str]], sayfa: str) -> bytes:
-    """Satırlardan belirlenimli bir XLSX: ilk satır kalın başlık, başlık satırı sabit, süzgeç açık."""
-    wb = Workbook()
-    ws = wb.active
-    ws.title = sayfa
+def _sayfa_doldur(ws, satirlar: list[list[str]]) -> None:
     for satir in satirlar:
         ws.append([_hucre(x) for x in satir])
     for satir in ws.iter_rows():
@@ -49,6 +45,19 @@ def xlsx(satirlar: list[list[str]], sayfa: str) -> bytes:
         h.font = Font(bold=True)
     ws.freeze_panes = "A2"
     ws.auto_filter.ref = ws.dimensions
+
+
+def xlsx(satirlar: list[list[str]], sayfa: str, sozluk: list[list[str]] | None = None) -> bytes:
+    """
+    Satırlardan belirlenimli bir XLSX: ilk satır kalın başlık, başlık satırı sabit, süzgeç açık.
+    sozluk verilirse (başlık satırıyla birlikte) ikinci sayfa "sozluk" olarak eklenir; ilk sayfa etkin kalır.
+    """
+    wb = Workbook()
+    ws = wb.active
+    ws.title = sayfa
+    _sayfa_doldur(ws, satirlar)
+    if sozluk:
+        _sayfa_doldur(wb.create_sheet("sozluk"), sozluk)
     wb.properties.creator = "Veto Atlası"
     wb.properties.created = wb.properties.modified = SABIT_TARIH
     ham = io.BytesIO()
