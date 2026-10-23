@@ -237,10 +237,10 @@ def test_hikaye_metinleri_adim47():
 
 # Yedi adımın metni 21 Ekim 2026'da yayındaki hâliyle (kullanıcı kararı; KILAVUZ "Hikâye, yedi adım"); site geneli yazım kuralları
 # uygulanır (kıvrık kesme, kurum adlarına gelen ekler kesmesiz). Üç istisna: 5. adımda Afrika payı cümlesi, 6. adımın alt
-# yazısında ay, 7. adımda iki dilde aynı kısa alıntı (test_kisaltilmis_alinti_adim42). Giriş cümlesi ayrı karardır.
+# yazısında ay, 7. adımda iki dilde aynı kısa alıntı (test_kisaltilmis_alinti_adim42). Giriş cümlesi ayrı karardır (resmî rapor dili, 22 Ekim 2026).
 BEKLENEN = {
     "tr": {
-        "giris": "Güvenlik Konseyinde 1946’dan bu yana kim, kaç kez, neyi durdurdu? Yedi adımda, BM kayıtlarıyla.",
+        "giris": "Bu sayfada, 1946’dan bu yana Güvenlik Konseyinde kullanılan vetolar BM kayıtlarına dayanılarak yedi adımda ele alınmaktadır.",
         "adimlar": [
             ["on beş üyeden beşi, daimî",
              "Güvenlik Konseyi on beş üyeden oluşur. Bunların beşi daimî üyedir ve diğerlerinde bulunmayan bir yetkiye sahiptir: tek bir ret "
@@ -268,8 +268,8 @@ BEKLENEN = {
         ],
     },
     "en": {
-        "giris": ("Who has stopped what in the UN Security Council since 1946, and how often? Seven steps through the UN record, "
-                  "starting from a 2019 remark by Türkiye’s President Erdoğan."),
+        "giris": ("Drawing on UN records, this page examines in seven steps the vetoes cast in the UN Security Council since 1946. "
+                  "Its starting point is a statement made in 2019 by President Recep Tayyip Erdoğan of Türkiye."),
         "adimlar": [
             ["five of the fifteen members, permanent",
              "The Security Council has fifteen members. Five of them are permanent members and hold a power the others lack: with a single "

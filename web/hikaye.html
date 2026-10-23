@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Hikâye · Veto Atlası</title>
-<meta name="description" content="Yedi adımda veto: Güvenlik Konseyinde kim, kaç kez, neyi durdurdu. / The veto in seven steps: who stopped what, how many times, in the Security Council.">
+<meta name="description" content="Güvenlik Konseyinde 1946’dan bu yana kullanılan vetolar, BM kayıtlarına dayanılarak yedi adımda ele alınmaktadır. / The vetoes cast in the UN Security Council since 1946 are examined in seven steps on the basis of UN records.">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Veto Atlası / Veto Atlas">
 <meta property="og:title" content="Hikâye · Veto Atlası / Story · Veto Atlas">
-<meta property="og:description" content="Yedi adımda veto: Güvenlik Konseyinde kim, kaç kez, neyi durdurdu. / The veto in seven steps: who stopped what, how many times, in the Security Council.">
+<meta property="og:description" content="Güvenlik Konseyinde 1946’dan bu yana kullanılan vetolar, BM kayıtlarına dayanılarak yedi adımda ele alınmaktadır. / The vetoes cast in the UN Security Council since 1946 are examined in seven steps on the basis of UN records.">
 <meta property="og:image" content="https://vetoatlas.com/onizleme.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -195,11 +195,11 @@ footer { border-top: 1px solid var(--cizgi); margin: 32px 0 48px; padding-top: 1
   const SOZLUK = {
     tr: {
       sayfaBasligi: "Hikâye · Veto Atlası",
-      sayfaAciklamasi: "Yedi adımda veto: Güvenlik Konseyinde kim, kaç kez, neyi durdurdu.",
+      sayfaAciklamasi: "Güvenlik Konseyinde 1946’dan bu yana kullanılan vetolar, BM kayıtlarına dayanılarak yedi adımda ele alınmaktadır.",
       gorselAlt: ({ n }) => `Veto Atlası: 1946’dan 2026’ya Güvenlik Konseyinde vetoyla düşen ${n} öneri; her kare bir ret oyu, yıllara göre.`,
       baslik: "Yedi adımda veto",
       bolum: ({ b }) => b, ceviriNotu: "",
-      giris1: "Güvenlik Konseyinde 1946’dan bu yana kim, kaç kez, neyi durdurdu? Yedi adımda, BM kayıtlarıyla.",
+      giris1: "Bu sayfada, 1946’dan bu yana Güvenlik Konseyinde kullanılan vetolar BM kayıtlarına dayanılarak yedi adımda ele alınmaktadır.",
       ray: "Adımlar",
       kunyeKim: "Cumhurbaşkanı Recep Tayyip Erdoğan", sayfaKisa: "s.",
       adim: ({ n }) => `${n}. adım`, ayrinti: "Ayrıntı",
@@ -233,11 +233,11 @@ footer { border-top: 1px solid var(--cizgi); margin: 32px 0 48px; padding-top: 1
     },
     en: {
       sayfaBasligi: "Story · Veto Atlas",
-      sayfaAciklamasi: "The veto in seven steps: who stopped what, how many times, in the Security Council.",
+      sayfaAciklamasi: "The vetoes cast in the UN Security Council since 1946 are examined in seven steps on the basis of UN records.",
       gorselAlt: ({ n }) => `Veto Atlas: ${n} proposals blocked by the veto in the Security Council, 1946–2026; each square is one negative vote, by year.`,
       baslik: "The veto in seven steps",
       bolum: ({ b }) => ({ "Giriş": "Introduction", "2. Bölüm: Birleşmiş Milletler Reformu": "Part II: A United Nations Reform" }[b] || `<span lang="tr">${b}</span>`), ceviriNotu: "Unofficial translation by Veto Atlas",
-      giris1: "Who has stopped what in the UN Security Council since 1946, and how often? Seven steps through the UN record, starting from a 2019 remark by Türkiye’s President Erdoğan.",
+      giris1: "Drawing on UN records, this page examines in seven steps the vetoes cast in the UN Security Council since 1946. Its starting point is a statement made in 2019 by President Recep Tayyip Erdoğan of Türkiye.",
       ray: "Steps",
       kunyeKim: "President Recep Tayyip Erdoğan", sayfaKisa: "p.",
       adim: ({ n }) => `Step ${n}`, ayrinti: "Details",
@@ -283,6 +283,8 @@ footer { border-top: 1px solid var(--cizgi); margin: 32px 0 48px; padding-top: 1
   metaYaz('meta[property="og:locale"]', DIL === "tr" ? "tr_TR" : "en_GB");
   metaYaz('meta[property="og:locale:alternate"]', DIL === "tr" ? "en_GB" : "tr_TR");
   document.querySelectorAll("[data-t]").forEach((e) => { e.textContent = t(e.dataset.t); });
+  // Giriş cümlesinin son iki sözcüğü birbiriyle bağlı: son satırda tek sözcük kalmaz (sözlük metni değişmez)
+  document.querySelectorAll(".giris p.ozet").forEach((p) => { p.textContent = p.textContent.replace(/ (\S+)$/, "\u00a0$1"); });
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const YEREL = DIL === "tr" ? "tr-TR" : "en-GB";
   const sayi = (n) => n.toLocaleString(YEREL);

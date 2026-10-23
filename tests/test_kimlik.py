@@ -149,10 +149,11 @@ def test_logo_ikon_ve_bildirim():
     assert "tam-logo" not in (WEB / "hakkinda.html").read_text(encoding="utf-8")
     assert "slogan" not in cubuk.replace("slogansız", "").replace("sloganlı", "") and ".c-alt" not in cubuk
     h = (WEB / "hakkinda.html").read_text(encoding="utf-8")
-    # Slogan giriş paragrafında 2019 Genel Kurul sözü olarak (TR "Büyüktür" büyük harfle, EN ünlemle)
+    # Slogan giriş paragrafında 2019 Genel Kurul sözü olarak (TR "Büyüktür" büyük harfle, EN ünlemle); paragraf resmî rapor
+    # dilinde ve üçüncü kişiyle (kullanıcı kararı, 22 Ekim 2026)
     duz = " ".join(h.split())
-    assert "Çıkış noktamız Cumhurbaşkanı Recep Tayyip Erdoğan’ın 2019’da BM Genel Kurulunda söylediği “Dünya 5’ten Büyüktür” sözü." in duz
-    assert ("Our starting point is a line from President Recep Tayyip Erdoğan’s address to the UN General Assembly in 2019: "
+    assert "Çalışmanın çıkış noktası, Cumhurbaşkanı Recep Tayyip Erdoğan’ın 2019’da BM Genel Kurulunda dile getirdiği “Dünya 5’ten Büyüktür” sözüdür." in duz
+    assert ("The starting point of the work is a statement made by President Recep Tayyip Erdoğan in his address to the UN General Assembly in 2019: "
             "“The world is bigger than five!”") in duz
     assert 'EPIGRAF = { tr: ["2019-1", "“Dünya 5’ten Büyüktür.”"]' in (WEB / "hikaye.html").read_text(encoding="utf-8")
     # Köşede işaret: eski dosyadaki gibi 44 × 44 px kutu, çizim ortalanmış 34 px yükseklikte (eski kutudaki halkayla aynı görünür

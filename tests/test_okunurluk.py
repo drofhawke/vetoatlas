@@ -167,8 +167,8 @@ def test_reform_sayfasi():
     assert "@media (max-width: 960px) {\n  .tablo-kap { display: none; }\n  .olcutler { display: block; }\n}" in r
     # Sayfa başlığı sekme adıyla aynı; eski başlık giriş cümlesinde (denetim sonrası)
     assert 'baslik: "Reform modelleri"' in r and 'baslik: "Reform models"' in r
-    assert 'giris: "Güvenlik Konseyi reformu için dört model aynı ölçütlerle, belgelerin tarih sırasıyla. Küçük satırlar her bilginin belgedeki yerini gösterir.",' in r
-    assert 'giris: "Four models for Security Council reform, compared on the same criteria and ordered by the date of their documents. The small print under each entry shows where it appears in the document.",' in r
+    assert 'giris: "Bu sayfada, Güvenlik Konseyi reformu için öne sürülen dört model aynı ölçütler esas alınarak, belgelerin tarih sırasıyla karşılaştırılmaktadır. Her bilginin kaynak belgedeki yeri, bilginin altında belirtilmiştir.",' in r
+    assert 'giris: "This page compares four models for Security Council reform on the same criteria, in the chronological order of their documents. The location of each item in its document is shown beneath it.",' in r
     # Söz ve Kayıt'ta reform bölümü yok; kitaptaki model bölümü yerinde
     v = oku("vizyon.html")
     assert "h-reform" not in v and "reformModelleri" not in v and 'id="h-model"' in v
@@ -346,8 +346,18 @@ def test_denetim_sonrasi_duzeltmeler():
         s = oku(ad)
         assert tr in s and en in s, ad
     assert "<title>Vetolar · Veto Atlası</title>" in oku("vetolar.html") and "<title>Kim temsil ediliyor? · Veto Atlası</title>" in t
-    assert "giris1: ({ g, nufus, koltuk }) => `Temsil endeksinde ${g}nun BM üyelerinin nüfusundaki payı ${nufus}, Güvenlik Konseyi koltuklarındaki payı ${koltuk};" in t
-    assert "giris1: ({ g, nufus, koltuk }) => `In the representation index, the ${g} holds ${nufus} of the population of UN Member States and ${koltuk} of Security Council seats;" in t
+    assert "giris1: ({ g, nufus, nufusEk, koltuk, koltukEk }) => `BM üyesi ülkelerin nüfusunun ${nufus}’${nufusEk} oluşturan ${g}, Güvenlik Konseyi koltuklarının ${koltuk}’${koltukEk} sahiptir." in t
+    assert "giris1: ({ g, nufus, koltuk }) => `The ${g}, which accounts for ${nufus} of the population of UN Member States, holds ${koltuk} of Security Council seats." in t
+    # Vetolar’ın giriş cümlesi resmî rapor dilinde (kullanıcı kararı, 22 Ekim 2026; KILAVUZ "Sayfa başlığı")
+    vt = oku("vetolar.html")
+    assert "`${ilk} ile ${son} arasında Güvenlik Konseyine sunulan ${oneri} karar taslağı, beş daimî üyeden en az birinin ret oyu nedeniyle kabul edilmemiştir.`" in vt
+    assert "`Between ${ilk} and ${son}, ${oneri} proposals submitted to the UN Security Council were not adopted owing to the negative vote of at least one of the five permanent members.`" in vt
+    # Girişlerde son iki sözcük, Vetolar’da öneri sayısı ardındaki adla bağlı (KILAVUZ "Satır sonu"); sözlük metni değişmez
+    assert r'.replace(` ${oneriSayisi} `, ` ${oneriSayisi}\u00a0`).replace(/ (\S+)$/, "\u00a0$1");' in vt
+    assert r'const bagla = (s) => s.replace(/(\d) (?=\p{L})/gu, "$1\u00a0").replace(/ (\S+)$/, "\u00a0$1");' in vt
+    assert r'.forEach((p) => { p.textContent = p.textContent.replace(/ (\S+)$/, "\u00a0$1"); });' in oku("hikaye.html")
+    assert r'document.querySelectorAll(".giris [data-t=giris]").forEach((p) => {' in oku("reform.html")
+    assert r'if (son && son.nodeType === 3) son.data = son.data.replace(/ (\S+)\s*$/, "\u00a0$1");' in oku("hakkinda.html")
 
 
 def test_tek_dosyada_sayfa_ici_baglantilar_cercevede():

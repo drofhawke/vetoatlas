@@ -272,7 +272,8 @@ Metodoloji yöntem metni olarak bu kuralın dışındadır. "Etiket: içerik" ka
 söz aldı"). Parantez içi sözlük yoktur ("evet (lehte)" değil "evet"); terim "öneri"dir, giriş cümlesinde "karar taslağı" (Hikâye’nin
 yedi adımı bu terim kuralının dışındadır; bölüm 2, "Hikâye, yedi adım").
 Öne çıkan kayıt başlıkları iki noktayla açılmaz ("Gazze: ateşkes taslağı" değil "Gazze’de ateşkes taslağı").
-Hakkında ve sayfa notlarında anlatıcı "biz"dir, atlas kendinden üçüncü kişiyle söz etmez; Metodoloji edilgen kalır.
+Hakkında ve sayfa notlarında anlatıcı "biz"dir; Hakkında’nın giriş paragrafı resmî rapor dilinde ve üçüncü kişiyledir
+(22 Ekim 2026, kullanıcı kararı). Metodoloji edilgen kalır.
 Şapkalı yazım tek biçimdir: daimî, resmî, dâhil. Metodoloji’nin paragrafları kalın etiketle açılmaz. Bu bölümün kuralları
 açık depodaki Markdown belgelerine (README, METODOLOJI, KAYNAKLAR) de uygulanır; Metodoloji’nin başında son değişiklik
 tarihi yazılır (git kaydından).
@@ -329,7 +330,8 @@ madde harfi bölünmez boşlukla bağlanır ("par. 5 (b)", "paras. 5 (b)", "A/59
 olmasaydı?’da `kirilmaz()`; aynı işlev eşik çiftinde noktalı virgülden sonraki boşluğu da bağlar: "(9/15; 7/11)").
 Not ve açıklama metinlerinde de "s." ve "p." numarasından ayrılmaz ("A/76/PV.69, s. 20"; Söz ve Kayıt’ta bölünmez boşluk
 sözlükte yazılıdır). Vetolar’ın durum satırında sayı ile ardındaki sözcüğü sayfa betiği bağlar (`sayiBagla`: "53 öneri",
-"3 of them").
+"3 of them"); giriş cümlesindeki öneri sayısı ve grafiğin altındaki iki cümlenin sayıları da bağlıdır ("266 karar taslağı",
+"322 ret oyu"), o iki cümlenin son iki sözcüğü de.
 Oy kodu ardındaki kapanış paranteziyle birlikte bölünmez ("12-3-0)"). Hikâye’de künye tarihini `tarihUzun` bağlar.
 Metodoloji’de üretici (`veto_atlasi/metodoloji.py`, `_satir_bagla`) tarihleri, aralıkları (U+2060), kısaltma ya da
 gönderme ile sayıyı (par., para., s., p., pp., No., Kural, Rule, Madde, Article, Tablo, Table), sayı ile ardındaki adı
@@ -368,7 +370,7 @@ Mümkün*". Alt başlık künye sayfasından (PDF s. 4) alındı. Lisans dosyas�
 taşır; Metodoloji’nin Markdown kaynağında `[metin]{lang=tr}` yazılır. Türkçe sayfalardaki İngilizce adlar (kitap ve yayın
 adları) `lang="en"` taşır (Hakkında’da `<cite lang="en">`).
 
-**İlk ekranda tek fikir.** Çubuğun altında yalnızca başlık, bir cümle ve ilk görsel; okuma notu varsa tek cümledir ve
+**İlk ekranda tek fikir.** Çubuğun altında yalnızca başlık, en çok iki cümlelik giriş ve ilk görsel; okuma notu varsa tek cümledir ve
 ilk görselin altındadır. Betikle dolan sayfa, içerik hazır olana kadar görünmez (Ya veto olmasaydı?: `html.hazir`);
 yüklenirken düzen kaymaz.
 
@@ -400,8 +402,13 @@ yüklenirken düzen kaymaz.
   cell) işaretlidir; başlık satırı satırlarla aynı tablodadır.
 - Sayfa başlığı (h1) üst çubuktaki sekme adıyla aynıdır (Vetolar, Söz ve Kayıt, Kim temsil ediliyor?, Reform modelleri, Ya
   veto olmasaydı?); "Nasıl yaptık?" sekmesinin iki sayfası kendi adını taşır (Hakkında, Metodoloji). Hikâye’nin başlığı
-  "Yedi adımda veto"dur. Giriş cümlesi sayfanın konusunu söyler, sayfayı tarif etmez ("Temsil endeksinde Asya-Pasifik
-  Grubunun …").
+  "Yedi adımda veto"dur. Hikâye, Vetolar, Kim temsil ediliyor? ve Reform modelleri’nin giriş cümleleri (Vetolar’da grafiğin
+  üstündeki cümle), Hakkında’nın giriş paragrafı ve bu beş sayfanın meta açıklamaları resmî rapor dilindedir (22 Ekim 2026,
+  kullanıcı kararı): tam cümle, edilgen ya da üçüncü kişi, "-mektedir" ve "-miştir" kalıpları; soru, eksiltili cümle ve
+  noktalı virgül yoktur ("Bu sayfada beş bölgesel grubun nüfus, üyelik, bütçe, barış gücü ve koltuk payları
+  karşılaştırılmaktadır."). Vetolar’ın ve Kim temsil ediliyor?’un giriş cümlelerinde rakamla yazılan sayılar veriden gelir;
+  yüzdenin eki sayının okunuşuna göre yazılır (%58’ini, %20’sine). Bu girişlerin son iki sözcüğünü sayfa betiği bölünmez
+  boşlukla bağlar, son satırda tek sözcük kalmaz.
 - Metodoloji’de bölümler sayıyla numaralanır (1, 2, 2.1, 2.2 …); alt bölümler "Bu sayfada" dizininde üst bölümün altında
   girintili, sayfada çizgisiz alt başlıktır (h3).
 - Grafiğin işaretleri (kapalı oturum vetosu, Cumhurbaşkanı Erdoğan’ın Genel Kurul hitabı) üye lejantından ayrı,

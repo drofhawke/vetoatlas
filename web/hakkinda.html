@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Hakkında · Veto Atlası</title>
-<meta name="description" content="Veto Atlası’nın kaynakları, sayım ve tarih kuralları, doğrulama yöntemi, bilinen sınırları ve açık verisi. / The sources, counting and date rules, verification method, known limitations and open data behind the Veto Atlas.">
+<meta name="description" content="Bu sayfada Veto Atlası’nın kapsamı, kaynakları, açık verisi, temel terimleri ve bilinen sınırları anlatılmaktadır. / This page sets out the scope, sources, open data, key terms and known limitations of the Veto Atlas.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Veto Atlası / Veto Atlas">
 <meta property="og:title" content="Hakkında · Veto Atlası / About · Veto Atlas">
-<meta property="og:description" content="Veto Atlası’nın kaynakları, sayım ve tarih kuralları, doğrulama yöntemi, bilinen sınırları ve açık verisi. / The sources, counting and date rules, verification method, known limitations and open data behind the Veto Atlas.">
+<meta property="og:description" content="Bu sayfada Veto Atlası’nın kapsamı, kaynakları, açık verisi, temel terimleri ve bilinen sınırları anlatılmaktadır. / This page sets out the scope, sources, open data, key terms and known limitations of the Veto Atlas.">
 <meta property="og:image" content="https://vetoatlas.com/onizleme.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -72,7 +72,7 @@ code { overflow-wrap: anywhere; }
   "@type": "Dataset",
   "name": "Veto Atlası",
   "alternateName": "Veto Atlas",
-  "description": "1946’dan bu yana BM Güvenlik Konseyinde kullanılan vetolar, kaynakları, oy dağılımları ve Genel Kurul tartışmalarıyla. / Vetoes cast in the UN Security Council since 1946, with their sources, vote breakdowns and General Assembly debates.",
+  "description": "1946’dan bu yana BM Güvenlik Konseyinde kullanılan vetolar, kaynakları, oy dağılımları ve Genel Kurul tartışmalarıyla birlikte sunulmaktadır. / The vetoes cast in the UN Security Council since 1946 are presented with their sources, vote breakdowns and General Assembly debates.",
   "url": "https://vetoatlas.com/hakkinda",
   "identifier": "https://doi.org/10.5281/zenodo.23326362",
   "sameAs": "https://zenodo.org/records/23326362",
@@ -136,9 +136,9 @@ code { overflow-wrap: anywhere; }
     <h1>Hakkında</h1>
     <div class="metin-dizin"></div>
     <div class="metin">
-    <p class="giris">Veto Atlası, BM Güvenlik Konseyinde 1946’dan bu yana kullanılan vetoları kaynaklarıyla birlikte,
-    doğrulanabilir ve indirilebilir bir veri setinde toplar. Çıkış noktamız Cumhurbaşkanı Recep Tayyip Erdoğan’ın 2019’da
-    BM Genel Kurulunda söylediği “Dünya 5’ten Büyüktür” sözü.</p>
+    <p class="giris">Veto Atlası, BM Güvenlik Konseyinde 1946’dan bu yana kullanılan vetoları kaynaklarıyla birlikte
+    derleyen bir veri setidir. Çalışmanın çıkış noktası, Cumhurbaşkanı Recep Tayyip Erdoğan’ın 2019’da
+    BM Genel Kurulunda dile getirdiği “Dünya 5’ten Büyüktür” sözüdür.</p>
     <p class="ozet-sayilar ikincil"></p>
 
     <h2 id="ne-topladik">Ne topladık ve neden</h2>
@@ -223,9 +223,9 @@ code { overflow-wrap: anywhere; }
     <h1>About</h1>
     <div class="metin-dizin"></div>
     <div class="metin">
-    <p class="giris">The Veto Atlas collects the vetoes cast in the UN Security Council since 1946, with their sources, in a
-    verifiable and downloadable dataset. Our starting point is a line from President Recep Tayyip Erdoğan’s address to
-    the UN General Assembly in 2019: “The world is bigger than five!”</p>
+    <p class="giris">The Veto Atlas is a dataset that compiles the vetoes cast in the UN Security Council since 1946,
+    together with their sources. The starting point of the work is a statement made by President Recep Tayyip Erdoğan
+    in his address to the UN General Assembly in 2019: “The world is bigger than five!”</p>
     <p class="ozet-sayilar ikincil"></p>
 
     <h2 id="en-ne-topladik">What we collected and why</h2>
@@ -323,7 +323,7 @@ code { overflow-wrap: anywhere; }
   const DIL = DILLER.includes(parametre) ? parametre : "tr";
   const SOZLUK = {
     tr: {
-      sayfaBasligi: "Hakkında · Veto Atlası", sayfaAciklamasi: "Veto Atlası’nın kaynakları, sayım ve tarih kuralları, doğrulama yöntemi, bilinen sınırları ve açık verisi.",
+      sayfaBasligi: "Hakkında · Veto Atlası", sayfaAciklamasi: "Bu sayfada Veto Atlası’nın kapsamı, kaynakları, açık verisi, temel terimleri ve bilinen sınırları anlatılmaktadır.",
       gorselAlt: "Veto Atlası: 1946’dan 2026’ya Güvenlik Konseyinde vetoyla düşen 266 öneri; her kare bir ret oyu, yıllara göre.",
       ozet: ({ surum, oneri, oy }) => `Veri sürümü ${surum}, ${oneri} öneri ve ${oy} ret oyu.`,
       dogrulanan: ({ n }) => `<b>${n}</b> kaydın tarihini, oy dağılımını ya da ret oyu veren üyesini toplantı kaydından doğruladık.`,
@@ -331,7 +331,7 @@ code { overflow-wrap: anywhere; }
       hatalar: ({ dhl, sc }) => `Toplantı kayıtlarıyla DHL listesinde <b>${dhl}</b>, referans tabloda <b>${sc}</b> hata doğruladık. Bunları Dag Hammarskjöld Kütüphanesine ve Sievers ile Daws’a iletmek için ayrı bir bildirimde topladık.`,
     },
     en: {
-      sayfaBasligi: "About · Veto Atlas", sayfaAciklamasi: "The sources, counting and date rules, verification method, known limitations and open data behind the Veto Atlas.",
+      sayfaBasligi: "About · Veto Atlas", sayfaAciklamasi: "This page sets out the scope, sources, open data, key terms and known limitations of the Veto Atlas.",
       gorselAlt: "Veto Atlas: 266 proposals blocked by the veto in the Security Council, 1946–2026; each square is one negative vote, by year.",
       ozet: ({ surum, oneri, oy }) => `Data version ${surum}, ${oneri} proposals and ${oy} negative votes.`,
       dogrulanan: ({ n }) => `For <b>${n}</b> records we verified the date, the vote breakdown or the member casting the negative vote from the meeting record.`,
@@ -368,6 +368,9 @@ code { overflow-wrap: anywhere; }
     [new RegExp(`(?<![\\p{L}\\d./:,–\u2060-])(\\d+(?:[.,]\\d+)?) (?!(?:${BAGLAC})(?![\\p{L}]))(?=\\p{L})`, "gu"), "$1\u00a0"],
   ];
   const satirBagla = () => {
+    // Giriş paragrafının son iki sözcüğü birbiriyle bağlı: son satırda tek sözcük kalmaz
+    const giris = icerik.querySelector("p.giris"), son = giris && giris.lastChild;
+    if (son && son.nodeType === 3) son.data = son.data.replace(/ (\S+)\s*$/, "\u00a0$1");
     const yuru = document.createTreeWalker(icerik, NodeFilter.SHOW_TEXT);
     for (let n = yuru.nextNode(); n; n = yuru.nextNode()) {
       if (n.parentElement.closest("code, script, style")) continue;

@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Kim temsil ediliyor? · Veto Atlası</title>
-<meta name="description" content="BM bölgesel gruplarının nüfus, üye sayısı, bütçe ve barış gücü payları ile Güvenlik Konseyi koltuk payları yan yana. / Population, membership, budget and peacekeeping shares of the UN regional groups next to their Security Council seat shares.">
+<meta name="description" content="BM bölgesel gruplarının nüfus, üye sayısı, bütçe ve barış gücü payları, Güvenlik Konseyi koltuk paylarıyla karşılaştırılmaktadır. / The population, membership, budget and peacekeeping shares of the UN regional groups are compared with their Security Council seat shares.">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Veto Atlası / Veto Atlas">
 <meta property="og:title" content="Kim temsil ediliyor? · Veto Atlası / Who is represented? · Veto Atlas">
-<meta property="og:description" content="BM bölgesel gruplarının nüfus, üye sayısı, bütçe ve barış gücü payları ile Güvenlik Konseyi koltuk payları yan yana. / Population, membership, budget and peacekeeping shares of the UN regional groups next to their Security Council seat shares.">
+<meta property="og:description" content="BM bölgesel gruplarının nüfus, üye sayısı, bütçe ve barış gücü payları, Güvenlik Konseyi koltuk paylarıyla karşılaştırılmaktadır. / The population, membership, budget and peacekeeping shares of the UN regional groups are compared with their Security Council seat shares.">
 <meta property="og:image" content="https://vetoatlas.com/onizleme.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -267,10 +267,10 @@ details.tablo-ac > summary { cursor: pointer; font-size: var(--yz-kucuk); color:
   const SOZLUK = {
     tr: {
       sayfaBasligi: "Kim temsil ediliyor? · Veto Atlası",
-      sayfaAciklamasi: "BM bölgesel gruplarının nüfus, üye sayısı, bütçe ve barış gücü payları ile Güvenlik Konseyi koltuk payları yan yana.",
+      sayfaAciklamasi: "BM bölgesel gruplarının nüfus, üye sayısı, bütçe ve barış gücü payları, Güvenlik Konseyi koltuk paylarıyla karşılaştırılmaktadır.",
       baslik: "Kim temsil ediliyor?",
       onizlemeAlt: "Veto Atlası: 1946’dan 2026’ya Güvenlik Konseyinde vetoyla düşen 266 öneri; her kare bir ret oyu, yıllara göre.",
-      giris1: ({ g, nufus, koltuk }) => `Temsil endeksinde ${g}nun BM üyelerinin nüfusundaki payı ${nufus}, Güvenlik Konseyi koltuklarındaki payı ${koltuk}; aşağıda beş grubun nüfus, üyelik, bütçe, barış gücü ve koltuk payları var.`,
+      giris1: ({ g, nufus, nufusEk, koltuk, koltukEk }) => `BM üyesi ülkelerin nüfusunun ${nufus}’${nufusEk} oluşturan ${g}, Güvenlik Konseyi koltuklarının ${koltuk}’${koltukEk} sahiptir. Bu sayfada beş bölgesel grubun nüfus, üyelik, bütçe, barış gücü ve koltuk payları karşılaştırılmaktadır.`,
       "h.gruplar": "Bölgesel gruplar",
       "gruplar.aciklama": "Birim, BM Genel Kurul ve Konferans Yönetimi Dairesinin (DGACM) listesindeki bölgesel gruplardır. Türkiye’yi ve ABD’yi Batı Avrupa ve Diğerleri Grubunda (WEOG) saydık. Paylar BM üyelerinin toplamı içindedir. Kartların altındaki oran, koltuk payının gösterge payına bölümüdür: 1’den büyükse koltuk payı daha yüksek, küçükse daha düşük.",
       "l.nufus": "Nüfus", "l.uye": "Üye", "l.butce": "Bütçe", "l.personel": "Barış gücü personeli", "l.daimi": "Daimî koltuk", "l.secilmis": "Seçilmiş koltuk",
@@ -320,10 +320,10 @@ details.tablo-ac > summary { cursor: pointer; font-size: var(--yz-kucuk); color:
     },
     en: {
       sayfaBasligi: "Who is represented? · Veto Atlas",
-      sayfaAciklamasi: "Population, membership, budget and peacekeeping shares of the UN regional groups next to their Security Council seat shares.",
+      sayfaAciklamasi: "The population, membership, budget and peacekeeping shares of the UN regional groups are compared with their Security Council seat shares.",
       baslik: "Who is represented?",
       onizlemeAlt: "Veto Atlas: 266 proposals blocked by the veto in the Security Council, 1946–2026; each square is one negative vote, by year.",
-      giris1: ({ g, nufus, koltuk }) => `In the representation index, the ${g} holds ${nufus} of the population of UN Member States and ${koltuk} of Security Council seats; below are the population, membership, budget, peacekeeping and seat shares of all five groups.`,
+      giris1: ({ g, nufus, koltuk }) => `The ${g}, which accounts for ${nufus} of the population of UN Member States, holds ${koltuk} of Security Council seats. This page compares the population, membership, budget, peacekeeping and seat shares of the five regional groups.`,
       "h.gruplar": "Regional groups",
       "gruplar.aciklama": "The unit is the UN regional group as listed by the Department for General Assembly and Conference Management (DGACM). We count Türkiye and the United States in the Western European and Others Group (WEOG). Each share is out of the total for all UN Member States. The ratio under each card is the seat share divided by the indicator share: above 1 the seat share is higher, below 1 it is lower.",
       "l.nufus": "Population", "l.uye": "Membership", "l.butce": "Budget", "l.personel": "Peacekeeping personnel", "l.daimi": "Permanent seat", "l.secilmis": "Elected seat",
@@ -397,11 +397,20 @@ details.tablo-ac > summary { cursor: pointer; font-size: var(--yz-kucuk); color:
   const YEREL = DIL === "tr" ? "tr-TR" : "en-GB";
   // Yüzde işareti Türkçede sayının önünde (%18,3), İngilizcede arkasında (18.3%)
   const yuzde = (p, b = 1) => { const s = (100 * p).toLocaleString(YEREL, { minimumFractionDigits: b, maximumFractionDigits: b }); return DIL === "tr" ? "%" + s : s + "%"; };
+  // Türkçede yüzdenin eki, sayının son söylenen kelimesine göre (%58’ini, %20’sine); simülasyon sayfasındaki sayiEki ile aynı kural
+  const sonKelime = (n) => { if (!n) return "sıfır"; if (n % 10) return ["", "bir", "iki", "üç", "dört", "beş", "altı", "yedi", "sekiz", "dokuz"][n % 10];
+    if (n % 100) return ["", "on", "yirmi", "otuz", "kırk", "elli", "altmış", "yetmiş", "seksen", "doksan"][Math.floor(n / 10) % 10]; return n % 1000 ? "yüz" : "bin"; };
+  const yuzdeEki = (p, hal) => {
+    const s = sonKelime(Math.round(100 * p)), u = [...s].filter((c) => "aeıioöuü".includes(c)).pop(), kalin = "aıou".includes(u);
+    const iyelik = ("aeıioöuü".includes(s[s.length - 1]) ? "s" : "") + (kalin ? ("ou".includes(u) ? "u" : "ı") : ("öü".includes(u) ? "ü" : "i"));
+    return iyelik + "n" + (hal === "yonelme" ? (kalin ? "a" : "e") : iyelik[iyelik.length - 1]);  // belirtme: %58’ini; yönelme: %20’sine
+  };
   const sayi = (n, b = 0) => n.toLocaleString(YEREL, { minimumFractionDigits: b, maximumFractionDigits: b });
   const oran = (x) => x == null ? "–" : x.toLocaleString(YEREL, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  // Giriş: nüfus payı en büyük grubun nüfus ve koltuk payı (sayılar veriden)
+  // Giriş: nüfus payı en büyük grubun nüfus ve koltuk payı (sayılar veriden); son iki sözcük bağlı, son satırda tek sözcük kalmaz
   const enBuyuk = V.gruplar.reduce((a, b) => (b.paylar.nufus_2023 > a.paylar.nufus_2023 ? b : a));
-  $("#giris1").textContent = t("giris1", { g: enBuyuk.ad[DIL], nufus: yuzde(enBuyuk.paylar.nufus_2023, 0), koltuk: yuzde(enBuyuk.koltuk.toplam_payi, 0) });
+  $("#giris1").textContent = t("giris1", { g: enBuyuk.ad[DIL], nufus: yuzde(enBuyuk.paylar.nufus_2023, 0), nufusEk: yuzdeEki(enBuyuk.paylar.nufus_2023),
+    koltuk: yuzde(enBuyuk.koltuk.toplam_payi, 0), koltukEk: yuzdeEki(enBuyuk.koltuk.toplam_payi, "yonelme") }).replace(/ (\S+)$/, "\u00a0$1");
   // 1963 ve 2023 paylarının paydası tek cümlede; hesap ayrıntısı Metodoloji 2.9'da
   $("#nufus-aciklama").textContent = t("nufus.aciklama", { u63: sayi(V.meta.uye_sayisi_1963), u: sayi(V.meta.uye_sayisi) });
   $("#nufus-metodoloji").setAttribute("href", `metodoloji.html${ek}#${DIL === "tr" ? "" : "en-"}bolum-2-9`);

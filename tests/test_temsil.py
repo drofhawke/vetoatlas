@@ -5,7 +5,10 @@ eksiksiz ve her üye tek grupta, Türkiye ve ABD WEOG'da sayılıp notlanır, P5
 import csv
 import json
 import re
+import shutil
+import subprocess
 
+import pytest
 from conftest import KOK
 
 V = json.loads((KOK / "data/processed/temsil.json").read_text(encoding="utf-8"))
@@ -101,7 +104,7 @@ def test_sayfa_ve_baglantilar():
         assert s in sayfa, s
     assert "28 Şubat 2026" not in sayfa and V["meta"]["personel_tarihi"] == "2026-07-31"
     # ADIM 46: nüfus payı BM üyelerinin toplamı içinde (payda 193 üye; dünya toplamına göre pay ayrı alan)
-    assert "Temsil endeksinde ${g}nun BM üyelerinin nüfusundaki payı ${nufus}" in sayfa and "of the population of UN Member States" in sayfa
+    assert "BM üyesi ülkelerin nüfusunun ${nufus}’${nufusEk} oluşturan ${g}" in sayfa and "of the population of UN Member States" in sayfa
     assert "dünya nüfusundaki pay" not in sayfa and "share of world population" not in sayfa
     # ADIM 45: tanımlar ve kaynak listesi (künyeler, lisans) "Nasıl yaptık?"ta, Metodoloji 2.9'da; sayfada değil
     for md in ("METODOLOJI.md", "METODOLOJI_EN.md"):
@@ -145,3 +148,56 @@ def test_kktc_nufusu_kibristan_ayri():
                   "8. Ülke ve alan adları.", "Unicode Lisansı v3", "10. İslam İşbirliği Teşkilatı üye listesi", "7. Map borders. Natural Earth",
                   "9. Population of the Turkish Republic of Northern Cyprus."):
             assert s in t, (lisans.name, s)
+
+
+GIRIS_BETIGI = r"""
+const fs = require("fs");
+const sayfa = fs.readFileSync(process.argv[2] + "/web/temsil.html", "utf8").split(String.fromCharCode(10)).map((x) => x.trim());
+// Sayfanın kendi satırları: yuzde(), sonKelime ve yuzdeEki yardımcıları, iki dildeki giris1 şablonu ve giris1 çağrısı
+const bas = sayfa.findIndex((x) => x.startsWith("const sonKelime = "));
+const yardimci = sayfa.slice(bas, sayfa.indexOf("};", bas) + 1).join(String.fromCharCode(10));
+const yuzdeSatiri = sayfa.find((x) => x.startsWith("const yuzde = "));
+const giris = sayfa.filter((x) => x.startsWith("giris1: ")).map((x) => x.slice("giris1: ".length).replace(/,$/, ""));
+const cb = sayfa.findIndex((x) => x.startsWith('$("#giris1").textContent = t("giris1", '));
+const cs = sayfa.findIndex((x, i) => i >= cb && x.endsWith(";"));
+if (bas < 0 || !yuzdeSatiri || giris.length !== 2 || cb < 0 || cs < 0) throw new Error("temsil.html: beklenen satırlar bulunamadı");
+const cagri = sayfa.slice(cb, cs + 1).join(String.fromCharCode(10));
+const S = new Function(yardimci + "; return { yuzdeEki };")();
+const [nufus, koltuk] = process.argv.slice(3).map(Number);
+const enBuyuk = { ad: { tr: "Asya-Pasifik Grubu", en: "Asia-Pacific Group" }, paylar: { nufus_2023: nufus }, koltuk: { toplam_payi: koltuk } };
+// Çağrı sayfadaki gibi çalışır: ek, hâl, ondalık ya da bağlama bozulursa test kırmızı
+const cumle = (DIL) => new Function("enBuyuk", "DIL", [
+  'const YEREL = DIL === "tr" ? "tr-TR" : "en-GB", SOZ = { tr: ' + giris[0] + ", en: " + giris[1] + " };",
+  "const t = (a, p) => SOZ[DIL](p); let c; const $ = () => ({ set textContent(x) { c = x; } });",
+  yuzdeSatiri, yardimci, cagri, "return c;"].join(String.fromCharCode(10)))(enBuyuk, DIL);
+const ekler = {};
+for (const n of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 30, 40, 50, 58, 60, 70, 80, 90, 100]) ekler[n] = [S.yuzdeEki(n / 100), S.yuzdeEki(n / 100, "yonelme")];
+process.stdout.write(JSON.stringify({ ekler, tr: cumle("tr"), en: cumle("en") }));
+"""
+
+
+def test_giris_cumlesi_resmi_dilde_ve_yuzde_ekleri(tmp_path):
+    """Giriş cümlesi resmî rapor dilinde (kullanıcı kararı, 22 Ekim 2026; KILAVUZ "Sayfa başlığı"). Yüzdenin eki sayının son
+    söylenen kelimesine göre (%58’ini, %20’sine); son iki sözcük bölünmez boşlukla bağlı. Sayfanın kendi yardımcıları (yuzde,
+    yuzdeEki), sözlük satırları ve giris1 çağrısı Node ile çalıştırılır."""
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("Node.js kurulu değil; sözlük satırları çalıştırılamadı")
+    enbuyuk = max(V["gruplar"], key=lambda g: g["paylar"]["nufus_2023"])
+    assert enbuyuk["kod"] == "ASP" and enbuyuk["ad"] == {"tr": "Asya-Pasifik Grubu", "en": "Asia-Pacific Group"}
+    betik = tmp_path / "giris.js"
+    betik.write_text(GIRIS_BETIGI, encoding="utf-8")
+    r = subprocess.run([node, str(betik), str(KOK), repr(enbuyuk["paylar"]["nufus_2023"]), repr(enbuyuk["koltuk"]["toplam_payi"])],
+                       capture_output=True, text=True, encoding="utf-8", check=True)
+    c = json.loads(r.stdout)
+    assert c["ekler"] == {
+        "0": ["ını", "ına"], "1": ["ini", "ine"], "2": ["sini", "sine"], "3": ["ünü", "üne"], "4": ["ünü", "üne"],
+        "5": ["ini", "ine"], "6": ["sını", "sına"], "7": ["sini", "sine"], "8": ["ini", "ine"], "9": ["unu", "una"],
+        "10": ["unu", "una"], "20": ["sini", "sine"], "30": ["unu", "una"], "40": ["ını", "ına"], "50": ["sini", "sine"],
+        "58": ["ini", "ine"], "60": ["ını", "ına"], "70": ["ini", "ine"], "80": ["ini", "ine"], "90": ["ını", "ına"],
+        "100": ["ünü", "üne"]}
+    assert c["tr"] == ("BM üyesi ülkelerin nüfusunun %58’ini oluşturan Asya-Pasifik Grubu, Güvenlik Konseyi koltuklarının %20’sine "
+                       "sahiptir. Bu sayfada beş bölgesel grubun nüfus, üyelik, bütçe, barış gücü ve koltuk payları\u00a0karşılaştırılmaktadır.")
+    assert c["en"] == ("The Asia-Pacific Group, which accounts for 58% of the population of UN Member States, holds 20% of Security "
+                       "Council seats. This page compares the population, membership, budget, peacekeeping and seat shares of the five "
+                       "regional\u00a0groups.")

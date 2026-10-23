@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Vetolar · Veto Atlası</title>
-<meta name="description" content="1946’dan bu yana BM Güvenlik Konseyinde kullanılan vetolar, kaynakları, oy dağılımları ve Genel Kurul tartışmalarıyla. / Vetoes cast in the UN Security Council since 1946, with their sources, vote breakdowns and General Assembly debates.">
+<meta name="description" content="1946’dan bu yana BM Güvenlik Konseyinde kullanılan vetolar, kaynakları, oy dağılımları ve Genel Kurul tartışmalarıyla birlikte sunulmaktadır. / The vetoes cast in the UN Security Council since 1946 are presented with their sources, vote breakdowns and General Assembly debates.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Veto Atlası / Veto Atlas">
 <meta property="og:title" content="Vetolar · Veto Atlası / Vetoes · Veto Atlas">
-<meta property="og:description" content="1946’dan bu yana BM Güvenlik Konseyinde kullanılan vetolar, kaynakları, oy dağılımları ve Genel Kurul tartışmalarıyla. / Vetoes cast in the UN Security Council since 1946, with their sources, vote breakdowns and General Assembly debates.">
+<meta property="og:description" content="1946’dan bu yana BM Güvenlik Konseyinde kullanılan vetolar, kaynakları, oy dağılımları ve Genel Kurul tartışmalarıyla birlikte sunulmaktadır. / The vetoes cast in the UN Security Council since 1946 are presented with their sources, vote breakdowns and General Assembly debates.">
 <meta property="og:image" content="https://vetoatlas.com/onizleme.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -386,11 +386,11 @@ footer p { max-width: var(--olcu); margin: 0 0 8px; }
       "baslik": "Vetolar",
       "sayfaBasligi": "Vetolar · Veto Atlası",
       "onizlemeAlt": "Veto Atlası: 1946’dan 2026’ya Güvenlik Konseyinde vetoyla düşen 266 öneri; her kare bir ret oyu, yıllara göre.",
-      "sayfaAciklamasi": "1946’dan bu yana BM Güvenlik Konseyinde kullanılan vetolar, kaynakları, oy dağılımları ve Genel Kurul tartışmalarıyla.",
+      "sayfaAciklamasi": "1946’dan bu yana BM Güvenlik Konseyinde kullanılan vetolar, kaynakları, oy dağılımları ve Genel Kurul tartışmalarıyla birlikte sunulmaktadır.",
       "arac.filtrele": "Filtrele",
       "dil": "Dil",
       "veriYok": "Veri yüklenemedi. Sayfayı yenileyin.",
-      "ozet": ({ ilk, son, oneri, tek }) => `BM Güvenlik Konseyinde ${ilk} ile ${son} arasında ${oneri} karar taslağı, beş daimî üyeden en az birinin ret oyuyla düştü.`,
+      "ozet": ({ ilk, son, oneri, tek }) => `${ilk} ile ${son} arasında Güvenlik Konseyine sunulan ${oneri} karar taslağı, beş daimî üyeden en az birinin ret oyu nedeniyle kabul edilmemiştir.`,
       "ozetTek": ({ tek }) => `Bunların ${tek} tanesinde Konseyin geri kalan bütün üyeleri evet oyu verdiği hâlde öneri tek bir ülkenin ret oyuyla düştü.`,
       "ozet2": ({ oy, kapali }) => `Toplam ${oy} ret oyu kullanıldı. Kapalı oturumda verilen ve resmî kayıtta sahibi yazmayan ${kapali} veto bu toplamın dışındadır.`,
       "grafik.aciklama": "Her kare bir ret oyunu gösterir; sütunlar yılları, renkler vetoyu kullanan daimî üyeyi.",
@@ -466,11 +466,11 @@ footer p { max-width: var(--olcu); margin: 0 0 8px; }
       "baslik": "Vetoes",
       "sayfaBasligi": "Vetoes · Veto Atlas",
       "onizlemeAlt": "Veto Atlas: 266 proposals blocked by the veto in the Security Council, 1946–2026; each square is one negative vote, by year.",
-      "sayfaAciklamasi": "Vetoes cast in the UN Security Council since 1946, with their sources, vote breakdowns and General Assembly debates.",
+      "sayfaAciklamasi": "The vetoes cast in the UN Security Council since 1946 are presented with their sources, vote breakdowns and General Assembly debates.",
       "arac.filtrele": "Filter",
       "dil": "Language",
       "veriYok": "The data could not be loaded. Please reload the page.",
-      "ozet": ({ ilk, son, oneri, tek }) => `Between ${ilk} and ${son}, ${oneri} proposals in the UN Security Council failed because at least one of the five permanent members voted against them.`,
+      "ozet": ({ ilk, son, oneri, tek }) => `Between ${ilk} and ${son}, ${oneri} proposals submitted to the UN Security Council were not adopted owing to the negative vote of at least one of the five permanent members.`,
       "ozetTek": ({ tek }) => `In ${tek} of these, every other member of the Council voted in favour and the proposal still failed on the negative vote of a single country.`,
       "ozet2": ({ oy, kapali }) => `In total, ${oy} negative votes were cast. The ${kapali} ${cogul(kapali, "veto", "vetoes")} cast in private meetings ${cogul(kapali, "is", "are")} left out, because the official record does not say who cast them.`,
       "grafik.aciklama": "Each square is one negative vote; columns are years, colours show the permanent member that cast the veto.",
@@ -608,9 +608,14 @@ footer p { max-width: var(--olcu); margin: 0 0 8px; }
   const toplamOy = oyKayitlari.reduce((s, k) => s + k.uyeler.length, 0);
   const ilkYil = kayitlar[kayitlar.length - 1].tarih.slice(0, 4);
   const sonTarih = kayitlar[0].tarih;
-  $("#ozet").textContent = t("ozet", { ilk: ilkYil, son: tarihUzun(sonTarih), oneri: sayi(kayitlar.length) });
-  $("#ozet-tek").textContent = t("ozetTek", { tek: sayi(kayitlar.filter(tekBasina).length) });
-  $("#ozet-2").textContent = t("ozet2", { oy: sayi(toplamOy), kapali: kayitlar.filter((k) => k.kapali).length });
+  // Giriş cümlesinde öneri sayısı ardındaki adla, son iki sözcük birbiriyle bağlı (KILAVUZ "Satır sonu"); sözlük metni değişmez
+  const oneriSayisi = sayi(kayitlar.length);
+  $("#ozet").textContent = t("ozet", { ilk: ilkYil, son: tarihUzun(sonTarih), oneri: oneriSayisi })
+    .replace(` ${oneriSayisi} `, ` ${oneriSayisi}\u00a0`).replace(/ (\S+)$/, "\u00a0$1");
+  // Grafiğin altındaki iki cümlede sayı ardındaki sözcükle ("55 tanesinde", "322 ret oyu", "2 veto"), son iki sözcük birbiriyle bağlı
+  const bagla = (s) => s.replace(/(\d) (?=\p{L})/gu, "$1\u00a0").replace(/ (\S+)$/, "\u00a0$1");
+  $("#ozet-tek").textContent = bagla(t("ozetTek", { tek: sayi(kayitlar.filter(tekBasina).length) }));
+  $("#ozet-2").textContent = bagla(t("ozet2", { oy: sayi(toplamOy), kapali: kayitlar.filter((k) => k.kapali).length }));
 
   // ---------- Filtre durumu ----------
   const durum = { uyeler: new Set(), arama: "", donem: "", konu: "", tur: "", dogrulaniyor: false, yil: null, acik: new Set() };
