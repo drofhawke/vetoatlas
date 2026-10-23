@@ -171,33 +171,33 @@ def kartlar(V: dict, S: dict) -> list[dict]:
     return [
         {"id": "kart-01-vetosuz", "tur": "sayi",
          "buyuk": {"tr": f"{S['vetosuz_kabul']} / {S['toplam']}", "en": f"{S['vetosuz_kabul']} / {S['toplam']}"},
-         "metin": {"tr": f"Veto ile düşen {S['toplam']} önerinin {ek(S['vetosuz_kabul'])}, veto olmasaydı kayıtlı oylarla kabul edilmiş olurdu. Kalan {S['kapali']} veto kapalı oturumda verildi, oyları kayıtlı değil.",
-                   "en": f"Of the {S['toplam']} vetoed proposals, {S['vetosuz_kabul']} would have been adopted on the recorded votes had there been no veto. The other {S['kapali']} were cast in private meetings, and their votes are not on record."},
+         "metin": {"tr": f"Veto nedeniyle kabul edilemeyen {S['toplam']} önerinin {ek(S['vetosuz_kabul'])}, veto olmasaydı kayıtlı oylarla kabul edilmiş olacaktı. Kalan {S['kapali']} veto kapalı oturumda kullanılmış olup oy dağılımları kayıtlı değildir.",
+                   "en": f"Of the {S['toplam']} proposals not adopted owing to a veto, {S['vetosuz_kabul']} would have been adopted on the recorded votes had there been no veto. The remaining {S['kapali']} vetoes were cast in private meetings, and their votes are not on record."},
          "kaynak": veri_kaynak},
         {"id": "kart-02-tek-ret", "tur": "sayi",
          "buyuk": {"tr": str(S["tek_ret"]), "en": str(S["tek_ret"])},
-         "metin": {"tr": f"{S['tek_ret']} öneri, Konseyin öbür bütün üyeleri evet oyu verirken tek bir ret oyuyla düştü.",
-                   "en": f"{S['tek_ret']} proposals failed on a single negative vote while every other member of the Council voted in favour."},
+         "metin": {"tr": f"{S['tek_ret']} öneri, Konseyin diğer bütün üyeleri olumlu oy kullanmış olmasına rağmen tek bir ret oyu nedeniyle kabul edilememiştir.",
+                   "en": f"{S['tek_ret']} proposals were not adopted on a single negative vote, although every other member of the Council voted in favour."},
          "kaynak": veri_kaynak},
         {"id": "kart-03-genel-kurul", "tur": "sayi",
          "buyuk": {"tr": f"{S['gk_gorusulen']} / {S['gk_sonrasi']}", "en": f"{S['gk_gorusulen']} / {S['gk_sonrasi']}"},
          # Pay paydaya eşitse "hepsi" / "all"; tartışma sayısı görselin notunda
-         "metin": {"tr": f"Nisan {ek(2022, 'den')} bu yana veto ile düşen {S['gk_sonrasi']} önerinin "
-                         + ("hepsi" if S["gk_gorusulen"] == S["gk_sonrasi"] else ek(S['gk_gorusulen'])) + " Genel Kurulda görüşüldü.",
+         "metin": {"tr": f"Nisan {ek(2022, 'den')} bu yana veto nedeniyle kabul edilemeyen {S['gk_sonrasi']} önerinin "
+                         + ("tamamı" if S["gk_gorusulen"] == S["gk_sonrasi"] else ek(S['gk_gorusulen'])) + " Genel Kurulda görüşülmüştür.",
                    "en": (f"All {S['gk_sonrasi']} proposals vetoed since April 2022 have" if S["gk_gorusulen"] == S["gk_sonrasi"]
                           else f"Since April 2022, {S['gk_gorusulen']} of the {S['gk_sonrasi']} vetoed proposals have") + " been debated in the General Assembly."},
          "kaynak": {"tr": f"A/RES/76/262, A/…/PV kayıtları ve BM Günlüğü, {tarih_uzun(S['son_tarih'], 'tr')}",
                     "en": f"A/RES/76/262, A/…/PV records and UN Journal, {tarih_uzun(S['son_tarih'], 'en')}"}},
         {"id": "kart-04-besi-de", "tur": "uyeler",
          "buyuk": {"tr": str(S["ret_toplam"]), "en": str(S["ret_toplam"])},
-         "metin": {"tr": f"{ek(1946, 'den')} bu yana {S['ret_toplam']} ret oyu; beş daimî üyenin hepsi veto kullandı. Kapalı oturumdaki {S['kapali']} veto üye toplamına girmez.",
-                   "en": f"{S['ret_toplam']} negative votes since 1946; all five permanent members have used the veto. The {S['kapali']} private-meeting vetoes are not included in the member totals."},
+         "metin": {"tr": f"{ek(1946, 'den')} bu yana {S['ret_toplam']} ret oyu kullanılmış olup beş daimî üyenin tamamı vetoya başvurmuştur. Kapalı oturumdaki {S['kapali']} veto üye toplamlarına dâhil değildir.",
+                   "en": f"{S['ret_toplam']} negative votes have been cast since 1946, and all five permanent members have used the veto. The {S['kapali']} private-meeting vetoes are not included in the member totals."},
          "kaynak": veri_kaynak},
         {"id": "kart-05-konular", "tur": "sayi",
          "buyuk": {"tr": "4 konu", "en": "4 topics"},
          # Çiftler ve sayılar çubuklarda; gri izin ucunda konunun bütün ret oyları
-         "metin": {"tr": "Dört konuda en çok ret oyu kullanan üye ve konudaki bütün ret oyları. Yalnızca kaydın ana konusu sayılır.",
-                   "en": "The member with the most negative votes on each of four topics, against all negative votes on that topic. Only the main topic of each record is counted."},
+         "metin": {"tr": "Dört konuda en çok ret oyu kullanan üye, konudaki bütün ret oylarıyla birlikte gösterilmektedir. Sayımda yalnızca kaydın ana konusu esas alınmaktadır.",
+                   "en": "The member with the most negative votes on each of four topics is shown against all negative votes on that topic. Only the main topic of each record is counted."},
          "kaynak": {"tr": f"Gündem sözlüğü (ana konu), {tarih_uzun(S['son_tarih'], 'tr')}",
                     "en": f"Agenda glossary (main topic), {tarih_uzun(S['son_tarih'], 'en')}"}},
         *temsil_kartlari(S["temsil"]),
@@ -232,19 +232,19 @@ def temsil_kartlari(R: dict) -> list[dict]:
     return [
         {"id": "kart-09-asya-pasifik", "tur": "temsil", "gorsel": gorsel(a),
          "buyuk": {"tr": yuzde(a["nufus"], "tr"), "en": yuzde(a["nufus"], "en")},
-         "metin": {"tr": f"Asya-Pasifik Grubunun {a['uye']} üyesi BM üyeleri nüfusunun {ek(yuzde(a['nufus'], 'tr'), 'ini')} oluşturuyor; Güvenlik Konseyinin {R['koltuk_toplam']} koltuğundan {ek(a['toplam'])} ({yuzde(a['koltuk'], 'tr')}) bu grupta, bunun {ek(a['daimi'])} daimî.",
-                   "en": f"The {a['uye']} members of the Asia-Pacific Group make up {yuzde(a['nufus'], 'en')} of the population of UN Member States; {a['toplam']} of the Security Council’s {R['koltuk_toplam']} seats ({yuzde(a['koltuk'], 'en')}) are in this group, {a['daimi']} of them permanent."},
+         "metin": {"tr": f"Asya-Pasifik Grubunun {a['uye']} üyesi, BM üyesi devletlerin nüfusunun {ek(yuzde(a['nufus'], 'tr'), 'ini')} oluşturmaktadır; Güvenlik Konseyinin {R['koltuk_toplam']} koltuğundan {ek(a['toplam'])} ({yuzde(a['koltuk'], 'tr')}) bu gruba ait olup bunların {ek(a['daimi'])} daimî koltuktur.",
+                   "en": f"The {a['uye']} members of the Asia-Pacific Group account for {yuzde(a['nufus'], 'en')} of the population of UN Member States; {a['toplam']} of the Security Council’s {R['koltuk_toplam']} seats ({yuzde(a['koltuk'], 'en')}) belong to this group, {a['daimi']} of them permanent."},
          "kaynak": kaynak("nufus", "koltuk")},
         # Cümle tek ölçüyü (barış gücü personeli) anlatır; ilk çubuk da o ölçüdür
         {"id": "kart-10-afrika", "tur": "temsil", "gorsel": gorsel(f, "personel"),
          "buyuk": {"tr": f"{f['daimi']} / {R['daimi_toplam']}", "en": f"{f['daimi']} / {R['daimi_toplam']}"},
-         "metin": {"tr": f"Afrika Grubunun {f['uye']} üyesi barış gücü üniformalı personelinin {ek(yuzde(f['personel'], 'tr'), 'ini')} sağlıyor. Konseyde {f['secilmis']} seçilmiş koltuğu var, daimî koltuğu yok.",
+         "metin": {"tr": f"Afrika Grubunun {f['uye']} üyesi, barış gücü üniformalı personelinin {ek(yuzde(f['personel'], 'tr'), 'ini')} sağlamaktadır. Grubun Konseyde {f['secilmis']} seçilmiş koltuğu bulunmakta, daimî koltuğu bulunmamaktadır.",
                    "en": f"The {f['uye']} members of the African Group provide {yuzde(f['personel'], 'en')} of uniformed peacekeeping personnel. The group holds {f['secilmis']} elected seats on the Council and no permanent seat."},
          "kaynak": kaynak("personel", "koltuk")},
         {"id": "kart-11-p5", "tur": "temsil", "gorsel": gorsel(p),
          "buyuk": {"tr": f"{p['daimi']} / {R['daimi_toplam']}", "en": f"{p['daimi']} / {R['daimi_toplam']}"},
-         "metin": {"tr": f"Beş daimî üye BM üyeleri nüfusunun {ek(yuzde(p['nufus'], 'tr'), 'ini')} oluşturuyor, olağan bütçenin {ek(yuzde(p['butce'], 'tr'), 'ini')} ödüyor ve Konseyin {R['koltuk_toplam']} koltuğundan {ek(p['toplam'], 'ini')} tutuyor.",
-                   "en": f"The five permanent members make up {yuzde(p['nufus'], 'en')} of the population of UN Member States, pay {yuzde(p['butce'], 'en')} of the regular budget and hold {p['toplam']} of the Council’s {R['koltuk_toplam']} seats."},
+         "metin": {"tr": f"Beş daimî üye, BM üyesi devletlerin nüfusunun {ek(yuzde(p['nufus'], 'tr'), 'ini')} oluşturmakta, olağan bütçenin {ek(yuzde(p['butce'], 'tr'), 'ini')} karşılamakta ve Konseyin {R['koltuk_toplam']} koltuğundan {ek(p['toplam'], 'ini')} elinde bulundurmaktadır.",
+                   "en": f"The five permanent members account for {yuzde(p['nufus'], 'en')} of the population of UN Member States, contribute {yuzde(p['butce'], 'en')} of the regular budget and hold {p['toplam']} of the Council’s {R['koltuk_toplam']} seats."},
          "kaynak": kaynak("nufus", "butce", "koltuk")},
     ]
 
@@ -306,14 +306,14 @@ def gorsel(kart: dict, dil: str, S: dict, genislik: int, yukseklik: int) -> str:
         adim = min(genislik / sutun, yukseklik / -(-S["toplam"] // sutun))
         return kare_izgarasi(S["toplam"], S["vetosuz_kabul"], sutun, adim, adim * 0.78)
     if kimlik == "kart-02-tek-ret":
-        not_ = {"tr": f"Bunların {ek(S['tek_ret_1966_oncesi'])} {ek(1966, 'den')} önce, Konsey 11 üyeliyken ona karşı bir oyla düştü.",
-                "en": f"{S['tek_ret_1966_oncesi']} of them failed ten to one before 1966, when the Council had 11 members."}[dil]
+        not_ = {"tr": f"Bunların {ek(S['tek_ret_1966_oncesi'])} {ek(1966, 'den')} önce, Konsey 11 üyeliyken ona karşı bir oyla kabul edilememiştir.",
+                "en": f"{S['tek_ret_1966_oncesi']} of them were not adopted ten to one before 1966, when the Council had 11 members."}[dil]
         return oy_kareleri(15, 1) + f'<div class="not">{not_}</div>'
     if kimlik == "kart-03-genel-kurul":
         sutun = 11
         adim = min(genislik / sutun, 48)
         hepsi = S["vg_soz_alan"] == S["vg_tartisma"]
-        etiket = {"tr": f"Veto eden ülke {S['vg_tartisma']} tartışmanın " + ("hepsinde" if hepsi else ek(S['vg_soz_alan'], 'inde')) + " söz aldı.",
+        etiket = {"tr": f"Vetoyu kullanan ülke {S['vg_tartisma']} tartışmanın " + ("tamamında" if hepsi else ek(S['vg_soz_alan'], 'inde')) + " söz almıştır.",
                   "en": "The vetoing country spoke in " + (f"all {S['vg_tartisma']}" if hepsi else f"{S['vg_soz_alan']} of the {S['vg_tartisma']}") + " debates."}[dil]
         return (kare_izgarasi(S["gk_sonrasi"], S["gk_gorusulen"], sutun, adim, adim * 0.78)
                 + '<div class="isaretler">' + kare_izgarasi(S["vg_tartisma"], S["vg_soz_alan"], 15, adim * 0.5, adim * 0.36, MUREKKEP)

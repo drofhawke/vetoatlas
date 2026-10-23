@@ -38,10 +38,10 @@ olduğu için sayfa betikleri dili adresten okur. Tek dosya ve sayfa çerçevele
 galerideki "bir hayır" noktası ve kartlardaki ret karesi, hikâyedeki beş daimî koltuğun içindeki küçük kare (koltuk mürekkep) ve
 4. adımdaki ret noktası, Söz ve
 Kayıt’ın zaman şeridindeki veto noktaları (kitap ve karar mürekkep halka), simülasyonda
-ret oyu ve mevcut sistemde vetoyla düşen sonuç ("Düştü"), logodaki kırmızı kare. Bağlantı, düğme, odak halkası, etiket, sekme çizgisi, alıntı çizgisi,
+ret oyu ve mevcut sistemde veto nedeniyle kabul edilemeyen sonuç ("Kabul edilmedi"), logodaki kırmızı kare. Bağlantı, düğme, odak halkası, etiket, sekme çizgisi, alıntı çizgisi,
 seçilmiş koltuk ve hitap işaretleri mürekkep ya da ikincil renktedir. Yeni bir kırmızı kullanım
 eklenmeden önce bu kurala göre gerekçelendirilir. Ret işareti renk tek başına kalmadan okunur: Hikâye 4. adımda ret noktası
-dolu kırmızı dairedir ve hemen yanındaki sonuç satırı ("14 evet, 1 hayır → düştü") oyları yazıyla da söyler.
+dolu kırmızı dairedir ve hemen yanındaki sonuç satırı ("14 evet, 1 hayır → kabul edilmedi") oyları yazıyla da söyler.
 
 **Yeşil kuralı.** `--kabul` (kâğıtta `#2D6A4F`, koyu kâğıtta `#6FBF8E`) yalnızca simülasyon sonucundaki "Kabul edilirdi"
 içindir (sonuç kartı ve yapışkan şerit); başka hiçbir yerde kullanılmaz. Karşıtlık: `#2D6A4F` kâğıt zeminde 6,03:1, beyaz
@@ -129,7 +129,7 @@ kod satır sonunda bölünmez (`code.kisa`; sınıfı `veto_atlasi/metodoloji.py
 ve yol satıra sığmazsa kırılır. `METODOLOJI_EN.md`’nin başındaki çeviri notu (`>` satırı) depodaki dosya içindir: üretici
 `>` ile başlayan satırı sayfaya taşımaz, sayfada bu bilgi yalnızca girişin altındaki küçük satırda görünür.
 
-**Hakkında (21 Ekim 2026, kullanıcı kararı).** Beş bölüm vardır: Ne topladık ve neden, Kaynaklar ve veriyi indirme,
+**Hakkında (21 Ekim 2026, kullanıcı kararı).** Beş bölüm vardır: Kapsam ve amaç, Kaynaklar ve veriyi indirme,
 Terimler, Bilinen sınırlar ve düzeltmeler, İletişim (kimlikler `ne-topladik`, `kaynaklar`, `terimler`, `sinirlar`,
 `iletisim`; İngilizcede `en-` önekli). Sayım, tarih, konu ve doğrulama kuralları Hakkında’da tekrarlanmaz, tek cümleyle
 Metodoloji’ye bağlanır. İndirme bölümü veri dosyalarına, veri sözlüğüne ve çevrimdışı sürüme bağlantı verir. Terimler
@@ -179,11 +179,13 @@ Daimî koltuk mürekkep, içinde sol üstte 8 px kırmızı kare (veto yetkisi) 
 diyagramın altında küçük boyutta. Bayrak kullanılmaz: beş bayrağın beşinde de kırmızı vardır (kırmızı kuralı).
 
 **Hikâye, yedi adım (21 Ekim 2026, kullanıcı kararı).** Yedi adımın metni, görselleri, alıntıları ve bağlantıları 21 Ekim
-2026’da yayımlanan hâlindedir; bir adımın içeriği ancak yeni bir kullanıcı kararıyla değişir. Sitenin yazım kuralları
+2026’da yayımlanan hâlindedir; bir adımın içeriği ancak yeni bir kullanıcı kararıyla değişir (23 Ekim 2026
+kararıyla adım paragrafları ve görsel cümleleri resmî rapor diline geçirildi; sayılar, olgular, görseller ve alıntılar aynı
+kaldı). Sitenin yazım kuralları
 adımlarda da uygulanır: kıvrık kesme ve kurum adlarına gelen ekler (bölüm 2, "Kesme ve tırnak"), şapkalı yazım, satır sonu
 bağları ve "-member" birleşiği ("Satır sonu"), künye ("Künye"), paragrafın son satırı. Terim kuralları ("öneri" ve "evet
-oyu"; "Noktalama ve ses", "Kayıt notu biçimi") adım metinlerine uygulanmaz: 2., 4. ve 7. adım "karar" der, 4. adım "lehte oy
-kullandı" der. Bu istisna yalnız yedi adımın alt yazısı ve paragrafı içindir; girişte, kapanışta, meta açıklamada ve paylaşım
+oyu"; "Noktalama ve ses", "Kayıt notu biçimi") adım metinlerine uygulanmaz: 2., 4. ve 7. adım "karar" der (4. adım
+"lehte oy" değil "olumlu oy kullanmış" der; 23 Ekim 2026). Bu istisna yalnız yedi adımın alt yazısı ve paragrafı içindir; girişte, kapanışta, meta açıklamada ve paylaşım
 görselinin metninde terim "öneri"dir. `tests/test_hikaye.py` ve `tests/test_yazim.py` istisnayı adım adım sınırlar.
 
 - Adım başlıkları soru ya da kısa ad biçimindedir ("Kaç karar düştü?", "Tek ülke, bütün Konsey").
@@ -198,11 +200,12 @@ görselinin metninde terim "öneri"dir. `tests/test_hikaye.py` ve `tests/test_ya
   Nisan 2022’den bu yana kullanılan her veto bir kare; Genel Kurulda görüşülenler mürekkep renginde, kareler gruplanmaz. 7.
   adımda veto olmasaydı kabul edilecek kararların çubuğu (264 / 266) ve kitap alıntısı.
 - Ekran okuyucu metni görseli cümleyle söyler: "322 ret oyu, her kare bir oy. Kesik çizgili iki kare, oy dağılımı kayıtlı
-  olmayan kapalı oturum vetoları."; "22 vetonun 22 tanesi Genel Kurulda görüşüldü, her kare bir veto."
+  olmayan kapalı oturum vetolarını göstermektedir."; "22 vetonun 22 tanesi Genel Kurulda görüşülmüştür; her kare bir vetoyu
+  göstermektedir."
 - Üç istisna (21 Ekim 2026, kullanıcı kararı). 6. adımın alt yazısı ayı da söyler: "veto, Nisan 2022’den bu yana Genel
   Kurulda görüşüldü" / "vetoes debated in the General Assembly since April 2022" (ay ve yıl `GK_BAS`’tan). 5. adımın ikinci
-  cümlesi Afrika grubunun payını söyler: "Aynı dönemde Afrika grubunun BM üyesi ülkelerin nüfusundaki payı iki katına
-  çıktı." / "… has doubled." (kat veriden: 2023 payının 1963 payına oranı, yuvarlanmış). 7. adımın kitap alıntısı iki dilde
+  cümlesi Afrika grubunun payını söyler: "Aynı dönemde Afrika Grubunun BM üyesi ülkelerin nüfusundaki payı iki katına
+  çıkmıştır." / "… has doubled." (kat veriden: 2023 payının 1963 payına oranı, yuvarlanmış). 7. adımın kitap alıntısı iki dilde
   aynı kısa parçadır: tıkanıklığın nedenine ilişkin ara söz atlama işaretiyle (…) çıkarılır (`KISA`, `KISA_EN`); her parça
   kaynakta birebir ve sırasıyla geçer, künyede yalnız bölüm adı vardır.
 
@@ -262,18 +265,24 @@ başlıkları; üst çubuğun düğmeleri için bölüm 3).
 **Köşeler ve oklar (20 Ekim 2026).** Düğmelerin 6 px köşesi bütün denetimlerde aynıdır: üye ve grup seçim düğmeleri,
 simülasyonun gezinme ve ülke düğmeleri, etiketler, ülke arama kutusu, üst çubuktaki dil, tema ve menü düğmeleri. Hap biçimi
 (tam yuvarlak uçlar) kullanılmaz. Bağlantı metninde ok işareti (→, ↓) yoktur; bağlantı alt çizgisiyle tanınır. Ok yalnızca
-yön bildiren düğmelerde ("← Önceki", "Sonraki →") ve Hikâye 4. adımın sonuç satırında ("14 evet, 1 hayır → düştü") kalır.
+yön bildiren düğmelerde ("← Önceki", "Sonraki →") ve Hikâye 4. adımın sonuç satırında ("14 evet, 1 hayır → kabul edilmedi") kalır.
 Ya veto olmasaydı?’da adım göstergesi yoktur; bölüm başlıkları numarasızdır ("Kaydı seçin"). `tests/test_tasarim.py` denetler.
 
 **Noktalama ve ses (20 Ekim 2026).** Orta nokta (·) yalnızca künyede kullanılır; cümlelerde, sayaçlarda ve etiketlerde
 virgül ("13 evet, 1 hayır, 1 çekimser", "60 öneri, 60 oy"). Arayüz metninde cümle başına en çok bir noktalı virgül;
 Metodoloji yöntem metni olarak bu kuralın dışındadır. "Etiket: içerik" kalıbı yalnızca liste başlıklarında kalır
-("Toplantı kayıtları: …"); cümleler etiketle değil özneyle başlar ("67 üye devlet ve 3 gözlemci konuştu", "Veto eden ABD
-söz aldı"). Parantez içi sözlük yoktur ("evet (lehte)" değil "evet"); terim "öneri"dir, giriş cümlesinde "karar taslağı" (Hikâye’nin
+("Toplantı kayıtları: …"); cümleler etiketle değil özneyle başlar ("Tartışmada 67 üye devlet ile 3 gözlemci söz almıştır",
+"Vetoyu kullanan ABD tartışmada söz almıştır"). Parantez içi sözlük yoktur ("evet (lehte)" değil "evet"); terim "öneri"dir, giriş cümlesinde "karar taslağı" (Hikâye’nin
 yedi adımı bu terim kuralının dışındadır; bölüm 2, "Hikâye, yedi adım").
 Öne çıkan kayıt başlıkları iki noktayla açılmaz ("Gazze: ateşkes taslağı" değil "Gazze’de ateşkes taslağı").
-Hakkında ve sayfa notlarında anlatıcı "biz"dir; Hakkında’nın giriş paragrafı resmî rapor dilinde ve üçüncü kişiyledir
-(22 Ekim 2026, kullanıcı kararı). Metodoloji edilgen kalır.
+Anlatı dili (23 Ekim 2026, kullanıcı kararı): bütün sayfalarda, sayfa notlarında, paylaşım kartlarında ve alt bilgi notunda
+anlatıcı kurumdur (Atlas, çalışma, sayfa); "biz" yoktur. Cümleler resmî kurumsal rapor dilindedir: "-maktadır", "-miştir" ve
+"-dır" kalıpları ("verir" değil "vermektedir"); bağlı cümleler ("olup", "olmakla birlikte", "nedeniyle", "uyarınca"); sonuç
+"düştü" değil "kabul edilememiştir" (sonuç sözcüğü "Kabul edilmedi"); düz yazıda "olumlu oy" ve "ret oyu", sayım
+satırlarında "evet, hayır, çekimser". İngilizcede BM rapor dili ("the present page", "owing to", "was not adopted",
+"Member States"). Alıntılar ve künyeler, BM’nin özgün gündem ve belge adları, düğme, etiket, menü ve tablo başlıkları,
+kayıt notları ve düzeltme gerekçeleri ile veri sözlüğü bu kuralın dışındadır. Metodoloji edilgen kalır; sayfaları anlatan
+cümleleri "-maktadır" kalıbındadır.
 Şapkalı yazım tek biçimdir: daimî, resmî, dâhil. Metodoloji’nin paragrafları kalın etiketle açılmaz. Bu bölümün kuralları
 açık depodaki Markdown belgelerine (README, METODOLOJI, KAYNAKLAR) de uygulanır; Metodoloji’nin başında son değişiklik
 tarihi yazılır (git kaydından).
@@ -294,8 +303,8 @@ verilir. Yer paragrafla gösterilir ("par. 54"), "PDF s." yazılmaz. Türkçe no
 çizgi (–) kullanılır, saat yerine "akşam", "sabaha karşı" yazılır, sıra sayıları yazıyladır ("üçüncüsü") ve her not
 noktayla biter. Oy sayımı paneldeki terimlerle yazılır ("11 evet, 2 hayır, 2 çekimser"; İngilizcede "11 in favour,
 2 against, 2 abstaining"); sayıdan sonra "lehte" ya da "aleyhte" gelmez. Üyenin oyu "hayır oyu verdi", "evet oyu verdi" diye yazılır ("aleyhte oy
-verdi", "lehte oy verdi" yazılmaz); paylaşım kartlarında da böyledir. Hikâye 4. adımının "lehte oy kullandı" ifadesi bu
-kuralın tek istisnasıdır. Notlarda da yazım şapkalıdır (daimî, resmî,
+verdi", "lehte oy verdi" yazılmaz); paylaşım kartlarında da böyledir; düz yazıda "olumlu oy kullanmıştır" denir
+(23 Ekim 2026). Notlarda da yazım şapkalıdır (daimî, resmî,
 dâhil). Birçok kayda uyan yöntem notu kayıtlarda tekrarlanmaz, Metodoloji’de bir kez yazılır.
 
 **Kesme ve tırnak (21 Ekim 2026).** Görünen metinde kesme işareti kıvrıktır (’): Türkiye’nin, 1946’dan, Council’s,
@@ -402,9 +411,9 @@ yüklenirken düzen kaymaz.
   cell) işaretlidir; başlık satırı satırlarla aynı tablodadır.
 - Sayfa başlığı (h1) üst çubuktaki sekme adıyla aynıdır (Vetolar, Söz ve Kayıt, Kim temsil ediliyor?, Reform modelleri, Ya
   veto olmasaydı?); "Nasıl yaptık?" sekmesinin iki sayfası kendi adını taşır (Hakkında, Metodoloji). Hikâye’nin başlığı
-  "Yedi adımda veto"dur. Hikâye, Vetolar, Kim temsil ediliyor? ve Reform modelleri’nin giriş cümleleri (Vetolar’da grafiğin
-  üstündeki cümle), Hakkında’nın giriş paragrafı ve bu beş sayfanın meta açıklamaları resmî rapor dilindedir (22 Ekim 2026,
-  kullanıcı kararı): tam cümle, edilgen ya da üçüncü kişi, "-mektedir" ve "-miştir" kalıpları; soru, eksiltili cümle ve
+  "Yedi adımda veto"dur. Bütün sayfaların giriş cümleleri (Vetolar’da grafiğin üstündeki cümle), Hakkında’nın giriş
+  paragrafı ve meta açıklamaları resmî rapor dilindedir (22 Ekim 2026, kullanıcı kararı; 23 Ekim 2026’da bütün anlatıya
+  genişletildi, bölüm 2 "Noktalama ve ses"): tam cümle, edilgen ya da üçüncü kişi, "-mektedir" ve "-miştir" kalıpları; soru, eksiltili cümle ve
   noktalı virgül yoktur ("Bu sayfada beş bölgesel grubun nüfus, üyelik, bütçe, barış gücü ve koltuk payları
   karşılaştırılmaktadır."). Vetolar’ın ve Kim temsil ediliyor?’un giriş cümlelerinde rakamla yazılan sayılar veriden gelir;
   yüzdenin eki sayının okunuşuna göre yazılır (%58’ini, %20’sine). Bu girişlerin son iki sözcüğünü sayfa betiği bölünmez
@@ -629,12 +638,12 @@ arasını doldurur.
 Hikâye, Vetolar, Söz ve Kayıt, Kim temsil ediliyor?, Reform modelleri ve Metodoloji’de sayfa betiği açılışta görünen dile
 göre sözlükteki metni yazar (Hikâye’de `gorselAlt`, sayısı veri setinden; Metodoloji’de `veto_atlasi/metodoloji.py`, öteki
 sayfalarda `onizlemeAlt`); Hakkında ve Ya veto olmasaydı?’da statik metin kalır. Ortak önizleme için metin: "Veto Atlası: 1946’dan 2026’ya Güvenlik
-Konseyinde vetoyla düşen 266 öneri; her kare bir ret oyu, yıllara göre." / "Veto Atlas: 266 proposals blocked by the
+Konseyinde veto nedeniyle kabul edilemeyen 266 öneri; her kare bir ret oyu, yıllara göre." / "Veto Atlas: 266 proposals not adopted owing to the
 veto in the Security Council, 1946–2026; each square is one negative vote, by year." Söz ve Kayıt ve Ya veto olmasaydı?
 kendi görsellerini anlatır (22 vetonun hepsi ve 15 küçük kare; 266 önerinin 264’ü ve kesikli iki kare).
 
-**Alt bilgi notu.** Her sayfanın altında tek satır: "Beta sürümü. Hata bildirmek için iletisim@vetoatlas.com adresine
-yazın." (EN "Beta version. To report an error, write to …"). `web/cubuk.js` kurar: sayfanın kendi alt bilgisi varsa (Hikâye,
+**Alt bilgi notu.** Her sayfanın altında tek satır: "Beta sürümü. Hata bildirimleri iletisim@vetoatlas.com adresine
+iletilebilir." (EN "Beta version. Error reports may be sent to …"). `web/cubuk.js` kurar: sayfanın kendi alt bilgisi varsa (Hikâye,
 Vetolar) ona eklenir, yoksa sayfa kabının sonunda ince çizgili bir alt bilgi oluşturulur; tek dosyada her çerçeve kendi
 notunu taşır.
 

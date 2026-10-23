@@ -67,9 +67,9 @@ def test_tartismali_alanlar_kural_tablosundaki_gibi():
     assert {a["k"] for a in H["alanlar"] if a.get("ust")} == {k["ne_kodu"] for k in kurallar if k["katman"] == "ayrik" and k["atama"] == "-"}
     # Sayfadaki not kural tablosuyla aynı şeyi söyler
     sayfa = (WEB / "temsil.html").read_text(encoding="utf-8")
-    assert "Kırım Ukrayna’nın, Golan Suriye’nin parçası olarak gösterilir" in sayfa
+    assert "Kırım Ukrayna’nın, Golan ise Suriye’nin parçası olarak gösterilmektedir" in sayfa
     assert "Crimea is shown as part of Ukraine and the Golan as part of Syria" in sayfa
-    assert "Üye olmayan ülke ve alanlar boş çizilir." in sayfa and "Countries and areas that are not UN Member States are drawn empty." in sayfa
+    assert "Üye olmayan ülke ve alanlar boş bırakılmıştır;" in sayfa and "Countries and areas that are not UN Member States are left blank;" in sayfa
     assert atama["Ashmore and Cartier Islands"] == "AUS"  # BM'nin M49 listesinde ayrı alan değil
 
 
@@ -266,5 +266,5 @@ def test_ayri_sayilan_bolgeler():
     assert "n" not in al["KAS"] and "IOA" not in al and "NFK" not in al
     s = (WEB / "temsil.html").read_text(encoding="utf-8")
     for parca in ('`<path data-k="${b.uye}" data-b="${b.k}" d="${b.d}"/>`', 'else if (o.dataset.b) bolgeIpucu(o.dataset.b, e.clientX, e.clientY);',
-                  '"b.parca": ({ u }) => `${u} toprağı, nüfusu BM istatistiklerinde ayrı sayılır`', '"k.ayri": ({ liste }) =>'):
+                  '"b.parca": ({ u }) => `${u} toprağı; nüfusu BM istatistiklerinde ayrı sayılmaktadır`', '"k.ayri": ({ liste }) =>'):
         assert parca in s, parca

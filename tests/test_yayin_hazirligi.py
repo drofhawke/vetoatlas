@@ -40,7 +40,7 @@ def test_alt_bilgi_notu():
     """20 Ekim 2026: beta şeridi yerine her sayfanın altında tek satırlık not; sayfanın alt bilgisi (footer#alt) varsa ona eklenir,
     yoksa oluşturulur; tek dosyada her çerçeve kendi notunu taşır."""
     c = (WEB / "cubuk.js").read_text(encoding="utf-8")
-    assert 'altNot: "Beta sürümü. Hata bildirmek için", altSon: " adresine yazın.",' in c and 'altNot: "Beta version. To report an error, write to", altSon: ".",' in c
+    assert 'altNot: "Beta sürümü. Hata bildirimleri", altSon: " adresine iletilebilir.",' in c and 'altNot: "Beta version. Error reports may be sent to", altSon: ".",' in c
     assert 'var ILETISIM = "iletisim@vetoatlas.com";' in c and """<a href="mailto:' + ILETISIM + '">' + ILETISIM""" in c
     assert "function altBilgi(dil) {" in c and 'if (alt && alt.tagName === "FOOTER") { alt.appendChild(p); return; }' in c
     assert "if (!tek) altBilgi(dil);" in c and "altBilgi(gecerliDil()); return; }" in c
@@ -57,14 +57,14 @@ def test_hakkinda_iletisim_ve_lisans_satiri():
     for eski in ('data-yer="indir"', 'class="atif"', 'class="lisans"', "orcid.org", "Nuh Mehmet", "Yayımlayan", "Published by"):
         assert eski not in h, eski
     posta = '<a href="mailto:iletisim@vetoatlas.com">iletisim@vetoatlas.com</a>'
-    assert f"<p>Hata bildirimi ve sorular için {posta}. Her düzeltmeyi gerekçesiyle düzeltme dosyasına yazıyoruz.</p>" in h
-    assert f"<p>For error reports and questions, {posta}. Each correction goes into the corrections file with its reason.</p>" in h
+    assert f"<p>Hata bildirimleri ve sorular {posta} adresine iletilebilir. Her düzeltme, gerekçesiyle birlikte düzeltme dosyasına işlenmektedir.</p>" in h
+    assert f"<p>Error reports and questions may be sent to {posta}. Each correction is entered in the corrections file with its reason.</p>" in h
     doi = f'<a href="https://doi.org/{DOI}">{DOI}</a>'
     ld = '<a href="LICENSE-DATA.txt">LICENSE-DATA</a>'
     # Zenodo cümlesi arşivlenen sürümü ve tarihini söyler (sitedeki veri sonradan değişebilir)
-    assert f"<p>Kod MIT, veri derlemesi CC BY 4.0 lisansıyla ({ld}). Veri setinin 12 Ekim 2026 tarihli 1.0.0 sürümü Zenodo’da arşivli, DOI {doi}.</p>" in h
-    assert (f"<p>The code is under the MIT licence and the data compilation under CC BY 4.0 ({ld}). Version 1.0.0 of the dataset, "
-            f"dated 12 October 2026, is archived on Zenodo, DOI {doi}.</p>") in h
+    assert f"<p>Kod MIT, veri derlemesi CC BY 4.0 lisansıyla ({ld}) sunulmaktadır. Veri setinin 12 Ekim 2026 tarihli 1.0.0 sürümü Zenodo’da arşivlenmiştir; DOI {doi}.</p>" in h
+    assert (f"<p>The code is released under the MIT licence and the data compilation under CC BY 4.0 ({ld}). Version 1.0.0 of the dataset, "
+            f"dated 12 October 2026, is archived on Zenodo under DOI {doi}.</p>") in h
     assert "[DOI]" not in h and "yer-tutucu" not in h
 
 

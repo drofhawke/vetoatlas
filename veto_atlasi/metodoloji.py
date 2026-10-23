@@ -233,11 +233,11 @@ li + li {{ margin-top: 8px; }}
 </html>
 """
 
-ACIKLAMA_TR = "Veto Atlası’nın kategorileri, sayım kuralları, kaynak mutabakatı, tarih kuralları ve doğrulama yöntemi."
-ACIKLAMA_EN = "Categories, counting rules, source reconciliation, date rules and verification method of the Veto Atlas."
+ACIKLAMA_TR = "Bu sayfada Veto Atlası’nın kategorileri, sayım kuralları, kaynak mutabakatı, tarih kuralları ve doğrulama yöntemi açıklanmaktadır."
+ACIKLAMA_EN = "This page sets out the categories, counting rules, source reconciliation, date rules and verification method of the Veto Atlas."
 # Önizleme görselinin (onizleme.png) alt metni; web/vetolar.html "onizlemeAlt" ile aynı
-GORSEL_ALT_TR = "Veto Atlası: 1946’dan 2026’ya Güvenlik Konseyinde vetoyla düşen 266 öneri; her kare bir ret oyu, yıllara göre."
-GORSEL_ALT_EN = "Veto Atlas: 266 proposals blocked by the veto in the Security Council, 1946–2026; each square is one negative vote, by year."
+GORSEL_ALT_TR = "Veto Atlası: 1946’dan 2026’ya Güvenlik Konseyinde veto nedeniyle kabul edilemeyen 266 öneri; her kare bir ret oyu, yıllara göre."
+GORSEL_ALT_EN = "Veto Atlas: 266 proposals not adopted owing to the veto in the Security Council, 1946–2026; each square is one negative vote, by year."
 ACIK_DEPO = "https://github.com/drofhawke/vetoatlas"
 # Girişin altındaki küçük satır: son değişiklik tarihi ve asıl metnin yeri ({tarih} iki dilde yazıyla)
 KAYNAK_NOTU = {

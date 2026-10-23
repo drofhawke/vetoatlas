@@ -282,7 +282,7 @@ def test_koseler_ve_ok_isaretleri():
     oklu = set()
     for yol in [*(WEB / f"{ad}.html" for ad in SAYFALAR), WEB / "cubuk.js", WEB / "metin.js", WEB / "suzgec.js"]:
         oklu |= set(re.findall(r'"[^"\n]*[→↓←↑][^"\n]*"', yol.read_text(encoding="utf-8")))
-    assert oklu == {'"14 evet, 1 hayır → düştü"', '"14 yes, 1 no → failed"', '"← Önceki"', '"Sonraki →"', '"← Previous"', '"Next →"'}
+    assert oklu == {'"14 evet, 1 hayır → kabul edilmedi"', '"14 yes, 1 no → not adopted"', '"← Önceki"', '"Sonraki →"', '"← Previous"', '"Next →"'}
     s = (WEB / "simulasyon.html").read_text(encoding="utf-8")
     assert ".adimlar" not in s and 'aria-current="step"' not in s
     assert '"h.secim": "Kaydı seçin"' in s and '"h.secim": "Choose a record"' in s

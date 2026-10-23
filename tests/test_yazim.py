@@ -79,12 +79,12 @@ def test_ingilizce_cumle_icinde_belirli_tanimlik():
     assert "uye: uyeAdMetin(x.deger) });" in sim
     assert 'const ayni = konusanlar.filter(([, x]) => x === d).map(([u]) => uyeAdMetin(u));' in vet  # "Veto eden ABD söz aldı."
     assert 't("gk.vetoCumle", { uyeler: ayni.join(t("ve")), durum: t("gk.konustu." + d), n: ayni.length })' in vet
-    assert "With the negative ${n > 1 ? `votes of ${uye}, permanent members` : `vote of ${uye}, a permanent member`}" in sim
+    assert "owing to the negative ${n > 1 ? `votes of ${uye}, permanent members` : `vote of ${uye}, a permanent member`}." in sim
     # Öteki modeller için ortak cümle: ad cümle başında, tanımlığı büyük harfle ("The United States is a permanent member")
-    assert ("${uye.charAt(0).toUpperCase() + uye.slice(1)} ${m > 1 ? \"are permanent members\" : \"is a permanent member\"}, so the proposal "
+    assert ("As ${uye.charAt(0).toUpperCase() + uye.slice(1)} ${m > 1 ? \"are permanent members\" : \"is a permanent member\"}, the proposal "
             "is not adopted under any of them.") in sim
     assert '$("#karsilastir-ortak").textContent = t("k.ortak", { uye: ulkeAdi, m: vetoSayisi, boy });' in sim
-    assert "No veto by ${uye} among the" in sim
+    assert "No veto by ${uye} is found among the" in sim
 
 
 SAPKASIZ = re.compile(r"\b(daimi|resmi|dahil)\w*", re.I)  # Türkçe metinde şapkalı yazım tek biçimdir: daimî, resmî, dâhil
@@ -134,21 +134,16 @@ def test_turkce_notlarda_sapkali_yazim_ve_oy_terimi():
         assert not SAPKASIZ.search(metin), (md, SAPKASIZ.search(metin))
 
 
-# Tek istisna: Hikâye 4. adımının paragrafı 21 Ekim 2026'da yayındaki hâliyle "lehte oy kullandı" der (kullanıcı kararı;
-# KILAVUZ "Hikâye, yedi adım" ve "Kayıt notu biçimi"). İstisna yalnız bu cümle içindir ve sayfada bir kez geçer.
-HIKAYE_LEHTE = "Bu kararların her birinde Konseyin diğer bütün üyeleri lehte oy kullandı;"
+# 23 Ekim 2026: Hikâye'nin 4. adımı da resmî dile geçti ("olumlu oy kullanmış"); "lehte oy" istisnası kalmadı.
 
 
 def test_sayfalarda_lehte_aleyhte_sayim_kalibi_yok():
     """Sayfa sözlüklerinde oy terimi "evet oyu" / "hayır oyu"dur: "lehte oy", "aleyhte oy" ve "11 lehte" yazılmaz. Oy alan adları
     (k.oy.lehte) ve CSS değişkenleri (--oy-lehte) metin değildir. Metodoloji yöntem metni olarak ayrı yazılır, burada yoktur.
-    Hikâye'nin 4. adımı tek istisnadır (HIKAYE_LEHTE)."""
+    23 Ekim 2026'dan beri istisna yoktur."""
     kalip = re.compile(r"\b(lehte|aleyhte) oy|\d+ (lehte|aleyhte)\b")
     for ad in ("hikaye", "vetolar", "vizyon", "reform", "simulasyon", "temsil", "hakkinda"):
         s = (WEB / f"{ad}.html").read_text(encoding="utf-8")
-        if ad == "hikaye":
-            assert s.count(HIKAYE_LEHTE) == 1 and '"4.metin": ({ n11, yil, boy }) => `' + HIKAYE_LEHTE in s
-            s = s.replace(HIKAYE_LEHTE, "")
         assert not kalip.search(s), (ad, kalip.search(s))
 
 

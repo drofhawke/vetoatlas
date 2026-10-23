@@ -108,7 +108,7 @@ def test_adim_tasarimi_taslaktaki_gibi():
     # Bölüm başlıkları (h2) ile gezilebilir; ray bağlantıları adlandırılmış, etkin adım aria-current
     assert '<h2 class="adim-baslik" id="adim-${i + 1}-baslik">' in BETIK and 'aria-labelledby="adim-${i + 1}-baslik" tabindex="-1"' in BETIK
     assert 'a.setAttribute("aria-current", "step")' in BETIK
-    assert 'behavior: azHareket ? "auto" : "smooth"' in BETIK and '"14 evet, 1 hayır → düştü"' in BETIK
+    assert 'behavior: azHareket ? "auto" : "smooth"' in BETIK and '"14 evet, 1 hayır → kabul edilmedi"' in BETIK
     # Taslaktaki yerel OTF yazı tipleri değil, sitenin woff2 dosyaları
     assert ".otf" not in SAYFA and 'href="fonts/fonts.css"' in SAYFA
 
@@ -137,8 +137,8 @@ def test_giris_sikilastirma_adim40():
 def test_alt_bilgi_ve_giris_adim45():
     """Alt bilgide yalnızca son vetonun tarihi (kayıtlardan) ve veri tarihi (veri sürümünden); kaynaklar ve yöntem "Nasıl yaptık?"ta. Girişteki "Sayılar sayfa
     açılırken …" notu ve alt bilgideki slogan yok. Kapanıştaki sayfa listesinde Reform modelleri (çubuktaki sırayla)."""
-    assert "alt: ({ son, sonEk, tarih, tarihEk }) => `Son veto ${son}’${sonEk}, veri ${tarih}’${tarihEk} güncellendi.`," in BETIK
-    assert "alt: ({ son, tarih }) => `The latest veto was cast on ${son}, and the data were updated on ${tarih}.`," in BETIK
+    assert "alt: ({ son, sonEk, tarih, tarihEk }) => `Son veto ${son}’${sonEk} kullanılmış, veri ${tarih}’${tarihEk} güncellenmiştir.`," in BETIK
+    assert "alt: ({ son, tarih }) => `The most recent veto was cast on ${son}; the data were last updated on ${tarih}.`," in BETIK
     assert 'const sonVeto = K.map((k) => k.tarih).sort().pop(), surum = V.meta.veri_surumu;' in BETIK
     assert ('t("alt", { son: zaman(sonVeto), sonEk: sayiEki(+sonVeto.slice(0, 4), "de"), tarih: zaman(surum), '
             'tarihEk: sayiEki(+surum.slice(0, 4), "de") })') in BETIK and "web/veri.js ve web/temsil_veri.js dosyalarından" not in BETIK
@@ -235,7 +235,7 @@ def test_hikaye_metinleri_adim47():
     assert sum(len(k["uyeler"]) for k in acik) == 322 and len(kapali) == 2
 
 
-# Yedi adımın metni 21 Ekim 2026'da yayındaki hâliyle (kullanıcı kararı; KILAVUZ "Hikâye, yedi adım"); site geneli yazım kuralları
+# Yedi adımın metni 23 Ekim 2026'dan beri resmî rapor dilinde (kullanıcı kararı; KILAVUZ "Hikâye, yedi adım"); site geneli yazım kuralları
 # uygulanır (kıvrık kesme, kurum adlarına gelen ekler kesmesiz). Üç istisna: 5. adımda Afrika payı cümlesi, 6. adımın alt
 # yazısında ay, 7. adımda iki dilde aynı kısa alıntı (test_kisaltilmis_alinti_adim42). Giriş cümlesi ayrı karardır (resmî rapor dili, 22 Ekim 2026).
 BEKLENEN = {
@@ -243,28 +243,31 @@ BEKLENEN = {
         "giris": "Bu sayfada, 1946’dan bu yana Güvenlik Konseyinde kullanılan vetolar BM kayıtlarına dayanılarak yedi adımda ele alınmaktadır.",
         "adimlar": [
             ["on beş üyeden beşi, daimî",
-             "Güvenlik Konseyi on beş üyeden oluşur. Bunların beşi daimî üyedir ve diğerlerinde bulunmayan bir yetkiye sahiptir: tek bir ret "
-             "oyuyla, usul işleri dışındaki her kararı düşürebilirler. Bu yetkinin adı vetodur."],
+             "Birleşmiş Milletler Güvenlik Konseyi on beş üyeden oluşmakta olup bunların beşi daimî üye statüsündedir. Daimî üyeler, "
+             "diğer üyelerde bulunmayan bir yetkiyle donatılmıştır: usule ilişkin olmayan herhangi bir karar, bu üyelerden yalnızca "
+             "birinin ret oyuyla kabul edilememektedir. Söz konusu yetki veto olarak adlandırılmaktadır."],
             ["karar, 1946’dan bugüne",
-             "Konseyin kuruluşundan bu yana daimî üyelerin ret oyuyla düşen karar taslaklarının toplamı budur. Aşağıdaki ızgarada her kare "
-             "bir ret oyunu gösterir; seksen yılın tamamı tek bakışta görülür."],
+             "Konseyin kuruluşundan bu yana daimî üyelerin ret oyuyla kabul edilemeyen karar taslaklarının toplamı bu sayıdır. Aşağıdaki "
+             "ızgarada her kare bir ret oyunu göstermekte, seksen yıllık dönemin tamamı tek bakışta görülebilmektedir."],
             ["daimî üyelerin tamamı",
-             "Veto, beş daimî üyenin tamamı tarafından kullanıldı. Dağılım dönemlere göre değişir: Soğuk Savaş’ın ilk yıllarında Sovyetler "
-             "Birliği, 1970’lerden sonra ABD, son on beş yılda Rusya ve Çin öne çıkar."],
+             "Veto, beş daimî üyenin tamamı tarafından kullanılmıştır. Dağılım dönemlere göre farklılık göstermektedir: Soğuk Savaş’ın ilk "
+             "yıllarında Sovyetler Birliği, 1970’lerden itibaren ABD, son on beş yılda ise Rusya Federasyonu ve Çin öne çıkmaktadır."],
             ["karar, tek bir ret oyuyla",
-             "Bu kararların her birinde Konseyin diğer bütün üyeleri lehte oy kullandı; karar yine de düştü, çünkü ret oyunu veren tek ülke "
-             "bir daimî üyeydi. Yirmi yedisi, 1966 öncesinin on bir üyeli Konseyinde oylandı."],
+             "Söz konusu kararların her birinde Konseyin diğer bütün üyeleri olumlu oy kullanmış, ancak ret oyunu veren tek ülkenin daimî "
+             "üye olması nedeniyle karar kabul edilememiştir. Yirmi yedisi, 1966 öncesinde görev yapan on bir üyeli Konseyde oylanmıştır."],
             ["Asya-Pasifik grubunun BM nüfusundaki payı",
-             "Konseyin bugünkü koltuk dağılımı 1963’te belirlendi ve o günden beri değişmedi. Aynı dönemde Afrika grubunun BM üyesi ülkelerin "
-             "nüfusundaki payı iki katına çıktı. BM üyesi ülkelerin nüfusunun yarısından fazlasını barındıran Asya-Pasifik grubu on beş "
-             "koltuğun üçüne sahip. Elli dört üyeli Afrika grubunun ise hiç daimî koltuğu yok."],
+             "Konseyin bugünkü koltuk dağılımı 1963’te belirlenmiş ve o tarihten bu yana değişmemiştir. Aynı dönemde Afrika Grubunun BM "
+             "üyesi ülkelerin nüfusundaki payı iki katına çıkmıştır. BM üyesi ülkelerin nüfusunun yarısından fazlasını barındıran "
+             "Asya-Pasifik Grubu on beş koltuğun üçüne sahip bulunmakta, elli dört üyeli Afrika Grubu ise hiçbir daimî koltuğa sahip "
+             "bulunmamaktadır."],
             ["veto, Nisan 2022’den bu yana Genel Kurulda görüşüldü",
-             "Nisan 2022’de kabul edilen ve Türkiye’nin ilk sunucuları arasında yer aldığı bir kararla, Genel Kurul artık her vetodan sonra "
-             "toplanıyor. O tarihten bu yana kullanılan vetoların tamamı görüşüldü; veto eden ülke, on beş veto girişimi tartışmasının on "
-             "beşinde de söz aldı."],
+             "Nisan 2022’de kabul edilen ve Türkiye’nin ilk sunucuları arasında yer aldığı bir karar uyarınca Genel Kurul, her vetonun "
+             "ardından toplanmaktadır. O tarihten bu yana kullanılan vetoların tamamı Genel Kurulda görüşülmüş; vetoyu kullanan ülke, on "
+             "beş veto girişimi tartışmasının on beşinde söz almıştır."],
             ["karar, 266 içinde",
-             "Veto olmasaydı ve üyeler kayıtlardaki oylarını değiştirmeseydi, düşen kararların neredeyse tamamı kabul edilmiş olurdu. Dışarıda "
-             "kalan ikisi, oy dağılımı kayıtlı olmayan kapalı oturum vetolarıdır. Sayımı istediğiniz kayıt üzerinde kendiniz yapabilirsiniz."],
+             "Veto hakkının bulunmaması ve üyelerin kayıtlardaki oylarını korumuş olması hâlinde, kabul edilemeyen kararların neredeyse "
+             "tamamı kabul edilmiş olacaktı. Kapsam dışında kalan ikisi, oy dağılımı kayıtlı olmayan kapalı oturum vetolarıdır. Sayım, "
+             "istenen kayıt üzerinde yeniden yapılabilmektedir."],
         ],
     },
     "en": {
@@ -272,28 +275,34 @@ BEKLENEN = {
                   "Its starting point is a statement made in 2019 by President Recep Tayyip Erdoğan of Türkiye."),
         "adimlar": [
             ["five of the fifteen members, permanent",
-             "The Security Council has fifteen members. Five of them are permanent members and hold a power the others lack: with a single "
-             "negative vote, any one of them can defeat any decision other than a procedural one. This power is called the veto."],
+             "The United Nations Security Council is composed of fifteen members, five of which hold permanent seats. The permanent "
+             "members are vested with a power that the other members do not possess: any decision on a non-procedural matter is "
+             "defeated by the negative vote of a single permanent member. This power is referred to as the veto."],
             ["decisions, from 1946 to today",
-             "This is the number of draft resolutions that have failed on the negative votes of permanent members since the Council was "
-             "established. In the grid below, each square is one negative vote; all eighty years can be seen at a glance."],
+             "This figure represents the total number of draft resolutions that have not been adopted owing to the negative votes of "
+             "permanent members since the establishment of the Council. In the grid below, each square represents one negative vote, "
+             "so that the entire period of eighty years may be viewed at a glance."],
             ["all of the permanent members",
-             "All five permanent members have used the veto. The distribution changes from period to period: the Soviet Union stands out in "
-             "the early years of the Cold War, the United States from the 1970s onwards, and Russia and China in the last fifteen years."],
+             "The veto has been exercised by all five permanent members. Its distribution has varied from one period to another: the "
+             "Soviet Union stands out in the early years of the Cold War, the United States from the 1970s onwards, and the Russian "
+             "Federation and China over the past fifteen years."],
             ["decisions, on a single negative vote",
-             "In each of these cases, every other member of the Council voted in favour; the draft still failed, because the only country "
-             "voting against was a permanent member. Twenty-seven of them were voted on in the eleven-member Council before 1966."],
+             "In each of these cases, all other members of the Council voted in favour; the draft was nevertheless not adopted, since "
+             "the sole negative vote had been cast by a permanent member. Twenty-seven of these votes took place in the eleven-member "
+             "Council of the period before 1966."],
             ["the Asia-Pacific Group’s share of the population of UN Member States",
-             "The Council’s current distribution of seats was set in 1963 and has not changed since. Over the same period the African Group’s "
-             "share of the population of UN Member States has doubled. The Asia-Pacific Group, home to more than half of the population of "
-             "UN Member States, holds three of the fifteen seats. The fifty-four-member African Group holds no permanent seat."],
+             "The current distribution of seats in the Council was determined in 1963 and has remained unchanged since. Over the same "
+             "period, the share of the African Group in the population of UN Member States has doubled. The Asia-Pacific Group, which "
+             "accounts for more than half of the population of UN Member States, holds three of the fifteen seats, whereas the "
+             "fifty-four-member African Group holds no permanent seat."],
             ["vetoes debated in the General Assembly since April 2022",
-             "Under a resolution adopted in April 2022, of which Türkiye was one of the original sponsors, the General Assembly now meets "
-             "after every veto. Every veto cast since then has been debated; the vetoing country took the floor in fifteen of the fifteen "
-             "veto initiative debates."],
+             "Pursuant to a resolution adopted in April 2022, of which Türkiye was one of the original sponsors, the General Assembly "
+             "now convenes after every veto. All vetoes cast since that date have been debated; the vetoing member took the floor in "
+             "fifteen of the fifteen veto initiative debates."],
             ["decisions, out of 266",
-             "Had there been no veto, and had members kept the votes on record, almost all of the failed drafts would have been adopted. The "
-             "two left out are private-meeting vetoes, for which no vote count is on record. You can run the count yourself on any record."],
+             "In the absence of the veto, and provided that members had maintained the votes on record, almost all of the drafts that "
+             "were not adopted would have been adopted. The two excluded are private-meeting vetoes, for which no vote count is on "
+             "record. The count may be repeated on any record."],
         ],
     },
 }
@@ -419,10 +428,10 @@ def test_terim_istisnasi_yalniz_adim_metinlerinde():
         for satir in blok.splitlines():
             if re.search(terim, satir) and not satir.lstrip().startswith("//"):
                 assert ADIM_ANAHTARI.match(satir), satir.strip()[:120]
-    assert len(re.findall(r"\blehte oy\b", SAYFA)) == 1
-    assert re.search(r'"4\.metin": \(\{ n11, yil, boy \}\) => `Bu kararların her birinde Konseyin diğer bütün üyeleri lehte oy kullandı;', BETIK)
+    assert len(re.findall(r"\blehte oy\b", SAYFA)) == 0  # 23 Ekim 2026: 4. adım da resmî dilde, "olumlu oy kullanmış"
+    assert re.search(r'"4\.metin": \(\{ n11, yil, boy \}\) => `Söz konusu kararların her birinde Konseyin diğer bütün üyeleri olumlu oy kullanmış,', BETIK)
     # Adımların dışında terim "öneri" / "proposals"
-    assert "vetoyla düşen ${n} öneri" in tr and "${n} proposals blocked by the veto" in en
+    assert "veto nedeniyle kabul edilemeyen ${n} öneri" in tr and "${n} proposals not adopted owing to the veto" in en
     for ad in ("sayfaAciklamasi", "giris1", "kesfet"):
         satir = next(x for x in tr.splitlines() if x.strip().startswith(ad + ":"))
         assert "karar" not in satir, satir
@@ -450,9 +459,9 @@ def test_ucuncu_adim_donemleri_veriyle_tutarli():
     for bas, son in ((1970, 1991), (1970, son_yil - 15)):
         assert sira(bas, son)[0] == "USA", (bas, son, sira(bas, son))
     assert set(sira(son_yil - 14, son_yil)[:2]) == {"RUS", "CHN"}, sira(son_yil - 14, son_yil)
-    assert "Soğuk Savaş’ın ilk yıllarında Sovyetler Birliği, 1970’lerden sonra ABD, son on beş yılda Rusya ve Çin öne çıkar." in BETIK
-    assert ("the Soviet Union stands out in the early years of the Cold War, the United States from the 1970s onwards, and Russia and "
-            "China in the last fifteen years.") in BETIK
+    assert "Soğuk Savaş’ın ilk yıllarında Sovyetler Birliği, 1970’lerden itibaren ABD, son on beş yılda ise Rusya Federasyonu ve Çin öne çıkmaktadır." in BETIK
+    assert ("the Soviet Union stands out in the early years of the Cold War, the United States from the 1970s onwards, and the Russian "
+            "Federation and China over the past fifteen years.") in BETIK
 
 
 def test_birinci_adim_koltuk_kodlari():

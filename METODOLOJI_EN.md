@@ -13,8 +13,8 @@ A formal veto is a permanent member’s negative vote on a draft resolution that
 have received the required votes. The main source is the Dag Hammarskjöld Library veto list
 (for 1946–2004 based on UN document A/58/47, Annex III).
 
-Drafts that were never put to the vote, or were watered down, under a veto threat have not been
-added yet. If they are added, they will be kept apart and not counted as vetoes.
+Drafts that were never put to the vote, or were watered down, under a veto threat have not yet been
+added. Should they be added, they will be kept apart and not counted as vetoes.
 
 Cases where the Council took no decision in a crisis, as in Rwanda in 1994, are not counted as vetoes
 either.
@@ -22,7 +22,7 @@ either.
 ## 2. Counting rules
 
 The “number of vetoes” is calculated in two ways, and both are always given together. The count
-by draft is the number of draft resolutions that failed because of a veto. The count by vote is
+by draft is the number of draft resolutions not adopted owing to a veto. The count by vote is
 the number of negative votes cast; if two members vetoed one draft, it counts as 2. The 2 vetoes cast in private meetings on the
 appointment of the Secretary-General count as proposals but not as negative votes, so the total
 is 322 negative votes, not 324. Council size:
@@ -56,7 +56,7 @@ source, the “oral amendment” entry and the “kismi” column of `duzeltmele
 In the open data the flag is the `kismi_veto_suphesi` column; `True` marks a partial veto.
 Of the 31 partial vetoes, 16 come from the membership vote of 13 December 1955. In 14 of them the
 Council voted one by one on the country names in the second preambular paragraph of the draft of Brazil and
-New Zealand (S/3502); 13 words failed on the negative vote of the USSR and “Mongolian People’s
+New Zealand (S/3502); 13 words were not adopted on the negative vote of the USSR, and “Mongolian People’s
 Republic” on that of the Republic of China (S/PV.704, paras. 54 and 57–72). The definition also
 covers the words and paragraphs of a draft voted on separately; this is consistent with the scope
 of Part II of A/58/47 Annex III (“Paragraphs of draft resolutions or amendments thereto not adopted
@@ -229,7 +229,7 @@ adoption meeting; as Timor-Leste appears on both lists, the total number of spon
 A/76/PV.69, pp. 7–8). Among the permanent members, the United States was one of the original sponsors, and
 France and the United Kingdom joined later; China and the Russian Federation are on neither list. Türkiye is
 one of the original sponsors (listed as “Turkey”), and in its statement after the adoption its representative
-said that Türkiye had been in the core group of the initiative since its start two years earlier (A/76/PV.69,
+stated that Türkiye had been in the core group of the initiative since its start two years earlier (A/76/PV.69,
 p. 20). Page numbers are PDF pages of the documents.
 
 Debates are kept separately from vetoes in `kaynaklar/genel_kurul_tartismalari.csv`. One debate
@@ -436,11 +436,11 @@ changed, added or guessed. Only records in the dataset can be selected; no hypot
 entered, and the page does not favour any model. When the 20-member Council of the book is selected, the computation still
 relies only on the recorded votes, and the ratio of the selected threshold is kept: the current
 majority rule of 9 out of 15 becomes 12 out of 20, two thirds 14 and a simple majority 11. If the
-recorded yes votes alone meet this threshold, the outcome is “would have been adopted”; if not, the
-outcome is given as “depends on the new members’ votes”, together with the minimum number of yes
-votes needed from the 5 (before 1966, 9) members not on record. The votes of these members are not
-guessed; a record that would not reach the threshold even if all of them voted yes is counted as
-“would not have been adopted”. The figures in the aggregate view are computed from the dataset when
+recorded votes in favour alone meet this threshold, the outcome is “would have been adopted”; if not, the
+outcome is given as “depends on members not on record”, together with the minimum number of votes in
+favour needed from the 5 (before 1966, 9) members not on record. The votes of these members are not
+guessed; a record that would not reach the threshold even if all of them voted in favour is counted as
+“no majority, would not have been adopted”. The figures in the aggregate view are computed from the dataset when
 the page loads. The box comparing the other models uses the provisions of the documents in 2.8; the paragraph
 relied on for each is given in the box.
 
@@ -474,6 +474,6 @@ can be seen in the history of the public repository.
 
 ## 7. Next stage
 
-Case studies of selected vetoes and humanitarian data (casualties, displacement, access to aid) have not
-been added yet. When they are, the selection criterion is stated for each case, and humanitarian data are
+Case studies of selected vetoes and humanitarian data (casualties, displacement, access to aid) have not yet
+been added. When they are, the selection criterion is stated for each case, and humanitarian data are
 taken only from figures published by UN agencies and recognised independent institutions.

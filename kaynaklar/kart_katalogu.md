@@ -10,7 +10,7 @@ sayıları yeniden hesaplayıp karşılaştırır. Kartlarda ve bu katalogda de�
 kullanılmaz; sayılar ve kaynaklar verilir. Kartın metni en fazla iki cümledir: ana cümle düz, ihtiyat
 (kapsam dışı kayıtlar, sayım kuralı) ikinci cümlede. Kart 02 ve 03'te ikinci bilgi cümlede değil,
 görselin altındaki notta durur; aynı bilgi kartta iki kez geçmez. Tarih ve kaynak alt bilgidedir,
-cümlede değil. Pay paydaya eşitse metin "hepsi" der ("22 önerinin hepsi"). Sayı kartlarının sağ yarısında (kare sürümde
+cümlede değil. Pay paydaya eşitse metin "tamamı" der ("22 önerinin tamamı"). Sayı kartlarının sağ yarısında (kare sürümde
 sayının altında) kartın verisini gösteren sade bir görsel vardır; ana grafiğin diliyle çizilir (kare
 = bir kayıt, kesikli çerçeve = kapalı oturum, üye renkleri ana sayfadakiyle aynı). Alıntı kartlarında
 görsel yoktur. Kartta üst bant yoktur (üst boşluk 48 px); kimlik alt bilgideki işaret ve çizgidir. Alt
@@ -27,8 +27,8 @@ grafik büyük sayı ile alt çizgi arasındaki alanı doldurur. Görselde açı
 Aşağıdaki sayılar 20 Ekim 2026 tarihli veri setine (son kayıt 17 Eylül 2026) aittir.
 
 ## kart-01-vetosuz — 264 / 266
-- **Kart metni:** Veto ile düşen 266 önerinin 264'ü, veto olmasaydı kayıtlı oylarla kabul edilmiş
-  olurdu. Kalan 2 veto kapalı oturumda verildi, oyları kayıtlı değil.
+- **Kart metni:** Veto nedeniyle kabul edilemeyen 266 önerinin 264'ü, veto olmasaydı kayıtlı oylarla
+  kabul edilmiş olacaktı. Kalan 2 veto kapalı oturumda kullanılmış olup oy dağılımları kayıtlı değildir.
 - **Görsel:** 266 kare (19 × 14); 264 dolu, 2 kesikli çerçeveli boş (kapalı oturum).
 - **Dayanak:** Veri setindeki 266 kaydın oy dağılımları (kaynak: scprocedure Tablo 4 ve toplantı
   kayıtları, `METODOLOJI.md` 2.2).
@@ -36,43 +36,45 @@ Aşağıdaki sayılar 20 Ekim 2026 tarihli veri setine (son kayıt 17 Eylül 202
   tarihindeki çoğunluk eşiğiyle (15 üyede 9, 1966 öncesi 11 üyede 7) karşılaştırılır. 264'ünde lehte
   oy eşiğe ulaşır. Kayıtlı oyların değişmeyeceği varsayılır; veto tehdidiyle oylanmayan taslaklar
   kapsam dışıdır (`web/simulasyon.html`, "Sınırlar").
-- **Paylaşım cümlesi (TR):** Veto ile düşen 266 önerinin oy dağılımı kayıtlı 264'ü, veto olmasaydı
-  kayıtlı oylarla kabul edilmiş olurdu.
-- **Paylaşım cümlesi (EN):** Of the 266 vetoed proposals, 264 with a recorded vote breakdown would
-  have been adopted on the recorded votes in a Council without a veto.
+- **Paylaşım cümlesi (TR):** Veto nedeniyle kabul edilemeyen 266 önerinin oy dağılımı kayıtlı 264'ü, veto
+  olmasaydı kayıtlı oylarla kabul edilmiş olacaktı.
+- **Paylaşım cümlesi (EN):** Of the 266 proposals not adopted owing to a veto, 264 with a recorded vote
+  breakdown would have been adopted on the recorded votes in a Council without a veto.
 
 ## kart-02-tek-ret — 55
-- **Kart metni:** 55 öneri, Konseyin öbür bütün üyeleri lehte oy verirken tek bir ret oyuyla düştü.
+- **Kart metni:** 55 öneri, Konseyin diğer bütün üyeleri olumlu oy kullanmış olmasına rağmen tek bir ret
+  oyu nedeniyle kabul edilememiştir.
 - **Görsel:** 15 kare (16 px, 6 px ara; sitedeki oy kareleri gibi); 14 lehte renginde, 1 vurgu
   renginde (ret). Altında not: Bunların 27'si 1966'dan önce, Konsey 11 üyeliyken ona karşı bir oyla
-  düştü.
+  kabul edilememiştir.
 - **Dayanak:** Oy dağılımları (lehte = Konsey büyüklüğü − 1, aleyhte = 1).
 - **Hesap:** `lehte + 1 == konsey_buyuklugu` ve `aleyhte == 1` olan kayıtlar; Konsey büyüklüğü
   1966 öncesi 11, sonrası 15. Ana sayfadaki özet cümlesi ve vizyon sayfasındaki "On dörde karşı
   bir" galerisi aynı kuralı kullanır.
-- **Paylaşım cümlesi (TR):** 55 öneri, Konseyin öbür bütün üyeleri lehte oy verirken tek bir ret
-  oyuyla düştü.
-- **Paylaşım cümlesi (EN):** 55 proposals failed on a single negative vote while every other member
-  of the Council voted in favour.
+- **Paylaşım cümlesi (TR):** 55 öneri, Konseyin diğer bütün üyeleri olumlu oy kullanmış olmasına rağmen
+  tek bir ret oyu nedeniyle kabul edilememiştir.
+- **Paylaşım cümlesi (EN):** 55 proposals were not adopted on a single negative vote, although every
+  other member of the Council voted in favour.
 
 ## kart-03-genel-kurul — 22 / 22
-- **Kart metni:** Nisan 2022'den bu yana veto ile düşen 22 önerinin hepsi Genel Kurulda görüşüldü.
-- **Görsel:** 22 kare (2 × 11, hepsi dolu); altında 15 küçük mürekkep renkli kare ve not: Veto eden
-  ülke 15 tartışmanın hepsinde söz aldı.
+- **Kart metni:** Nisan 2022'den bu yana veto nedeniyle kabul edilemeyen 22 önerinin tamamı Genel Kurulda
+  görüşülmüştür.
+- **Görsel:** 22 kare (2 × 11, hepsi dolu); altında 15 küçük mürekkep renkli kare ve not: Vetoyu
+  kullanan ülke 15 tartışmanın tamamında söz almıştır.
 - **Dayanak:** `kaynaklar/genel_kurul_tartismalari.csv` (toplantı kayıtları A/…/PV ve BM Günlüğü;
   `METODOLOJI.md` 2.5). Görüşmeler 15 veto girişimi tartışması ve 6 olağanüstü özel oturum
   toplantısında yapıldı; söz alma sayımı yalnızca veto girişimi tartışmalarını kapsar.
 - **Hesap:** Tarihi 2022-04-26 ve sonrası olan kayıtlar; `gk.durum == "yapildi"` olanlar; veto
   girişimi tartışmalarında `veto_eden_konustu` alanı her veto eden üye için "hayir" olmayanlar.
   Üç tartışmada (2025-10-01, 2026-04-16, 2026-10-01) sayım tutanak yerine BM Günlüğü'nden.
-- **Paylaşım cümlesi (TR):** Nisan 2022'den bu yana her veto Genel Kurulda görüşüldü; veto eden
-  ülke 15 tartışmanın hepsinde söz aldı.
+- **Paylaşım cümlesi (TR):** Nisan 2022'den bu yana her veto Genel Kurulda görüşülmüştür; vetoyu
+  kullanan ülke 15 tartışmanın tamamında söz almıştır.
 - **Paylaşım cümlesi (EN):** Every veto since April 2022 has been debated in the General Assembly;
   the vetoing country spoke in all 15 veto initiative debates.
 
 ## kart-04-besi-de — 322
-- **Kart metni:** 1946'dan bu yana 322 ret oyu; beş daimî üyenin hepsi veto kullandı. Kapalı
-  oturumdaki 2 veto üye toplamına girmez.
+- **Kart metni:** 1946'dan bu yana 322 ret oyu kullanılmış olup beş daimî üyenin tamamı vetoya
+  başvurmuştur. Kapalı oturumdaki 2 veto üye toplamlarına dâhil değildir.
 - **Görsel:** Üye başına yatay çubuk, üye renkleriyle ve sayısıyla: Sovyetler Birliği 114, Rusya
   Federasyonu 43, ABD 94, Birleşik Krallık 30, Fransa 18, Çin 23.
 - **Dayanak:** Veri setindeki `veto_eden_uyeler` alanı; kapalı oturumdaki 2 veto üye toplamına
@@ -80,13 +82,13 @@ Aşağıdaki sayılar 20 Ekim 2026 tarihli veri setine (son kayıt 17 Eylül 202
   Çin Cumhuriyeti'ne aittir (1 veto, 13 Aralık 1955).
 - **Hesap:** Kapalı oturum dışı kayıtlarda üye başına ret oyu sayısı; çubuk uzunluğu en yüksek
   üyeye (114) göre orantılıdır.
-- **Paylaşım cümlesi (TR):** 1946'dan bu yana 322 ret oyu: beş daimî üyenin hepsi veto kullandı.
+- **Paylaşım cümlesi (TR):** 1946'dan bu yana 322 ret oyu: beş daimî üyenin tamamı vetoya başvurmuştur.
 - **Paylaşım cümlesi (EN):** 322 negative votes since 1946: all five permanent members have used the
   veto.
 
 ## kart-05-konular — 4 konu
-- **Kart metni:** Dört konuda en çok ret oyu kullanan üye ve konudaki bütün ret oyları. Yalnızca
-  kaydın ana konusu sayılır.
+- **Kart metni:** Dört konuda en çok ret oyu kullanan üye, konudaki bütün ret oylarıyla birlikte
+  gösterilmektedir. Sayımda yalnızca kaydın ana konusu esas alınmaktadır.
 - **Görsel:** Dört kısa çubuk, üye renginde ve sayısıyla (Filistin – ABD 42, Suriye – Rusya
   Federasyonu 18, Güney Afrika – Birleşik Krallık 24, Üyelik başvuruları – Sovyetler Birliği 51);
   arkasındaki açık çubuk konudaki bütün ret oylarıdır ve ucunda ikincil renkte yazar (/ 53, / 28,
@@ -134,8 +136,8 @@ Aşağıdaki sayılar 20 Ekim 2026 tarihli veri setine (son kayıt 17 Eylül 202
   September 2019, p. 6.
 
 ## kart-09-asya-pasifik — %57,8
-- **Kart metni:** Asya-Pasifik Grubunun 54 üyesi BM üyeleri nüfusunun %57,8'ini oluşturuyor; Güvenlik
-  Konseyinin 15 koltuğundan 3'ü (%20,0) bu grupta, bunun 1'i daimî.
+- **Kart metni:** Asya-Pasifik Grubunun 54 üyesi, BM üyesi devletlerin nüfusunun %57,8'ini oluşturmaktadır;
+  Güvenlik Konseyinin 15 koltuğundan 3'ü (%20,0) bu gruba ait olup bunların 1'i daimî koltuktur.
 - **Alt bilgi:** WPP 2024, Konsey 2026. Kart 09–11'in alt bilgisi yalnız kartta gösterilen ölçülerin kaynağını sayar.
 - **Dayanak:** `data/processed/temsil.json` (ASP): nüfus payı 2023, koltuk (1 daimî + 2 seçilmiş) / 15
   (`METODOLOJI.md` 2.9; girdiler `kaynaklar/temsil/`).
@@ -149,8 +151,8 @@ Aşağıdaki sayılar 20 Ekim 2026 tarihli veri setine (son kayıt 17 Eylül 202
   Council seats (1 permanent).
 
 ## kart-10-afrika — 0 / 5
-- **Kart metni:** Afrika Grubunun 54 üyesi barış gücü üniformalı personelinin %37,9'unu sağlıyor.
-  Konseyde 3 seçilmiş koltuğu var, daimî koltuğu yok.
+- **Kart metni:** Afrika Grubunun 54 üyesi, barış gücü üniformalı personelinin %37,9'unu sağlamaktadır.
+  Grubun Konseyde 3 seçilmiş koltuğu bulunmakta, daimî koltuğu bulunmamaktadır.
 - **Dayanak:** `temsil.json` (AFR): personel payı (31 Temmuz 2026 sıralaması, üniformalı personel: asker,
   polis, uzman, karargâh subayı), bütçe payı (2025–2027 ölçeği), koltuk 0 daimî + 3 seçilmiş.
 - **Hesap:** `scripts/09_temsil.py`; büyük sayı daimî koltuk / 5.
@@ -164,8 +166,8 @@ Aşağıdaki sayılar 20 Ekim 2026 tarihli veri setine (son kayıt 17 Eylül 202
   scale, 0 permanent seats.
 
 ## kart-11-p5 — 5 / 5
-- **Kart metni:** Beş daimî üye BM üyeleri nüfusunun %25,6'sını oluşturuyor, olağan bütçenin %51,9'unu
-  ödüyor ve Konseyin 15 koltuğundan 5'ini tutuyor.
+- **Kart metni:** Beş daimî üye, BM üyesi devletlerin nüfusunun %25,6'sını oluşturmakta, olağan bütçenin
+  %51,9'unu karşılamakta ve Konseyin 15 koltuğundan 5'ini elinde bulundurmaktadır.
 - **Dayanak:** `temsil.json` (P5 kümesi): nüfus payı 2023 (193 üyenin toplamında), bütçe payı, koltuk
   5 daimî / 15.
 - **Hesap:** `scripts/09_temsil.py`; test P5 nüfus payını elle yazılmış beş nüfusla doğrular

@@ -1,7 +1,7 @@
 # Metodoloji
 
-Sitedeki her sayı bu sayfadaki kurallara dayanır. Bir kural değişirse değişiklik tarihiyle
-bu sayfaya yazılır.
+Sitedeki her sayı bu sayfadaki kurallara dayanmaktadır. Bir kuralın değişmesi hâlinde değişiklik,
+tarihiyle birlikte bu sayfaya işlenir.
 
 ## 1. Kategoriler
 
@@ -11,18 +11,18 @@ Resmî veto, bir daimî üyenin aksi hâlde gerekli oyu almış bir karar tasla�
 vermesidir. Ana kaynak Dag Hammarskjöld Kütüphanesi veto listesidir (1946–2004 dönemi
 BM belgesi A/58/47, Ek III’e dayanır).
 
-Veto tehdidi yüzünden oylamaya sunulmayan ya da yumuşatılan taslaklar henüz eklenmedi.
-Eklenirlerse ayrı tutulur ve veto sayısına katılmaz.
+Veto tehdidi nedeniyle oylamaya sunulmayan ya da yumuşatılan taslaklar henüz eklenmemiştir.
+Eklenmeleri hâlinde ayrı tutulur ve veto sayısına katılmaz.
 
 Konseyin 1994’te Ruanda’da olduğu gibi bir kriz karşısında karar almadığı durumlar da veto sayılmaz.
 
 ## 2. Sayım kuralları
 
 “Veto sayısı” iki biçimde hesaplanır ve her yerde ikisi birlikte verilir.
-Taslak bazında sayım, veto ile düşen karar taslaklarının sayısıdır. Oy bazında
+Taslak bazında sayım, veto nedeniyle kabul edilemeyen karar taslaklarının sayısıdır. Oy bazında
 sayım, kullanılan ret oylarının sayısıdır; bir taslağı iki üye veto ettiyse 2
 sayılır. Genel Sekreter seçimi için kapalı oturumda kullanılan 2 veto öneri sayısına girer, ret oyu
-sayısına girmez; bu yüzden ret oyu toplamı 324 değil 322’dir. Konsey büyüklüğü: 1963 Şart değişikliğinin yürürlüğe girdiği 31 Ağustos 1965’e kadar
+sayısına girmez; bu nedenle ret oyu toplamı 324 değil 322’dir. Konsey büyüklüğü: 1963 Şart değişikliğinin yürürlüğe girdiği 31 Ağustos 1965’e kadar
 on bir üye ve yedi olumlu oy kuralı; sonrasında on beş üye ve dokuz oy. 31 Ağustos 1965 ile
 1965 sonu arasında veto kullanılmadığı için veri seti 1966 öncesi kayıtları on bir üyeli Konseye
 sayar (“on dörde karşı bir” galerisinde “ona karşı bir”, simülasyon sayfasında eşik 7). “On dörde karşı bir” sayımı,
@@ -50,9 +50,9 @@ Kısmi veto, taslağın bütünü yerine bir değişiklik önergesine ya da tasl
 (paragraf, cümle, kelime) yapılan ayrı oylamada kullanılan ret oyudur. Kaynaktaki yıldız,
 “oral amendment” kaydı ve `duzeltmeler.csv` “kismi” sütunu bu işareti koyar. Açık veride işaret
 `kismi_veto_suphesi` sütunundadır; `True` kısmi vetoyu gösterir. 31 kısmi vetonun 16’sı 13 Aralık
-1955’teki üyelik oylamasından gelir. Bunların 14’ünde Konsey, Brezilya ve Yeni Zelanda’nın S/3502
-taslağının ikinci giriş paragrafındaki ülke adlarını tek tek oyladı; 13 kelime SSCB’nin,
-“Mongolian People’s Republic” Çin Cumhuriyeti’nin ret oyuyla düştü (S/PV.704, par. 54 ve 57–72).
+1955’teki üyelik oylamasından gelmektedir. Bunların 14’ünde Konsey, Brezilya ve Yeni Zelanda’nın S/3502
+taslağının ikinci giriş paragrafındaki ülke adlarını tek tek oylamıştır; 13 kelime SSCB’nin,
+“Mongolian People’s Republic” ise Çin Cumhuriyeti’nin ret oyuyla kabul edilememiştir (S/PV.704, par. 54 ve 57–72).
 Tanım, bir taslağın ayrı ayrı oylanan kelime ve paragraflarını da kapsar; bu, A/58/47 Annex III’ün
 II. kısmının (“Paragraphs of draft resolutions or amendments thereto not adopted owing to the
 negative vote of a permanent member”) kapsamıyla uyumludur: o kısım da bu oylamaları
@@ -94,13 +94,13 @@ değişiklik vetosu aynı toplantıdaki ABD vetosundan önce oylanmıştır (tab
 değişiklik). Tablo gün içi sırayı hangi kurala göre verdiğini belirtmediği için bu bir hata
 sayılmaz. Kayıt kimlikleri 2.3’teki Kural 2 gereği değiştirilmez; toplantıdaki sıra notlarda yazılıdır.
 
-DHL listesi 1946–2004 verisini A/58/47 Annex III’ten aldığını yazar. Bu 17 veto o ekin Part II
+DHL listesi 1946–2004 verisini A/58/47 Annex III’ten aldığını belirtmektedir. Bu 17 veto o ekin Part II
 bölümünde (paragraf ve değişiklik önergesi vetoları) vardır ve liste aynı bölümdeki başka
 satırları içerir; dolayısıyla yokluk bir kapsam farkı değil, eksikliktir ve hata bildirimine
 alınmıştır (`kaynaklar/KAYNAKLAR.md`, “DHL listesinin kapsamı”).
 
 İki kaynağın tarihleri yedi vetoda farklıdır. Bu farklar silinmez. Oylama günü toplantı
-kaydından belirlenir ve doğru tarihi hangi kaynak veriyorsa kayıtta o kullanılır; öbür
+kaydından belirlenir ve doğru tarihi hangi kaynak veriyorsa kayıtta o kullanılır; diğer
 kaynağın tarihi notlarda kalır. Referans kaynağın kendi iç tutarsızlıkları
 (`kaynaklar/KAYNAKLAR.md`) da aynı şekilde belgelenir.
 
@@ -206,15 +206,15 @@ sunar. Bu tarihten önceki vetolar bu bölümün kapsamı dışındadır; arayü
 gösterilmez.
 
 A/RES/76/262, Genel Kurulun 26 Nisan 2022’deki 69. genel kurul toplantısında oylama yapılmadan
-kabul edildi (A/76/PV.69, s. 8). Karara göre veto kullanan daimî üye ya da üyelere konuşmacı
+kabul edilmiştir (A/76/PV.69, s. 8). Karara göre veto kullanan daimî üye ya da üyelere konuşmacı
 listesinde öncelik tanınır; Güvenlik Konseyi tartışmadan en az 72 saat önce Genel Kurula özel
 rapor sunmaya davet edilir; Genel Kurulun gündemine “Use of the veto” (vetonun kullanılması)
-maddesi eklenmiştir (par. 1–4). Taslağın 57 sunucusu vardı, kabul toplantısında 27 delegasyon daha
-sunucu oldu; Timor-Leste iki listede de yer aldığından toplam sunucu sayısı 83’tür (A/76/L.52;
+maddesi eklenmiştir (par. 1–4). Taslağın 57 sunucusu bulunmakta olup kabul toplantısında 27 delegasyon daha
+sunucu olmuştur; Timor-Leste iki listede de yer aldığından toplam sunucu sayısı 83’tür (A/76/L.52;
 A/76/PV.69, s. 7–8). Daimî üyelerden ABD ilk sunucular arasında, Fransa ve Birleşik Krallık sonradan
 sunucu olanlar arasındadır; Çin ve Rusya Federasyonu iki listede de yer almaz. Türkiye ilk sunucular
 arasındadır (belgede “Turkey”) ve temsilcisi kabulden sonraki açıklamasında Türkiye’nin iki yıl önceki
-başlangıcından bu yana girişimin çekirdek grubunda yer aldığını söyledi (A/76/PV.69, s. 20). Sayfa
+başlangıcından bu yana girişimin çekirdek grubunda yer aldığını ifade etmiştir (A/76/PV.69, s. 20). Sayfa
 numaraları belgelerin PDF sayfalarıdır.
 
 Tartışmalar `kaynaklar/genel_kurul_tartismalari.csv` dosyasında, vetolardan ayrı tutulur. Bir
@@ -293,16 +293,16 @@ doğrulanamazsa `04_web_verisi.py` durur ve testler (`tests/test_alintilar.py`) 
 - 2022–2026 hitapları: derlemenin İngilizce bölümü.
 - 2019 hitabı: İletişim Başkanlığının İngilizce kitapçığı. Kitapçık konuşmanın hazırlanmış metnidir. Kürsüde
   eklenen ve kitapçıkta bulunmayan pasajın (2019-2) İngilizcesi BM’nin İngilizce toplantı kaydından
-  (A/74/PV.3) alınır. Konuşma Türkçe yapıldı; kayıttaki İngilizce, delegasyonun verdiği tercümedir.
+  (A/74/PV.3) alınır. Konuşma Türkçe yapılmış olup kayıttaki İngilizce, delegasyonun verdiği tercümedir.
 - Kitap: İngilizce baskı *A Fairer World is Possible* (Turkuvaz Kitap, 2021), İngilizce bölüm başlığıyla. İngilizce baskının PDF’i bir taramadır ve metin katmanı OCR’dır. Bu yüzden
-  alıntıların geçtiği sayfalar sayfa görüntüsüyle karşılaştırıldı. OCR’ın görüntüden farklı okuduğu tek yer
+  alıntıların geçtiği sayfalar sayfa görüntüsüyle karşılaştırılmıştır. OCR’ın görüntüden farklı okuduğu tek yer
   (s. 32’de kısa tire) görüntüdeki gibi düzeltilerek aranır (`kaynaklar/KAYNAKLAR.md`).
 
 Resmî İngilizcesi bulunamayan alıntıda İngilizce sayfada Türkçe özgün metin kalır ve altına “Unofficial
 translation by Veto Atlas” etiketli bir çeviri eklenir. Bu çeviri bir kaynağa karşı doğrulanmaz. Bugün bütün
-alıntıların resmî İngilizcesi var.
+alıntıların resmî İngilizcesi bulunmaktadır.
 
-Söz ve Kayıt sayfası (`web/vizyon.html`) her alıntının yanına veri setinden hesaplanan bir karşılık koyar. Sayılar sayfa
+Söz ve Kayıt sayfası (`web/vizyon.html`) her alıntının yanına veri setinden hesaplanan bir karşılık koymaktadır. Sayılar sayfa
 açılırken hesaplanır; alıntı ile sayı arasında neden-sonuç ilişkisi kurulmaz. “Ekim 2023 sonrası
 Gazze ile ilgili vetolar”, oylama günü 7 Ekim 2023 ya da sonrası olan ve taslak metninde “Gaza”
 sözcüğü geçen vetolardır (`kaynaklar/gazze_taslaklari.md`).
@@ -320,7 +320,7 @@ Veto girişimi tartışmalarındaki delegasyon sayıları 2.5’teki sayım kura
 ### 2.8. Reform modelleri
 
 Reform modelleri sayfası (`web/reform.html`), Güvenlik Konseyi reformu için dört modeli aynı altı ölçütle
-yan yana verir: modeli kimin sunduğu, toplam üye sayısı, yeni daimî üye, vetonun kimde olduğu, karar için gereken
+yan yana sunmaktadır: modeli kimin sunduğu, toplam üye sayısı, yeni daimî üye, vetonun kimde olduğu, karar için gereken
 oy ve Genel Kurul ile ilişki. Modeller
 Ezulwini Uzlaşısı (Ext/EX.CL/2 (VII); A/59/L.67), G4 (A/59/L.64), Uzlaşı için Birlik (A/59/L.68) ve
 “Daha Adil Bir Dünya Mümkün” kitabıdır; belgelerin tarih sırasıyla verilir. Karşılaştırma birincil
@@ -331,7 +331,7 @@ başlığıyla künyelenir; tablodaki dayanak da bölüm başlığıdır. Sayfa 
 
 ### 2.9. Temsil endeksi
 
-`web/temsil.html`, BM bölgesel grupları için beş payı yan yana gösterir; hesap `scripts/09_temsil.py`,
+`web/temsil.html`, BM bölgesel grupları için beş payı yan yana göstermektedir; hesap `scripts/09_temsil.py`,
 girdiler `kaynaklar/temsil/*.csv`, çıktı `data/processed/temsil.json`. Veto veri setine hiçbir şey
 eklenmez; bileşik puan ya da sıralama yoktur.
 
@@ -366,7 +366,7 @@ eklenmez; bileşik puan ya da sıralama yoktur.
   Regional groups of Member States, un.org/dgacm/en/content/regional-groups; bütçe ölçeği: Committee on
   Contributions, `Scale of Assessments for RB 1946-2027.xlsx` (A/RES/79/249, 24 Aralık 2024); barış gücü: UN Peace
   and Security Data Hub, Latest Uniformed Personnel Contribution By Country (DPO-UCLATEST), 31 Temmuz 2026,
-  psdata.un.org (peacekeeping.un.org’daki aylık sıralama PDF’i 28 Şubat 2026’dan sonra güncellenmedi; veri
+  psdata.un.org (peacekeeping.un.org’daki aylık sıralama PDF’i 28 Şubat 2026’dan sonra güncellenmemiştir; veri
   merkezinin 28 Şubat 2026 değerleri o PDF’le ülke ülke aynıdır); İİT üyeleri: oic-oci.org/en/members (57 üye); Konsey üyeleri: UN
   Security Council, Current Members, main.un.org/securitycouncil/en/content/current-members; seçilmiş koltuk
   dağılımı: A/RES/1991 (XVIII), 17 Aralık 1963. Barış gücü verisine erişim 21 Ekim 2026, ötekilere 10 Ekim 2026; künyeler ve SHA-256 değerleri
@@ -392,18 +392,18 @@ eklenmez; bileşik puan ya da sıralama yoktur.
   devlet ve anlaşmazlıklar yazılmaz; iki üye arasında tartışmalı Siachen Buzulu adsızdır
   (`kaynaklar/temsil/uye_olmayan_alanlar.csv`). Nüfus balonlarında dairenin alanı ülkenin 2023 nüfusuyla (WPP 2024) orantılıdır. Harita BM üyeliğini gösterir; sınırların ve adların gösterimi bir egemenlik görüşü
   bildirmez.
-- Sayfa payları verir; karşılaştırma ya da değerlendirme cümlesi kurmaz.
+- Sayfada yalnızca paylar verilir; karşılaştırma ya da değerlendirme cümlesi kurulmaz.
 
 ### 2.10. “Ya veto olmasaydı?” sayfası
 
-`web/simulasyon.html` bir veto kaydının kayıtlı oylarını iki sistemde sayar; hiçbir oy değiştirilmez,
+`web/simulasyon.html` bir veto kaydının kayıtlı oylarını iki sistemde saymaktadır; hiçbir oy değiştirilmez,
 eklenmez ya da tahmin edilmez. Yalnızca veri setindeki kayıtlar seçilebilir; varsayımsal bir öneri girilemez ve
 sayfa hiçbir modeli tercih etmez. Kitaptaki 20 üyeli Konsey seçildiğinde hesap yine yalnızca kayıtlı oylara
 dayanır ve seçili eşiğin oranı korunur: 15 üyede 9 olan mevcut çoğunluk kuralı 20 üyede 12, üçte iki 14,
-salt çoğunluk 11 oydur. Kayıtlı evet oyları bu eşiği tek başına karşılıyorsa sonuç “kabul edilirdi”dir;
-karşılamıyorsa sonuç “yeni üyelerin oyuna bağlı” olarak verilir ve kayıtta olmayan 5 (1966 öncesinde 9)
-üyeden en az kaçının evet demesi gerektiği yazılır. Bu üyelerin oyu tahmin edilmez; hepsi evet dese de
-eşiğe ulaşılamayan kayıt “düşerdi” sayılır. Toplu görünümdeki sayılar sayfa açılırken veri setinden
+salt çoğunluk 11 oydur. Kayıtlı olumlu oylar bu eşiği tek başına karşılıyorsa sonuç “kabul edilirdi”dir;
+karşılamıyorsa sonuç “kayıtta olmayan üyelere bağlı” olarak verilir ve kayıtta olmayan 5 (1966 öncesinde 9)
+üyeden en az kaçının olumlu oy kullanması gerektiği yazılır. Bu üyelerin oyu tahmin edilmez; tamamı olumlu oy
+kullansa da eşiğe ulaşılamayan kayıt “çoğunluk yok, kabul edilmezdi” sayılır. Toplu görünümdeki sayılar sayfa açılırken veri setinden
 hesaplanır. Diğer modellerle karşılaştırma kutusu 2.8’deki belgelerin hükümlerini kullanır; her birinin dayanak
 paragrafı kutuda yazılıdır.
 
@@ -436,6 +436,6 @@ dosyasına yazılır; değişikliklerin tamamı açık deponun geçmişinde gör
 
 ## 7. Sonraki aşama
 
-Seçilen vetolar için vaka analizleri ve insani veriler (kayıp, göç, yardım erişimi) henüz eklenmedi.
+Seçilen vetolar için vaka analizleri ve insani veriler (kayıp, göç, yardım erişimi) henüz eklenmemiştir.
 Eklendiklerinde her vakanın seçim ölçütü yazılır; insani veriler yalnızca BM ajanslarının ve tanınmış
 bağımsız kurumların yayımladığı rakamlardan alınır.

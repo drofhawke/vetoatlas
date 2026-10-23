@@ -96,10 +96,10 @@ def test_veto_sayilmayan_hayir_oylari_notu():
     """Aleyhte oy sayısı veto eden üye sayısından büyükse oy satırının altında tek cümle: öteki hayır oyları daimî olmayan
     üyelerindir, veto sayılmaz. Öteki hayır oyu tekse cümle tekildir. Bugünkü veride 88 kayıt (76'sında tek oy)."""
     v = oku("vetolar.html")
-    assert '"oy.digerHayir": "Öteki hayır oyları daimî olmayan üyelerindir; veto sayılmaz.",' in v
-    assert '"oy.digerHayir": "The other votes against were cast by non-permanent members and are not vetoes.",' in v
-    assert '"oy.digerHayir1": "Öteki hayır oyu daimî olmayan bir üyenindir; veto sayılmaz.",' in v
-    assert '"oy.digerHayir1": "The other vote against was cast by a non-permanent member and is not a veto.",' in v
+    assert '"oy.digerHayir": "Diğer hayır oyları daimî olmayan üyeler tarafından kullanılmış olup veto sayılmamaktadır.",' in v
+    assert '"oy.digerHayir": "The other negative votes were cast by non-permanent members and do not constitute vetoes.",' in v
+    assert '"oy.digerHayir1": "Diğer hayır oyu daimî olmayan bir üye tarafından kullanılmış olup veto sayılmamaktadır.",' in v
+    assert '"oy.digerHayir1": "The other negative vote was cast by a non-permanent member and does not constitute a veto.",' in v
     assert ('${a > k.uyeler.length ? `\n      <p>${t(a - k.uyeler.length === 1 ? "oy.digerHayir1" : "oy.digerHayir")}</p>` : ""}'
             in v)
     K = kayitlar()
@@ -118,9 +118,9 @@ def test_hakkinda_indirme_sozluk_cevrimdisi_ve_gizlilik():
         assert (WEB / "veri" / dosya).is_file(), dosya
     assert '<a href="veto-atlasi-tek-dosya.html">çevrimdışı sürüm</a>' in h and '<a href="veto-atlasi-tek-dosya.html?lang=en">offline version</a>' in h
     assert (WEB / "veto-atlasi-tek-dosya.html").is_file()
-    assert "Çerez ve ziyaretçi sayacı kullanmıyoruz." in h and "We use no cookies and no visitor tracking." in h
+    assert "Sitede çerez ve ziyaretçi sayacı kullanılmamaktadır." in h and "No cookies or visitor tracking are used." in h
     # Kurallar Hakkında'da tek cümleyle Metodoloji'ye bağlanır
-    assert 'Sayım, tarih, konu ve doğrulama kurallarını <a href="metodoloji.html">Metodoloji</a>’de numaralı bölümlerle yazdık.' in h
+    assert 'Sayım, tarih, konu ve doğrulama kuralları <a href="metodoloji.html">Metodoloji</a> sayfasında numaralı bölümler hâlinde açıklanmaktadır.' in h
     assert '<dl class="terimler">' in h
 
 

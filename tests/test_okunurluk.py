@@ -53,7 +53,7 @@ def test_sira_notu_metodolojide():
     assert "siraNotu" not in s and "sira-notu" not in s and "parametreYok" not in s and 'class="sinirlar kutu"' not in s
     g = govde(s)
     assert '<span data-t="tekrarKisa"></span></button></div>\n      <p class="sinirlar-not" data-t="sinirlar"></p>\n    </section>' in g
-    assert 'sinirlar: "Sayım, kayıttaki oyların başka bir kuralda da aynı kalacağını varsayar. Veto tehdidiyle oylanmayan öneriler ve kapalı oturum vetoları sayılmaz.",' in s
+    assert 'sinirlar: "Sayım, kayıttaki oyların başka bir kural altında da aynı kalacağını varsaymaktadır. Veto tehdidi nedeniyle oylanmayan öneriler ile kapalı oturum vetoları sayıma dâhil edilmemektedir.",' in s
     md = (KOK / "METODOLOJI.md").read_text(encoding="utf-8")
     b = md[md.index("### 2.10."):md.index("## 3.")]
     assert "Oyların panellerdeki sayım sırası bir gösterimdir" in b and "108. maddesine göre" in b and "7, 8 ve 6" in b
@@ -85,8 +85,8 @@ def test_vetolar_alt_bilgi_yalnizca_veri_tarihi():
     for eski in ("alt-ayrinti", "alt.ayrinti", "alt.kaynak", "alt.baslik", "alt.surum", "alt.indir", 'class="indirmeler"', "m.indirmeler",
                  "kaynak_sha256", "SHA-256"):
         assert eski not in s, eski
-    assert '"alt.veriTarihi": ({ tarih, son }) => `Son veto ${son}${ekDa(son)}, veri ${tarih}${ekDa(tarih)} güncellendi.`,' in s
-    assert '"alt.veriTarihi": ({ tarih, son }) => `The latest veto was cast on ${son}, and the data were updated on ${tarih}.`,' in s
+    assert '"alt.veriTarihi": ({ tarih, son }) => `Son veto ${son}${ekDa(son)} kullanılmış, veri ${tarih}${ekDa(tarih)} güncellenmiştir.`,' in s
+    assert '"alt.veriTarihi": ({ tarih, son }) => `The most recent veto was cast on ${son}; the data were last updated on ${tarih}.`,' in s
     assert '<time datetime="${esc(m.veri_surumu)}">${tarihUzun(m.veri_surumu)}</time>' in kod
     assert 'son: `<time datetime="${sonTarih}">${tarihUzun(sonTarih)}</time>`' in kod and "const sonTarih = kayitlar[0].tarih;" in s
     # Hakkında'da indirme listesi yok; veri setinin arşivi Zenodo (DOI bağlantısı iki dilde)
@@ -120,10 +120,10 @@ def test_yontem_yalnizca_nasil_yaptikta():
         assert ("<footer" in s) == (ad in ("hikaye", "vetolar")), ad
     # Kalan okuma notları: kapalı oturum sayımı, "Küresel" satırı, hesaplanmayan 1945 değeri, oran okuma cümlesi (kutusuz)
     v = oku("vizyon.html")
-    assert "“Küresel” satırı belirli bir bölgeye bağlanmayan gündemleri toplar" in v and "kitabın 1945 için verdiği %60 burada hesaplanmadı" in v
+    assert "“Küresel” satırı, belirli bir bölgeye bağlanmayan gündemleri" in v and "kitabın 1945 için verdiği %60 burada hesaplanmamıştır" in v
     assert "giris2" not in v and "neden-sonuç" not in v
     t = oku("temsil.html")
-    assert "Kartların altındaki oran, koltuk payının gösterge payına bölümüdür" in t and "Paylar BM üyelerinin toplamı içindedir." in t
+    assert "Kartların altında yer alan oran, koltuk payının ilgili gösterge payına bölünmesiyle elde edilmekte" in t and "Paylar, BM üyesi devletlerin toplamı üzerinden hesaplanmaktadır." in t
     assert "giris2" not in t and "Bileşik puan" not in t
     # Taşınan bilgiler Metodoloji'de: Gazze seçim dosyası, bölge ataması, 1963 nüfus kuralı, simülasyonun kapsamı
     m = (KOK / "METODOLOJI.md").read_text(encoding="utf-8")
@@ -207,11 +207,11 @@ def test_kitaptaki_model_basligi_ve_girisi():
     kaynaklar = (KOK / "kaynaklar/KAYNAKLAR.md").read_text(encoding="utf-8")
     assert ("Recep Tayyip Erdoğan, *Daha Adil Bir Dünya Mümkün: Birleşmiş Milletler Reformu İçin Bir Model Önerisi*, Turkuvaz Kitap, "
             "1. baskı, Eylül 2021") in kaynaklar
-    assert ('"model.aciklama": "Kitap, Güvenlik Konseyi için dört unsurlu bir reform modeli önerir: temsil, üye sayısı, veto ile daimî '
-            'üyelik ve Konseyin Genel Kurulla ilişkisi. Her unsurun yanında kitaptan alıntı var. Üye sayısı için kitap iki seçenek sunar.",') in v
+    assert ('"model.aciklama": "Kitap, Güvenlik Konseyi için dört unsurlu bir reform modeli önermektedir: temsil, üye sayısı, veto ile daimî '
+            'üyelik ve Konseyin Genel Kurulla ilişkisi. Her unsurun yanında kitaptan ilgili alıntı yer almakta; üye sayısı için kitap iki seçenek sunmaktadır.",') in v
     assert ('"model.aciklama": "The book proposes a four-part reform model for the Security Council: representation, the number of '
-            'members, the veto and permanent membership, and the Council’s relationship with the General Assembly. Each element is shown '
-            'with the book’s own wording. For the number of members the book offers two options.",') in v
+            'members, the veto and permanent membership, and the Council’s relationship with the General Assembly. Each element is accompanied '
+            'by the book’s own wording; for the number of members, the book offers two options.",') in v
     # Modelin dört unsuru, kartların sırasıyla
     assert 'const MADDELER = [["m.temsil", "m.temsilOzet", ["kitap-1"]], ["m.sayi", "m.sayiOzet", ["kitap-2", "kitap-3"]],' in v
     for eski in ("kitaptaki model\"", "the model in the book\"", "Kitap (Eylül 2021)", "The book (September 2021)", "kısa tutulmuş", "kept short"):
@@ -336,7 +336,7 @@ def test_denetim_sonrasi_duzeltmeler():
     # Temsil: tek cümle + Metodoloji 2.9 bağlantısı (iki dilde doğru adres)
     t = oku("temsil.html")
     assert "ardıl ülkelerin WPP serileri" not in t and "successor countries" not in t
-    assert '"nufus.aciklama": ({ u63, u }) => `1963 payı 1963 sonundaki ${u63} BM üyesinin, 2023 payı bugünkü ${u} üyenin toplamı içindedir.`,' in t
+    assert '"nufus.aciklama": ({ u63, u }) => `1963 payı, 1963 sonundaki ${u63} BM üyesinin toplam nüfusu; 2023 payı ise bugünkü ${u} üyenin toplam nüfusu esas alınarak hesaplanmıştır.`,' in t
     assert '<a id="nufus-metodoloji" href="metodoloji.html#bolum-2-9" data-t="nufus.metodoloji"></a>' in t
     assert '$("#nufus-metodoloji").setAttribute("href", `metodoloji.html${ek}#${DIL === "tr" ? "" : "en-"}bolum-2-9`);' in t
     assert 'id="bolum-2-9"' in md and 'id="en-bolum-2-9"' in md
@@ -400,8 +400,8 @@ def metin_sayfasi(sayfa, dil):
 
 # K16: sekiz bölüm beşe indi; sayım, tarih, konu ve doğrulama kuralları tek cümleyle Metodoloji'ye bağlanır
 HAKKINDA_BOLUMLERI = {
-    "tr": ["Ne topladık ve neden", "Kaynaklar ve veriyi indirme", "Terimler", "Bilinen sınırlar ve düzeltmeler", "İletişim"],
-    "en": ["What we collected and why", "Sources and downloads", "Terms", "Known limitations and corrections", "Contact"],
+    "tr": ["Kapsam ve amaç", "Kaynaklar ve veriyi indirme", "Terimler", "Bilinen sınırlar ve düzeltmeler", "İletişim"],
+    "en": ["Scope and purpose", "Sources and downloads", "Terms", "Known limitations and corrections", "Contact"],
 }
 
 
@@ -490,8 +490,8 @@ def test_vetolar_kapali_oturum_etiketi_kaynaga_uygun():
     """ADIM 46: iki kapalı oturum kaydında (1953 SSCB, 1996 ABD) etiket kaynağın ifadesiyle. DHL listesi "Not identified in
     private meeting communiqué, but attributed to …" der; "sonradan kabul etti" kaynakta yoktur."""
     s = oku("vetolar.html")
-    assert '"kapaliSatir": ({ uyeler }) => `Resmî bildiride adı yok. BM Dag Hammarskjöld Kütüphanesi listesine göre ${uyeler}`,' in s
-    assert '"kapaliSatir": ({ uyeler }) => `Not named in the official communiqué. The UN Dag Hammarskjöld Library list names ${uyeler}`,' in s
+    assert '"kapaliSatir": ({ uyeler }) => `Resmî bildiride adı yer almamaktadır; BM Dag Hammarskjöld Kütüphanesi listesine göre ${uyeler}`,' in s
+    assert '"kapaliSatir": ({ uyeler }) => `Not named in the official communiqué; attributed by the list of the UN Dag Hammarskjöld Library to ${uyeler}`,' in s
     assert 'uyeBelirli = (u) => (DIL === "en" && CUMLE_EN.kisa[u]) || uyeKisa(u);' in s and 't("kapaliSatir", { uyeler: k.uyeler.map(uyeBelirli).join(", ") })' in s
     assert 'kisa: { SSCB: "the USSR", USA: "the US", GBR: "the UK" } };' in s  # İngilizcede "… list names the US"
     assert "kabul etti" not in s and "acknowledged" not in s
@@ -539,7 +539,7 @@ def test_kitabin_adi_ingilizce_sayfalarda():
     import csv
     with open(KOK / "kaynaklar/reform_modelleri.csv", encoding="utf-8", newline="") as f:
         satirlar = list(csv.DictReader(f))
-    assert not any("Chapter" in x["en"] for x in satirlar) and any("Part II:" in x["en"] for x in satirlar)
+    assert not any("Chapter" in x["en"] for x in satirlar) and any("Part II" in x["en"] for x in satirlar)
     md = (KOK / "METODOLOJI_EN.md").read_text(encoding="utf-8")
     assert md.count("Daha Adil Bir Dünya Mümkün") == 1
     assert "from the book *A Fairer World is Possible* ([*Daha Adil Bir Dünya Mümkün*]{lang=tr})." in md

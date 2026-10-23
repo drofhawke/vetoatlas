@@ -56,8 +56,8 @@ def test_sayfa_veriden_okur_ve_sabit_sayi_icermez():
     # Kitabın unsurları alıntı bankasından (bölüm başlığıyla); kitabın belirtmediği parametreler "Ayarlar" kutusunda (ADIM 44)
     for kimlik in ("kitap-3", "kitap-4", "kitap-6", "kitap-7"):
         assert kimlik in betik
-    assert '"ayar.cumle": "Kitap 20 üyeli bir Konsey önerir ama karar eşiğini yazmaz. Eşik ve sayımın kaç üyeyle yapılacağı bizim varsayımımız.",' in SAYFA
-    assert '"ayar.cumle": "The book proposes a 20-member Council but gives no decision threshold. The threshold and the number of members in the count are our assumption.",' in SAYFA
+    assert '"ayar.cumle": "Kitap 20 üyeli bir Konsey önermekte, ancak karar eşiğini belirtmemektedir. Eşik ile sayımın kaç üyeyle yapılacağı bu sayfanın varsayımıdır.",' in SAYFA
+    assert '"ayar.cumle": "The book proposes a 20-member Council but does not specify a decision threshold. The threshold and the number of members in the count are assumptions made for the purposes of this page.",' in SAYFA
     # Diğer modellerin dayanakları belge ve paragrafla
     for dayanak in ("A/59/L.64", "5 (b)", "6 (b)", "A/59/L.68", "dipnot 5", "Ext/EX.CL/2 (VII)", "A/59/L.67"):
         assert dayanak in SAYFA, dayanak
@@ -253,7 +253,7 @@ def test_tumuye_donus_ve_bildirim(tmp_path):
         for u in ([] if k["kapali"] else k["uyeler"]):
             say[u] = say.get(u, 0) + 1
     assert say == {"SSCB": 114, "RUS": 43, "USA": 94, "GBR": 30, "FRA": 18, "CHN": 23} and sum(say.values()) == 322
-    for anahtar in ('"sifir.yilBaslar"', '"sifir.yilBiter"', '"sifir.yilYok"', '"sifir.uye"', "yıl seçimi kaldırıldı.", "the year filter was reset.", "Filtreleri temizle", "Clear the filters"):
+    for anahtar in ('"sifir.yilBaslar"', '"sifir.yilBiter"', '"sifir.yilYok"', '"sifir.uye"', "yıl seçimi kaldırılmıştır.", "the year filter has accordingly been reset.", "Filtreleri temizle", "Clear the filters"):
         assert anahtar in BETIK, anahtar
     # Eski kaydın sayıları ekranda kalmaz: her gösterimde paneller önce temizlenir (ADIM 49: şeritten yeniden sayımda yalnızca
     # şerit yerinde kalır); sıfır eşleşmede paneller gizlenir
@@ -275,7 +275,7 @@ def test_hazir_ornekler_veri_setinde():
         assert (k["tarih"], k["uyeler"], k["oy"]["lehte"], k["oy"]["aleyhte"], k["oy"]["cekimser"]) == (tarih, uyeler, lehte, aleyhte, cekimser), kimlik
     g = kayit["V-2024-02-20-1"]
     assert g["oy"]["lehte"] == 13 and (15 - g["oy"]["lehte"]) == 2  # "Bu örnekte 15 üyeden 13’ü evet dedi."
-    assert "ornekNotu: ({ boy, lehte, ek }) => `Bu örnekte ${boy} üyeden ${lehte}’${ek} evet dedi.`" in BETIK
+    assert "ornekNotu: ({ boy, lehte, ek }) => `Bu örnekte ${boy} üyeden ${lehte}’${ek} olumlu oy kullanmıştır.`" in BETIK
     assert "ORNEKLER[0].id" in BETIK  # açılışta ilk örnek
 
 
@@ -285,7 +285,7 @@ def test_adres_cubugu_ve_akis():
     # Üç adım göstergesi kalktı ("Karşılaştır" adımı yok); bölüm başlıkları yerinde
     assert '"adimlar"' not in BETIK and 'class="adimlar"' not in SAYFA
     for anahtar in ('"h.secim": "Kaydı seçin"', '"h.paneller": "Oyları sayın ve karşılaştırın"', '"p.unsurBaslik": "Kitaptan"',
-                    "fark: ({ m }) => `Oylar aynı. Mevcut sistemde", "kayıtta sonuç", "(oy dağılımı kayıtlı değil)"):
+                    "fark: ({ m }) => `Oylar aynı olmakla birlikte iki sistem farklı sonuç vermektedir: mevcut sistemde", "kayıtta sonuç", "(oy dağılımı kayıtlı değil)"):
         assert anahtar in BETIK, anahtar
     # Renk kuralı: mevcut sistemde daimî üyenin ret oyu kırmızı (veto), önerilen sistemde mürekkep (aleyhte)
     assert ".oy.veto { background: var(--vurgu);" in SAYFA and ".oy.aleyhte { background: var(--aleyhte);" in SAYFA
@@ -373,16 +373,16 @@ def test_hesaplanamaz_yok_ve_yirmi_uyeli_metinler():
         assert eski not in SAYFA, eski
     for metin in (
         '"r.bagli": "Kayıtta olmayan üyelere bağlı"',
-        '"a.kabul20": ({ lehte, esik }) => `Kayıtlı ${lehte} evet oyu 20 üyeli Konseyin eşiğini (${esik}) tek başına karşılıyor. Kayıtta olmayan üyelerin oyu sonucu değiştirmez.`',
-        '"a.bagli20": ({ lehte, esik, yeni, k, ek }) => `Kayıtlı ${lehte} evet oyu var, 20 üyeli Konseyde ${esik} gerekir. Kayıtta olmayan ${yeni} üyeden en az ${k}’${ek} evet derse kabul edilirdi.`',
-        '"yeni.not": ({ yeni }) => `Kesikli kareler kayıtta olmayan ${yeni} üye.`',
+        '"a.kabul20": ({ lehte, esik }) => `Kayıtlı ${lehte} olumlu oy, 20 üyeli Konseyin eşiğini (${esik}) tek başına karşılamaktadır; kayıtta olmayan üyelerin oyu sonucu değiştirmemektedir.`',
+        '"a.bagli20": ({ lehte, esik, yeni, k, ek }) => `Kayıtlı ${lehte} olumlu oy bulunmakta, 20 üyeli Konseyde ise ${esik} oy gerekmektedir. Kayıtta olmayan ${yeni} üyeden en az ${k}’${ek} olumlu oy kullanması hâlinde öneri kabul edilirdi.`',
+        '"yeni.not": ({ yeni }) => `Kesikli kareler, kayıtta olmayan ${yeni} üyeyi göstermektedir.`',
         '"serit.bagli": ({ k }) => `Kayıtta olmayan üyelere bağlı, en az ${k} evet`',
-        '"fark.bagli": ({ m, k }) => `${t("fark", { m })} 20 üyeli Konseyde kayıtta olmayan üyelerden en az ${k} evet gerekir.`',
+        '"fark.bagli": ({ m, k }) => `${t("fark", { m })} 20 üyeli Konseyde kayıtta olmayan üyelerden en az ${k} olumlu oy gerekmektedir.`',
         '"t.kesin": "Kayıtlı oylarla kesin kabul", "t.bagli": "Kayıtta olmayan üyelere bağlı"',
         '"r.bagli": "Depends on members not on record"',
-        "The dashed squares are the ${yeni} members not on record.",
+        "The dashed squares represent the ${yeni} members not on record.",
         '"serit.bagli": ({ k }) => `Depends on members not on record, at least ${k} in favour`',
-        '"fark.bagli": ({ m, k }) => `${t("fark", { m })} In the 20-member Council at least ${k} ${k === "1" ? "vote in favour is" : "votes in favour are"} needed from the members not on record.`',
+        '"fark.bagli": ({ m, k }) => `${t("fark", { m })} In the 20-member Council, at least ${k} ${k === "1" ? "vote in favour is" : "votes in favour are"} required from the members not on record.`',
     ):
         assert metin in SAYFA, metin
     # Görsel: kayıtta olmayan üyeler kesikli boş kare, yalnızca önerilen sistem panelinde; sayaç yalnızca kayıtlı oyları sayar
@@ -425,10 +425,10 @@ def test_ingilizce_yirmi_uyeli_cumleler_tekil_ve_cogul(tmp_path):
     betik.write_text(TEKIL_BETIGI, encoding="utf-8")
     r = subprocess.run([node, str(betik), str(KOK)], capture_output=True, text=True, encoding="utf-8", check=True)
     c = json.loads(r.stdout)
-    assert c["bir"].endswith("at least 1 vote in favour is needed from the members not on record."), c["bir"]
-    assert c["iki"].endswith("at least 2 votes in favour are needed from the members not on record."), c["iki"]
-    assert " In 1 record the outcome depends on members not on record." in c["ozet1"], c["ozet1"]
-    assert " In 236 records the outcome depends on members not on record." in c["ozet2"], c["ozet2"]
+    assert c["bir"].endswith("at least 1 vote in favour is required from the members not on record."), c["bir"]
+    assert c["iki"].endswith("at least 2 votes in favour are required from the members not on record."), c["iki"]
+    assert "; in 1 record the outcome depends on members not on record." in c["ozet1"], c["ozet1"]
+    assert "; in 236 records the outcome depends on members not on record." in c["ozet2"], c["ozet2"]
 
 
 def test_ayarlar_kutusu_adim44():
@@ -451,7 +451,7 @@ def test_ayarlar_kutusu_adim44():
     assert sablon.index('<p class="ayar-cumle">${t("ayar.cumle")}</p>') < sablon.index('<select id="pr-esik">') < sablon.index('<select id="pr-uye">')
     assert 'class="etiket"' not in sablon
     # Not: yalnızca varsayılandan farklı ayarlar, tek cümle ("Üçte iki eşiğiyle ve 20 üyeli Konseyle sayıldı."; G-sim-3)
-    assert ('"ayar.not": ({ p }) => { const c = p.join(" ve "); return `${c.charAt(0).toLocaleUpperCase("tr")}${c.slice(1)} sayıldı.`; }, '
+    assert ('"ayar.not": ({ p }) => { const c = p.join(" ve "); return `${c.charAt(0).toLocaleUpperCase("tr")}${c.slice(1)} sayılmıştır.`; }, '
             '"ayar.ucteiki": "üçte iki eşiğiyle", "ayar.salt": "salt çoğunluk eşiğiyle", "ayar.kitap20": "20 üyeli Konseyle",') in SAYFA
     assert ('"ayar.not": ({ p }) => `Counted with ${p.join(" and ")}.`, "ayar.ucteiki": "a two-thirds threshold", '
             '"ayar.salt": "a simple-majority threshold", "ayar.kitap20": "a 20-member Council",') in SAYFA

@@ -154,9 +154,9 @@
     ["hakkinda", "Nasıl yaptık?", "How we did it"],
   ];
   var YAZI = {
-    tr: { logo: "Veto Atlası", ana: "Veto Atlası, ana sayfa", sayfalar: "Sayfalar", dil: "Dil", menu: "Menü", atla: "İçeriğe geç", altNot: "Beta sürümü. Hata bildirmek için", altSon: " adresine yazın.",
+    tr: { logo: "Veto Atlası", ana: "Veto Atlası, ana sayfa", sayfalar: "Sayfalar", dil: "Dil", menu: "Menü", atla: "İçeriğe geç", altNot: "Beta sürümü. Hata bildirimleri", altSon: " adresine iletilebilir.",
           tema: "Koyu", temaUzun: "Koyu kâğıt teması", not: "Çevrimdışı sürüm", notUzun: "Çevrimdışı sürüm. Bütün sayfalar bu dosyada." },
-    en: { logo: "Veto Atlas", ana: "Veto Atlas, home", sayfalar: "Pages", dil: "Language", menu: "Menu", atla: "Skip to content", altNot: "Beta version. To report an error, write to", altSon: ".",
+    en: { logo: "Veto Atlas", ana: "Veto Atlas, home", sayfalar: "Pages", dil: "Language", menu: "Menu", atla: "Skip to content", altNot: "Beta version. Error reports may be sent to", altSon: ".",
           tema: "Dark", temaUzun: "Dark paper theme", not: "Offline version", notUzun: "Offline version. All pages are in this file." },
   };
   var SAYFA_GRUBU = { metodoloji: "hakkinda", index: "hikaye" };

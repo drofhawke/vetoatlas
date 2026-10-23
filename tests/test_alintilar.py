@@ -288,8 +288,8 @@ def test_hitaplar_arasinda_donemleri_yalnizca_hitaplardan():
     24 Eylül 2019 – 20 Eylül 2022 (8 öneri, 12 ret oyu)."""
     sayfa = (KOK / "web/vizyon.html").read_text(encoding="utf-8")
     assert "const hitaplar = [...new Set(konusmalar.filter((a) => !a.bolum).map((a) => a.tarih))].sort();" in sayfa
-    assert "2020 ve 2021 hitaplarından alıntı olmadığı için ilk dönem 2019 hitabından 2022 hitabına uzanır." in sayfa
-    assert "so the first period runs from the 2019 address to the 2022 address." in sayfa
+    assert "2020 ve 2021 hitaplarından alıntı bulunmadığından ilk dönem 2019 hitabından 2022 hitabına kadar sürmektedir." in sayfa
+    assert "the first period extends from the 2019 address to that of 2022." in sayfa
     s = (KOK / "web/veri.js").read_text(encoding="utf-8")
     V = json.loads(s[s.index("{"):s.rstrip().rindex(";")])
     konusmalar = [a for a in V["alintilar"] if a["iliskili_veri"] not in ("model", "giris")]
