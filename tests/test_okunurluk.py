@@ -294,7 +294,10 @@ def test_kunye_tek_bicim():
     # yayındaki hâl): parça kutusu 390 px'te İngilizce künyeyi üç satırdan dörde çıkarıyordu (son denetim ölçümü)
     assert "const kunye = (a) => { const P = kunyeMetni(a).split(\" · \");" in v
     assert 'if (P.length > 2 && P[P.length - 1].replace(/<[^>]*>/g, "").length <= 12) P.splice(-2, 2, P.slice(-2).join("\u00a0·\u00a0"));' in v
-    assert 'return P.map((p) => `<span class="kp">${p}</span>`).join("\u00a0· "); };' in v
+    # Orta nokta önceki parçanın kutusunda, önünde bölünmez boşlukla (B:VS-02, 24 Ekim 2026): ayraç kutunun dışındayken
+    # Chromium satırı kutu ile ardındaki bölünmez boşluk arasında kırıyor, İngilizcede 390 px'te nokta satır başına düşüyordu
+    assert 'return P.map((p, i) => `<span class="kp">${p}${i < P.length - 1 ? "\\u00a0·" : ""}</span>`).join(" "); };' in v
+    assert '.join("\u00a0· ")' not in v
     assert ".kunye .kp { display: inline-block; }" in v and 'class="kp"' not in h
     assert 'kunyeKim: "Cumhurbaşkanı Recep Tayyip Erdoğan",' in v and 'kunyeKim: "President Recep Tayyip Erdoğan",' in v
     assert ("return `${kim} · ${esc(etk)} · ${tarihUzun(a.tarih)}\u00a0·\u00a0${en && a.belge_en ? `${esc(a.belge_en)}, ` : \"\"}"
@@ -355,9 +358,32 @@ def test_denetim_sonrasi_duzeltmeler():
     # Girişlerde son iki sözcük, Vetolar’da öneri sayısı ardındaki adla bağlı (KILAVUZ "Satır sonu"); sözlük metni değişmez
     assert r'.replace(` ${oneriSayisi} `, ` ${oneriSayisi}\u00a0`).replace(/ (\S+)$/, "\u00a0$1");' in vt
     assert r'const bagla = (s) => s.replace(/(\d) (?=\p{L})/gu, "$1\u00a0").replace(/ (\S+)$/, "\u00a0$1");' in vt
+    # Canlı denetim (24 Ekim 2026), Vetolar. B:VS-06: kayıt paneli ve liste başlıkları yazılırken bağlanır (sayı ile ardındaki
+    # sözcük, ay ile yıl, kısaltma ile numara, aralıkta yarım çizginin iki yanına U+2060, oy kodunda kısa çizgiden sonra U+2060);
+    # sözlük ve veri metni değişmez. Geriye bakış (?<=) kullanılmaz: Safari 16.4 öncesinde bütün sayfa betiğini durdurur
+    assert (r'const sayiBag = (s) => s.replace(/(\d) (?=\p{L})/gu, "$1\u00a0").replace(/(\p{Lu}\p{Ll}+) (?=\d{4}(?!\d))/gu, "$1\u00a0")'
+            r'.replace(/\b(par|paras|para|s|p|pp|No)\. (?=\d)/g, "$1.\u00a0").replace(/\b(Tablo|Table) (?=\d)/g, "$1\u00a0")'
+            r'.replace(/([\d)])–(?=[\d(])/g, "$1\u2060–\u2060")') in vt
+    assert r'.replace(/([\s(])(\d{1,2})-(\d{1,2})-(\d{1,2})(?![\d-])/g, "$1$2-\u2060$3-\u2060$4");' in vt
+    assert 'return sayiBag(p.join(""));' in vt and "${sayiBag(esc(baslik(k)))}</span>" in vt and "(?<" not in vt
+    # B:VS-04: grup adına konuşan delegasyon 1 ise "a group". B:VS-05: İngilizcede birden çok paragraf "paras.", birden çok
+    # sayfa ya da aralık "pp."; sayfa aralığı iki dilde yarım çizgiyle
+    assert 'speaking on behalf of ${cogul(grup, "a group", "groups")}' in vt and "speaking on behalf of groups`" not in vt
+    assert 'const cok = (x) => /[,–]/.test(x);' in vt and '${cok(paragraf) ? "paras." : "para."} ${paragraf}' in vt
+    assert '(PDF ${cok(sayfa) ? "pp." : "p."} ${sayfa})' in vt and 'sayfa: esc(d.sayfa).replace(/-/g, "–"),' in vt
+    # B:VS-10: kapalı oturum karesinin içi boş (fill="none"); öteki kareler gibi ipucu verir, tıklanınca kaydı açar
+    assert ".serit .kare { transition: opacity .15s; cursor: pointer; pointer-events: all; }" in vt
     assert r'.forEach((p) => { p.textContent = p.textContent.replace(/ (\S+)$/, "\u00a0$1"); });' in oku("hikaye.html")
     assert r'document.querySelectorAll(".giris [data-t=giris]").forEach((p) => {' in oku("reform.html")
     assert r'if (son && son.nodeType === 3) son.data = son.data.replace(/ (\S+)\s*$/, "\u00a0$1");' in oku("hakkinda.html")
+    # Temsil ve Reform modelleri: sayı ardındaki sözcükle bağlı (canlı denetim, 24 Ekim 2026; tem-3, ref-1). Temsil’de bolunmez
+    # sözlük metnini ve üç veri notunu bağlar (bölünmez boşluk dosyada doğrudan yazılı); Reform’da bitisik karşılaştırma hücrelerini
+    assert '.replace(/(\\d) (?=\\p{L})/gu, "$1\u00a0") : s;' in t
+    for parca in ("<li>${esc(sonIki(bolunmez(x.not[DIL])))}</li>", "<dd>${esc(sonIki(bolunmez(n[DIL])))}</dd>",
+                  '<p class="ulke-not">${esc(sonIki(bolunmez(u.not[DIL])))}</p>', r'const sonIki = (s) => s.replace(/ (\S+)$/, "\u00a0$1");'):
+        assert parca in t, parca
+    rf = oku("reform.html")
+    assert r'.replace(/(\d) (?=\p{L})/gu, "$1\u00a0").replace(/(\S)–(?=\S)/g, "$1\u2060–\u2060");' in rf and r"(?=\p{L}+\))" not in rf
 
 
 def test_tek_dosyada_sayfa_ici_baglantilar_cercevede():
@@ -569,3 +595,40 @@ def test_zaman_cizelgesi_tarih_ve_serit():
         assert parca in v, parca
     serit = v[v.index("/* Zaman şeridi"):v.index("@media (prefers-reduced-motion: reduce) { .cizelge li")]
     assert re.findall(r"^([^{\n]+?) \{[^}]*var\(--vurgu\)", serit, re.M) == [".zaman-olay::before", ".zaman-lejant span::before"]
+
+
+def test_soz_ve_kayit_canli_denetim():
+    """Canlı denetim (24 Ekim 2026), Söz ve Kayıt. B:VS-01: statik og:image:alt ve twitter:image:alt sözlükteki onizlemeAlt ile
+    birebir aynı ("Türkçe / English"); betik çalıştırmayan paylaşım tarayıcıları statik metni okur. Kural onizlemeAlt taşıyan
+    öteki sayfalarda da denetlenir. B:VS-03: İngilizce zaman çizelgesinde Genel Kurul cümlesi özne ve yüklemle ("The veto was
+    debated …"; Türkçesi "Genel Kurulda … görüşülmüştür"). B:VS-07: sözlükten gelen metni sayfa betiği yazarken bağlar (sayı ile
+    ardındaki sözcük, ay ile yıl), galeri kartının gündem adını da; sözlük metni değişmez (KILAVUZ "Satır sonu"). B:VS-09: Kayıt
+    hücresindeki bölgesel grup tablosunda İngilizce koltuk ayrımı notu kırılabilir; Türkçe not ve sütun başlıkları tek satır
+    kalır (tarayıcıda ölçüldü: İngilizce 390 px'te 348/348, 360 px'te 318/318). B:VS-02 test_kunye_tek_bicim'de."""
+    for ad in ("vizyon", "vetolar", "reform", "temsil"):
+        s = oku(f"{ad}.html")
+        alt = re.findall(r'\n      "?onizlemeAlt"?: "([^"]*)",', s)
+        assert len(alt) == 2, (ad, alt)
+        bas = s[:s.index("</head>")]
+        for etiket in ('<meta property="og:image:alt" content="', '<meta name="twitter:image:alt" content="'):
+            assert bas.count(f'{etiket}{alt[0]} / {alt[1]}">') == 1, (ad, etiket)
+    v = oku("vizyon.html")
+    assert "vetonun hepsi Genel Kurulda görüşüldü" not in v and "were debated in the General Assembly" not in v
+    # B:VS-03
+    assert '"c.gk": ({ tur, tarihler }) => `The veto was debated in the General Assembly on ${tarihler} (${tur}).`,' in v
+    assert ('"c.gkCok": ({ parcalar }) => `The veto was debated in the General Assembly ${parcalar}.`, '
+            '"c.gkParca": ({ tarihler, yer }) => `on ${tarihler} ${yer}`, "c.gkAyrac": " and ",') in v
+    assert '"c.gk": ({ tur, tarihler }) => `Genel Kurulda ${tarihler} görüşülmüştür (${tur}).`,' in v and "`Debated in" not in v
+    # B:VS-07: bağlama t() içinde, sözlükten sonra; galeri kartının gündem gövdesi ve kuyruğu (veriden) de bağlanır
+    bagla = r'const bagla = (s) => s.replace(/(\d) (?=\p{L})/gu, "$1\u00a0").replace(/(\p{Lu}\p{Ll}+) (?=\d{4}(?!\d))/gu, "$1\u00a0").replace(/(\d)-(?=member\b)/g, "$1-\u2060");'
+    tanim = ('const t = (a, p) => { const v = SOZLUK[DIL][a] ?? SOZLUK.tr[a]; const s = typeof v === "function" ? v(p || {}) : v; '
+             'return typeof s === "string" ? bagla(s) : s; };')
+    assert v.index("    en: {") < v.index(bagla) < v.index(tanim)  # sözlükten sonra, ilk kullanımdan önce
+    assert '${bagla(esc(g.govde))}${g.kuyruklar.length ? `: ${bagla(esc(g.kuyruklar.join(", ")))}` : ""}' in v
+    for parca in ("kabul edildiği 26 Nisan 2022 tarihinden", "on 26 April 2022, ${n} proposals", "daimî üye sayısının 5 yerine 20 olması",
+                  "7 Ekim 2023’ten bu yana, metninde", "since 7 October 2023 on drafts"):
+        assert parca in v, parca  # sözlükte normal boşluk kalır
+    # B:VS-09: yalnız İngilizce not kırılır; sütun başlıklarını kıran öbür kural (Türkçe başlıkları iki satıra indiriyordu) yok
+    assert ".kayit-karsilik td.sayi .dil-notu:lang(en) { white-space: normal; }" in v
+    assert "td.sayi, th.sayi { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }" in v
+    assert "thead th.sayi { white-space: normal; }" not in v

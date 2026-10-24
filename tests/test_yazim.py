@@ -75,14 +75,19 @@ def test_ingilizce_cumle_icinde_belirli_tanimlik():
     assert 'kisa: { SSCB: "the USSR", USA: "the US", GBR: "the UK" } };' in vet  # kısa adlardan Russia tanımlıksız
     assert 'const uyeAdMetin = (u) => (DIL === "en" && CUMLE_EN[u]) || uyeAd(u);' in sim
     # Cümle şablonlarına giden adlar: mevcut sistem kartı ve diğer modeller (ulkeAdi), filtre sıfırlama, Genel Kurul ayrıntısı
-    assert 'const ulkeAdi = durum.ulke ? uyeAdMetin(durum.ulke) : k.uyeler.map(uyeAdMetin).join(DIL === "tr" ? " ve " : " and ");' in sim
+    # Üç üyede "A, B ve C" / "A, B and C" (V-1981-04-30-1; canlı denetim B:sim-2): son ad bağlaçla, öncekiler virgülle
+    assert 'const baglac = DIL === "tr" ? " ve " : " and ", adlar = k.uyeler.map(uyeAdMetin);' in sim
+    assert ('const ulkeAdi = durum.ulke ? uyeAdMetin(durum.ulke) : adlar.length > 2 ? adlar.slice(0, -1).join(", ") + baglac + '
+            'adlar[adlar.length - 1] : adlar.join(baglac);') in sim
     assert "uye: uyeAdMetin(x.deger) });" in sim
     assert 'const ayni = konusanlar.filter(([, x]) => x === d).map(([u]) => uyeAdMetin(u));' in vet  # "Veto eden ABD söz aldı."
     assert 't("gk.vetoCumle", { uyeler: ayni.join(t("ve")), durum: t("gk.konustu." + d), n: ayni.length })' in vet
     assert "owing to the negative ${n > 1 ? `votes of ${uye}, permanent members` : `vote of ${uye}, a permanent member`}." in sim
-    # Öteki modeller için ortak cümle: ad cümle başında, tanımlığı büyük harfle ("The United States is a permanent member")
-    assert ("As ${uye.charAt(0).toUpperCase() + uye.slice(1)} ${m > 1 ? \"are permanent members\" : \"is a permanent member\"}, the proposal "
+    # Öteki modeller için ortak cümle: ad cümle içinde, tanımlık küçük harfle ("As the United States is a permanent member";
+    # canlı denetim B:sim-1, 24 Ekim 2026)
+    assert ("As ${uye} ${m > 1 ? \"are permanent members\" : \"is a permanent member\"}, the proposal "
             "is not adopted under any of them.") in sim
+    assert "uye.charAt(0).toUpperCase()" not in sim  # ad büyütülmez
     assert '$("#karsilastir-ortak").textContent = t("k.ortak", { uye: ulkeAdi, m: vetoSayisi, boy });' in sim
     assert "No veto by ${uye} is found among the" in sim
 
@@ -119,6 +124,11 @@ def test_turkce_notlarda_sapkali_yazim_ve_oy_terimi():
     assert len(metinler) > 100
     sapkasiz = [(ad, m[0]) for ad, s in metinler for m in SAPKASIZ.finditer(s)]
     assert not sapkasiz, sapkasiz
+    # Gündem adlarının Türkçesi de şapkalı yazılır (canlı denetim B:VS-08, 24 Ekim 2026: “BM Daimî Temsilcisi”)
+    with open(KOK / "kaynaklar/gundem_sozlugu.csv", encoding="utf-8", newline="") as f:
+        gundem = [(r["gundem_tr"][:40], m[0]) for r in csv.DictReader(f) for m in SAPKASIZ.finditer(r["gundem_tr"])]
+    gundem += [(k["id"], m[0]) for k in V["kayitlar"] for m in SAPKASIZ.finditer(k.get("gundemTr") or "")]
+    assert not gundem, gundem
     sayim = [(ad, m[0]) for ad, s in metinler for m in OY_SAYIMI.finditer(s)]
     assert not sayim, sayim
     # Kayıt notları, düzeltme satırı ve paylaşım kartları: "hayır oyu verdi" / "evet oyu verdi"
@@ -139,10 +149,10 @@ def test_turkce_notlarda_sapkali_yazim_ve_oy_terimi():
 
 def test_sayfalarda_lehte_aleyhte_sayim_kalibi_yok():
     """Sayfa sözlüklerinde oy terimi "evet oyu" / "hayır oyu"dur: "lehte oy", "aleyhte oy" ve "11 lehte" yazılmaz. Oy alan adları
-    (k.oy.lehte) ve CSS değişkenleri (--oy-lehte) metin değildir. Metodoloji yöntem metni olarak ayrı yazılır, burada yoktur.
+    (k.oy.lehte) ve CSS değişkenleri (--oy-lehte) metin değildir. Metodoloji de denetlenir (24 Ekim 2026, A:HMK-03).
     23 Ekim 2026'dan beri istisna yoktur."""
     kalip = re.compile(r"\b(lehte|aleyhte) oy|\d+ (lehte|aleyhte)\b")
-    for ad in ("hikaye", "vetolar", "vizyon", "reform", "simulasyon", "temsil", "hakkinda"):
+    for ad in ("hikaye", "vetolar", "vizyon", "reform", "simulasyon", "temsil", "hakkinda", "metodoloji"):
         s = (WEB / f"{ad}.html").read_text(encoding="utf-8")
         assert not kalip.search(s), (ad, kalip.search(s))
 
@@ -172,7 +182,8 @@ def test_ic_ice_alintida_ic_tirnak_tek():
     for yol in kartlar:
         govde = re.search(r'<div class="buyuk alinti"[^>]*>(.*?)</div>', yol.read_text(encoding="utf-8"), re.S)[1]
         assert "“" not in govde and "”" not in govde, yol.name
-    assert "‘Dünya 5’ten Büyüktür.’" in (WEB / "kartlar/kart-08-alinti-2019-tr-1200x630.html").read_text(encoding="utf-8")
+    kart08 = (WEB / "kartlar/kart-08-alinti-2019-tr-1200x630.html").read_text(encoding="utf-8").replace(chr(0xA0), " ")
+    assert "‘Dünya 5’ten Büyüktür.’" in kart08  # 08 son iki sözcüğü bölünmez boşlukla bağlar (A:HMK-11, B:HMK-O1)
 
 
 # K18 (21 Ekim 2026, kullanıcı kararı; KILAVUZ "Kesme ve tırnak"): kurum, kuruluş ve kurul adlarına gelen ekler kesmeyle

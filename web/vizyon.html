@@ -12,8 +12,8 @@
 <meta property="og:image" content="https://vetoatlas.com/onizleme-vizyon.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Nisan 2022’den bu yana kullanılan 22 vetonun hepsi Genel Kurulda görüşüldü. Alttaki 15 küçük kare 15 veto girişimi tartışmasıdır, her birinde veto eden üye söz aldı. / All 22 vetoes cast since April 2022 were debated in the General Assembly. The 15 small squares below are the 15 veto initiative debates, and the vetoing member spoke in each of them.">
-<meta name="twitter:image:alt" content="Nisan 2022’den bu yana kullanılan 22 vetonun hepsi Genel Kurulda görüşüldü. Alttaki 15 küçük kare 15 veto girişimi tartışmasıdır, her birinde veto eden üye söz aldı. / All 22 vetoes cast since April 2022 were debated in the General Assembly. The 15 small squares below are the 15 veto initiative debates, and the vetoing member spoke in each of them.">
+<meta property="og:image:alt" content="Nisan 2022’den bu yana kullanılan 22 vetonun tamamı Genel Kurulda görüşülmüştür. Alttaki 15 küçük kare 15 veto girişimi tartışmasını göstermekte olup her birinde vetoyu kullanan üye söz almıştır. / All 22 vetoes cast since April 2022 have been debated in the General Assembly. The 15 small squares below represent the 15 veto initiative debates, in each of which the vetoing member took the floor.">
+<meta name="twitter:image:alt" content="Nisan 2022’den bu yana kullanılan 22 vetonun tamamı Genel Kurulda görüşülmüştür. Alttaki 15 küçük kare 15 veto girişimi tartışmasını göstermekte olup her birinde vetoyu kullanan üye söz almıştır. / All 22 vetoes cast since April 2022 have been debated in the General Assembly. The 15 small squares below represent the 15 veto initiative debates, in each of which the vetoing member took the floor.">
 <meta property="og:locale" content="tr_TR">
 <meta property="og:locale:alternate" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
@@ -84,6 +84,8 @@ h2 { font-family: var(--serif); font-weight: 600; font-size: var(--yz-govde); li
 .kayit-karsilik .ek { font-size: var(--yz-kucuk); color: var(--murekkep-2); line-height: var(--sa-kucuk); }
 .kayit-karsilik table { font-size: var(--yz-kucuk); margin: 4px 0 8px; line-height: var(--sa-kucuk); }
 .kayit-karsilik th, .kayit-karsilik td { padding: 4px 8px 4px 0; }
+.kayit-karsilik .tablo-kap { container-type: inline-size; }
+@container (max-width: 400px) { .kayit-karsilik td.sayi .dil-notu:lang(en) { white-space: normal; } }  /* İngilizcede koltuk ayrımı notu yalnız dar kapta (400 px ve altı) iki satıra iner; Türkçede tek satır */
 
 /* Üye renkleri */
 .uyeler { display: flex; flex-wrap: wrap; gap: 4px 12px; margin: 4px 0 8px; padding: 0; list-style: none; font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }
@@ -444,8 +446,8 @@ details.tablo-ac > summary { cursor: pointer; font-size: var(--yz-kucuk); color:
       "c.762": "The General Assembly adopted A/RES/76/262 without a vote (A/76/PV.69, p. 8); Türkiye was among the original sponsors of the draft (A/76/L.52).",
       "c.veto": ({ gundem, kod, uyeler }) => `${gundem}${kod ? `, ${kod}` : ""} (${uyeler}).`,
       "c.degisiklik": ({ kod }) => `amendment to ${kod}`,
-      "c.gk": ({ tur, tarihler }) => `Debated in the General Assembly on ${tarihler} (${tur}).`,
-      "c.gkCok": ({ parcalar }) => `Debated in the General Assembly ${parcalar}.`, "c.gkParca": ({ tarihler, yer }) => `on ${tarihler} ${yer}`, "c.gkAyrac": " and ",
+      "c.gk": ({ tur, tarihler }) => `The veto was debated in the General Assembly on ${tarihler} (${tur}).`,
+      "c.gkCok": ({ parcalar }) => `The veto was debated in the General Assembly ${parcalar}.`, "c.gkParca": ({ tarihler, yer }) => `on ${tarihler} ${yer}`, "c.gkAyrac": " and ",
       "c.vgDe": "in a veto initiative debate", "c.ooDe": ({ oturum }) => `in emergency special session ${oturum}`,
       "c.vg": "veto initiative debate", "c.oo": ({ oturum }) => `emergency special session ${oturum}`,
       "c.kitapKisa": "Publication of the book", "c.762Kisa": "Adoption of A/RES/76/262",
@@ -454,7 +456,10 @@ details.tablo-ac > summary { cursor: pointer; font-size: var(--yz-kucuk); color:
       ve: " and ",
     },
   };
-  const t = (a, p) => { const v = SOZLUK[DIL][a] ?? SOZLUK.tr[a]; return typeof v === "function" ? v(p || {}) : v; };
+  // Satır sonu (KILAVUZ): sözlükten gelen metinde sayı ardındaki sözcükle ("238 öneri", "26 Nisan"), ay yılla ("Nisan 2022")
+  // bölünmez boşlukla bağlanır; galeri kartlarının gündem adı da. Sözlük metni değişmez, betik yazarken bağlar.
+  const bagla = (s) => s.replace(/(\d) (?=\p{L})/gu, "$1\u00a0").replace(/(\p{Lu}\p{Ll}+) (?=\d{4}(?!\d))/gu, "$1\u00a0").replace(/(\d)-(?=member\b)/g, "$1-\u2060");
+  const t = (a, p) => { const v = SOZLUK[DIL][a] ?? SOZLUK.tr[a]; const s = typeof v === "function" ? v(p || {}) : v; return typeof s === "string" ? bagla(s) : s; };
   const ek = DIL === "tr" ? "" : "?lang=" + DIL;
   document.documentElement.lang = DIL;
   document.title = t("sayfaBasligi");
@@ -543,10 +548,11 @@ details.tablo-ac > summary { cursor: pointer; font-size: var(--yz-kucuk); color:
     return `${kim} · ${esc(etk)} · ${tarihUzun(a.tarih)} · ${en && a.belge_en ? `${esc(a.belge_en)}, ` : ""}${t("sayfa", { s })}`;
   };
   // Künye satırı yalnızca parça sınırında bölünür: her parça tek kutu, orta nokta önceki parçanın satırında kalır. Kısa son
-  // parça ("Giriş", "Introduction") öncekiyle aynı kutuda; alt satırda tek başına kalmaz.
+  // parça ("Giriş", "Introduction") öncekiyle aynı kutuda; alt satırda tek başına kalmaz. Nokta önceki parçanın
+  // kutusundadır (önünde bölünmez boşluk): kutunun dışındaki ayraçta tarayıcı satırı kutu ile bölünmez boşluk arasında kırıyordu.
   const kunye = (a) => { const P = kunyeMetni(a).split(" · ");
     if (P.length > 2 && P[P.length - 1].replace(/<[^>]*>/g, "").length <= 12) P.splice(-2, 2, P.slice(-2).join(" · "));
-    return P.map((p) => `<span class="kp">${p}</span>`).join(" · "); };
+    return P.map((p, i) => `<span class="kp">${p}${i < P.length - 1 ? "\u00a0·" : ""}</span>`).join(" "); };
   // İngilizcede resmî İngilizce metin; resmî İngilizcesi olmayan alıntıda Türkçe özgün metin ve altında işaretli gayriresmî
   // çeviri (METODOLOJI 2.7)
   const alintiMetni = (a) => (DIL === "tr" ? `<blockquote lang="tr">${esc(a.metin_tr)}</blockquote>`
@@ -723,7 +729,7 @@ details.tablo-ac > summary { cursor: pointer; font-size: var(--yz-kucuk); color:
       ${noktalar(on1 ? 11 : 15)}
       <span class="tarih">${tarihUzun(g.tarih)}${g.kayitlar.length > 1 ? `, ${t("galeri.coklu", { n: sayi(g.kayitlar.length) })}` : ""}</span>
       <span>${uyeler.map((u) => `<span class="nokta" style="background:${UYELER[u].renk}"></span> ${uyeAd(u)}`).join(", ")}</span>
-      <span class="gundem" ${DIL === "en" ? 'lang="en"' : ""}>${esc(g.govde)}${g.kuyruklar.length ? `: ${esc(g.kuyruklar.join(", "))}` : ""}</span>
+      <span class="gundem" ${DIL === "en" ? 'lang="en"' : ""}>${bagla(esc(g.govde))}${g.kuyruklar.length ? `: ${bagla(esc(g.kuyruklar.join(", ")))}` : ""}</span>
       ${kodlar.length ? `<span class="belge">${kodlar.map(bag).join(", ")}</span>` : ""}</li>`;
   };
   const GALERI_ILK = 12;
@@ -770,7 +776,7 @@ details.tablo-ac > summary { cursor: pointer; font-size: var(--yz-kucuk); color:
       ? t("c.degisiklik", { kod: taslak, ek: yonelmeEki((taslak.match(/(\d+)$/) || [])[1] || 0) }) : taslak;
     const uyeler = k.uyeler.map(uyeAd).join(", ");
     olaylar.push({ tarih: k.tarih, tur: "veto", kisa: t("c.veto", { gundem: baslik(k), kod, uyeler }), gundem: baslik(k), kod, uyeler,
-      html: `<p>${t("c.veto", { gundem: esc(baslik(k)), kod, uyeler })}</p><p class="gk">${gk}</p>` });
+      html: `<p>${t("c.veto", { gundem: esc(baslik(k)), kod, uyeler })}</p><p class="gk">${gk.replace(/ (\S+)$/, "\u00a0$1")}</p>` });
   });
   olaylar.sort((a, b) => a.tarih.localeCompare(b.tarih));
   const ayni = {};

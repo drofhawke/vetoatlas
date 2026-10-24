@@ -229,7 +229,7 @@ def test_hikaye_metinleri_adim47():
     g = {x["kod"]: x for x in T["gruplar"]}
     assert g["ASP"]["paylar"]["nufus_2023"] > 0.5 and (g["ASP"]["koltuk"]["toplam"], T["meta"]["toplamlar"]["koltuk"]) == (3, 15)
     assert (g["AFR"]["uye_sayisi"], g["AFR"]["koltuk"]["daimi"]) == (54, 0) and 1963 in T["meta"]["nufus_yillari"]
-    # "Afrika grubunun payı iki katına çıktı" (1963'ten 2023'e, BM üyesi ülkelerin nüfusu içinde)
+    # "Afrika Grubunun payı iki katına çıktı" (1963'ten 2023'e, BM üyesi ülkelerin nüfusu içinde)
     assert round(g["AFR"]["paylar"]["nufus_2023"] / g["AFR"]["paylar"]["nufus_1963"]) == 2
     # 2. adımın ekran okuyucu metni: "322 ret oyu, her kare bir oy. Kesik çizgili iki kare …"
     assert sum(len(k["uyeler"]) for k in acik) == 322 and len(kapali) == 2
@@ -255,7 +255,7 @@ BEKLENEN = {
             ["karar, tek bir ret oyuyla",
              "Söz konusu kararların her birinde Konseyin diğer bütün üyeleri olumlu oy kullanmış, ancak ret oyunu veren tek ülkenin daimî "
              "üye olması nedeniyle karar kabul edilememiştir. Yirmi yedisi, 1966 öncesinde görev yapan on bir üyeli Konseyde oylanmıştır."],
-            ["Asya-Pasifik grubunun BM nüfusundaki payı",
+            ["Asya-Pasifik Grubunun BM nüfusundaki payı",
              "Konseyin bugünkü koltuk dağılımı 1963’te belirlenmiş ve o tarihten bu yana değişmemiştir. Aynı dönemde Afrika Grubunun BM "
              "üyesi ülkelerin nüfusundaki payı iki katına çıkmıştır. BM üyesi ülkelerin nüfusunun yarısından fazlasını barındıran "
              "Asya-Pasifik Grubu on beş koltuğun üçüne sahip bulunmakta, elli dört üyeli Afrika Grubu ise hiçbir daimî koltuğa sahip "
@@ -487,3 +487,48 @@ def test_kunye_tarihi_ve_parca_satiri():
     assert '[["sscbRus", ["SSCB", "RUS"]], ["USA", ["USA"]], ["GBR", ["GBR"]], ["CHN", ["CHN"]], ["FRA", ["FRA"]]]' in s
     assert '<div class="cb">${u.map((x) => `<span style="width:${(100 * (uyeSay[x] || 0) / enCok).toFixed(1)}%;background:${RENK[x]}"></span>`).join("")}</div>' in s
     assert ".parca" not in s and 'class="parca"' not in s
+
+
+NB = "\xa0"  # bölünmez boşluk (U+00A0)
+SAYI_BAGLA_BETIGI = r"""
+const fs = require("fs");
+const s = fs.readFileSync(process.argv[2] + "/web/hikaye.html", "utf8");
+const i = s.indexOf("  const sayiBagla = "), j = s.indexOf("  const KITAP = ", i);
+if (i < 0 || j < 0) throw new Error("sayiBagla");
+const girdi = JSON.parse(fs.readFileSync(0, "utf8"));
+const cikti = {};
+for (const DIL of ["tr", "en"]) cikti[DIL] = girdi.map(new Function("DIL", s.slice(i, j) + "return sayiBagla;")(DIL));
+process.stdout.write(JSON.stringify(cikti));
+"""
+
+
+def test_yazili_sayi_satir_sonunda_bolunmez(tmp_path):
+    """KILAVUZ "Satır sonu" (canlı denetim, 24 Ekim 2026): Türkçe adım paragraflarında yazıyla sayı satır sonunda bölünmez
+    ("on / bir üyeli", "on / beşinde" kalmaz). Bileşik sayı tek parçadır (on beş, Yirmi yedisi, on beşinde), eksiz sayı
+    ardındaki sözcükle bağlıdır (on beş üyeden, iki katına); tek başına "bir" (herhangi bir karar) ve ekli sayı (beşi, üçüne)
+    bağlanmaz. Sözlük metni değişmez, sayfa betiği yazarken bağlar (sayiBagla); İngilizce metin olduğu gibi kalır."""
+    assert '<p class="metin">${bitisik(sayiBagla(a.metin))}</p>' in BETIK
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("Node.js kurulu değil; sayiBagla doğrudan çalıştırılamadı")
+    metinler = [m for _, m in BEKLENEN["tr"]["adimlar"]] + ["İki üye", "Üç üye", "on dördü, bir karar"]
+    betik = tmp_path / "sayi_bagla.js"
+    betik.write_text(SAYI_BAGLA_BETIGI, encoding="utf-8")
+    r = subprocess.run([node, str(betik), str(KOK)], input=json.dumps(metinler), capture_output=True, text=True, encoding="utf-8", check=True)
+    cikti = json.loads(r.stdout)
+    assert cikti["en"] == metinler and [m.replace(NB, " ") for m in cikti["tr"]] == metinler  # yalnız boşluk değişir
+    baglar = [[p.replace(NB, " ") for p in m.split(" ") if NB in p] for m in cikti["tr"]]
+    assert baglar == [["on beş üyeden"], ["seksen yıllık"], ["beş daimî", "on beş yılda"], ["Yirmi yedisi,", "on bir üyeli"],
+                      ["iki katına", "on beş koltuğun", "elli dört üyeli"], ["on beş veto", "on beşinde"], [],
+                      ["İki üye"], ["Üç üye"], ["on dördü,"]], baglar
+
+
+def test_giris_alintisi_ve_adim_basliklari_satir_sonu():
+    """Canlı denetim (24 Ekim 2026). Giriş alıntısının da son iki sözcüğü bölünmez boşlukla bağlanır: 390 px'te “Dünya 5’ten /
+    Büyüktür.” kalmaz (KILAVUZ bölüm 2, "Hikâye": alıntıların son satırında tek sözcük kalmaz). Adım başlığı iki satıra inerse
+    dengeli kırılır (text-wrap: balance): "After every veto, the General / Assembly" değil "After every veto, the / General
+    Assembly"; tek satırlık başlık değişmez."""
+    assert ('  document.querySelectorAll(".epigraf blockquote, .alinti blockquote, #kapanis blockquote, .adim p.metin")'
+            ".forEach((b) => { const n = b.lastChild;") in BETIK
+    assert (".adim-baslik { font-family: var(--serif); font-weight: 600; font-size: var(--yz-govde); line-height: var(--sa-govde); "
+            "margin: 0; text-wrap: balance; }") in SAYFA

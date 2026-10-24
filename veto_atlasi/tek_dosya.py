@@ -175,7 +175,7 @@ def uret(kok: Path) -> Path:
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Veto Atlası · tek dosya / Veto Atlas · single file</title>
-<meta name="description" content="Veto Atlası’nın sekiz sayfası yedi sekmede tek bir dosyada sunulmaktadır; çevrimdışı sürüm. / The eight pages of the Veto Atlas are presented in seven tabs in a single file; offline version.">
+<meta name="description" content="Veto Atlası’nın sekiz sayfası, çevrimdışı sürüm olarak yedi sekmede tek bir dosyada sunulmaktadır. / The eight pages of the Veto Atlas are presented as an offline version in seven tabs in a single file.">
 <meta name="veto-atlasi-girdi-sha256" content="{ozet}">
 <link rel="icon" href="{varliklar['favicon.ico']}" sizes="32x32">
 <link rel="icon" href="{varliklar['favicon.svg']}" type="image/svg+xml">

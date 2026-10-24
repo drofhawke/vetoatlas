@@ -73,8 +73,8 @@ içindir; italik metin bu kesimle gösterilir, tarayıcı yapay italik üretmez.
 
 | Belirteç | Masaüstü | 760 px ve altı | Kullanım |
 |---|---|---|---|
-| `--yz-kucuk` | 15 / 24 | 15 / 24 | Etiket, künye, açıklama, tablo, çubuk bağlantıları, grafik yazıları |
-| `--yz-govde` | 18 / 28 | 18 / 28 | Okuma metni, ara başlıklar (veri sayfalarında h2, her yerde h3; 600), form alanları, sonuç şeridi |
+| `--yz-kucuk` | 15 / 24 | 15 / 24 | Etiket, künye, açıklama, tablo, çubuk bağlantıları, grafik yazıları, 760 px ve altında sonuç şeridi |
+| `--yz-govde` | 18 / 28 | 18 / 28 | Okuma metni, ara başlıklar (veri sayfalarında h2, her yerde h3; 600), form alanları, sonuç şeridi (760 px’in üstünde) |
 | `--yz-bolum` | 24 / 32 | 22 / 28 | Metin sayfalarında (Hakkında, Metodoloji) bölüm başlığı (h2; 600) |
 | `--yz-baslik` | 40 / 48 | 32 / 40 | Sayfa başlığı (h1), hikâyede adım numarası, simülasyonda sonuç, büyük sayılar (kartlarda) |
 | `--yz-gosterge` | 96 / 96 | 56 / 56 | Hikâyenin başlığı ve büyük sayıları |
@@ -167,7 +167,7 @@ künye (Cumhurbaşkanı Recep Tayyip Erdoğan · etkinlik · tarih · sayfa); al
 birebir alınır.
 Başlık ve büyük sayılar gösterge boyutunda; Türkçe başlık 960 px ve üstünde tek satırdır ve gerekirse sütunun sağına taşar
 (96 px’te 776 px, sütun içi 712 px), İngilizce başlık iki satırdır; büyük sayının alt yazısı küçük boyutta, ikincil renkte ve italiktir ve sayının ne olduğunu
-söyler; adım numarası başlık boyutunda, soru başlığı gövde boyutunda (600); solda sabit ilerleme rayı (760 px altında
+söyler; adım numarası başlık boyutunda, soru başlığı gövde boyutunda (600; iki satıra inerse dengeli kırılır, `text-wrap: balance`); solda sabit ilerleme rayı (760 px altında
 gizli): gelecek adım içi boş halka (2 px ikincil renk), geçilen adım ikincil renkte dolu nokta, okunan adım mürekkep renginde
 dolu ve büyük nokta; ayrım iki temada da renk tonuna değil biçime dayanır. Metindeki sayılar, yazıyla yazılanlar ve ekleri dâhil (on beş, yirmi yedisi, on beşinde, 1946’dan), veriden
 hesaplanır; nitel ifadeler (tamamı, yarısından fazlası, neredeyse tamamı) verinin değerleriyle testte sınanır. Adımlar kaydırınca en fazla 300 ms’de belirir ve bir kez görünen adım bir daha
@@ -196,7 +196,7 @@ görselinin metninde terim "öneri"dir. `tests/test_hikaye.py` ve `tests/test_ya
 - Görseller büyük sayıyı yinelemez, ona bir bilgi ekler. 1. adımda on beş koltuk. 2. adımda her ret oyu bir kare; ızgara her
   genişlikte 23 sütundur, kapalı oturum vetoları içi boş, kesik çizgili karedir. 3. adımda üye çubukları (Sovyetler Birliği
   ve Rusya aynı çubukta, kendi renkleriyle). 4. adımda on beş oy noktası (ret noktası dolu kırmızı) ve sonuç satırı. 5. adımda
-  Asya-Pasifik grubunun nüfus ve koltuk payı çubukları, Afrika’nın daimî koltuk çubuğu ("0 / 5") ve küçük harita. 6. adımda
+  Asya-Pasifik Grubunun nüfus ve koltuk payı çubukları, Afrika’nın daimî koltuk çubuğu ("0 / 5") ve küçük harita. 6. adımda
   Nisan 2022’den bu yana kullanılan her veto bir kare; Genel Kurulda görüşülenler mürekkep renginde, kareler gruplanmaz. 7.
   adımda veto olmasaydı kabul edilecek kararların çubuğu (264 / 266) ve kitap alıntısı.
 - Ekran okuyucu metni görseli cümleyle söyler: "322 ret oyu, her kare bir oy. Kesik çizgili iki kare, oy dağılımı kayıtlı
@@ -204,7 +204,7 @@ görselinin metninde terim "öneri"dir. `tests/test_hikaye.py` ve `tests/test_ya
   göstermektedir."
 - Üç istisna (21 Ekim 2026, kullanıcı kararı). 6. adımın alt yazısı ayı da söyler: "veto, Nisan 2022’den bu yana Genel
   Kurulda görüşüldü" / "vetoes debated in the General Assembly since April 2022" (ay ve yıl `GK_BAS`’tan). 5. adımın ikinci
-  cümlesi Afrika grubunun payını söyler: "Aynı dönemde Afrika Grubunun BM üyesi ülkelerin nüfusundaki payı iki katına
+  cümlesi Afrika Grubunun payını söyler: "Aynı dönemde Afrika Grubunun BM üyesi ülkelerin nüfusundaki payı iki katına
   çıkmıştır." / "… has doubled." (kat veriden: 2023 payının 1963 payına oranı, yuvarlanmış). 7. adımın kitap alıntısı iki dilde
   aynı kısa parçadır: tıkanıklığın nedenine ilişkin ara söz atlama işaretiyle (…) çıkarılır (`KISA`, `KISA_EN`); her parça
   kaynakta birebir ve sırasıyla geçer, künyede yalnız bölüm adı vardır.
@@ -332,19 +332,21 @@ sayılarda eksi işareti kısa çizgi değil U+2212’dir (−1,4).
 
 **Satır sonu.** Birlikte okunan parçalar satır sonunda ayrılmaz; sözlükteki metin değişmez, sayfa betiği yazarken bağlar.
 Tarihte gün, ay ve yıl bölünmez boşlukla (U+00A0) birleşir; yıl ve madde aralıklarında yarım çizginin iki yanına sözcük
-birleştirici (U+2060) girer (1963–2023, 8 (g)–(i)); sayı ile ardındaki ad bölünmez boşlukla bağlanır (12 devlet, 12 states);
+birleştirici (U+2060) girer (1963–2023, 8 (g)–(i)); sayı ile ardındaki ad bölünmez boşlukla bağlanır (12 devlet, 12 States);
 "Madde 27/3", "Article 27 (3)" ve sayı ile "-member" birleşiği ("20-member", "eleven-member", "fifty-four-member";
 Hikâye’de `bitisik()`) tek parçadır. Paragraf göndermesinde kısaltma ile sayı, sayı ile ardındaki
 madde harfi bölünmez boşlukla bağlanır ("par. 5 (b)", "paras. 5 (b)", "A/59/L.67 (b)", "Ezulwini C (e) 2–3"; Ya veto
-olmasaydı?’da `kirilmaz()`; aynı işlev eşik çiftinde noktalı virgülden sonraki boşluğu da bağlar: "(9/15; 7/11)").
+olmasaydı?’da `kirilmaz()`; aynı işlev eşik çiftinde noktalı virgülden sonraki boşluğu, ay ile yılı ve sayı ile ardındaki adı da bağlar: "(9/15; 7/11)", "Eylül 2021", "25 üyede"; kitaptan alıntılara ve kayıt özetindeki gündem adına da uygulanır, tarihi `tarihUzun` bağlı yazar).
 Not ve açıklama metinlerinde de "s." ve "p." numarasından ayrılmaz ("A/76/PV.69, s. 20"; Söz ve Kayıt’ta bölünmez boşluk
-sözlükte yazılıdır). Vetolar’ın durum satırında sayı ile ardındaki sözcüğü sayfa betiği bağlar (`sayiBagla`: "53 öneri",
+sözlükte yazılıdır). Söz ve Kayıt’ta sözlükten gelen metni sayfa betiği yazarken bağlar (`bagla`, `t()` içinde): sayı ile ardındaki sözcük ("238 öneri", "26 Nisan"), ay ile yıl ("Nisan 2022") ve sayı ile "-member" birleşiği ("11-member", kısa çizgiden sonra U+2060); galeri kartlarının gündem adı da bağlanır, zaman çizelgesindeki Genel Kurul cümlesinin son iki sözcüğü de. Vetolar’ın durum satırında sayı ile ardındaki sözcüğü sayfa betiği bağlar (`sayiBagla`: "53 öneri",
 "3 of them"); giriş cümlesindeki öneri sayısı ve grafiğin altındaki iki cümlenin sayıları da bağlıdır ("266 karar taslağı",
-"322 ret oyu"), o iki cümlenin son iki sözcüğü de.
-Oy kodu ardındaki kapanış paranteziyle birlikte bölünmez ("12-3-0)"). Hikâye’de künye tarihini `tarihUzun` bağlar.
+"322 ret oyu"), o iki cümlenin son iki sözcüğü de. Kim temsil ediliyor?’da sözlükten gelen metni ve veri notlarını (1963
+notları, küme notları, ülke kartı notu) `bolunmez` (notların son iki sözcüğünü de `sonIki`), Reform modellerinde karşılaştırma hücrelerini `bitisik` bağlar ("56 üye",
+"377 bin", "43 Afrika devleti"). Kayıt panelini ve liste başlıklarını sayfa betiği yazarken bağlar (`sayiBag`, 24 Ekim 2026): sayı ile ardındaki sözcük, ay ile yıl, "par.", "paras.", "para.", "s.", "p.", "pp.", "No.", "Tablo" ve "Table" ile numara; aralıkta yarım çizginin iki yanına, oy kodunda kısa çizgilerin ardına U+2060 girer ("11–13 Ocak 1980", "PDF pp. 13–14", "(8-7-0)").
+Oy kodu ardındaki kapanış paranteziyle birlikte bölünmez ("12-3-0)"). Hikâye’de künye tarihini `tarihUzun` bağlar. Hikâye’nin adım paragraflarında yazıyla sayı kendi içinde ve ardındaki sözcükle bağlıdır (`sayiBagla`: "on beş üyeden", "on bir üyeli", "iki katına"); tek başına "bir" ve ekli sayı ("beşi", "üçüne") bağlanmaz.
 Metodoloji’de üretici (`veto_atlasi/metodoloji.py`, `_satir_bagla`) tarihleri, aralıkları (U+2060), kısaltma ya da
 gönderme ile sayıyı (par., para., s., p., pp., No., Kural, Rule, Madde, Article, Tablo, Table), sayı ile ardındaki adı
-(bağlaç ve edatlar hariç) ve sayı ile madde harfini bağlar; kod parçalarına, başlıklara ve `.md` kaynaklarına dokunmaz.
+(bağlaç ve edatlar hariç), sayı ile madde harfini ve sayı ile "-member" birleşiğini (kısa çizgiden sonra U+2060) bağlar; girişin son iki sözcüğü de bölünmez boşlukla bağlıdır, son satırda tek sözcük kalmaz (24 Ekim 2026); kod parçalarına, başlıklara ve `.md` kaynaklarına dokunmaz.
 Hakkında’da aynı bağlamayı sayfa betiği (`satirBagla`) görünen metinde yapar; sabit metin değişmez.
 
 **Künye.** Alıntı künyesi Hikâye’de, Söz ve Kayıt’ta ve paylaşım kartlarında aynı sıra ve ayraçladır:
@@ -359,7 +361,7 @@ sayfa numarası yazılmaz ("President Recep Tayyip Erdoğan · A Fairer World is
 by Veto Atlas" etiketli çeviri durur. "s.", "p." ve "pp." numarasından, tarihte gün, ay ve yıl birbirinden ayrılmaz
 (bölünmez boşluk); sayfa göndermesi de tarihten ayrılmaz (aradaki ayracın iki yanında bölünmez boşluk; Hikâye, Söz ve
 Kayıt). Söz ve Kayıt’ta künye satırı yalnız parça sınırında bölünür: her parça kendi kutusundadır (`.kunye .kp`,
-`inline-block`), orta nokta önceki parçayla aynı satırda kalır; en çok 12 harflik son parça ("Giriş", "Introduction") önceki
+`inline-block`), orta nokta önceki parçanın kutusunda, önünde bölünmez boşlukla durur ve böylece önceki parçayla aynı satırda kalır (ayraç kutunun dışındayken tarayıcı satırı kutu ile bölünmez boşluk arasında kırıyordu; 24 Ekim 2026); en çok 12 harflik son parça ("Giriş", "Introduction") önceki
 parçayla aynı kutuda durur, alt satırda tek başına kalmaz. Hikâye’de künye düz metin olarak akar; parça kutusu orada 390 px’te
 İngilizce künyeyi bir satır uzatır. Paylaşım kartlarında ad alıntının altında,
 kalan kısım alt bilgide aynı sıra ve ayraçla tek satırda durur. Simülasyondaki "Kitabın girişinden" satırı ve Reform modellerindeki
@@ -377,7 +379,7 @@ Mümkün*". Alt başlık künye sayfasından (PDF s. 4) alındı. Lisans dosyas�
 
 **Dil işareti.** İngilizce sayfalardaki Türkçe ifadeler (alıntılar, bölüm adları, belge ve başlık adları) `lang="tr"`
 taşır; Metodoloji’nin Markdown kaynağında `[metin]{lang=tr}` yazılır. Türkçe sayfalardaki İngilizce adlar (kitap ve yayın
-adları) `lang="en"` taşır (Hakkında’da `<cite lang="en">`).
+adları) `lang="en"` taşır (Hakkında’da `<cite lang="en">`, Metodoloji’nin Markdown kaynağında `[metin]{lang=en}`).
 
 **İlk ekranda tek fikir.** Çubuğun altında yalnızca başlık, en çok iki cümlelik giriş ve ilk görsel; okuma notu varsa tek cümledir ve
 ilk görselin altındadır. Betikle dolan sayfa, içerik hazır olana kadar görünmez (Ya veto olmasaydı?: `html.hazir`);
@@ -390,10 +392,15 @@ yüklenirken düzen kaymaz.
 - Aynı not iki yerde tekrarlanmaz: iki panelin ortak notu panellerin altında bir kez verilir (Ya veto olmasaydı?).
 - Ya veto olmasaydı?: paneller oyları sayar; sonuç panellerin altında tek bir "Sonuç" bloğundadır
   (`kaynaklar/kimlik/sonuc-taslak.html`): başlıkta kaydın tarihi ve belge numarası; iki sonuç kartı yan yana (sistem adı ve
-  kural özeti, büyük sonuç sözcüğü, tek cümle neden; ayar notu önerilen sistem kartında tek satır); altında fark cümlesi,
+  kural özeti, büyük sonuç sözcüğü, tek cümle neden; ayar notu önerilen sistem kartında tek satır); altında fark cümlesi (sonuçlar ayrıştığında),
   birincil ve ikincil düğme. Mobilde kartlar alt alta. "Sınırlar" notu kutusuz iki cümledir, panellerin altında;
   sayım sırası notu Metodoloji 2.10’dadır. Yapışkan şerit aynı renklerle iki sonucu ve küçük "Yeniden say" düğmesini taşır; yalnızca sonuç kartları
-  ekran dışındayken görünür. 760 px altında düğme şeritte yer almaz, şerit tek satırdır.
+  ekran dışındayken görünür. 760 px ve altında düğme şeritte yer almaz ve şerit
+  320 px’e kadar her genişlikte, iki dilde ve bütün sonuçlarda tek satırdır (24 Ekim 2026, kullanıcı kararı): sonuçlar küçük boyutta
+  (15/24) ve kısa biçimleriyle yazılır ("Çoğunluk yok", "1 evete bağlı"; "Would be adopted", "No majority", "Depends on 1 vote"),
+  aralarında sonuç kartlarındaki gibi 2 px çizgi vardır. 520 px ve altında sistem adları da görünmez; iki sonuç kartlardaki sırayla
+  (önce önerilen, sonra mevcut sistem) ve renkleriyle ayrılır. Sistem adı ve tam sonuç ekran okuyucuya açık kalır (görünmez kılınır,
+  kısa biçim `aria-hidden`).
 - Varsayıma dayanan seçenekler (karar eşiği, üye sayısı) varsayılan olarak kapalı "Ayarlar" kutusundadır; kutudaki tek
   cümle kitabın 20 üyeli Konsey önerdiğini ama karar eşiğini yazmadığını, eşiğin ve sayımdaki üye sayısının varsayım
   olduğunu söyler. Varsayılandan farklı bir ayar seçildiğinde, kutu kapalıyken de
@@ -421,7 +428,7 @@ yüklenirken düzen kaymaz.
 - Metodoloji’de bölümler sayıyla numaralanır (1, 2, 2.1, 2.2 …); alt bölümler "Bu sayfada" dizininde üst bölümün altında
   girintili, sayfada çizgisiz alt başlıktır (h3).
 - Grafiğin işaretleri (kapalı oturum vetosu, Cumhurbaşkanı Erdoğan’ın Genel Kurul hitabı) üye lejantından ayrı,
-  kendi satırında açıklanır (Vetolar). Üye lejantı, Temsil’deki grup seçimi ve simülasyondaki veto eden ülke seçimi
+  kendi satırında açıklanır (Vetolar). Kapalı oturum karesi (içi boş, kesik çizgili) öteki kareler gibi üzerine gelince ipucu verir, tıklanınca kaydı açar (24 Ekim 2026). Üye lejantı, Temsil’deki grup seçimi ve simülasyondaki veto eden ülke seçimi
   çerçevesiz sekme satırıdır: seçili öğe 2 px mürekkep alt çizgili ve 600; seçim varken ötekiler soluk (20 Ekim 2026).
   Temsil’in İngilizce sekmeleri BM grup adını "Group" sözcüğü olmadan verir (African, Asia-Pacific, Eastern European, Latin
   American and Caribbean, Western European and Others).
@@ -446,11 +453,12 @@ yüklenirken düzen kaymaz.
   Gazze tablosunda veto eden üyeler lejanttaki gibi 12 px arayla dizilir; virgül adın yanında kalır.
   Temsil’in harita altındaki ülke listesi blok olmaz: 520 px ve altında ülke adı ve sayı sütunu başlıkları satır kırar,
   hücre iç boşluğu dikeyde 8 px, yatayda 4 px’tir (sütun arası 8 px); ilk sütunun solunda ve son sütunun sağında boşluk
-  yoktur. Liste 390 px’te iki dilde, bütün görünümlerde kutuya sığar.
+  yoktur. Liste 390 px’te iki dilde, bütün görünümlerde kutuya sığar. Söz ve Kayıt’ın Kayıt hücresindeki bölgesel grup tablosunda İngilizce koltuk ayrımı notu ("(0 permanent + 3 elected)") yalnız tablo kabı dar olduğunda (400 px ve altı) iki satıra iner, Türkçe not tek satırdır (24 Ekim 2026).
 - Aleyhte oy sayısı veto eden daimî üye sayısından büyükse oy satırının altında tek cümle öteki hayır oylarının daimî
   olmayan üyelerin olduğunu ve veto sayılmadığını söyler (Vetolar). Öteki hayır oyu tekse cümle tekildir ("Öteki hayır oyu
   daimî olmayan bir üyenindir; veto sayılmaz.").
-- İngilizce sayılı cümleler 1 için tekildir (Ya veto olmasaydı?: "at least 1 vote in favour is needed", "In 1 record").
+- İngilizce sayılı cümleler 1 için tekildir (Ya veto olmasaydı?: "at least 1 vote in favour is needed", "In 1 record"; Vetolar: "with 1 delegation speaking on behalf of a group").
+- Vetolar’ın "Doğrulama kaynağı" satırında İngilizcede birden çok paragraf "paras.", birden çok sayfa ya da sayfa aralığı "pp." ile yazılır ("paras. 9, 149 (PDF pp. 3, 4, 16, 18)"); Türkçede "par." ve "s." değişmez. Sayfa aralığı iki dilde yarım çizgiyledir ("PDF s. 13–14"); veride kısa çizgi kalır, sayfa betiği çevirir (24 Ekim 2026).
 - Vetolar’da arama bir konunun yer adıyla ("Gazze") ya da adındaki bir sözcükle ("İsrail", "Israel") eşleşir ve
   sonuçların hepsi o konuya bağlıysa durum satırı konuyu ve ikincil olarak bağlı kayıt sayısını söyler. Konunun tam adı
   aranır ve ikincil bağ yoksa ("Ukraine") düz sayım yazar.
@@ -611,7 +619,7 @@ sözlüğündedir.
 **Yayın adresi.** `https://vetoatlas.com` (vetoatlas.org bu adrese yönlendirilir). Her sayfa `og:url`, mutlak
 `og:image` (`https://vetoatlas.com/onizleme.png`; Ya veto olmasaydı? ve Söz ve Kayıt’ta kendi önizlemesi), `og:image:alt`
 ve `twitter:image:alt`, `canonical` ve `hreflang` (tr, en = `?lang=en`, x-default) taşır;
-İngilizce görünümde `web/cubuk.js` canonical ve `og:url` adresine `?lang=en` ekler. Giriş sayfasının
+İngilizce görünümde `web/cubuk.js` canonical ve `og:url` adresine `?lang=en` ekler; `og:locale` ve `og:locale:alternate` değerlerini her sayfanın betiği görünen dile göre yazar (Metodoloji’de `veto_atlasi/metodoloji.py`). Giriş sayfasının
 (`web/index.html`) canonical adresi hikâyedir. Tek dosyada sayfa çerçeveleri canonical ve hreflang taşımaz.
 Paylaşım kartlarının alt bilgisi: "Veto Atlası · vetoatlas.com" / "Veto Atlas · vetoatlas.com"; solda kaynak satırı
 ("DHL veto listesi ve S/PV kayıtları, 17 Eylül 2026"). Sol üst etiket yalnızca alıntı kartlarında ("Söz ve Kayıt"); sayı
@@ -621,7 +629,7 @@ kartlarında etiket yoktur (20 Ekim 2026).
 işaret ve çizgi taşır. Oylar sitedeki gibi karedir (16 px, aralarında 6 px, ret karesi sonda ve kırmızı); daire
 kullanılmaz. Konular kartında gri iz konunun bütün ret oylarıdır, ucunda ikincil renkte toplamı yazar ("/ 53"). Kart cümlesi
 tek bilgi söyler; tarih ve kaynak cümlede değil alt bilgidedir, ikinci bilgi varsa görsel notundadır (kart 02 ve 03).
-Künye dışında orta nokta kullanılmaz. Temsil kartlarının (09–11) alt bilgisi yalnız kartta gösterilen ölçülerin kaynaklarını
+Künye dışında orta nokta kullanılmaz. Kart metni, görsel notu ve alıntı satır sonu kurallarıyla bağlanır (`scripts/08_paylasim_kartlari.py`, `bagla`; 24 Ekim 2026): tarihte gün, ay ve yıl, ay ile yıl, sayı ile ardındaki ad (bağlaç, edat ve fiiller hariç) ve son iki sözcük bölünmez boşlukla; büyük metin, kart metni ve not `text-wrap: pretty` ile dizilir, son satırda tek sözcük kalmaz. Bağlama yalnızca kart HTML’inde yapılır; `kartlar.json` ve alıntı bankasındaki metin değişmez. `kaynaklar/kart_katalogu.md`’deki veri tarihi cümlesini 08 kartların dayandığı veri sürümünden yazar. Temsil kartlarının (09–11) alt bilgisi yalnız kartta gösterilen ölçülerin kaynaklarını
 sayar (Asya-Pasifik: WPP 2024, Konsey 2026; Afrika: barış gücü verisinin ayı, Konsey 2026; P5: WPP 2024, bütçe ölçeği
 2025–2027, Konsey 2026). Afrika kartındaki barış gücü çubuğunun etiketi verinin ayını söyler ("Barış gücü personeli payı,
 Temmuz 2026") ve rengi Temsil sayfasındaki personel rengidir (`--g-personel`).
@@ -634,7 +642,7 @@ vardır. 22 kare iki sırada (11 + 11) durur, veto girişimi tartışmalarının
 kareler simülasyon önizlemesiyle aynı yükseklikte başlar ve aynı sol ve sağ kenarda durur; grafik büyük sayı ile alt çizgi
 arasını doldurur.
 
-**Önizleme alt metni.** `og:image:alt` ve `twitter:image:alt` sayfanın statik başlığında iki dillidir ("Türkçe / English");
+**Önizleme alt metni.** `og:image:alt` ve `twitter:image:alt` sayfanın statik başlığında iki dillidir ("Türkçe / English"); `onizlemeAlt` taşıyan sayfalarda statik metin sözlükteki metinle birebir aynıdır (`tests/test_okunurluk.py`);
 Hikâye, Vetolar, Söz ve Kayıt, Kim temsil ediliyor?, Reform modelleri ve Metodoloji’de sayfa betiği açılışta görünen dile
 göre sözlükteki metni yazar (Hikâye’de `gorselAlt`, sayısı veri setinden; Metodoloji’de `veto_atlasi/metodoloji.py`, öteki
 sayfalarda `onizlemeAlt`); Hakkında ve Ya veto olmasaydı?’da statik metin kalır. Ortak önizleme için metin: "Veto Atlası: 1946’dan 2026’ya Güvenlik
@@ -643,7 +651,7 @@ veto in the Security Council, 1946–2026; each square is one negative vote, by 
 kendi görsellerini anlatır (22 vetonun hepsi ve 15 küçük kare; 266 önerinin 264’ü ve kesikli iki kare).
 
 **Alt bilgi notu.** Her sayfanın altında tek satır: "Beta sürümü. Hata bildirimleri iletisim@vetoatlas.com adresine
-iletilebilir." (EN "Beta version. Error reports may be sent to …"). `web/cubuk.js` kurar: sayfanın kendi alt bilgisi varsa (Hikâye,
+iletilebilir." (EN "Beta version. Error reports may be sent to …"). Notun son iki sözcüğü bölünmez boşlukla bağlıdır, son satırda tek sözcük kalmaz (İngilizcede "to" adresle, Türkçede "adresine iletilebilir."). `web/cubuk.js` kurar: sayfanın kendi alt bilgisi varsa (Hikâye,
 Vetolar) ona eklenir, yoksa sayfa kabının sonunda ince çizgili bir alt bilgi oluşturulur; tek dosyada her çerçeve kendi
 notunu taşır.
 

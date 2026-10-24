@@ -296,7 +296,7 @@
    "boyut": "1200x630",
    "html": "kart-01-vetosuz-tr-1200x630.html",
    "png": "kart-01-vetosuz-tr-1200x630.png",
-   "png_sha256": "e2509685b178d77f44ef04708cb3acf11852463b5c205d3a8172e7aa0d45725f"
+   "png_sha256": "8340cb5511ea839020f697fa5547a8f2f2690ee6d50b5cc6c4406b0377052e24"
   },
   {
    "kart": "kart-01-vetosuz",
@@ -328,7 +328,7 @@
    "boyut": "1200x630",
    "html": "kart-02-tek-ret-tr-1200x630.html",
    "png": "kart-02-tek-ret-tr-1200x630.png",
-   "png_sha256": "c7316e8f6e0ae0ea93e149355f265baca014c017fbc3d7e4f7ba071350dc8559"
+   "png_sha256": "f1565563b89e465626d2869b5bc1b40620bdf00c1f84c52324f0fc12cda26dfe"
   },
   {
    "kart": "kart-02-tek-ret",
@@ -344,7 +344,7 @@
    "boyut": "1200x630",
    "html": "kart-02-tek-ret-en-1200x630.html",
    "png": "kart-02-tek-ret-en-1200x630.png",
-   "png_sha256": "c4cf7eda67c1748194d843d7564f33dd94c06d53ba505b3a0cd2483edf8910f9"
+   "png_sha256": "ac3af6b21d85dc8b728576b4c8dea787baafa6f4acc6ccfbbf377488cd8b9344"
   },
   {
    "kart": "kart-02-tek-ret",
@@ -368,7 +368,7 @@
    "boyut": "1080x1080",
    "html": "kart-03-genel-kurul-tr-1080x1080.html",
    "png": "kart-03-genel-kurul-tr-1080x1080.png",
-   "png_sha256": "6b07135f476e7bb673048a5fdb9d8d701b859c6fedfeeae63187289b4108d150"
+   "png_sha256": "6736b9e97147e1a3a663ab8604e2b5c9a280d8282b24fb3ed16402fa9fe52ecd"
   },
   {
    "kart": "kart-03-genel-kurul",
@@ -376,7 +376,7 @@
    "boyut": "1200x630",
    "html": "kart-03-genel-kurul-en-1200x630.html",
    "png": "kart-03-genel-kurul-en-1200x630.png",
-   "png_sha256": "02e1ad6664253012d6cc818eae366372c0970b100f145124446c265e3e367bcf"
+   "png_sha256": "b5bd168098d3d479604e5e2b115e50b65481c59258b1d25d5cc64b96285052aa"
   },
   {
    "kart": "kart-03-genel-kurul",
@@ -384,7 +384,7 @@
    "boyut": "1080x1080",
    "html": "kart-03-genel-kurul-en-1080x1080.html",
    "png": "kart-03-genel-kurul-en-1080x1080.png",
-   "png_sha256": "be79c785ab97244f49b75e60d983cb59fded57c1e326c96d78d0377bce3c253a"
+   "png_sha256": "bc2a776d2331d4d0f666a2daca93783b2315c16de0352c82936f51bb6aea35d5"
   },
   {
    "kart": "kart-04-besi-de",
@@ -424,7 +424,7 @@
    "boyut": "1200x630",
    "html": "kart-05-konular-tr-1200x630.html",
    "png": "kart-05-konular-tr-1200x630.png",
-   "png_sha256": "ae32afe032012160f045ed458190c4c089adf5ec8534c96ee45f67443791697e"
+   "png_sha256": "f3b69c60daaaff7cf2bda75a44c3ce4a4c7290ebae7e3aa90e820794ed624c35"
   },
   {
    "kart": "kart-05-konular",
@@ -440,7 +440,7 @@
    "boyut": "1200x630",
    "html": "kart-05-konular-en-1200x630.html",
    "png": "kart-05-konular-en-1200x630.png",
-   "png_sha256": "c63690c239dc7f5b4204e2adc2d65b9ea4e063e46f8e27a5776c34d296253129"
+   "png_sha256": "7e7e6c29a4c1b6f2df61606f8acc7fd03ae0c22de06fad544c7e68bd3480170e"
   },
   {
    "kart": "kart-05-konular",
@@ -472,7 +472,7 @@
    "boyut": "1200x630",
    "html": "kart-09-asya-pasifik-en-1200x630.html",
    "png": "kart-09-asya-pasifik-en-1200x630.png",
-   "png_sha256": "fc7f654e4f63dbac2ec41ee5cc76fa694c65346b298dab0e62bd757b49f030bb"
+   "png_sha256": "f6009f75302d6635b7efc193c0644d3d40fbf7c273820131c96ea42e1f6b3ab9"
   },
   {
    "kart": "kart-09-asya-pasifik",
@@ -480,7 +480,7 @@
    "boyut": "1080x1080",
    "html": "kart-09-asya-pasifik-en-1080x1080.html",
    "png": "kart-09-asya-pasifik-en-1080x1080.png",
-   "png_sha256": "d067212eb9caee9038b1f121c2a061d146667990a194c491f16e4e39804b3655"
+   "png_sha256": "2a9d1fd80d3b6c8113c574ee4da73e190d1ae75dbb972b6e3847b706dba92bb4"
   },
   {
    "kart": "kart-10-afrika",
@@ -488,7 +488,7 @@
    "boyut": "1200x630",
    "html": "kart-10-afrika-tr-1200x630.html",
    "png": "kart-10-afrika-tr-1200x630.png",
-   "png_sha256": "d250c74bf32c1d3124d4a245df29e6af2360181d827d52639426e5b91a253fdd"
+   "png_sha256": "eb30442f525899b4a80df970190adedf6cd565fea08f624e48d1d6dda4c0b515"
   },
   {
    "kart": "kart-10-afrika",
@@ -520,7 +520,7 @@
    "boyut": "1200x630",
    "html": "kart-11-p5-tr-1200x630.html",
    "png": "kart-11-p5-tr-1200x630.png",
-   "png_sha256": "6e44d86092f4ac0379d88a5109df8c469708c3f809c350359c63ac690c93ba10"
+   "png_sha256": "14854f260a87d93fc075c79737606421506f97ff381f6cb2d0c99889cdd27f18"
   },
   {
    "kart": "kart-11-p5",
@@ -552,7 +552,7 @@
    "boyut": "1200x630",
    "html": "kart-06-alinti-2026-tr-1200x630.html",
    "png": "kart-06-alinti-2026-tr-1200x630.png",
-   "png_sha256": "5e5170b3fb3282e54cd63886826f6099d69ee4b9e4218df43969770c4f9607b0"
+   "png_sha256": "4f43a8c5c317ed23af4f36e62c147fdd243e9325b6a3315893e95260eea3b3e7"
   },
   {
    "kart": "kart-06-alinti-2026",
@@ -560,7 +560,7 @@
    "boyut": "1080x1080",
    "html": "kart-06-alinti-2026-tr-1080x1080.html",
    "png": "kart-06-alinti-2026-tr-1080x1080.png",
-   "png_sha256": "929d341a563e38ece2f1b8553346416e7d84cb36034614a735d49a9e9ffd9446"
+   "png_sha256": "393554365cec50db180c58f1bc0abdb0523554322e6589257b5e9752edbe52c3"
   },
   {
    "kart": "kart-06-alinti-2026",
@@ -568,7 +568,7 @@
    "boyut": "1200x630",
    "html": "kart-06-alinti-2026-en-1200x630.html",
    "png": "kart-06-alinti-2026-en-1200x630.png",
-   "png_sha256": "39f6da2026318b036e19d8d34023311ab50ad53838675b8ec1bd3dbffa0c823a"
+   "png_sha256": "c4ce3a342e4d2bfe0ead5022f79fcd35df9dae87680dfb0712b3e44b2d05b9d3"
   },
   {
    "kart": "kart-06-alinti-2026",
@@ -584,7 +584,7 @@
    "boyut": "1200x630",
    "html": "kart-07-alinti-2025-tr-1200x630.html",
    "png": "kart-07-alinti-2025-tr-1200x630.png",
-   "png_sha256": "49f8c2898943dc5da8fd99975a17fde55e8943600928cbb3791b0b3f284867c3"
+   "png_sha256": "7fe2de1121340051c4a86927f5072cc68ee9c74fcbb255a9cdb623e2b9039e31"
   },
   {
    "kart": "kart-07-alinti-2025",
@@ -600,7 +600,7 @@
    "boyut": "1200x630",
    "html": "kart-07-alinti-2025-en-1200x630.html",
    "png": "kart-07-alinti-2025-en-1200x630.png",
-   "png_sha256": "302cf3b577a426fef3bc5a3f0a2ecfa9eb9183aeba81c1aa635175a3bf3c60f6"
+   "png_sha256": "2749f72d57dd9a11e4e3b951a98390c4a78374bf32d770b5b4d6d236a7ca1619"
   },
   {
    "kart": "kart-07-alinti-2025",

@@ -207,16 +207,16 @@ def girdi_uret() -> None:
         not_, not_en = "", ""
         if k == "TUR":
             secim = "WEOG"
-            not_ = "BM Genel Kurul ve Konferans Yönetimi Dairesinin (DGACM) listesinde iki grupta (WEOG ve Asya-Pasifik) yer alır; seçimlerde yalnızca WEOG üyesi sayılır. Burada WEOG’da saydık."
-            not_en = "The list of the UN Department for General Assembly and Conference Management (DGACM) places it in two groups (WEOG and Asia-Pacific); for electoral purposes it is a member of WEOG only. We count it in WEOG here."
+            not_ = "BM Genel Kurul ve Konferans Yönetimi Dairesinin (DGACM) listesinde iki grupta (WEOG ve Asya-Pasifik) yer almakta olup seçimlerde yalnızca WEOG üyesi sayılmaktadır. Bu sayfada WEOG kapsamında değerlendirilmiştir."
+            not_en = "The list of the UN Department for General Assembly and Conference Management (DGACM) places it in two groups (WEOG and Asia-Pacific); for electoral purposes it is a member of WEOG only. It is included in WEOG on the present page."
         elif k == "USA":
             secim = "WEOG"
-            not_ = "BM Genel Kurul ve Konferans Yönetimi Dairesinin (DGACM) listesine göre hiçbir bölgesel grubun üyesi değildir; WEOG toplantılarına gözlemci katılır ve seçimlerde WEOG üyesi sayılır. Burada WEOG’da saydık."
-            not_en = "According to the list of the UN Department for General Assembly and Conference Management (DGACM), it is not a member of any regional group; it attends WEOG meetings as an observer and is considered a WEOG member for electoral purposes. We count it in WEOG here."
+            not_ = "BM Genel Kurul ve Konferans Yönetimi Dairesinin (DGACM) listesine göre hiçbir bölgesel grubun üyesi değildir; WEOG toplantılarına gözlemci olarak katılmakta ve seçimlerde WEOG üyesi sayılmaktadır. Bu sayfada WEOG kapsamında değerlendirilmiştir."
+            not_en = "According to the list of the UN Department for General Assembly and Conference Management (DGACM), it is not a member of any regional group; it attends WEOG meetings as an observer and is considered a WEOG member for electoral purposes. It is included in WEOG on the present page."
         elif k == "ISR":
             secim = "WEOG"
-            not_ = "BM Genel Kurul ve Konferans Yönetimi Dairesinin (DGACM) listesine göre Mayıs 2000’de geçici, 2004’te kalıcı olarak WEOG üyesi oldu."
-            not_en = "According to the list of the UN Department for General Assembly and Conference Management (DGACM), a WEOG member on a temporary basis from May 2000 and permanently from 2004."
+            not_ = "BM Genel Kurul ve Konferans Yönetimi Dairesinin (DGACM) listesine göre Mayıs 2000’de geçici, 2004’te kalıcı olarak WEOG üyesi olmuştur."
+            not_en = "According to the list of the UN Department for General Assembly and Conference Management (DGACM), it became a WEOG member on a temporary basis in May 2000 and on a permanent basis in 2004."
         else:
             assert len(listeler) == 1, (k, listeler)
             secim = listeler[0]
@@ -336,10 +336,10 @@ def hesapla() -> dict:
     assert kibris["not"] is None
     kibris["nufus_2023"] = round(kibris["nufus_2023"] - kktc_bin, 3)
     kisi = round(kktc_bin * 1000)
-    kibris["not"] = {"tr": f"Nüfus 2023: WPP 2024’ün Kıbrıs verisi adanın tamamını kapsar; Kuzey Kıbrıs Türk Cumhuriyeti’nin nüfusunu "
-                           f"(KKTC İstatistik Kurumu, 2022 yıl sonu projeksiyonu: {f'{kisi:,}'.replace(',', '.')}) çıkardık.",
-                     "en": f"Population 2023: WPP 2024 data for Cyprus refer to the whole island; we subtract the population of the Turkish "
-                           f"Republic of Northern Cyprus (TRNC Statistical Institute, end-2022 projection: {kisi:,})."}
+    kibris["not"] = {"tr": f"WPP 2024’ün Kıbrıs verisi adanın tamamını kapsadığından 2023 nüfusundan Kuzey Kıbrıs Türk Cumhuriyeti’nin nüfusu "
+                           f"(KKTC İstatistik Kurumu, 2022 yıl sonu projeksiyonu: {f'{kisi:,}'.replace(',', '.')}) çıkarılmıştır.",
+                     "en": f"As the WPP 2024 data for Cyprus refer to the whole island, the population of the Turkish Republic of Northern Cyprus "
+                           f"(TRNC Statistical Institute, end-2022 projection: {kisi:,}) has been subtracted from the 2023 figure."}
     toplam_nufus = sum(x["nufus_2023"] for x in U)
     toplam_butce = sum(x["butce_yuzde"] for x in U)
     toplam_pk = sum(x["personel"] for x in U)
@@ -391,13 +391,13 @@ def hesapla() -> dict:
     iit_63 = [x for x in U63 if x["iit_bugun"]]
     kumeler = [
         kume("Beş daimî üye", "Five permanent members", "P5", p5, p5_63, 5, 0,
-             [{"tr": "1963 nüfusunda Çin ve SSCB yukarıdaki 1963 notlarındaki gibi sayılır.",
+             [{"tr": "1963 nüfusunda Çin ve SSCB, yukarıdaki 1963 notlarında belirtildiği biçimde sayılmıştır.",
                "en": "For 1963, China and the USSR are counted as in the 1963 notes above."}]),
         kume("İslam İşbirliği Teşkilatı üyeleri", "Organisation of Islamic Cooperation members", "IIT", iit_u, iit_63, 0,
              sum(1 for x in iit_u if x["gk"] and x["gk"]["tur"] == "secilmis"),
-             [{"tr": "İİT’nin 57 üyesinden Filistin BM üyesi değildir; paylara 56 üye girer.", "en": "Of the 57 OIC members, Palestine is not a UN Member State; 56 members enter the shares."},
-              {"tr": "1963: İİT 1969’da kuruldu; 1963 değeri bugünkü üyelerden o tarihte BM üyesi olanların 1963 sınırlarıyla toplamıdır. 1963 sınırları yukarıdaki notlardaki gibidir.",
-               "en": "1963: the OIC was founded in 1969; the 1963 value is the sum of today’s members that were UN members at that time, with their 1963 borders. The 1963 borders are as in the notes above."}]),
+             [{"tr": "İİT’nin 57 üyesinden Filistin BM üyesi olmadığından paylar 56 üye üzerinden hesaplanmıştır.", "en": "As Palestine, one of the 57 OIC members, is not a UN Member State, the shares are calculated on the basis of 56 members."},
+              {"tr": "İİT 1969’da kurulmuş olup 1963 değeri, bugünkü üyelerden o tarihte BM üyesi olanların 1963 sınırlarıyla toplamıdır; 1963 sınırları yukarıdaki notlarda belirtildiği gibidir.",
+               "en": "The OIC was founded in 1969; the 1963 value is the sum of today’s members that were UN Member States at that time, within their 1963 borders, as set out in the notes above."}]),
     ]
     return {
         "meta": {

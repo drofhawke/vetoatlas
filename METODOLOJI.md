@@ -26,7 +26,7 @@ sayısına girmez; bu nedenle ret oyu toplamı 324 değil 322’dir. Konsey büy
 on bir üye ve yedi olumlu oy kuralı; sonrasında on beş üye ve dokuz oy. 31 Ağustos 1965 ile
 1965 sonu arasında veto kullanılmadığı için veri seti 1966 öncesi kayıtları on bir üyeli Konseye
 sayar (“on dörde karşı bir” galerisinde “ona karşı bir”, simülasyon sayfasında eşik 7). “On dörde karşı bir” sayımı,
-lehte oy sayısı Konseyin üye sayısından bir eksik olan önerileri alır; bir üyenin oylamaya katılmadığı
+olumlu oy sayısı Konseyin üye sayısından bir eksik olan önerileri alır; bir üyenin oylamaya katılmadığı
 3 kayıt (30 Kasım 1950, 26 Temmuz 1973, 23 Haziran 1976) bu sayıya girmez. Kaynakta yıldızla işaretli, paragraf veya değişiklik önergesine yönelik
 vetolar ayrıca işaretlenir.
 
@@ -73,7 +73,7 @@ doğrulanarak ayrıştırılır.
 
 Ana veri kaynağı DHL veto listesidir; belge numaraları ve bağlantılar oradan gelir.
 Sayımın doğruluğu, Konsey prosedürü üzerine standart başvuru eseri olan Sievers ve
-Daws’ın *The Procedure of the UN Security Council* çalışmasının veto tablosuyla
+Daws’ın [*The Procedure of the UN Security Council*]{lang=en} çalışmasının veto tablosuyla
 (scprocedure.org, Tablo 4) satır satır karşılaştırılarak sağlanır.
 
 İki kaynak arasındaki her fark `kaynaklar/duzeltmeler.csv` dosyasında gerekçesiyle
@@ -104,7 +104,7 @@ kaydından belirlenir ve doğru tarihi hangi kaynak veriyorsa kayıtta o kullan�
 kaynağın tarihi notlarda kalır. Referans kaynağın kendi iç tutarsızlıkları
 (`kaynaklar/KAYNAKLAR.md`) da aynı şekilde belgelenir.
 
-Genel oy dağılımı (lehte-aleyhte-çekimser) referans tablodan alınır. Aynı gün aynı
+Genel oy dağılımı (evet, hayır, çekimser) referans tablodan alınır. Aynı gün aynı
 gündemde birden fazla veto olduğunda eşleştirme ülke adı, gündem ya da kaynaktaki
 dipnotla yapılır ve gerekçesi kayda yazılır. Bu yollarla eşleştirilemeyenler toplantı
 kaydından elle eşleştirilene kadar boş bırakılır; tahmin edilmez.
@@ -124,7 +124,7 @@ bülteni) gerekçeye açıkça yazılır.
 kayıtlar ilgili toplantı kaydının (S/PV) kendisinden doğrulanır. Kayıtlar undocs.org
 üzerinden BM belge sisteminin PDF’leri olarak açılır. Eski yıllarda Resmî Kayıtlar sürümü
 (S/PV.NNNN(OR)) kullanılır; metin katmanı olmayan taranmış sayfalar görüntüden okunur.
-Oy dağılımı, kayıttaki lehte, aleyhte ve çekimser ülke listelerinden sayılır. Oylama günü,
+Oy dağılımı, kayıtta evet, hayır ve çekimser oy veren ülkelerin listelerinden sayılır. Oylama günü,
 toplantının açılış ve kapanış saatlerinden, verilen aralardan ve konuşmalardaki zaman
 ifadelerinden (“dün sabah”, “yarın, 7 Eylül”) çıkarılır. Toplantı gece yarısını geçmişse
 oylamanın hangi gün yapıldığı bu işaretlerle ayrılır ve not edilir. Kayıt kimliği
@@ -218,16 +218,16 @@ başlangıcından bu yana girişimin çekirdek grubunda yer aldığını ifade e
 numaraları belgelerin PDF sayfalarıdır.
 
 Tartışmalar `kaynaklar/genel_kurul_tartismalari.csv` dosyasında, vetolardan ayrı tutulur. Bir
-tartışma birden çok vetoyu, bir veto da birden çok tartışmayı kapsayabilir. Konseyin özel
+tartışma birden çok vetoyu kapsayabilir, bir veto da birden çok tartışmada görüşülebilir. Konseyin özel
 raporları `kaynaklar/ozel_raporlar.csv` dosyasındadır. İki tür tartışma vardır:
 `veto_girisimi` (“Use of the veto” gündem maddesi altındaki tartışma) ve
 `olaganustu_ozel_oturum` (ES-10, ES-11). Olağanüstü özel oturumlarda konuşmacı sayısı
 tutulmaz; yalnızca toplantı kayıtları ve kabul edilen kararlar yazılır.
 
 Her toplantı kaydı için üç değerden biri kullanılır. `resmi`: BM belge
-sisteminde yayımlanmış tutanak (A/…/PV.…). `gayriresmi_transkript`: tutanak yayımlanmamış ama
-BM’nin otomatik konuşma tanıma transkripti (transcripts.un.org) var. `yayimlanmadi`: ikisi de
-yok. Gayriresmî transkriptten alınan her bilgi `gayriresmi_alanlar` sütununda ayrıca
+sisteminde yayımlanmış tutanak (A/…/PV.…). `gayriresmi_transkript`: tutanak yayımlanmamış olmakla birlikte
+BM’nin otomatik konuşma tanıma transkripti (transcripts.un.org) bulunmaktadır. `yayimlanmadi`: ikisi de
+bulunmamaktadır. Gayriresmî transkriptten alınan her bilgi `gayriresmi_alanlar` sütununda ayrıca
 işaretlenir. Bekleyen kayıtlar `scripts/05_bekleyen_kayitlar.py` ile denetlenir; yayımlanan
 kayıt elle işlenir ve gerekiyorsa sayım tutanaktan yeniden yapılır.
 
@@ -249,7 +249,7 @@ Konuşmacılar yalnızca veto girişimi tartışmalarında şöyle sayılır:
 - Gözlemciler (Avrupa Birliği, Filistin Devleti, Malta Egemen Tarikatı vb.) üye devletlerden
   ayrı sütunda sayılır.
 - Cevap hakkı kullanımları açıklamalardan ayrı tutulur.
-- `veto_eden_konustu`, veto eden her ülke için ayrı tutulur; çifte vetolarda iki ülke de
+- `veto_eden_konustu`, veto eden her ülke için ayrı tutulur; bir öneriyi iki üye veto etmişse iki ülke de
   yazılır. Değerler: `aciklama`, `yalnizca_cevap_hakki`, `hayir`.
 - Kaynak: tutanağı yayımlanmış tartışmalarda sayım tutanaktan yapılır, BM Günlüğü özetiyle
   karşılaştırılır. Tutanağı yayımlanmamış tartışmalarda sayım BM Günlüğü özetinden yapılır;
@@ -294,7 +294,7 @@ doğrulanamazsa `04_web_verisi.py` durur ve testler (`tests/test_alintilar.py`) 
 - 2019 hitabı: İletişim Başkanlığının İngilizce kitapçığı. Kitapçık konuşmanın hazırlanmış metnidir. Kürsüde
   eklenen ve kitapçıkta bulunmayan pasajın (2019-2) İngilizcesi BM’nin İngilizce toplantı kaydından
   (A/74/PV.3) alınır. Konuşma Türkçe yapılmış olup kayıttaki İngilizce, delegasyonun verdiği tercümedir.
-- Kitap: İngilizce baskı *A Fairer World is Possible* (Turkuvaz Kitap, 2021), İngilizce bölüm başlığıyla. İngilizce baskının PDF’i bir taramadır ve metin katmanı OCR’dır. Bu yüzden
+- Kitap: İngilizce baskı [*A Fairer World is Possible*]{lang=en} (Turkuvaz Kitap, 2021), İngilizce bölüm başlığıyla. İngilizce baskının PDF’i bir taramadır ve metin katmanı OCR’dır. Bu yüzden
   alıntıların geçtiği sayfalar sayfa görüntüsüyle karşılaştırılmıştır. OCR’ın görüntüden farklı okuduğu tek yer
   (s. 32’de kısa tire) görüntüdeki gibi düzeltilerek aranır (`kaynaklar/KAYNAKLAR.md`).
 
@@ -327,7 +327,7 @@ Ezulwini Uzlaşısı (Ext/EX.CL/2 (VII); A/59/L.67), G4 (A/59/L.64), Uzlaşı i�
 belgelerden aktarılır (`kaynaklar/reform_modelleri.csv`): her hücre belgenin kendi hükmünü özetler ve
 altında dayanak paragrafı yazılır. Kitaptan tırnak içinde verilen her ifade, alıntı bankasındaki
 doğrulanmış bir alıntıda birebir geçer. Bunu otomatik bir test denetler. Kitap alıntıları iki dilde de bölüm
-başlığıyla künyelenir; tablodaki dayanak da bölüm başlığıdır. Sayfa modeller hakkında değerlendirme cümlesi kurmaz.
+başlığıyla künyelenir; tablodaki dayanak da bölüm başlığıdır. Sayfa, modeller hakkında değerlendirme cümlesi kurmamaktadır.
 
 ### 2.9. Temsil endeksi
 
@@ -361,18 +361,18 @@ eklenmez; bileşik puan ya da sıralama yoktur.
 - Kümeler beş daimî üye ve İİT üyeleridir (57 üyeden Filistin BM üyesi değildir; 56 üye). İİT 1969’da
   kurulduğundan 1963 değeri bugünkü üyelerden o tarihte BM üyesi olanların 1963 sınırlarıyla toplamıdır.
 - Kaynaklar: nüfus: United Nations, Department of Economic and Social Affairs, Population Division (2024),
-  World Population Prospects 2024, Online Edition, `WPP2024_GEN_F01_DEMOGRAPHIC_INDICATORS_COMPACT.xlsx`, lisans
+  [World Population Prospects 2024, Online Edition]{lang=en}, `WPP2024_GEN_F01_DEMOGRAPHIC_INDICATORS_COMPACT.xlsx`, lisans
   CC BY 3.0 IGO; üye devletler ve kabul tarihleri: un.org/en/about-us/member-states; bölgesel gruplar: DGACM,
-  Regional groups of Member States, un.org/dgacm/en/content/regional-groups; bütçe ölçeği: Committee on
+  [Regional groups of Member States]{lang=en}, un.org/dgacm/en/content/regional-groups; bütçe ölçeği: Committee on
   Contributions, `Scale of Assessments for RB 1946-2027.xlsx` (A/RES/79/249, 24 Aralık 2024); barış gücü: UN Peace
-  and Security Data Hub, Latest Uniformed Personnel Contribution By Country (DPO-UCLATEST), 31 Temmuz 2026,
+  and Security Data Hub, [Latest Uniformed Personnel Contribution By Country]{lang=en} (DPO-UCLATEST), 31 Temmuz 2026,
   psdata.un.org (peacekeeping.un.org’daki aylık sıralama PDF’i 28 Şubat 2026’dan sonra güncellenmemiştir; veri
   merkezinin 28 Şubat 2026 değerleri o PDF’le ülke ülke aynıdır); İİT üyeleri: oic-oci.org/en/members (57 üye); Konsey üyeleri: UN
-  Security Council, Current Members, main.un.org/securitycouncil/en/content/current-members; seçilmiş koltuk
+  Security Council, [Current Members]{lang=en}, main.un.org/securitycouncil/en/content/current-members; seçilmiş koltuk
   dağılımı: A/RES/1991 (XVIII), 17 Aralık 1963. Barış gücü verisine erişim 21 Ekim 2026, ötekilere 10 Ekim 2026; künyeler ve SHA-256 değerleri
   `kaynaklar/KAYNAKLAR.md` dosyasındadır.
 - Sayfanın başındaki harita, seçilen bölgesel grubun üyelerini ve Güvenlik Konseyindeki koltuklarını
-  (2026) gösterir; aynı bilgi haritanın altındaki ülke listesindedir. Sınırlar Natural Earth 1:50m 5.1.2’den (kamu
+  (2026) göstermektedir; aynı bilgi haritanın altındaki ülke listesindedir. Sınırlar Natural Earth 1:50m 5.1.2’den (kamu
   malı), Equal Earth izdüşümüyle; hesap `scripts/13_harita.py`. 193 üyenin her biri kendi ülkesiyle eşlenir; BM üyesi
   olmayan ülke ve alanlar (Batı Sahra, Kuzey Kıbrıs Türk Cumhuriyeti, Tayvan, Kosova, Filistin ve bağımlı topraklar)
   boş çizilir.
@@ -390,28 +390,28 @@ eklenmez; bileşik puan ya da sıralama yoktur.
   BM’nin kullandığı biçimdedir (WPP 2024; WPP’de yoksa M49); Türkiye’nin tanıdığı devletler (Kuzey Kıbrıs Türk Cumhuriyeti,
   Kosova, Filistin, Vatikan) T.C. Dışişleri Bakanlığının kullandığı adla yazılır (Bakanlığın temsilcilik listesi). Bağlı olunan
   devlet ve anlaşmazlıklar yazılmaz; iki üye arasında tartışmalı Siachen Buzulu adsızdır
-  (`kaynaklar/temsil/uye_olmayan_alanlar.csv`). Nüfus balonlarında dairenin alanı ülkenin 2023 nüfusuyla (WPP 2024) orantılıdır. Harita BM üyeliğini gösterir; sınırların ve adların gösterimi bir egemenlik görüşü
-  bildirmez.
+  (`kaynaklar/temsil/uye_olmayan_alanlar.csv`). Nüfus balonlarında dairenin alanı ülkenin 2023 nüfusuyla (WPP 2024) orantılıdır. Harita BM üyeliğini göstermektedir; sınırların ve adların gösterimi bir egemenlik görüşü
+  bildirmemektedir.
 - Sayfada yalnızca paylar verilir; karşılaştırma ya da değerlendirme cümlesi kurulmaz.
 
 ### 2.10. “Ya veto olmasaydı?” sayfası
 
 `web/simulasyon.html` bir veto kaydının kayıtlı oylarını iki sistemde saymaktadır; hiçbir oy değiştirilmez,
 eklenmez ya da tahmin edilmez. Yalnızca veri setindeki kayıtlar seçilebilir; varsayımsal bir öneri girilemez ve
-sayfa hiçbir modeli tercih etmez. Kitaptaki 20 üyeli Konsey seçildiğinde hesap yine yalnızca kayıtlı oylara
+sayfa hiçbir modeli tercih etmemektedir. Kitaptaki 20 üyeli Konsey seçildiğinde hesap yine yalnızca kayıtlı oylara
 dayanır ve seçili eşiğin oranı korunur: 15 üyede 9 olan mevcut çoğunluk kuralı 20 üyede 12, üçte iki 14,
 salt çoğunluk 11 oydur. Kayıtlı olumlu oylar bu eşiği tek başına karşılıyorsa sonuç “kabul edilirdi”dir;
 karşılamıyorsa sonuç “kayıtta olmayan üyelere bağlı” olarak verilir ve kayıtta olmayan 5 (1966 öncesinde 9)
 üyeden en az kaçının olumlu oy kullanması gerektiği yazılır. Bu üyelerin oyu tahmin edilmez; tamamı olumlu oy
 kullansa da eşiğe ulaşılamayan kayıt “çoğunluk yok, kabul edilmezdi” sayılır. Toplu görünümdeki sayılar sayfa açılırken veri setinden
-hesaplanır. Diğer modellerle karşılaştırma kutusu 2.8’deki belgelerin hükümlerini kullanır; her birinin dayanak
+hesaplanır. Diğer modellerle karşılaştırma kutusu 2.8’deki belgelerin hükümlerini kullanmaktadır; her birinin dayanak
 paragrafı kutuda yazılıdır.
 
 Toplu görünümde eşikler 11 üyeli Konseyde 7, 8 ve 6, 15 üyeli Konseyde 9, 10 ve 8’dir (mevcut çoğunluk
 kuralı, üçte iki, salt çoğunluk). Oyların panellerdeki sayım sırası bir gösterimdir; toplantı kayıtlarında üye
 bazlı oylama sırası yoktur. BM Şartı’nın 108. maddesine göre Şart değişiklikleri, Genel Kurul üyelerinin üçte
 ikisinin oyuyla kabul edilip beş daimî üye dâhil üyelerin üçte ikisi tarafından onaylandığında yürürlüğe girer;
-sayfa bu süreç hakkında bir varsayım yapmaz.
+sayfa bu süreç hakkında bir varsayımda bulunmamaktadır.
 
 ## 3. Nedensellik dili
 

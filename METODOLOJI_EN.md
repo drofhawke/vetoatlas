@@ -267,7 +267,7 @@ Speakers are counted as follows, in veto initiative debates only:
 - Observers (European Union, State of Palestine, Sovereign Order of Malta, etc.) are counted in
   a column separate from Member States.
 - Rights of reply are kept separate from statements.
-- `veto_eden_konustu` is kept separately for each vetoing country; for double vetoes both
+- `veto_eden_konustu` is kept separately for each vetoing country; if two members vetoed one proposal, both
   countries are listed. Values: `aciklama`, `yalnizca_cevap_hakki`, `hayir`.
 - Source: for debates whose verbatim record has been published, the count is made from the
   verbatim record and compared with the Journal summary. For debates whose verbatim record has
@@ -342,7 +342,7 @@ Africa, Europe, Africa, Asia and the Pacific, Latin America and the Caribbean, a
 covers agenda items not tied to a particular region (general membership applications,
 disarmament, appointment of the Secretary-General, thematic issues). The region is assigned from
 the agenda title and is independent of the topic classification. The numbers of delegations in
-veto initiative debates are the counts made under the rules in 2.5 (member states and observers
+veto initiative debates are the counts made under the rules in 2.5 (Member States and observers
 together; rights of reply excluded).
 
 ### 2.8. Reform models

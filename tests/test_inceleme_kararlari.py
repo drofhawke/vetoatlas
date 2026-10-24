@@ -127,6 +127,7 @@ def test_hakkinda_indirme_sozluk_cevrimdisi_ve_gizlilik():
 # ---------- Kesme işareti ----------
 
 DUZ_KESME = re.compile(r"[A-Za-zÇĞİÖŞÜçğıöşüâîû0-9)\]]'[A-Za-zÇĞİÖŞÜçğıöşüâîû]")
+DUZ_TIRNAK = re.compile(r"(?:^|\s)'[^']+'")  # tek tırnakla yazılmış alıntı; CSV metinlerinde alıntı tırnağı “ ”dir (KILAVUZ "Kesme ve tırnak")
 
 
 def yorumsuz(s):
@@ -138,6 +139,8 @@ def yorumsuz(s):
 def test_kesme_kalibi_kendini_sinar():
     assert DUZ_KESME.search("Konsey'in") and DUZ_KESME.search("1946'dan") and DUZ_KESME.search("Council's")
     assert not DUZ_KESME.search("Konsey’in") and not DUZ_KESME.search("t('x')") and not DUZ_KESME.search("= 'tr'")
+    assert DUZ_TIRNAK.search("gündem maddesi 'Use of the veto' / 76/262") and not DUZ_TIRNAK.search("gündem maddesi “Use of the veto”")
+    assert not DUZ_TIRNAK.search("Côte d'Ivoire") and not DUZ_TIRNAK.search("Democratic People's Republic of Korea")
 
 
 def test_gorunen_metinde_kesme_kivrik():
@@ -148,20 +151,47 @@ def test_gorunen_metinde_kesme_kivrik():
         s = yorumsuz(oku(f"{ad}.html"))
         m = DUZ_KESME.search(s)
         assert not m, (ad, s[max(0, m.start() - 40):m.end() + 20])
-    for md in ("METODOLOJI.md", "METODOLOJI_EN.md", "kaynaklar/kimlik/KILAVUZ.md"):
-        s = re.sub(r"`[^`\n]*`", " ", re.sub(r"```.*?```", " ", (KOK / md).read_text(encoding="utf-8"), flags=re.S))
+    for md in ("METODOLOJI.md", "METODOLOJI_EN.md", "kaynaklar/kimlik/KILAVUZ.md", "kaynaklar/KAYNAKLAR.md", "README.md",
+               "kaynaklar/kart_katalogu.md"):
+        s = re.sub(r"`[^`\n]*`", "x", re.sub(r"```.*?```", " ", (KOK / md).read_text(encoding="utf-8"), flags=re.S))
         m = DUZ_KESME.search(s)
         assert not m, (md, s[max(0, m.start() - 40):m.end() + 20])
     for yol, sutunlar in (("kaynaklar/gundem_sozlugu.csv", ["gundem_tr"]), ("kaynaklar/duzeltmeler.csv", ["aciklama", "aciklama_en"]),
                           ("kaynaklar/temsil/harita_kurallari.csv", ["gerekce_tr", "gerekce_en"]),
                           ("kaynaklar/temsil/bolgesel_gruplar.csv", ["not", "not_en"]), ("kaynaklar/notlar_en.csv", ["not", "not_en"]),
-                          ("kaynaklar/reform_modelleri.csv", ["tr", "en", "dayanak"])):
+                          ("kaynaklar/reform_modelleri.csv", ["tr", "en", "dayanak"]),
+                          ("kaynaklar/veri_sozlugu.csv", ["bos_anlami", "bos_anlami_en", "aciklama_tr", "aciklama_en"]),
+                          ("kaynaklar/genel_kurul_tartismalari.csv", ["dogrulama_kaynagi", "capraz_kontrol"])):
         with open(KOK / yol, encoding="utf-8", newline="") as f:
             for satir in csv.DictReader(f):
                 for s in sutunlar:
                     assert not DUZ_KESME.search(satir[s] or ""), (yol, s, satir[s])
+                    assert not DUZ_TIRNAK.search(satir[s] or ""), (yol, s, satir[s])
     m = json.loads(oku("kartlar/kartlar.json"))
     for k in m["kartlar"]:
         for alan in ("metin", "kaynak") + (() if k["tur"] == "alinti" else ("buyuk",)):
             for dil in ("tr", "en"):
                 assert not DUZ_KESME.search(k[alan][dil]), (k["id"], alan, dil)
+
+
+def test_sema_aciklamalari_kivrik_kesmeli():
+    """Canlı denetim doğrulaması (24 Ekim 2026): şemanın açıklamaları da kıvrık kesme ve “ ” tırnak kullanır; Vetolar araması
+    şapkayı yok sayar ("daimi" "Daimî"yi bulur)."""
+    aciklamalar = []
+
+    def yuru(x):
+        if isinstance(x, dict):
+            for k, v in x.items():
+                if k == "description" and isinstance(v, str):
+                    aciklamalar.append(v)
+                else:
+                    yuru(v)
+        elif isinstance(x, list):
+            for v in x:
+                yuru(v)
+
+    yuru(json.loads((KOK / "schema/veto_kaydi.schema.json").read_text(encoding="utf-8")))
+    assert len(aciklamalar) > 20
+    for a in aciklamalar:
+        assert not DUZ_KESME.search(a) and not DUZ_TIRNAK.search(a), a
+    assert r'.replace(/[\u0302\u0307]/g, "")' in (KOK / "web/vetolar.html").read_text(encoding="utf-8")

@@ -16,7 +16,7 @@
     "id": {
       "type": "string",
       "pattern": "^V-\\d{4}-\\d{2}-\\d{2}-\\d+$",
-      "description": "Sabit anahtar. İçindeki tarih parçası kimliğin üretildiği andaki DHL tarihidir ve tarih bilgisi olarak okunmaz; tarih yalnızca 'tarih' alanındadır. Tarih düzeltilse de kimlik değişmez."
+      "description": "Sabit anahtar. İçindeki tarih parçası kimliğin üretildiği andaki DHL tarihidir ve tarih bilgisi olarak okunmaz; tarih yalnızca “tarih” alanındadır. Tarih düzeltilse de kimlik değişmez."
     },
     "tarih": {
       "type": [
@@ -24,11 +24,11 @@
         "null"
       ],
       "format": "date",
-      "description": "Oylamanın fiilen yapıldığı takvim günü. Gece yarısını geçen toplantılarda toplantı kaydı başlığındaki tarihten farklı olabilir; kaynağın ham tarihi 'tarih_ham'da durur."
+      "description": "Oylamanın fiilen yapıldığı takvim günü. Gece yarısını geçen toplantılarda toplantı kaydı başlığındaki tarihten farklı olabilir; kaynağın ham tarihi “tarih_ham” alanında durur."
     },
     "tarih_ham": {
       "type": "string",
-      "description": "Kaynağın verdiği tarih, kaynaktaki yazımıyla (ör. '13 March 1953', '3-4 December 1960')."
+      "description": "Kaynağın verdiği tarih, kaynaktaki yazımıyla (ör. “13 March 1953”, “3-4 December 1960”)."
     },
     "tarih_aralik_mi": {
       "type": "boolean",
@@ -52,7 +52,7 @@
     "gundem_maddesi": {
       "type": "string",
       "minLength": 1,
-      "description": "Gündem maddesinin BM'deki İngilizce başlığı."
+      "description": "Gündem maddesinin BM’deki İngilizce başlığı."
     },
     "veto_eden_uyeler": {
       "type": "array",
@@ -67,7 +67,7 @@
           "FRA"
         ]
       },
-      "description": "Veto eden daimî üye ya da üyeler. SSCB, Rusya Federasyonu'ndan (RUS) ayrı kodlanır; 25 Ekim 1971'den önceki CHN vetoları Çin Cumhuriyeti'ne aittir."
+      "description": "Veto eden daimî üye ya da üyeler. SSCB, Rusya Federasyonu’ndan (RUS) ayrı kodlanır; 25 Ekim 1971’den önceki CHN vetoları Çin Cumhuriyeti’ne aittir."
     },
     "kategori": {
       "enum": [
@@ -86,11 +86,11 @@
       "items": {
         "type": "string"
       },
-      "description": "Kayda ait notlar. Türkçe asıl metindir; İngilizceleri aynı sırayla notlar_en'de."
+      "description": "Kayda ait notlar. Türkçe asıl metindir; İngilizceleri aynı sırayla notlar_en alanında."
     },
     "kaynak_url": {
       "type": "string",
-      "description": "Kaydın dayandığı kaynak sayfa: DHL veto listesi ya da DHL'de bulunmayan kayıtlarda toplantı kaydı."
+      "description": "Kaydın dayandığı kaynak sayfa: DHL veto listesi ya da DHL’de bulunmayan kayıtlarda toplantı kaydı."
     },
     "belge_linkleri": {
       "type": "array",
@@ -193,7 +193,7 @@
     },
     "atif_belirsiz": {
       "type": "boolean",
-      "description": "true: veto kapalı oturumda kullanıldı; resmî bildiri veto eden üyeyi adlandırmaz, üyeyi DHL listesi verir. Açık veri CSV'sinde kapali_oturum sütunu."
+      "description": "true: veto kapalı oturumda kullanıldı; resmî bildiri veto eden üyeyi adlandırmaz, üyeyi DHL listesi verir. Açık veri CSV’sinde kapali_oturum sütunu."
     },
     "duzeltme": {
       "type": [
@@ -242,7 +242,7 @@
       ]
     },
     "toplanti_dogrulamasi": {
-      "description": "Toplantı kaydından (S/PV) yapılan doğrulamalar; gerekçe sayfa numarasıyla kaynaklar/duzeltmeler.csv'de.",
+      "description": "Toplantı kaydından (S/PV) yapılan doğrulamalar; gerekçe sayfa numarasıyla kaynaklar/duzeltmeler.csv dosyasında.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -272,7 +272,7 @@
             "sayfa": {
               "type": "string",
               "minLength": 1,
-              "description": "Toplantı kaydının PDF sayfa numaraları (ör. '22' ya da '3, 24, 29')."
+              "description": "Toplantı kaydının PDF sayfa numaraları (ör. “22” ya da “3, 24, 29”)."
             },
             "paragraf": {
               "type": "string",
@@ -324,7 +324,7 @@
             "sayfa": {
               "type": "string",
               "minLength": 1,
-              "description": "Toplantı kaydının PDF sayfa numaraları (ör. '22' ya da '3, 24, 29')."
+              "description": "Toplantı kaydının PDF sayfa numaraları (ör. “22” ya da “3, 24, 29”)."
             },
             "paragraf": {
               "type": "string",
@@ -376,7 +376,7 @@
             "sayfa": {
               "type": "string",
               "minLength": 1,
-              "description": "Toplantı kaydının PDF sayfa numaraları (ör. '22' ya da '3, 24, 29')."
+              "description": "Toplantı kaydının PDF sayfa numaraları (ör. “22” ya da “3, 24, 29”)."
             },
             "paragraf": {
               "type": "string",
@@ -405,7 +405,7 @@
       }
     },
     "genel_kurul": {
-      "description": "Genel Kurulun veto sonrası tartışmaları (A/RES/76/262). 26 Nisan 2022 öncesi vetolarda durum 'kapsam_disi'. Tartışma ayrıntıları kaynaklar/genel_kurul_tartismalari.csv'de.",
+      "description": "Genel Kurulun veto sonrası tartışmaları (A/RES/76/262). 26 Nisan 2022 öncesi vetolarda durum “kapsam_disi”. Tartışma ayrıntıları kaynaklar/genel_kurul_tartismalari.csv dosyasında.",
       "type": [
         "object",
         "null"

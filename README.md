@@ -6,9 +6,9 @@ masaya gelmeyen taslaklar ve Konseyin eylemsizlik vakaları henüz veri setinde 
 
 > **Bu depo yayın kopyasıdır; çalışma geçmişi özeldir.** Sürüm 1.0.0 (beta), https://vetoatlas.com.
 > Depoda olmayanlar: ham kaynak kopyaları (`data/raw/`; adres, indirme zamanı, bayt ve SHA-256
-> `data/raw/KAYNAK.md`'de, yeniden indirme `01` ile), scprocedure Tablo 4 referans tablosu (`03` bu yüzden
+> `data/raw/KAYNAK.md`’de, yeniden indirme `01` ile), scprocedure Tablo 4 referans tablosu (`03` bu yüzden
 > burada çalışmaz; çıktısı `data/processed/vetolar_mutabik.*`), yerel belgeler ve çalışma metinleri (künyeleri
-> `kaynaklar/KAYNAKLAR.md`'de; belgeler `07` ile indirilir). Ham dosya yoksa `04` kayıtlı özetle çalışır;
+> `kaynaklar/KAYNAKLAR.md`’de; belgeler `07` ile indirilir). Ham dosya yoksa `04` kayıtlı özetle çalışır;
 > ham dosyayı ya da yerel belgeleri isteyen testler atlanır.
 
 ## English

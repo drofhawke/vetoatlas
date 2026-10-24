@@ -150,6 +150,26 @@ def test_kktc_nufusu_kibristan_ayri():
             assert s in t, (lisans.name, s)
 
 
+def test_notlar_resmi_dilde_ve_anlatici_kurum():
+    """KILAVUZ "Noktalama ve ses", anlatı dili (23 Ekim 2026): Temsil notlarında anlatıcı kurumdur, "biz" yoktur ("saydık",
+    "We count" değil "Bu sayfada WEOG kapsamında değerlendirilmiştir", "It is included in WEOG on the present page"); not
+    etiketle açılmaz ("Nüfus 2023: …", "1963: …") ve Türkçe cümleler resmî rapor kipindedir ("-maktadır", "-miştir", "-dır").
+    Canlı denetim, 24 Ekim 2026 (tem-1, tem-2): ülke kartı notları ve küme notları. 1963 nüfus listesindeki notlar liste
+    biçimindedir ("Pakistan 1963: Pakistan + Bangladeş"), bu denetimin dışındadır."""
+    notlar = [(r["iso3"], r["not"], r["not_en"]) for r in oku("bolgesel_gruplar.csv") if r["not"]]
+    notlar += [(u["iso3"], u["not"]["tr"], u["not"]["en"]) for u in V["uyeler"] if u["not"]]
+    notlar += [(k["kod"], n["tr"], n["en"]) for k in V["kumeler"] for n in k["notlar"]]
+    assert len(notlar) >= 10  # CSV'de TUR, USA, ISR; veride bunlar ve CYP; P5 ve İİT küme notları
+    biz = re.compile(r"\b(biz|bizde|bizim|saydık|çıkardık|ekledik|aldık)\b|\b[Ww]e\b|\b[Oo]ur\b")
+    etiket = re.compile(r"^[^\s:]+(?: \d{4})?:\s")
+    kip = re.compile(r"(?:m[ae]ktad[ıi]r|m[ıiuü]şt[ıiuü]r|[dt][ıiuü]r)\.$")
+    for kod, tr, en in notlar:
+        assert not biz.search(tr) and not biz.search(en), (kod, tr, en)
+        assert not etiket.match(tr) and not etiket.match(en), (kod, tr, en)
+        for cumle in re.split(r"(?<=\.)\s+", tr):
+            assert kip.search(cumle), (kod, cumle)
+
+
 GIRIS_BETIGI = r"""
 const fs = require("fs");
 const sayfa = fs.readFileSync(process.argv[2] + "/web/temsil.html", "utf8").split(String.fromCharCode(10)).map((x) => x.trim());

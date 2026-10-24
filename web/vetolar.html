@@ -90,7 +90,8 @@ a { color: inherit; }
 /* Dar ekranda grafik en yeni yıllarla açılır; sola kaydırılabildiği soluklaşan sol kenardan anlaşılır */
 .serit-kaydir.solda-devam { -webkit-mask-image: linear-gradient(to right, transparent, var(--murekkep) 24px); mask-image: linear-gradient(to right, transparent, var(--murekkep) 24px); }
 .serit svg { display: block; width: 100%; min-width: 780px; height: auto; }
-.serit .kare { transition: opacity .15s; cursor: pointer; }
+/* Kapalı oturum karesinin içi boş (fill="none"); öteki kareler gibi içi de imlece ve dokunmaya yanıt verir */
+.serit .kare { transition: opacity .15s; cursor: pointer; pointer-events: all; }
 .serit .kare.sonuk { opacity: .13; }
 .serit .kare.vurgulu { stroke: var(--murekkep); stroke-width: 1.4; }
 .serit .yil-alan { fill: transparent; cursor: pointer; }
@@ -528,13 +529,13 @@ footer p { max-width: var(--olcu); margin: 0 0 8px; }
       "dz.oy": ({ k }) => `The vote breakdown was added from the meeting record (${k}).`, "dz.tablo": ({ n }) => `The record was added from the reference table (Table 4, #${n}).`,
       "dz.bm": ({ k }) => `The record was added from the UN primary source (${k}).`, "dz.bolundu": ({ a, b }) => `The record was split into two (Table 4, #${a} and #${b}).`,
       "dz.uye": ({ u, n, k }) => `The member casting a negative vote was added (${u}; Table 4, #${n}, verified against ${k}).`,
-      "d.kaynakSatiri": ({ alanlar, kayit, sayfa, paragraf }) => `${alanlar}, meeting record ${kayit}, ${paragraf ? `para. ${paragraf} <span class="soluk">(PDF p. ${sayfa})</span>` : `PDF p. ${sayfa}`}`,
+      "d.kaynakSatiri": ({ alanlar, kayit, sayfa, paragraf }) => { const cok = (x) => /[,–]/.test(x); return `${alanlar}, meeting record ${kayit}, ${paragraf ? `${cok(paragraf) ? "paras." : "para."} ${paragraf} <span class="soluk">(PDF ${cok(sayfa) ? "pp." : "p."} ${sayfa})</span>` : `PDF ${cok(sayfa) ? "pp." : "p."} ${sayfa}`}`; },
       "alan.tarih": "Voting day", "alan.oy": "Vote breakdown", "alan.uye": "Members casting negative votes", "ve": " and ",
       "kapaliSatir": ({ uyeler }) => `Not named in the official communiqué; attributed by the list of the UN Dag Hammarskjöld Library to ${uyeler}`,
       "gk.baslik": "General Assembly", "gk.ozelRapor": "Security Council special report", "gk.yok": "No General Assembly debate has yet been recorded.",
       "gk.vg": "Veto initiative debate (A/RES/76/262)", "gk.oo": ({ oturum }) => `Emergency special session (${oturum})`,
       "gk.kayitlar": "Meeting records", "gk.kararlar": "Resolutions adopted",
-      "gk.konusmacilar": ({ uye, gozlemci, grup, cevap }) => `Statements were made by ${uye} Member ${cogul(uye, "State", "States")} and ${gozlemci} ${cogul(gozlemci, "observer", "observers")}${grup || cevap ? `, with ${[grup ? `${grup} ${cogul(grup, "delegation", "delegations")} speaking on behalf of groups` : "", cevap ? `${cevap} ${cogul(cevap, "delegation", "delegations")} exercising the right of reply` : ""].filter(Boolean).join(" and ")}` : ""}.`,
+      "gk.konusmacilar": ({ uye, gozlemci, grup, cevap }) => `Statements were made by ${uye} Member ${cogul(uye, "State", "States")} and ${gozlemci} ${cogul(gozlemci, "observer", "observers")}${grup || cevap ? `, with ${[grup ? `${grup} ${cogul(grup, "delegation", "delegations")} speaking on behalf of ${cogul(grup, "a group", "groups")}` : "", cevap ? `${cevap} ${cogul(cevap, "delegation", "delegations")} exercising the right of reply` : ""].filter(Boolean).join(" and ")}` : ""}.`,
       "gk.vetoCumle": ({ uyeler, durum, n }) => `${uyeler}, which had cast the veto, ${durum}.`, "gk.kaynakGunluk": "The verbatim record has not yet been published; the count is based on the summary in the Journal of the United Nations.",
       "gk.kaynakTranskript": "The count is based on the unofficial transcript.", "gk.nedir": "A/RES/76/262 and veto initiative debates, Methodology 2.5",
       "gk.durum.resmi": "official record", "gk.durum.gayriresmi_transkript": "record not yet published; unofficial transcript available",
@@ -614,13 +615,16 @@ footer p { max-width: var(--olcu); margin: 0 0 8px; }
     .replace(` ${oneriSayisi} `, ` ${oneriSayisi}\u00a0`).replace(/ (\S+)$/, "\u00a0$1");
   // Grafiğin altındaki iki cümlede sayı ardındaki sözcükle ("55 tanesinde", "322 ret oyu", "2 veto"), son iki sözcük birbiriyle bağlı
   const bagla = (s) => s.replace(/(\d) (?=\p{L})/gu, "$1\u00a0").replace(/ (\S+)$/, "\u00a0$1");
+  // Kayıt panelinde ve liste başlıklarında sayı ardındaki sözcükle, ay yılla, "par.", "s.", "p.", "No." ve "Tablo" numarasıyla, aralıkta yarım çizgi iki yanıyla bağlı, oy kodu ("8-7-0") bölünmez (KILAVUZ "Satır sonu"); sözlük ve veri metni değişmez
+  const sayiBag = (s) => s.replace(/(\d) (?=\p{L})/gu, "$1\u00a0").replace(/(\p{Lu}\p{Ll}+) (?=\d{4}(?!\d))/gu, "$1\u00a0").replace(/\b(par|paras|para|s|p|pp|No)\. (?=\d)/g, "$1.\u00a0").replace(/\b(Tablo|Table) (?=\d)/g, "$1\u00a0").replace(/([\d)])–(?=[\d(])/g, "$1\u2060–\u2060")
+    .replace(/([\s(])(\d{1,2})-(\d{1,2})-(\d{1,2})(?![\d-])/g, "$1$2-\u2060$3-\u2060$4");
   $("#ozet-tek").textContent = bagla(t("ozetTek", { tek: sayi(kayitlar.filter(tekBasina).length) }));
   $("#ozet-2").textContent = bagla(t("ozet2", { oy: sayi(toplamOy), kapali: kayitlar.filter((k) => k.kapali).length }));
 
   // ---------- Filtre durumu ----------
   const durum = { uyeler: new Set(), arama: "", donem: "", konu: "", tur: "", dogrulaniyor: false, yil: null, acik: new Set() };
   // Arama gündem başlığına, konu adlarına ve veto eden üyelere bakar; boşluk ve tire yok sayılır ("Viet Nam", "Viet-Nam")
-  const sade = (s) => s.toLocaleLowerCase(YEREL).normalize("NFD").replace(/\u0307/g, "").normalize("NFC").replace(/[\s\-\u2010-\u2014]+/g, "");
+  const sade = (s) => s.toLocaleLowerCase(YEREL).normalize("NFD").replace(/[\u0302\u0307]/g, "").normalize("NFC").replace(/[\s\-\u2010-\u2014]+/g, "");
   // Gündem başlığında geçmeyen yer adları konusuna bağlanır
   const ES_AD = { "Filistin ve Arap-İsrail meselesi": "gazze gaza", "Ukrayna": "kırım crimea" };
   const aranan = (k) => sade([DIL === "en" ? k.gundem : `${k.gundemTr || ""} ${k.gundem}`, ...[k.konu, ...k.ikincil].map((x) => `${konuAd(x)} ${ES_AD[x] || ""}`),
@@ -963,7 +967,7 @@ footer p { max-width: var(--olcu); margin: 0 0 8px; }
     if (k.dogrulama.length) p.push(`<div><h4>${t("d.dogrulamaDurumu")}</h4><ul>${k.dogrulama.map((d) => `<li>${esc(d[DIL] || d.tr)}</li>`).join("")}</ul></div>`);
     if ((k.dogrulamaKaynagi || []).length) p.push(`<div><h4>${t("d.dogrulamaKaynagi")}</h4><ul>${k.dogrulamaKaynagi.map((d) => {
       const alanlar = d.alanlar.map((a, i) => (i ? t("alan." + a).toLocaleLowerCase(YEREL) : t("alan." + a))).join(t("ve"));
-      return `<li>${t("d.kaynakSatiri", { alanlar, kayit: bag(d.url, d.toplanti), sayfa: esc(d.sayfa), paragraf: d.paragraf ? esc(d.paragraf) : "" })}</li>`;
+      return `<li>${t("d.kaynakSatiri", { alanlar, kayit: bag(d.url, d.toplanti), sayfa: esc(d.sayfa).replace(/-/g, "–"), paragraf: d.paragraf ? esc(d.paragraf) : "" })}</li>`;
     }).join("")}</ul></div>`);
     // Notlar Türkçe yazılıp İngilizceye çevrildi; çeviri eksikse Türkçe asıl metin gösterilir.
     const metin = (tr, en) => (DIL === "en" && en ? [en, "en"] : [tr, "tr"]);
@@ -974,7 +978,7 @@ footer p { max-width: var(--olcu); margin: 0 0 8px; }
     if (k.duzeltme) { const [m, dil] = duzeltmeMetni(k); p.push(`<div><h4>${t("d.mutabakat")}</h4><p lang="${dil}">${esc(m)}</p></div>`); }
     p.push(`<p class="kayit-baglanti"><a href="${esc(kayitAdresi(k.id))}" data-kopyala="${k.id}">${t("d.baglanti")}</a>`
       + `<a href="mailto:iletisim@vetoatlas.com?subject=${encodeURIComponent(k.id)}">${t("d.hata")}</a><span class="gorunmez" aria-live="polite"></span></p>`);
-    return p.join("");
+    return sayiBag(p.join(""));
   }
   function satirHtml(k) {
     const acik = durum.acik.has(k.id);
@@ -984,7 +988,7 @@ footer p { max-width: var(--olcu); margin: 0 0 8px; }
     return `<article class="kayit" id="k-${k.id}">
       <h3 class="kayit-baslik"><button class="kayit-bas" type="button" aria-expanded="${acik}" aria-controls="d-${k.id}" data-id="${k.id}">
         <time datetime="${k.tarih}">${tarihKisa(k.tarih)}</time>
-        <span class="gundem" ${DIL === "en" ? 'lang="en"' : ""}>${esc(baslik(k))}</span>
+        <span class="gundem" ${DIL === "en" ? 'lang="en"' : ""}>${sayiBag(esc(baslik(k)))}</span>
         <span class="uye-adlari">${kim}</span>
       </button></h3>
       <div class="detay" id="d-${k.id}" ${acik ? "" : "hidden"}>${acik ? detayHtml(k) : ""}</div>

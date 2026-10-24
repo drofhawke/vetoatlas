@@ -38,10 +38,14 @@ def test_yayin_adresi_etiketleri():
 
 def test_alt_bilgi_notu():
     """20 Ekim 2026: beta şeridi yerine her sayfanın altında tek satırlık not; sayfanın alt bilgisi (footer#alt) varsa ona eklenir,
-    yoksa oluşturulur; tek dosyada her çerçeve kendi notunu taşır."""
+    yoksa oluşturulur; tek dosyada her çerçeve kendi notunu taşır. Notun son iki sözcüğü bölünmez boşlukla bağlıdır (canlı
+    denetim, 24 Ekim 2026): İngilizcede "to" adresle ("… may be sent / to iletisim@vetoatlas.com."), Türkçede "adresine
+    iletilebilir."; sözlük metni değişmez."""
     c = (WEB / "cubuk.js").read_text(encoding="utf-8")
     assert 'altNot: "Beta sürümü. Hata bildirimleri", altSon: " adresine iletilebilir.",' in c and 'altNot: "Beta version. Error reports may be sent to", altSon: ".",' in c
     assert 'var ILETISIM = "iletisim@vetoatlas.com";' in c and """<a href="mailto:' + ILETISIM + '">' + ILETISIM""" in c
+    assert r'''p.innerHTML = esc(Y.altNot) + (/\s/.test(Y.altSon.trim()) ? " " : "&nbsp;") + '<a href="mailto:' + ILETISIM''' in c
+    assert r'''+ "</a>" + esc(Y.altSon).replace(/ (\S+)$/, "&nbsp;$1");''' in c
     assert "function altBilgi(dil) {" in c and 'if (alt && alt.tagName === "FOOTER") { alt.appendChild(p); return; }' in c
     assert "if (!tek) altBilgi(dil);" in c and "altBilgi(gecerliDil()); return; }" in c
     assert "beta" not in c.lower().replace("alt-bilgi", "").replace("beta sürümü", "").replace("beta version", "").replace("beta şeridi", "")

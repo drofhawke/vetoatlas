@@ -81,7 +81,7 @@ a { color: inherit; text-underline-offset: 3px; }
 .adim-bas { display: flex; align-items: baseline; gap: 16px; margin-bottom: 32px; }
 .adim-no { font-family: var(--serif); font-weight: 600; font-size: var(--yz-baslik); line-height: var(--sa-baslik); color: var(--murekkep); font-variant-numeric: tabular-nums; white-space: nowrap; flex: none; }
 .adim-no small { font-size: var(--yz-govde); font-weight: 400; color: var(--murekkep-2); margin-left: 4px; line-height: var(--sa-govde); }
-.adim-baslik { font-family: var(--serif); font-weight: 600; font-size: var(--yz-govde); line-height: var(--sa-govde); margin: 0; }
+.adim-baslik { font-family: var(--serif); font-weight: 600; font-size: var(--yz-govde); line-height: var(--sa-govde); margin: 0; text-wrap: balance; }
 .istat { font-family: var(--serif); font-weight: 600; font-size: var(--yz-gosterge); line-height: var(--sa-gosterge); letter-spacing: -.02em; margin: 8px 0 8px; font-variant-numeric: tabular-nums; }
 .istat-alt { font-size: var(--yz-kucuk); color: var(--murekkep-2); margin: 0 0 24px; line-height: var(--sa-kucuk); font-style: italic; }
 .metin { font-family: var(--serif); font-size: var(--yz-govde); line-height: var(--sa-govde); max-width: var(--olcu); margin: 0 0 32px; }
@@ -215,7 +215,7 @@ footer { border-top: 1px solid var(--cizgi); margin: 32px 0 48px; padding-top: 1
       "3.metin": ({ daimi }) => `Veto, ${yazi(daimi)} daimî üyenin tamamı tarafından kullanılmıştır. Dağılım dönemlere göre farklılık göstermektedir: Soğuk Savaş’ın ilk yıllarında Sovyetler Birliği, 1970’lerden itibaren ABD, son on beş yılda ise Rusya Federasyonu ve Çin öne çıkmaktadır.`,
       "4.etiket": "karar, tek bir ret oyuyla",
       "4.metin": ({ n11, yil, boy }) => `Söz konusu kararların her birinde Konseyin diğer bütün üyeleri olumlu oy kullanmış, ancak ret oyunu veren tek ülkenin daimî üye olması nedeniyle karar kabul edilememiştir. ${buyuk(yazi(n11, "iyelik"))}, ${yil} öncesinde görev yapan ${yazi(boy)} üyeli Konseyde oylanmıştır.`,
-      "5.etiket": "Asya-Pasifik grubunun BM nüfusundaki payı", "5.nufus": "Asya-Pasifik nüfus payı", "5.koltuk": "Asya-Pasifik koltuk payı", "5.afr": "Afrika, daimî koltuk", "5.afrDeger": ({ d }) => `${d} / 5`,
+      "5.etiket": "Asya-Pasifik Grubunun BM nüfusundaki payı", "5.nufus": "Asya-Pasifik nüfus payı", "5.koltuk": "Asya-Pasifik koltuk payı", "5.afr": "Afrika, daimî koltuk", "5.afrDeger": ({ d }) => `${d} / 5`,
       "5.metin": ({ yil, koltuk, asp, afr, kat }) => `Konseyin bugünkü koltuk dağılımı ${yilEkli(yil, "de")} belirlenmiş ve o tarihten bu yana değişmemiştir. Aynı dönemde Afrika Grubunun BM üyesi ülkelerin nüfusundaki payı ${yazi(kat)} katına çıkmıştır. BM üyesi ülkelerin nüfusunun yarısından fazlasını barındıran Asya-Pasifik Grubu ${yazi(koltuk)} koltuğun ${yazi(asp, "yonelme")} sahip bulunmakta, ${yazi(afr)} üyeli Afrika Grubu ise hiçbir daimî koltuğa sahip bulunmamaktadır.`,
       "6.etiket": ({ ay, yil }) => `veto, ${ay} ${yilEkli(yil, "den")} bu yana Genel Kurulda görüşüldü`,
       "6.metin": ({ ay, yil, v, s }) => `${ay} ${yilEkli(yil, "de")} kabul edilen ve Türkiye’nin ilk sunucuları arasında yer aldığı bir karar uyarınca Genel Kurul, her vetonun ardından toplanmaktadır. O tarihten bu yana kullanılan vetoların tamamı Genel Kurulda görüşülmüş; vetoyu kullanan ülke, ${yazi(v)} veto girişimi tartışmasının ${yazi(s, "bulunma")} söz almıştır.`,
@@ -405,6 +405,12 @@ footer { border-top: 1px solid var(--cizgi); margin: 32px 0 48px; padding-top: 1
   // HTML döndürür.
   // Sayı + "-member" birleşiği ("eleven-member", "fifty-four-member", "20-member") tek parça (KILAVUZ "Satır sonu"); HTML döndürür
   const bitisik = (x) => esc(x).replace(/\b[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*-member\b/g, (m) => `<span class="bitisik">${m}</span>`);
+  // Yazıyla sayı satır sonunda bölünmez (KILAVUZ "Satır sonu"; yalnız Türkçe, sözlük metni değişmez): bileşik sayı tek parça
+  // (on beş, elli dört, Yirmi yedisi, on beşinde), eksiz sayı ardındaki sözcükle (on beş üyeden, iki katına, seksen yıllık).
+  // Tek başına "bir" (bir karar) ve ekli sayı (beşi, üçüne) ardındaki sözcüğe bağlanmaz.
+  const sayiBagla = (s) => (DIL !== "tr" ? s : s
+    .replace(/(^|\s)([Oo]n|[Yy]irmi|[Oo]tuz|[Kk]ırk|[Ee]lli|[Aa]ltmış|[Yy]etmiş|[Ss]eksen|[Dd]oksan) (?=(?:bir|iki|üç|dört|dörd|beş|altı|yedi|sekiz|dokuz)\p{Ll}*(?:[\s,.;:]|$))/gu, "$1$2\u00a0")
+    .replace(/(^|\s)([Oo]n|[Yy]irmi|[Oo]tuz|[Kk]ırk|[Ee]lli|[Aa]ltmış|[Yy]etmiş|[Ss]eksen|[Dd]oksan|(?:İ|i)ki|(?:Ü|ü)ç|[Dd]ört|[Bb]eş|[Aa]ltı|[Yy]edi|[Ss]ekiz|[Dd]okuz|bir) (?=\p{Ll})/gu, (m, bas, sayi) => (sayi === "bir" && bas !== "\u00a0" ? m : bas + sayi + "\u00a0")));
   const KITAP = "Daha Adil Bir Dünya Mümkün", KITAP_EN = "A Fairer World is Possible";
   const kunye = (a) => {
     const kim = esc(t("kunyeKim"));
@@ -448,7 +454,7 @@ footer { border-top: 1px solid var(--cizgi); margin: 32px 0 48px; padding-top: 1
         <h2 class="adim-baslik" id="adim-${i + 1}-baslik"><span class="gorunmez">${esc(t("adim", { n: i + 1 }))}: </span>${esc(BASLIK[i])}</h2></div>
       <p class="istat">${typeof a.sayi === "number" ? sayi(a.sayi) : esc(a.sayi)}</p>
       <p class="istat-alt">${esc(a.etiket)}</p>
-      <p class="metin">${bitisik(a.metin)}</p>
+      <p class="metin">${bitisik(sayiBagla(a.metin))}</p>
       <div class="gorsel">${a.gorsel}</div>
       ${soz(SOZLER[i])}
       <p class="ayrinti"><a href="${bagla(a.bag)}">${esc(a.bagMetni || t("ayrinti"))}</a></p>
@@ -460,8 +466,8 @@ footer { border-top: 1px solid var(--cizgi); margin: 32px 0 48px; padding-top: 1
   $("#kapanis").innerHTML = (a ? `<blockquote lang="${DIL === "en" && a.metin_en ? "en" : "tr"}">${esc(DIL === "en" && a.metin_en ? a.metin_en : a.metin_tr)}</blockquote>
       <p class="kunye">${kunye(a)}</p>` : "")
     + `<p><a class="dugme" href="vetolar.html${ek}">${esc(t("kesfet"))}</a><a class="dugme ikincil" href="vizyon.html${ek}${a ? `#alinti-${esc(a.id)}` : ""}">${esc(t("sozKayit"))}</a></p>`;
-  // Alıntının ve adım paragrafının son iki sözcüğü arasına kırılmaz boşluk: son satırda tek sözcük kalmaz
-  document.querySelectorAll(".alinti blockquote, #kapanis blockquote, .adim p.metin").forEach((b) => { const n = b.lastChild; if (n && n.nodeType === 3) n.data = n.data.replace(/ (\S+)\s*$/, "\u00a0$1"); });
+  // Giriş alıntısının, alıntının ve adım paragrafının son iki sözcüğü arasına kırılmaz boşluk: son satırda tek sözcük kalmaz
+  document.querySelectorAll(".epigraf blockquote, .alinti blockquote, #kapanis blockquote, .adim p.metin").forEach((b) => { const n = b.lastChild; if (n && n.nodeType === 3) n.data = n.data.replace(/ (\S+)\s*$/, "\u00a0$1"); });
   // Alt bilgi: son vetonun tarihi (kayıtlardan) ve veri tarihi (veri sürümünden); kaynaklar ve yöntem "Nasıl yaptık?" bölümündedir
   const zaman = (x) => `<time datetime="${esc(x)}">${esc(tarihUzun(x))}</time>`;
   const sonVeto = K.map((k) => k.tarih).sort().pop(), surum = V.meta.veri_surumu;

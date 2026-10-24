@@ -153,6 +153,10 @@ def test_kart_metinlerinde_degerlendirme_yok_ve_en_fazla_iki_cumle():
     katalog = (KOK / "kaynaklar/kart_katalogu.md").read_text(encoding="utf-8")
     for k in MANIFEST["kartlar"]:
         assert k["id"] in katalog, k["id"]
+    # Katalogdaki veri tarihi kartların dayandığı veri sürümüdür; 08 bu cümleyi kartlar.json'daki veri_surumu'ndan yazar (B:HMK-12)
+    y, a, g = MANIFEST["veri_surumu"].split("-")
+    ay = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"][int(a) - 1]
+    assert f"Aşağıdaki sayılar {int(g)} {ay} {y} tarihli veri setine" in katalog
 
 
 def test_soz_ve_kayit_onizlemesi_iki_sirada():

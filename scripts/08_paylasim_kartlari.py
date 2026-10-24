@@ -19,7 +19,11 @@ kare ızgarası) ve web/onizleme-vizyon.png (kart-03'ün kareleri); çerçeve we
 web/kartlar/kartlar.json: her kartın kimliği, sayıları, metinleri ve dayandığı veri setinin
 SHA-256'sı. tests/test_kartlar.py sayıları veri setinden yeniden hesaplar ve bu dosyayla
 karşılaştırır; 04, veri.js yeniden üretildiğinde SHA tutmuyorsa kartların yenilenmesi gerektiğini
-bildirir.
+bildirir. kaynaklar/kart_katalogu.md elle yazılır; betik yalnızca katalogdaki veri tarihi cümlesini kartların
+dayandığı veri sürümünden ve son kaydın tarihinden yeniler.
+
+Kart HTML'i yazılırken metin, görsel notu ve alıntı satır sonu kurallarıyla bağlanır (bagla): tarih, ay ve yıl, sayı ile
+ardındaki ad ve metnin son iki sözcüğü ayrılmaz; kartlar.json'daki ve alıntı bankasındaki metin değişmez.
 """
 from __future__ import annotations
 
@@ -253,6 +257,28 @@ def esc(s: str) -> str:
     return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
+# Satır sonu (kılavuz, "Satır sonu"; Hakkında'daki BAGLAR ve Metodoloji üreticisiyle aynı kurallar): tarihte gün, ay ve yıl,
+# ay ile yıl ve sayı ile ardındaki ad (bağlaç, edat ve fiiller hariç) satır sonunda ayrılmaz; metnin son iki sözcüğü de
+# bağlanır, son satırda tek sözcük kalmaz. Görünen karakter değişmez (bölünmez boşluk).
+_AY_ADI = ("Ocak|Şubat|Mart|Nisan|Mayıs|Haziran|Temmuz|Ağustos|Eylül|Ekim|Kasım|Aralık|January|February|March|April|May|June|"
+           "July|August|September|October|November|December")
+_BAGLAC = ("ve|ile|veya|ya|ise|ki|de|da|and|or|of|in|on|the|to|it|is|with|under|out|by|for|as|at|a|an|from|"
+           "be|means|have|has|come|become|becomes|belong|match|merged|concerned|whose|would")
+_BAGLAR = (
+    (re.compile(rf"\b(\d{{1,2}}) ({_AY_ADI})\b"), "\\1\u00a0\\2"),
+    (re.compile(rf"\b({_AY_ADI}) (\d{{4}})\b"), "\\1\u00a0\\2"),
+    (re.compile(rf"(?<![\w./:,–\u2060-])(\d+(?:[.,]\d+)?) (?!(?:{_BAGLAC})\b)(?=[^\W\d_])"), "\\1\u00a0"),
+    (re.compile(r" (\S+)\s*$"), "\u00a0\\1"),
+)
+
+
+def bagla(s: str) -> str:
+    """Kart metnini satır sonunda ayrılmayacak biçimde bağlar (yalnızca HTML'de; kartlar.json değişmez)."""
+    for desen, yerine in _BAGLAR:
+        s = desen.sub(yerine, s)
+    return s
+
+
 LEHTE, MUREKKEP, MUREKKEP2, VURGU, CIZGI, BOS = "#9AA3B2", "#13213A", "#5A6578", "#A4262C", "#E1DBCF", "#EDE7DA"
 PERSONEL = "#5E4E9A"  # web/temsil.html --g-personel (açık tema)
 
@@ -308,7 +334,7 @@ def gorsel(kart: dict, dil: str, S: dict, genislik: int, yukseklik: int) -> str:
     if kimlik == "kart-02-tek-ret":
         not_ = {"tr": f"Bunların {ek(S['tek_ret_1966_oncesi'])} {ek(1966, 'den')} önce, Konsey 11 üyeliyken ona karşı bir oyla kabul edilememiştir.",
                 "en": f"{S['tek_ret_1966_oncesi']} of them were not adopted ten to one before 1966, when the Council had 11 members."}[dil]
-        return oy_kareleri(15, 1) + f'<div class="not">{not_}</div>'
+        return oy_kareleri(15, 1) + f'<div class="not">{bagla(not_)}</div>'
     if kimlik == "kart-03-genel-kurul":
         sutun = 11
         adim = min(genislik / sutun, 48)
@@ -317,7 +343,7 @@ def gorsel(kart: dict, dil: str, S: dict, genislik: int, yukseklik: int) -> str:
                   "en": "The vetoing country spoke in " + (f"all {S['vg_tartisma']}" if hepsi else f"{S['vg_soz_alan']} of the {S['vg_tartisma']}") + " debates."}[dil]
         return (kare_izgarasi(S["gk_sonrasi"], S["gk_gorusulen"], sutun, adim, adim * 0.78)
                 + '<div class="isaretler">' + kare_izgarasi(S["vg_tartisma"], S["vg_soz_alan"], 15, adim * 0.5, adim * 0.36, MUREKKEP)
-                + f'<div class="not">{etiket}</div></div>')
+                + f'<div class="not">{bagla(etiket)}</div></div>')
     if kart["tur"] == "temsil":
         g = kart["gorsel"]
         ilk = g["ilk"]
@@ -378,8 +404,8 @@ def html(kart: dict, dil: str, boyut: str, S: dict) -> str:
     buyuk_metin = kart["buyuk"][dil]
     if alinti:  # kart alıntıyı “ ” içine alır: alıntının içindeki çift tırnak tek tırnak olur (kaynak metin değişmez)
         buyuk_metin = buyuk_metin.replace("“", "‘").replace("”", "’")
-    buyuk = f'<div class="buyuk{" alinti" if alinti else ""}" lang="{"tr" if alinti and not kart["buyuk"].get("en") else dil}">{esc(buyuk_metin)}</div>'
-    metin = f'<div class="metin">{esc(kart["metin"][dil])}</div>'
+    buyuk = f'<div class="buyuk{" alinti" if alinti else ""}" lang="{"tr" if alinti and not kart["buyuk"].get("en") else dil}">{esc(bagla(buyuk_metin))}</div>'
+    metin = f'<div class="metin">{esc(bagla(kart["metin"][dil]))}</div>'
     if alinti:
         govde = f'<div class="govde dikey">{buyuk}{metin}</div>'
     elif kare:
@@ -399,10 +425,10 @@ html, body {{ margin: 0; width: {g}px; height: {y}px; overflow: hidden; backgrou
 .govde.yatay .sol {{ flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 20px; }}
 .govde.yatay .gorsel {{ flex: 0 0 {(ic_g - 48) // 2}px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 12px; }}
 .govde.dikey .gorsel {{ display: flex; flex-direction: column; gap: 12px; }}
-.buyuk {{ font-family: "Source Serif 4", Georgia, serif; font-weight: 600; font-size: {punto}px; line-height: {1.0 if not alinti else 1.25}; font-variant-numeric: tabular-nums; }}
+.buyuk {{ font-family: "Source Serif 4", Georgia, serif; font-weight: 600; font-size: {punto}px; line-height: {1.0 if not alinti else 1.25}; font-variant-numeric: tabular-nums; text-wrap: pretty; }}
 .buyuk.alinti::before {{ content: "“"; }} .buyuk.alinti::after {{ content: "”"; }}
-.metin {{ font-family: "Source Sans 3", "Segoe UI", sans-serif; font-size: {34 if kare else 30}px; line-height: 1.35; }}
-.not {{ font-family: "Source Sans 3", "Segoe UI", sans-serif; font-size: 20px; color: {MUREKKEP2}; line-height: 1.3; }}
+.metin {{ font-family: "Source Sans 3", "Segoe UI", sans-serif; font-size: {34 if kare else 30}px; line-height: 1.35; text-wrap: pretty; }}
+.not {{ font-family: "Source Sans 3", "Segoe UI", sans-serif; font-size: 20px; color: {MUREKKEP2}; line-height: 1.3; text-wrap: pretty; }}
 .isaretler {{ display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }}
 .cubuklar {{ display: flex; flex-direction: column; gap: {16 if kare else 12}px; font-family: "Source Sans 3", "Segoe UI", sans-serif; }}
 .cs {{ display: grid; align-items: center; gap: 14px; }}
@@ -423,6 +449,27 @@ html, body {{ margin: 0; width: {g}px; height: {y}px; overflow: hidden; backgrou
 <div class="alt"><div class="kaynak">{esc(kart['kaynak'][dil])}</div><div class="ad">{esc(yer)}{isaret}</div></div>
 </div></body></html>
 """
+
+
+KATALOG = KOK / "kaynaklar/kart_katalogu.md"
+# Katalog elle yazılır; yalnızca veri tarihi cümlesi betikle yenilenir (tarih eskimesin diye)
+_KATALOG_TARIHI = re.compile(r"Aşağıdaki sayılar .+? tarihli veri setine \(son kayıt .+?\) aittir\.")
+
+
+def katalog_tarihi_yaz(veri_surumu: str | None, son_tarih: str) -> str:
+    """kaynaklar/kart_katalogu.md'deki veri tarihi cümlesini kartların dayandığı veri sürümünden (kartlar.json, veri_surumu) ve son
+    kaydın tarihinden yazar; satır sonları korunur. Döndürür: durum satırı."""
+    if not veri_surumu or not KATALOG.exists():
+        return "UYARI: kart_katalogu.md veri tarihi yazılmadı (veri sürümü ya da katalog yok)"
+    ham = KATALOG.read_bytes().decode("utf-8")
+    cumle = f"Aşağıdaki sayılar {tarih_uzun(veri_surumu, 'tr')} tarihli veri setine (son kayıt {tarih_uzun(son_tarih, 'tr')}) aittir."
+    yeni, n = _KATALOG_TARIHI.subn(lambda _: cumle, ham, count=1)
+    if not n:
+        return "UYARI: kart_katalogu.md'de veri tarihi cümlesi bulunamadı"
+    if yeni == ham:
+        return "kart_katalogu.md veri tarihi güncel"
+    KATALOG.write_bytes(yeni.encode("utf-8"))
+    return f"kart_katalogu.md veri tarihi yazıldı: {tarih_uzun(veri_surumu, 'tr')}"
 
 
 ONIZLEMELER = ("onizleme-simulasyon", "onizleme-vizyon")  # web/ kökünde (kartlar klasörü robots.txt'de kapalı)
@@ -542,6 +589,7 @@ def main() -> int:
     if profil:
         shutil.rmtree(profil, ignore_errors=True)
     (HEDEF / "kartlar.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    print(katalog_tarihi_yaz(manifest["veri_surumu"], S["son_tarih"]))
     print(f"{len(liste)} kart × 2 dil × {len(BOYUTLAR)} boyut -> {HEDEF.relative_to(KOK)}/ (HTML)")
     if not png:
         print("PNG atlandı (--png-yok).")

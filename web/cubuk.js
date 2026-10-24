@@ -202,7 +202,8 @@
     var Y = YAZI[dil];
     var eski = document.querySelector(".alt-not"); if (eski) eski.remove();
     var p = document.createElement("p"); p.className = "alt-not";
-    p.innerHTML = esc(Y.altNot) + ' <a href="mailto:' + ILETISIM + '">' + ILETISIM + "</a>" + esc(Y.altSon);
+    // Son satırda tek sözcük kalmaz: notun son iki sözcüğü bağlanır (EN "to" ile adres, TR "adresine iletilebilir."); sözlük metni değişmez
+    p.innerHTML = esc(Y.altNot) + (/\s/.test(Y.altSon.trim()) ? " " : "&nbsp;") + '<a href="mailto:' + ILETISIM + '">' + ILETISIM + "</a>" + esc(Y.altSon).replace(/ (\S+)$/, "&nbsp;$1");
     var alt = document.getElementById("alt");
     if (alt && alt.tagName === "FOOTER") { alt.appendChild(p); return; }
     var f = document.querySelector("footer.alt-bilgi");

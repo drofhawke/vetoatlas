@@ -175,7 +175,7 @@ table.reform { border-collapse: collapse; width: 100%; table-layout: fixed; font
   // Sayı, adından ve paragrafından satır sonunda ayrılmaz (Madde 27/3, para. 5 (b), Karayipler 1, 2. Bölüm, 12 devlet);
   // aralık çizgisinin iki yanı da bölünmez (8 (g)–(i), C (e) 2–3)
   const bitisik = (s) => s.replace(/([^,;]) (?=\d|\(\w{1,3}\))/g, "$1\u00a0").replace(/(\d\.) (?=Bölüm)/g, "$1\u00a0").replace(/Part (?=II)/g, "Part\u00a0")
-    .replace(/(\d) (?=\p{L}+\))/gu, "$1\u00a0").replace(/(\S)–(?=\S)/g, "$1\u2060–\u2060");
+    .replace(/(\d) (?=\p{L})/gu, "$1\u00a0").replace(/(\S)–(?=\S)/g, "$1\u2060–\u2060");
   // Alt satırdaki belge simgeleri belgeye bağlanır; kitap bağlantısız
   const BELGE = (k) => `<a href="${/^A\//.test(k) ? "https://undocs.org/" + k : "https://old.centerforunreform.org/sites/default/files/Ezulwini%20Consensus.pdf"}" target="_blank" rel="noopener">${k}</a>`;
   const bagla = (s) => s.replace(/<small>.*<\/small>/, (k) => k.replace(/A\/59\/L\.6[478]|Ext\/EX\.CL\/2\s\(VII\)/g, BELGE));

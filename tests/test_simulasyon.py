@@ -374,7 +374,7 @@ def test_hesaplanamaz_yok_ve_yirmi_uyeli_metinler():
     for metin in (
         '"r.bagli": "Kayıtta olmayan üyelere bağlı"',
         '"a.kabul20": ({ lehte, esik }) => `Kayıtlı ${lehte} olumlu oy, 20 üyeli Konseyin eşiğini (${esik}) tek başına karşılamaktadır; kayıtta olmayan üyelerin oyu sonucu değiştirmemektedir.`',
-        '"a.bagli20": ({ lehte, esik, yeni, k, ek }) => `Kayıtlı ${lehte} olumlu oy bulunmakta, 20 üyeli Konseyde ise ${esik} oy gerekmektedir. Kayıtta olmayan ${yeni} üyeden en az ${k}’${ek} olumlu oy kullanması hâlinde öneri kabul edilirdi.`',
+        '"a.bagli20": ({ lehte, esik, yeni, k, ek }) => `Kayıtlı ${lehte} olumlu oy bulunmakta, 20 üyeli Konseyde ise ${esik} oy gerekmektedir. Kayıtta olmayan ${yeni} üyeden en az ${k}’${ek}n${ek.slice(-1)}n olumlu oy kullanması hâlinde öneri kabul edilirdi.`',
         '"yeni.not": ({ yeni }) => `Kesikli kareler, kayıtta olmayan ${yeni} üyeyi göstermektedir.`',
         '"serit.bagli": ({ k }) => `Kayıtta olmayan üyelere bağlı, en az ${k} evet`',
         '"fark.bagli": ({ m, k }) => `${t("fark", { m })} 20 üyeli Konseyde kayıtta olmayan üyelerden en az ${k} olumlu oy gerekmektedir.`',
@@ -392,6 +392,9 @@ def test_hesaplanamaz_yok_ve_yirmi_uyeli_metinler():
     # Yapışkan şerit ve fark cümlesi üçüncü sonuç türünü taşır; toplu görünüm üye seçimi değişince yenilenir
     assert 'const seritOneri = sonucOneri === "bagli" ? t("serit.bagli", { k: sayi(s20.k) }) : so.textContent;' in BETIK
     assert 'sonucOneri === "bagli" ? t("fark.bagli", { m: k.uyeler.length, k: sayi(s20.k) }) : t("fark", { m: k.uyeler.length })' in BETIK
+    # Fark cümlesi yalnızca sonuçlar ayrıştığında: önerilen sistemde de çoğunluk yoksa ("Çoğunluk yok, kabul edilmezdi") öneri
+    # iki sistemde de kabul edilmediği için gösterilmez (canlı denetim B:sim-3; üçte iki eşiğinde 32 kayıt)
+    assert '$("#fark").hidden = sonucOneri === "cogunlukYok";' in BETIK and '$("#fark").hidden = false;' not in BETIK
     assert 'durum.uye = e.target.value; esikEtiketleri(); ayarNotu(); goster(false); topluYaz();' in BETIK
     # Metodoloji 2.10 (ADIM 45'ten önce 2i)
     for yol, ifade in (("METODOLOJI.md", "### 2.10. “Ya veto olmasaydı?” sayfası"), ("METODOLOJI_EN.md", "### 2.10. The “What if there were no veto?” page")):
@@ -550,3 +553,105 @@ def test_sonuc_kartlari_adim51():
         assert parca in BETIK, parca
     # Sayılamayan kayıtta da başlık ve kartların sistem adı yazılır (sayılabilirlik denetiminden önce)
     assert BETIK.index('$("#h-sonuc").textContent') < BETIK.index("if (!sayilabilir(k)) {", BETIK.index("function goster("))
+
+
+# ---------- Canlı denetim (24 Ekim 2026): B:sim-1 … B:sim-7 ----------
+CANLI_DENETIM_BETIGI = r"""
+const fs = require("fs");
+const metin = fs.readFileSync(process.argv[2] + "/web/simulasyon.html", "utf8").replace(/\r\n/g, "\n");
+const satirlar = metin.split("\n");
+// Betikten bir parça: baş işaretinden bitiş işaretine kadar (bitiş dahil değil)
+const parca = (bas, son) => { const i = metin.indexOf(bas), j = metin.indexOf(son, i); if (i < 0 || j < 0) throw new Error(bas + " yok"); return metin.slice(i, j); };
+// Sözlük işlevi: i. geçiş (0 Türkçe, 1 İngilizce); satırda anahtardan sonrası, sondaki virgül atılır
+const sozluk = (ad, i) => { const a = '"' + ad + '": ('; const s = satirlar.filter((x) => x.includes(a))[i]; return s.slice(s.indexOf(a) + a.length - 1).trim().replace(/,$/, ""); };
+const kirilmaz = new Function(parca("  const kirilmaz = ", "\n  const t = (a, p) =>") + "\nreturn kirilmaz;")();
+const { sayiEki } = new Function(parca("  const sonKelime = ", "\n  const UYELER = {") + "\nreturn { sayiEki };")();
+const tarih = (DIL, x) => new Function("DIL", "x", parca("  const AYLAR = ", "\n  // Türkçe sayı ekleri") + "\nreturn tarihUzun(x);")(DIL, x);
+const adlar = (DIL, uyeler, ulke) => new Function("DIL", "durum", "k", parca("  const UYELER = {", "\n  const konuAd = ") + "\n"
+  + parca("    const baglac = ", "\n    const sonucOneri = ") + "\nreturn ulkeAdi;")(DIL, { ulke: ulke || null }, { uyeler });
+const soz = (ad, i) => new Function("sayiEki", "return " + sozluk(ad, i) + ";")(sayiEki);
+const uc = ["GBR", "USA", "FRA"];
+process.stdout.write(JSON.stringify({
+  kirilmaz: ["Karar eşiği 25 üyede 14 olumlu oydur.", "Şart’ın 27/3 maddesi uyarınca", "31 Ağustos 1965’e kadar", "(Eylül 2021) modelinde",
+    "The decision threshold is 14 affirmative votes out of 25.", "(A/59/L.64, July 2005)", "until 31 August 1965, when", "(9/15; 7/11)",
+    "Article 27 (3) of the Charter", "A/59/L.64, par. 5 (b) ve 6 (b).", "In the 20-member Council"].map(kirilmaz),
+  tarih: [tarih("tr", "1965-08-31"), tarih("en", "2024-02-20")],
+  ekler: [1, 2, 3, 4, 5, 6, 7, 8, 9].map((k) => soz("a.bagli20", 0)({ lehte: "13", esik: "14", yeni: "5", k: String(k), ek: sayiEki(k, "i") })),
+  adlar: [adlar("tr", uc), adlar("en", uc), adlar("tr", ["RUS", "CHN"]), adlar("en", ["RUS", "CHN"]), adlar("en", uc, "USA")],
+  ortakEn: [soz("k.ortak", 1)({ uye: adlar("en", uc), m: 3, boy: 15 }), soz("k.ortak", 1)({ uye: adlar("en", ["USA"]), m: 1, boy: 15 })],
+  mevcut: [soz("a.mevcut", 0)({ uye: adlar("tr", uc), lehte: "12", n: 3 }), soz("a.mevcut", 1)({ uye: adlar("en", uc), lehte: "12", n: 3 })],
+  serit: [soz("serit.kisa.bagli", 0)({ k: "1" }), soz("serit.kisa.bagli", 1)({ k: "1" }), soz("serit.kisa.bagli", 1)({ k: "5" })],
+}));
+"""
+
+
+def test_canli_denetim_metinleri_node_ile(tmp_path):
+    """Canlı denetim (24 Ekim 2026), sayfanın kendi kodu Node ile çalıştırılır: satır sonu bağları ve tarih (B:sim-6), 20 üyeli
+    "bağlı" cümlesinde tamlayan eki (B:sim-4), üç üyenin sıralanışı ve İngilizcede cümle içi ad (B:sim-2, B:sim-1), İngilizce
+    mevcut sistem cümlesi (B:sim-7), şeridin kısa sonucu (B:sim-5)."""
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("Node.js kurulu değil; sayfanın kodu çalıştırılamadı")
+    betik = tmp_path / "canli_denetim.js"
+    betik.write_text(CANLI_DENETIM_BETIGI, encoding="utf-8")
+    r = subprocess.run([node, str(betik), str(KOK)], capture_output=True, text=True, encoding="utf-8", check=True)
+    c = json.loads(r.stdout)
+    b = "\u00a0"
+    # Sözlük metni değişmez; sayfa betiği yazarken bağlar: sayı ile ardındaki ad, gün ile ay, ay ile yıl (KILAVUZ "Satır sonu")
+    assert c["kirilmaz"] == [f"Karar eşiği 25{b}üyede 14{b}olumlu oydur.", f"Şart’ın 27/3{b}maddesi uyarınca", f"31{b}Ağustos{b}1965’e kadar",
+                             f"(Eylül{b}2021) modelinde", f"The decision threshold is 14{b}affirmative votes out of 25.", f"(A/59/L.64, July{b}2005)",
+                             f"until 31{b}August{b}1965, when", f"(9/15;{b}7/11)", f"Article{b}27{b}(3) of the Charter",
+                             f"A/59/L.64, par.{b}5{b}(b) ve 6{b}(b).", "In the 20-\u2060member Council"]
+    assert c["tarih"] == [f"31{b}Ağustos{b}1965", f"20{b}February{b}2024"]
+    # "-mAsI hâlinde" öbeğinde özne tamlayan eki alır: "en az 1’inin … kullanması hâlinde" (k en çok 9)
+    for cumle, ek in zip(c["ekler"], ["1’inin", "2’sinin", "3’ünün", "4’ünün", "5’inin", "6’sının", "7’sinin", "8’inin", "9’unun"]):
+        assert f"Kayıtta olmayan 5 üyeden en az {ek} olumlu oy kullanması hâlinde öneri kabul edilirdi." in cumle, cumle
+    # Üç üye: "A, B ve C" / "A, B and C"; iki üye bağlaçla; seçili tek üye
+    assert c["adlar"] == ["Birleşik Krallık, ABD ve Fransa", "the United Kingdom, the United States and France", "Rusya Federasyonu ve Çin",
+                          "the Russian Federation and China", "the United States"]
+    assert "As the United Kingdom, the United States and France are permanent members, the proposal is not adopted under any of them." in c["ortakEn"][0]
+    assert "As the United States is a permanent member, the proposal is not adopted under any of them." in c["ortakEn"][1]
+    assert "; ancak Birleşik Krallık, ABD ve Fransa daimî üyelerinin ret oyları nedeniyle öneri, Şart’ın 27/3 maddesi uyarınca" in c["mevcut"][0]
+    assert c["mevcut"][1] == ("The proposal received 12 votes in favour but was nevertheless not adopted under Article 27 (3) of the Charter, "
+                              "owing to the negative votes of the United Kingdom, the United States and France, permanent members.")
+    assert c["serit"] == ["1 evete bağlı", "Depends on 1 vote", "Depends on 5 votes"]
+
+
+def test_canli_denetim_serit_ve_ingilizce_cumleler():
+    """B:sim-5 (kullanıcı kararı, 24 Ekim 2026): 760 px ve altında yapışkan şerit 320 px'e kadar her genişlikte, iki dilde ve bütün
+    sonuçlarda tek satırdır. Sonuç sözcükleri küçük boyutta (15/24) ve kısa biçimleriyle ("Çoğunluk yok", "1 evete bağlı";
+    "Would be adopted", "No majority", "Depends on 1 vote"), aralarında 2 px çizgi; 520 px ve altında sistem adları da görünmez,
+    sonuçlar sonuç kartlarındaki sırayla durur. Tam sonuç ve sistem adı ekran okuyucuya açık kalır (görünmez kılınır; kısa biçim
+    aria-hidden). Tarayıcıda 320–760 px, 10 px adımla, 11 sonuç durumunda ve iki dilde ölçüldü. B:sim-6: satır sonu bağları.
+    B:sim-7: İngilizce cümleler rakamla başlamaz."""
+    dar = SAYFA[SAYFA.index("@media (max-width: 760px) {"):]
+    dar = dar[:dar.index("\n}")]
+    for kural in ("  .serit .dugme { display: none; }", "  .serit-metin { gap: 4px 12px; }",
+                  "  .serit-metin > span + span { border-left: 2px solid var(--cizgi); padding-left: 12px; }",
+                  "  .serit b { font-size: var(--yz-kucuk); line-height: var(--sa-kucuk); }", "  .serit .serit-kisa { display: inline; }",
+                  "  .serit .serit-tam { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }"):
+        assert kural in dar, kural
+    assert ("@media (max-width: 520px) {\n  .serit .serit-ad { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); "
+            "white-space: nowrap; }\n}") in SAYFA
+    assert ".serit .serit-kisa { display: none; }" in SAYFA[:SAYFA.index("@media (max-width: 760px) {")]  # geniş ekranda tam biçim
+    for parca in ('"serit.kisa.kabul": "Kabul edilirdi", "serit.kisa.cogunlukYok": "Çoğunluk yok", "serit.kisa.bagli": ({ k }) => `${k} evete bağlı`,',
+                  '"serit.kisa.kabul": "Would be adopted", "serit.kisa.cogunlukYok": "No majority", '
+                  '"serit.kisa.bagli": ({ k }) => `Depends on ${k} ${k === "1" ? "vote" : "votes"}`,',
+                  'const seritKisa = t("serit.kisa." + sonucOneri, { k: s20 ? sayi(s20.k) : "" });',
+                  '<span class="serit-tam">${esc(seritOneri)}</span><span class="serit-kisa" aria-hidden="true">${esc(seritKisa)}</span>',
+                  '<b class="${so.className.replace("sonuc ", "")}">${seritSonuc}</b>'):
+        assert parca in BETIK, parca
+    # B:sim-6: bağlar t() içinde (kirilmaz) ve tarih biçiminde
+    assert '.replace(/(\\d) (?=\\p{L})/gu, "$1\\u00A0"));' in BETIK
+    assert "return `${+g}\\u00A0${AYLAR[+a - 1]}\\u00A0${y}`; };" in BETIK
+    assert "<br>${kirilmaz(kitapMetni(a))}</li>`" in BETIK  # kitap alıntısında da: "the Council’s 20 members"
+    # B:sim-7
+    assert ("`The proposal received ${lehte} votes in favour but was nevertheless not adopted under Article 27 (3) of the Charter, "
+            "owing to the negative ") in BETIK
+    assert "the outcome depends on members not on record. No vote breakdown is available for the ${kapali} private-meeting records.`" in BETIK
+    assert "votes were cast in favour" not in BETIK and "record. ${kapali} private-meeting" not in BETIK
+
+
+def test_kayit_ozeti_gundem_adi_bagli():
+    """Canlı denetim doğrulaması (24 Ekim 2026): kayıt özetindeki gündem adında tarih ve sayı satır sonunda ayrılmaz (kirilmaz)."""
+    assert "${kirilmaz(esc(baslik(k)))}</div>" in BETIK and ">${esc(baslik(k))}</div>" not in BETIK

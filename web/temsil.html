@@ -373,10 +373,11 @@ details.tablo-ac > summary { cursor: pointer; font-size: var(--yz-kucuk); color:
       "t.ulke": "Country", "t.konsey": "Security Council", "t.secilmis": "Elected",
     },
   };
-  // Tarih (31 Temmuz 2026) ve yıl aralığı (2025–2027) satır sonunda bölünmez
+  // Tarih (31 Temmuz 2026), yıl aralığı (2025–2027) ve sayı ile ardındaki ad (56 üye) satır sonunda bölünmez
   const AYLAR = "Ocak|Şubat|Mart|Nisan|Mayıs|Haziran|Temmuz|Ağustos|Eylül|Ekim|Kasım|Aralık|January|February|March|April|May|June|July|August|September|October|November|December";
   const TARIH = new RegExp(`(\\d{1,2}) (${AYLAR}) (\\d{4})`, "g");
-  const bolunmez = (s) => typeof s === "string" ? s.replace(TARIH, "$1 $2 $3").replace(/(\d{4})–(\d{4})/g, "$1⁠–⁠$2") : s;
+  const bolunmez = (s) => typeof s === "string" ? s.replace(TARIH, "$1 $2 $3").replace(/(\d{4})–(\d{4})/g, "$1⁠–⁠$2").replace(/(\d) (?=\p{L})/gu, "$1 ") : s;
+  const sonIki = (s) => s.replace(/ (\S+)$/, "\u00a0$1");  // notun son iki sözcüğü bağlı, son satırda tek sözcük kalmaz
   const t = (a, p) => { const v = SOZLUK[DIL][a] ?? SOZLUK.tr[a]; return bolunmez(typeof v === "function" ? v(p || {}) : v); };
   const ek = DIL === "tr" ? "" : "?lang=" + DIL;
   document.documentElement.lang = DIL;
@@ -441,9 +442,9 @@ details.tablo-ac > summary { cursor: pointer; font-size: var(--yz-kucuk); color:
     + V.kumeler.map((g) => satir(g.ad[DIL], g.uye_sayisi_1963, g.nufus_1963_bin, g.paylar.nufus_1963, g.uye_sayisi, g.nufus_2023_bin, g.paylar.nufus_2023)).join("")
     + `<tr><td><b>${esc(t("t.toplam"))}</b></td><td ${hucre("t.uye63")}>${V.meta.uye_sayisi_1963}</td><td ${hucre("t.nufus63")}>${sayi(T.nufus_1963_bin)}</td><td ${hucre("t.pay63")}>${yuzde(1)}</td><td ${hucre("t.uye23")}>${V.meta.uye_sayisi}</td><td ${hucre("t.nufus23")}>${sayi(T.nufus_2023_bin)}</td><td ${hucre("t.pay23")}>${yuzde(1)}</td><td class="s"></td></tr></tbody>`;
   harita();
-  const notlar63 = V.uyeler_1963.filter((x) => x.not).map((x) => `<li>${esc(x.not[DIL])}</li>`);  // not adla başlar; İngilizce ad ve grup kodu yazılmaz
+  const notlar63 = V.uyeler_1963.filter((x) => x.not).map((x) => `<li>${esc(sonIki(bolunmez(x.not[DIL])))}</li>`);  // not adla başlar; İngilizce ad ve grup kodu yazılmaz
   $("#nufus-notlar").innerHTML = notlar63.join("");
-  $("#kume-notlar").innerHTML = V.kumeler.flatMap((k) => k.notlar.map((n, i) => `${i ? "" : `<dt>${esc(k.ad[DIL])}</dt>`}<dd>${esc(n[DIL])}</dd>`)).join("");
+  $("#kume-notlar").innerHTML = V.kumeler.flatMap((k) => k.notlar.map((n, i) => `${i ? "" : `<dt>${esc(k.ad[DIL])}</dt>`}<dd>${esc(sonIki(bolunmez(n[DIL])))}</dd>`)).join("");
 
   // ---------- Harita ----------
   // Seçim: Güvenlik Konseyi (varsayılan) ya da bir bölgesel grup. Konsey seçiliyken 15 üye koyu, öteki üyeler açık; grup
@@ -720,7 +721,7 @@ details.tablo-ac > summary { cursor: pointer; font-size: var(--yz-kucuk); color:
           satir(t("k.personel"), u.personel ? t("k.personelDeger", { n: sayi(u.personel), p: payYaz(u.personel / T.personel) }) : "0"),
           satir(t("k.iit"), u.iit ? t("k.evet") : t("k.hayir")),
           satir(t("k.konsey"), u.gk ? (u.gk.tur === "daimi" ? t("k.daimi") : t("k.secilmis", { y: u.gk.donem_sonu })) : t("k.degil")),
-        ].join("")}</dl>${u.not ? `<p class="ulke-not">${esc(u.not[DIL])}</p>` : ""}${(() => {
+        ].join("")}</dl>${u.not ? `<p class="ulke-not">${esc(sonIki(bolunmez(u.not[DIL])))}</p>` : ""}${(() => {
           const B = H.bolgeler.filter((b) => b.uye === k);
           return B.length ? `<p class="ulke-not">${esc(t("k.ayri", { liste: B.map((b) => `${b[DIL]} (${nufusMetni(b.n)})`).join(", ") }))}</p>` : "";
         })()}`;

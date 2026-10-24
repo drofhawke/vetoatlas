@@ -46,9 +46,14 @@ _BAGLAC = ("ve|ile|veya|ya|ise|ki|de|da|and|or|of|in|on|the|to|it|is|with|under|
 _SAYI_AD = re.compile(rf"(?<![\w./:,–\u2060-])(\d+(?:[.,]\d+)?) (?!(?:{_BAGLAC})\b)(?=[^\W\d_])")
 # Sayı ile ardındaki madde harfi: 27 (3), A/59/L.67 (b)
 _SAYI_HARF = re.compile(r"(\d) (?=\([a-z0-9]\))")
+# Sayı ile "-member" birleşiği tek parça: 20-member, eleven-member; kısa çizgiden sonra sözcük birleştirici (U+2060)
+_MEMBER = re.compile(r"\b([A-Za-z0-9]+)-member\b")
+# Girişin son iki sözcüğü bölünmez boşlukla bağlanır, son satırda tek sözcük kalmaz (Hakkında'daki satirBagla gibi)
+_SON_IKI = re.compile(r" (\S+)</p>$")
 
 
 def _satir_bagla(metin: str) -> str:
+    metin = _MEMBER.sub("\\1-\u2060member", metin)
     metin = _ARALIK.sub("\u2060–\u2060", metin)
     metin = _KISALTMA_SAYI.sub("\\1\u00a0", metin)
     metin = _SAYI_AD.sub("\\1\u00a0", metin)
@@ -226,6 +231,8 @@ li + li {{ margin-top: 8px; }}
   document.querySelector('meta[property="og:description"]').setAttribute("content", SOZLUK.aciklama);
   document.querySelector('meta[property="og:image:alt"]').setAttribute("content", SOZLUK.gorselAlt);
   document.querySelector('meta[name="twitter:image:alt"]').setAttribute("content", SOZLUK.gorselAlt);
+  document.querySelector('meta[property="og:locale"]').setAttribute("content", DIL === "tr" ? "tr_TR" : "en_GB");
+  document.querySelector('meta[property="og:locale:alternate"]').setAttribute("content", DIL === "tr" ? "en_GB" : "tr_TR");
   document.querySelectorAll("main[data-dil]").forEach((m) => {{ m.hidden = m.dataset.dil !== DIL; }});
 }})();
 </script>
@@ -280,11 +287,11 @@ def tarih_yazi(iso: str, dil: str) -> str:
 def govde(md: str, dil: str, tarih: str) -> str:
     h1, ic = md_html(md)
     gizli = " hidden" if dil != "tr" else ""
-    # İlk paragraf giriş (Hakkında'daki gibi); altında tek satır küçük not
+    # İlk paragraf giriş (Hakkında'daki gibi; son iki sözcüğü bağlı); altında tek satır küçük not
     not_ = f'<p class="ikincil">{KAYNAK_NOTU[dil].format(tarih=_tarih_bagla(tarih_yazi(tarih, dil)))}</p>'
     if ic.startswith("<p>"):
         son = ic.index("</p>") + len("</p>")
-        ic = '<p class="giris">' + ic[3:son] + "\n" + not_ + ic[son:]
+        ic = '<p class="giris">' + _SON_IKI.sub("\u00a0\\1</p>", ic[3:son]) + "\n" + not_ + ic[son:]
     else:
         ic = not_ + "\n" + ic
     # Metin sayfası düzeni (web/temel.css): "Bu sayfada" dizininin yeri başlığın hemen altı; dizini web/metin.js üretir
