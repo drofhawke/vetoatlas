@@ -284,8 +284,9 @@ satırlarında "evet, hayır, çekimser". İngilizcede BM rapor dili ("the prese
 kayıt notları ve düzeltme gerekçeleri ile veri sözlüğü bu kuralın dışındadır. Metodoloji edilgen kalır; sayfaları anlatan
 cümleleri "-maktadır" kalıbındadır.
 Şapkalı yazım tek biçimdir: daimî, resmî, dâhil. Metodoloji’nin paragrafları kalın etiketle açılmaz. Bu bölümün kuralları
-açık depodaki Markdown belgelerine (README, METODOLOJI, KAYNAKLAR) de uygulanır; Metodoloji’nin başında son değişiklik
-tarihi yazılır (git kaydından).
+açık depodaki Markdown belgelerine (README, METODOLOJI, KAYNAKLAR) de uygulanır (1 Kasım 2026: README’nin anlatı cümleleri
+ve KAYNAKLAR’daki tek birinci çoğul kişili cümle de bu dile geçirildi; README’nin klasör listesi ve komut blokları kısa etiket
+biçimindedir, kuralın dışındadır); Metodoloji’nin başında son değişiklik tarihi yazılır (git kaydından).
 Tarihler yazıyla (10 Ekim 2026), ISO biçimi okuma metninde kullanılmaz; SHA-256 özeti okuma metninde değil
 `kaynaklar/KAYNAKLAR.md`’dedir. Açılır başlıklar (`summary`) tarayıcı üçgeni olmadan, altı çizili bağlantı gibidir
 (`web/temel.css`); açık kutunun başlığında alt çizgi kalkar (Ya veto olmasaydı?). Tablo açıcının adı tek sözcüktür:

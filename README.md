@@ -1,27 +1,29 @@
 # Veto Atlası
 
-Veto Atlası, BM Güvenlik Konseyinde 1946’dan bu yana kullanılan vetoları kaynaklarıyla
-toplar: sekiz sayfalık site (vetoatlas.com), açık veri ve üretim betikleri. Veto tehdidiyle
-masaya gelmeyen taslaklar ve Konseyin eylemsizlik vakaları henüz veri setinde yok.
+Veto Atlası, BM Güvenlik Konseyinde 1946’dan bu yana kullanılan vetoları kaynaklarıyla birlikte
+derlemektedir: sekiz sayfalık site (vetoatlas.com), açık veri ve üretim betikleri. Veto tehdidiyle
+masaya gelmeyen taslaklar ve Konseyin eylemsizlik vakaları henüz veri setinde yer almamaktadır.
 
 > **Bu depo yayın kopyasıdır; çalışma geçmişi özeldir.** Sürüm 1.0.0 (beta), https://vetoatlas.com.
-> Depoda olmayanlar: ham kaynak kopyaları (`data/raw/`; adres, indirme zamanı, bayt ve SHA-256
-> `data/raw/KAYNAK.md`’de, yeniden indirme `01` ile), scprocedure Tablo 4 referans tablosu (`03` bu yüzden
-> burada çalışmaz; çıktısı `data/processed/vetolar_mutabik.*`), yerel belgeler ve çalışma metinleri (künyeleri
-> `kaynaklar/KAYNAKLAR.md`’de; belgeler `07` ile indirilir). Ham dosya yoksa `04` kayıtlı özetle çalışır;
-> ham dosyayı ya da yerel belgeleri isteyen testler atlanır.
+> Depoda bulunmayanlar: ham kaynak kopyaları (`data/raw/`; adres, indirme zamanı, bayt ve SHA-256
+> `data/raw/KAYNAK.md`’de, yeniden indirme `01` ile), scprocedure Tablo 4 referans tablosu (`03` bu nedenle
+> burada çalışmamaktadır; çıktısı `data/processed/vetolar_mutabik.*`), yerel belgeler ve çalışma metinleri (künyeleri
+> `kaynaklar/KAYNAKLAR.md`’de; belgeler `07` ile indirilebilmektedir). Ham dosya bulunmadığında `04` kayıtlı özetle
+> çalışmakta; ham dosyayı ya da yerel belgeleri gerektiren testler atlanmaktadır.
 
 ## English
 
-Veto Atlas collects the vetoes cast in the UN Security Council since 1946, with their sources:
-266 proposals and 322 negative votes. The site is at https://vetoatlas.com, in Turkish and English.
-The open data is in `web/veri/` as CSV, XLSX and JSON. The code is under MIT, the data under
-CC BY 4.0 (`LICENSE-DATA`). See `CITATION.cff` to cite it. If you find an error, write to
-iletisim@vetoatlas.com with the record ID and the document you rely on.
+The Veto Atlas compiles the vetoes cast in the UN Security Council since 1946, together with their
+sources: 266 proposals and 322 negative votes. The site is available at https://vetoatlas.com in Turkish
+and English. The open data are provided in `web/veri/` as CSV, XLSX and JSON. The code is released under
+the MIT licence and the data compilation under CC BY 4.0 (`LICENSE-DATA`); citation details are given in
+`CITATION.cff`.
+Error reports may be sent to iletisim@vetoatlas.com with the record ID and the document relied upon.
 
 ## Kurulum
 
-Python 3.12 ile denendi. Proje klasöründe bir terminal açın (VS Code’da Ctrl+`) ve sırayla çalıştırın:
+Python 3.12 ile denenmiştir. Proje klasöründe bir terminal açılır (VS Code’da Ctrl+`) ve aşağıdaki komutlar
+sırayla çalıştırılır:
 
 ```
 python -m venv .venv
@@ -40,13 +42,13 @@ python scripts/06_onizleme_gorseli.py    # paylaşım önizleme görseli (web/on
 Yazı tiplerini yeniden üretmek için (14): `pip install fonttools brotli ttfautohint-py`, sonra
 `python scripts/14_yazi_tipleri.py`.
 
-Son komuttan sonra `web/index.html` dosyasına çift tıklayarak siteyi açabilirsiniz: giriş sayfası hikâyedir
+Son komuttan sonra site, `web/index.html` dosyasına çift tıklanarak açılabilmektedir: giriş sayfası hikâyedir
 (`web/hikaye.html`), atlasın kendisi `web/vetolar.html`.
-Sunucu gerekmez; veri `web/veri.js` dosyasına gömülüdür.
+Sunucu gerekmemektedir; veri `web/veri.js` dosyasına gömülüdür.
 
-`01` betiği kaynağı indirir, ham kopyasını `data/raw/` altına tarihli olarak arşivler ve
-`data/processed/vetolar.json` ile `vetolar.csv` dosyalarını üretir. Ayrıştırılamayan her
-satır `data/review/inceleme.csv` dosyasına düşer; hiçbir satır sessizce atılmaz.
+`01` betiği kaynağı indirmekte, ham kopyasını `data/raw/` altına tarihli olarak arşivlemekte ve
+`data/processed/vetolar.json` ile `vetolar.csv` dosyalarını üretmektedir. Ayrıştırılamayan her
+satır `data/review/inceleme.csv` dosyasına yazılmakta; hiçbir satır sessizce atılmamaktadır.
 
 Yayımlanan veri `web/veri/` altındadır (266 kayıt). `data/processed/vetolar.*` DHL listesinin ayrıştırılmış
 hâlidir (247 satır), `vetolar_mutabik.*` Tablo 4 ile mutabakattan sonraki ara çıktıdır.
@@ -137,14 +139,14 @@ tests/                         Birim testleri ve veri seti değişmezleri
 
 ## Lisans ve atıf
 
-Kod MIT lisansıyla (`LICENSE`), atlasın veri derlemesi CC BY 4.0 lisansıyla (`LICENSE-DATA`) yayımlanır. Alıntılar,
-üçüncü taraf veriler ve yazı tipleri kendi lisans ve koşullarına tabidir. Tam liste `LICENSE-DATA`’dadır (sitedeki
-kopyası `web/LICENSE-DATA.txt`, ikisi aynı tutulur). Yayın adresi: https://vetoatlas.com
+Kod MIT lisansıyla (`LICENSE`), atlasın veri derlemesi CC BY 4.0 lisansıyla (`LICENSE-DATA`) yayımlanmaktadır.
+Alıntılar, üçüncü taraf veriler ve yazı tipleri kendi lisans ve koşullarına tabidir. Tam liste `LICENSE-DATA`’dadır
+(sitedeki kopyası `web/LICENSE-DATA.txt`, ikisi aynı tutulmaktadır). Yayın adresi: https://vetoatlas.com
 
 Atıf örneği: Yıldız, Nuh Mehmet. Veto Atlası. Sürüm 1.0.0, 2026. https://doi.org/10.5281/zenodo.23326362
 (ayrıntılar `CITATION.cff`’te).
 
 ## Hata bildirimi
 
-Veride ya da metinde bir yanlış görürseniz iletisim@vetoatlas.com adresine yazın. Kaydın kimliğini
-(ör. V-1980-01-11-1) ve dayandığınız belgeyi ekleyin.
+Veride ya da metinde görülen yanlışlar iletisim@vetoatlas.com adresine iletilebilir. Bildirimde kaydın kimliği
+(ör. V-1980-01-11-1) ve dayanılan belge belirtilmelidir.

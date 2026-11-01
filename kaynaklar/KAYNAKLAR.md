@@ -63,7 +63,7 @@ DHL’de doğrulanan hatalar:
 
 11–13 Ocak 1980 (No 145): DHL toplantının iki gününü aralık olarak veriyor; bu bir hata değil.
 S/PV.2191’e göre toplantı 11 Ocak’ta oylama yapılmadan ara verdi, S/13735 13 Ocak’taki ikinci
-oturumda 10-2-2 ile düştü. Referans tablonun tarihi doğru. Belge yerel belgeler tablosunda (aşağıya bakın).
+oturumda 10-2-2 ile düştü. Referans tablonun tarihi doğru. Belge aşağıdaki “Yerel belgeler” tablosundadır.
 
 ## Yerel belgeler (depoya girmez)
 
@@ -272,8 +272,8 @@ vetosu ile üç tarih aralığının iki satıra bölünmesinden geliyor: 3/4 Ar
 11/13 Ocak 1980. Bu bölünme aynı vetoyu iki kez saydırır; 1960 için S/PV.911’de tek oylama var.
 Kanonik kaynak bu yüzden şimdilik statik sayfa olarak kalıyor.
 
-Genel toplamları scprocedure.org’un 7 Nisan 2026 tarihli “Overview of vetoes cast from 1946 to present” tablosuyla
-karşılaştırdık.
+Genel toplamlar scprocedure.org’un 7 Nisan 2026 tarihli “Overview of vetoes cast from 1946 to present” tablosuyla
+karşılaştırılmıştır.
 
 Doğrulanan hatalar için kaynak sahiplerine gönderilecek bildirim taslağı:
 `kaynaklar/hata_bildirimi.md` (henüz gönderilmedi).

@@ -235,3 +235,34 @@ def test_kurum_adlarina_gelen_ek_kesmesiz():
     for md in ("METODOLOJI.md", "README.md", "kaynaklar/KAYNAKLAR.md", "kaynaklar/kimlik/KILAVUZ.md", "kaynaklar/kart_katalogu.md"):
         bak(md, (KOK / md).read_text(encoding="utf-8"))
     assert not bulunan, bulunan
+
+
+def test_markdown_belgelerinde_anlatici_kurum_ve_resmi_dil():
+    """KILAVUZ "Anlatı dili" (1 Kasım 2026): README, METODOLOJI ve KAYNAKLAR'da anlatıcı kurumdur; birinci çoğul kişi yoktur
+    ("karşılaştırdık" -> "karşılaştırılmıştır"). README'nin anlatı cümleleri resmî rapor kipindedir; klasör listesi ve komut
+    blokları kısa etiket biçiminde kalır."""
+    harf = "A-Za-zÇĞİÖŞÜçğıöşü"
+    biz = re.compile("(?<![" + harf + "])(biz|bizim|bize|bizi|bizce)(?![" + harf + "])", re.I)
+    cogul = re.compile("[" + harf + "]+(yoruz|acağız|eceğiz|malıyız|meliyiz|mışız|mişiz|muşuz|müşüz)(?![" + harf + "])")
+    gecmis = ("karşılaştırdık", "saydık", "yaptık", "ettik", "aldık", "bulduk", "kullandık", "yazdık", "ekledik", "çıkardık",
+              "belirledik", "gördük", "verdik", "düzelttik", "hesapladık", "topladık", "indirdik", "doğruladık", "seçtik", "koyduk")
+    gecmis_kalip = re.compile("(?<![" + harf + "])(" + "|".join(gecmis) + ")(?![" + harf + "])")
+    for md in ("README.md", "METODOLOJI.md", "kaynaklar/KAYNAKLAR.md"):
+        # Önce çitli bloklar, sonra yalnız tek satırlık satır içi kod: README’deki tek ters tırnak (Ctrl+`) çitle eşleşmesin
+        metin = (KOK / md).read_text(encoding="utf-8")
+        metin = re.sub("```.*?```", "", metin, flags=re.S)
+        metin = re.sub("`[^`" + chr(10) + "]+`", "", metin)
+        assert not biz.search(metin), (md, biz.search(metin))
+        assert not cogul.search(metin), (md, cogul.search(metin))
+        assert not gecmis_kalip.search(metin), (md, gecmis_kalip.search(metin))
+    readme = (KOK / "README.md").read_text(encoding="utf-8")
+    for cumle in ("kaynaklarıyla birlikte", "derlemektedir:", "henüz veri setinde yer almamaktadır.", "Python 3.12 ile denenmiştir.",
+                  "çalıştırılır:", "çift tıklanarak açılabilmektedir:", "Sunucu gerekmemektedir;", "dosyalarını üretmektedir.",
+                  "sessizce atılmamaktadır.", "yayımlanmaktadır.", "ikisi aynı tutulmaktadır", "adresine iletilebilir.",
+                  "dayanılan belge belirtilmelidir.", "The Veto Atlas compiles", "is available at https://vetoatlas.com",
+                  "Error reports may be sent to"):
+        assert cumle in readme, cumle
+    for eski in ("açabilirsiniz", "görürseniz", "adresine yazın", "ekleyin.", "denendi.", "If you find an error", "write to"):
+        assert eski not in readme, eski
+    assert "tablosuyla" in (KOK / "kaynaklar/KAYNAKLAR.md").read_text(encoding="utf-8")
+    assert "karşılaştırılmıştır." in (KOK / "kaynaklar/KAYNAKLAR.md").read_text(encoding="utf-8")
